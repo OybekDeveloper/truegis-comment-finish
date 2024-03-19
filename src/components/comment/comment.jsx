@@ -1,32 +1,31 @@
 import React from "react";
 import ReactStars from "react-rating-stars-component";
 import ProgressBar from "@ramonak/react-progress-bar";
-
+import empty from './empty-comment.svg'
 const about = [
-  {
-    id: 1,
-    title: "Yetkazib berish",
-  },
-  {
-    id: 2,
-    title: "Karta orqali to’lov",
-  },
-  {
-    id: 3,
-    title: "Bepul Wi-Fi",
-  },
-  {
-    id: 4,
-    title: "Dessert",
-  },
-  {
-    id: 5,
-    title: "Kofe",
-  },
+  // {
+  //   id: 1,
+  //   title: "Yetkazib berish",
+  // },
+  // {
+  //   id: 2,
+  //   title: "Karta orqali to’lov",
+  // },
+  // {
+  //   id: 3,
+  //   title: "Bepul Wi-Fi",
+  // },
+  // {
+  //   id: 4,
+  //   title: "Dessert",
+  // },
+  // {
+  //   id: 5,
+  //   title: "Kofe",
+  // },
 ];
 
 export default function Comment() {
-
   const getInitials = (fullName) => {
     if (!fullName) return "";
     const words = fullName.split(" ");
@@ -104,37 +103,44 @@ export default function Comment() {
           <ReactStars count={5} value={4} size={24} activeColor="#ffd700" />
         </div>
       </section>
-      <section className="px-[16px] w-full mt-[48px]">
-        <h1 className="text-[18px] font-[500] mb-[12px]">Sharhlar</h1>
-      <hr className="w-full h-[1px] text-[#EAECF0] mb-[24px]" />
 
-        <div className="w-full flex flex-col gap-[32px]">
-          {about.map((item) => (
-            <main key={item.id} className="">
-              <div className="flex justify-start items-center gap-[12px]">
-                <div className=" text-[16px] font-[600] flex items-center justify-center w-[40px] h-[40px] rounded-full border-[1px] border-solid border-[#dfe0e3] bg-[#f2f4f7]">
-                  {getInitials(item?.title)}
+      {about.length > 0 ? (
+        <section className="px-[16px] w-full mt-[48px]">
+          <h1 className="text-[18px] font-[500] mb-[12px]">Sharhlar</h1>
+          <hr className="w-full h-[1px] text-[#EAECF0] mb-[24px]" />
+          <div className="w-full flex flex-col gap-[32px]">
+            {about.map((item) => (
+              <main key={item.id} className="">
+                <div className="flex justify-start items-center gap-[12px]">
+                  <div className=" text-[16px] font-[600] flex items-center justify-center w-[40px] h-[40px] rounded-full border-[1px] border-solid border-[#dfe0e3] bg-[#f2f4f7]">
+                    {getInitials(item?.title)}
+                  </div>
+                  <h1 className="text-[16px] font-[500]">{item.title}</h1>
                 </div>
-                <h1 className="text-[16px] font-[500]">{item.title}</h1>
-              </div>
-              <div className="flex justify-between items-center">
-                <ReactStars
-                  count={5}
-                  value={4}
-                  size={24}
-                  activeColor="#ffd700"
-                />
-                <p className="text-[14px] font-[400]">15.03.2024</p>
-              </div>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
-              </p>
-              <hr className="w-full h-[1px] text-[#EAECF0] mt-[24px]" />
-            </main>
-          ))}
+                <div className="flex justify-between items-center">
+                  <ReactStars
+                    count={5}
+                    value={4}
+                    size={24}
+                    activeColor="#ffd700"
+                  />
+                  <p className="text-[14px] font-[400]">15.03.2024</p>
+                </div>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
+                </p>
+                <hr className="w-full h-[1px] text-[#EAECF0] mt-[24px]" />
+              </main>
+            ))}
+          </div>
+        </section>
+      ) : (
+        <div className="w-full flex flex-col justify-center items-center mt-[80px] gap-[16px]">
+          <img src={empty} alt="" />
+          <h1 className="text-[14px] font-[400]">Sharhlar mavjud emas</h1>
         </div>
-      </section>
+      )}
     </main>
   );
 }

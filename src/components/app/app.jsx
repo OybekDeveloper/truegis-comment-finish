@@ -5,6 +5,7 @@ import AllProduct from '../all-product/all-product'
 import Photo from '../photo/photo'
 import Comment from '../comment/comment'
 import About from '../about/about'
+import AddComment from '../comment/add-comment'
 
 export default function App() {
   const id=localStorage.getItem("id")
@@ -22,7 +23,8 @@ export default function App() {
                 <Route path={"comment"} element={<Comment />}/>
                 <Route path={"about"} element={<About/>}/>
             </Route>
-        </Routes>
+            <Route path={`/${id}/${km}/add-comment`} element={<AddComment/>}/>
+         </Routes>
     </div>
   )
 }

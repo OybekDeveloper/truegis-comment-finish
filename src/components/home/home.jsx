@@ -49,7 +49,7 @@ export default function Home() {
   console.log(id,km);
 
   return (
-    <main className="home max-w-[400px] mx-auto">
+    <main className="home relative max-w-[400px] mx-auto">
       <section className="px-[16px]">
         <h1 className="mt-[16px]">Tenge bank</h1>
         <div className="flex items-center gap-[14px]">
@@ -89,6 +89,11 @@ export default function Home() {
         ))}
       </nav>
       <Outlet/>
+      <div className="mx-auto fixed bottom-[10px] w-full flex justify-center items-center">
+      <button onClick={()=>navigate(`/${id}/${km}/add-comment`)} className="text-[17px] font-[500] text-[#fff] px-[10px] py-[14px] w-[94%] bg-[#0A84FF] rounded-[8px]">
+        Sharh qoldirish
+      </button>
+      </div>
     </main>
   );
 }
