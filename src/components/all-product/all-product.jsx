@@ -74,7 +74,7 @@ export default function AllProduct() {
                 className="cursor-pointer flex  items-center gap-[8px]"
               >
                 <p className="font-[500] tg-button-text">Jadval</p>
-                <img src={down} alt="" />
+                {TableDown(tg.themeParams.button_color?tg.themeParams.button_color:"#0A84FF")}
               </div>
             </article>
           </div>
@@ -186,5 +186,25 @@ export default function AllProduct() {
         </div>
       </section>
     </main>
+  );
+}
+
+function TableDown(color) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+    >
+      <path
+        d="M5 7.5L10 12.5L15 7.5"
+        stroke={color}
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
   );
 }
