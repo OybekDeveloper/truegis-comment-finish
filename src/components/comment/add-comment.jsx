@@ -2,21 +2,22 @@ import React, { useState } from "react";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import plusimg from "./imgplus.svg";
+import trash from './trash.svg'
 import { useNavigate } from "react-router-dom";
 import "./comment.scss";
 const imgs = [
-  // {
-  //   id: 1,
-  // },
-  // {
-  //   id: 2,
-  // },
-  // {
-  //   id: 3,
-  // },
-  // {
-  //   id: 4,
-  // },
+  {
+    id: 1,
+  },
+  {
+    id: 2,
+  },
+  {
+    id: 3,
+  },
+  {
+    id: 4,
+  },
 ];
 const tg = window.Telegram.WebApp;
 
@@ -43,8 +44,8 @@ export default function AddComment() {
             name="size-large"
             value={value}
             onChange={handleChange}
-            size="large"
-            style={{ color: "#FAC515" }}
+            size=""
+            style={{ fontSize:"40px",display:"flex",gap:"16px",color: "#FAC515" }}
             emptyIcon={
               <StarIcon
                 style={{ opacity: 0.55, color: tg.themeParams.text_color }}
@@ -70,13 +71,14 @@ export default function AddComment() {
             {imgs.map((item) => (
               <div
                 key={item.id}
-                className="inline-flex justify-center items-center"
+                className="relative inline-flex justify-center items-center"
               >
                 <img
-                  className="rounded-[8px] mr-[16px] w-[96px] h-[96px] object-cover "
+                  className="rounded-[8px] mr-[24px] w-[96px] h-[96px] object-cover "
                   src="https://s3-alpha-sig.figma.com/img/846f/5267/f91f9c16efda1587ffe0bc44bd39bb85?Expires=1711929600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=PNbQ-wI4pO1YuriliDRfhmdT212ZmzTsmreL6jEAOcXPR6JWKTnHJOSpnelh-7qiCLCNMudIKet6Huw7bcKMkv9NtwpOaJFycsWtDsuA8mXFoE~hZIoV7LgrWw6W0-HGxOjs-~aH0BItD~Fk0CEBd-7Xd1Cz4KSAUOyJcbViTXHEDs1raHjjFJHvVbXPmbMK2zfHitCqfS-DCRVUMCg4-7-QMdFKDvxlgbH2PQNPzL1KjhfqHb7SofSYU~Mim7uEW2CRlmqt1TUiNx9SClvVnB4Nb5AYAfZ~Nrs08GpWEb7b8cRE1HKlrIoam~RmnxAUdoc3bcRp5yIrl~Nt1uNHGQ__"
                   alt=""
                 />
+                <img className="absolute bg-[#EAECF0] rounded-full p-[5px] top-0 right-[10px]" src={trash} alt="" />
               </div>
             ))}
           </div>
