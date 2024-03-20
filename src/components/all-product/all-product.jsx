@@ -153,7 +153,7 @@ export default function AllProduct() {
                 <div className=" text-[16px] font-[600] flex items-center justify-center w-[40px] h-[40px] rounded-full border-[1px] border-solid border-[#dfe0e3] bg-[#f2f4f7] text-[#475467]">
                   {getInitials(item?.title)}
                 </div>
-                <p className="text-[16px] font-[500]">{item.title}</p>
+                <h1 className="text-[16px] font-[500]">{item.title}</h1>
               </div>
               <div className="flex justify-between items-center mt-[24px]">
                 <Rating

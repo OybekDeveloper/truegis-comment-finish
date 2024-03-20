@@ -5,18 +5,18 @@ import plusimg from "./imgplus.svg";
 import { useNavigate } from "react-router-dom";
 import "./comment.scss";
 const imgs = [
-  {
-    id: 1,
-  },
-  {
-    id: 2,
-  },
-  {
-    id: 3,
-  },
-  {
-    id: 4,
-  },
+  // {
+  //   id: 1,
+  // },
+  // {
+  //   id: 2,
+  // },
+  // {
+  //   id: 3,
+  // },
+  // {
+  //   id: 4,
+  // },
 ];
 const tg=window.Telegram.WebApp;
 
@@ -53,7 +53,7 @@ export default function AddComment() {
         {imgs.length > 0 ? (
          <div className="overflow-x-scroll whitespace-nowrap comment-img">
          <div className="inline-flex justify-center items-center">
-           <div className="cursor-pointer w-[96px] h-[96px] mr-[16px]  border-[1px] border-solid border-[#D0D5DD] rounded-[8px]">
+           <div className="bg-white cursor-pointer w-[96px] h-[96px] mr-[16px]  border-[1px] border-solid border-[#D0D5DD] rounded-[8px]">
              <img className="mx-auto mt-[32px] w-[32px] h-[32px]" src={plusimg} alt="" />
            </div>
          </div>
