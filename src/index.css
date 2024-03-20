@@ -9,7 +9,7 @@
 }
 
 body{
-  background-color: var(--tg-theme-bg-color);
+  background-color: var(--tg-theme-bg-color,#000);
   color:var(--tg-theme-text-color) ;
 }
 
@@ -21,8 +21,4 @@ p{
 }
 .tg-button-text{
   color: var(--tg-theme-button-color,#0A84FF);
-}
-hr {
-  color: var(--tg-theme-hint-color),#EAECF0;
-  filter: brightness(1.2); 
 }

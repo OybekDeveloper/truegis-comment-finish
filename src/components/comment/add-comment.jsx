@@ -93,7 +93,7 @@ export default function AddComment() {
           </button>
         )}
       </section>
-      <hr className="w-full h-[1px]  mb-[24px] mt-[32px]" />
+      <div className="hr w-full h-[1px]  mb-[24px] mt-[32px] " ></div>
       <section className="px-[16px] mb-[70px]">
         <p className="text-[18px] font-[500]">
           Joy haqida o’z fikringizni qoldiring

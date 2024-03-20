@@ -27,7 +27,7 @@ const about = [
   },
 ];
 const tg = window.Telegram.WebApp;
-
+const isWhiteBackground = tg.themeParams.bg_color === 'white';
 export default function AllProduct() {
   const navigate = useNavigate();
   const id = localStorage.getItem("id");
@@ -114,7 +114,7 @@ export default function AllProduct() {
           </div>
         </div>
       </section>
-      <hr className="w-full h-[1px] mb-[32px]" />
+      <div className="hr w-full h-[1px] mb-[32px]" ></div>
       <section className="px-[16px] mb-[32px]">
         <div className="flex justify-start items-start gap-[16px] mt-[24px]">
           <img className="w-[24px] h-[24px]" src={info} alt="" />
@@ -144,9 +144,9 @@ export default function AllProduct() {
           </div>
         </div>
       </section>
-      <hr className="w-full h-[1px] mb-[24px]" />
+      <div className={`hr w-full h-[1px] mb-[24px] mt-[32px] ${!isWhiteBackground ? 'text-[#8d8f92]' : 'text-[#EAECF0]'}`}></div>
       <section>rasmlar</section>
-      <hr className="w-full h-[1px] mb-[24px]" />
+      <div className="hr w-full h-[1px] mb-[24px]" ></div>
       <section className="px-[16px] w-full">
         <h1 className="text-[18px] font-[500]">Sharhlar</h1>
         <div className="w-full flex flex-col gap-[32px]">
@@ -180,7 +180,7 @@ export default function AllProduct() {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
               </h1>
-              <hr className="w-full h-[1px] mt-[24px]" />
+              <div className="hr w-full h-[1px] mt-[24px]" ></div>
             </main>
           ))}
         </div>

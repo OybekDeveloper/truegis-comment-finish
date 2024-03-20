@@ -103,7 +103,7 @@ export default function Home() {
             )}
           </button>
         ))}
-        <hr className="z-[-10] absolute bottom-[-16px] w-full h-[1px]  mb-[24px]" />
+        <div className="hr z-[-10] absolute bottom-[-16px] w-full h-[1px]  mb-[24px]" ></div>
       </nav>
 
       <Outlet />
