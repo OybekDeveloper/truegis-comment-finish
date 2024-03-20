@@ -108,7 +108,7 @@ export default function Comment() {
             value={4}
             readOnly
             style={{ color: "#FAC515" }}
-            emptyIcon={  <StarIcon style={{ opacity: 0.55,color:tg.themeParams.text_color}} fontSize="inherit" />}
+            emptyIcon={  <StarIcon style={{ opacity: 0.55,color:"#D0D5DD"}} fontSize="inherit" />}
 
           />  
         </div>
