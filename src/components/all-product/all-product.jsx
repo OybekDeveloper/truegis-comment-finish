@@ -27,7 +27,7 @@ const about = [
   },
 ];
 const tg = window.Telegram.WebApp;
-const isWhiteBackground = tg.themeParams.bg_color === 'white';
+const isWhiteBackground = tg.themeParams.bg_color === 'FF0000';
 export default function AllProduct() {
   const navigate = useNavigate();
   const id = localStorage.getItem("id");
