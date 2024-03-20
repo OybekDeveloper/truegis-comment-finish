@@ -37,7 +37,7 @@ export default function Comment() {
   };
 
   return (
-    <main className="mb-[70px]">
+    <main className="mb-[70px] mt-[24px]">
       <section className="w-full flex justify-between px-[16px]">
         <div className="w-1/2 flex flex-col gap-2">
           <div className="w-full flex justify-center items-center gap-[12px]">
