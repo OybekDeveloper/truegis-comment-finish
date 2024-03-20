@@ -22,7 +22,7 @@ p{
 .tg-button-text{
   color: var(--tg-theme-button-color,#0A84FF);
 }
-hr{
-  opacity: 0.5;
-  color:var(--tg-theme-secondary_bg_color);
+hr {
+  color: var(--tg-theme-secondary_bg_color);
+  filter: brightness(0.7); 
 }
