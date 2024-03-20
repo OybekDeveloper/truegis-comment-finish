@@ -109,7 +109,7 @@ export default function Home() {
       <Outlet />
       <div className="mb-[40px]"></div>
       {pathname === `/${id}/${km}/photo` ? (
-        <div className="mx-auto fixed bottom-[4px] w-full flex justify-center items-center">
+        <div className="max-w-[400px] mx-auto fixed bottom-[4px] w-full flex justify-center items-center">
           <button
             className="text-[17px] font-[500] text-[#fff] px-[14px] py-[10px] w-[94%] tg-button rounded-[8px] flex justify-center items-center gap-[8px]"
           >
@@ -118,7 +118,7 @@ export default function Home() {
           </button>
         </div>
       ) : (
-        <div className="mx-auto fixed bottom-[4px] w-full flex justify-center items-center">
+        <div className="max-w-[400px] mx-auto fixed bottom-[4px] w-full flex justify-center items-center">
           <button
             onClick={() => navigate(`/${id}/${km}/add-comment`)}
             className="text-[17px] font-[500] text-[#fff] px-[14px] py-[10px] w-[94%] tg-button rounded-[8px]"
