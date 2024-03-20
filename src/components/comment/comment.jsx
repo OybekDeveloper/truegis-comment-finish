@@ -1,7 +1,9 @@
 import React from "react";
-import ReactStars from "react-rating-stars-component";
 import ProgressBar from "@ramonak/react-progress-bar";
-import empty from './empty-comment.svg'
+import empty from "./empty-comment.svg";
+import Rating from "@mui/material/Rating";
+import StarIcon from "@mui/icons-material/Star";
+import './comment.scss'
 const about = [
   // {
   //   id: 1,
@@ -34,7 +36,7 @@ export default function Comment() {
   };
 
   return (
-    <main>
+    <main className="">
       <section className="w-full flex justify-between px-[16px]">
         <div className="w-1/2 flex flex-col gap-2">
           <div className="w-full flex justify-center items-center gap-[12px]">
@@ -100,7 +102,15 @@ export default function Comment() {
         </div>
         <div>
           <h1 className="font-[500] text-[30px]">4.0</h1>
-          <ReactStars count={5} value={4} size={24} activeColor="#ffd700" />
+          <Rating
+            name="text-feedback"
+            value={4}
+            readOnly
+            style={{ color: "#FAC515" }}
+            emptyIcon={
+              <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
+            }
+          />  
         </div>
       </section>
 
@@ -118,11 +128,14 @@ export default function Comment() {
                   <h1 className="text-[16px] font-[500]">{item.title}</h1>
                 </div>
                 <div className="flex justify-between items-center">
-                  <ReactStars
-                    count={5}
+                  <Rating
+                    name="text-feedback"
                     value={4}
-                    size={24}
-                    activeColor="#ffd700"
+                    readOnly
+                    style={{ color: "#FAC515" }}
+                    emptyIcon={
+                      <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
+                    }
                   />
                   <p className="text-[14px] font-[400]">15.03.2024</p>
                 </div>

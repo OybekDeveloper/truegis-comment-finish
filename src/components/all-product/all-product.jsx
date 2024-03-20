@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { check, down, info, location, phone, time } from "../home/img";
 import "./main.scss";
-import ReactStars from "react-rating-stars-component";
 import { useNavigate } from "react-router-dom";
-
+import Rating from '@mui/material/Rating';
+import StarIcon from '@mui/icons-material/Star';
   const about = [
     {
       id: 1,
@@ -150,12 +150,13 @@ export default function AllProduct() {
                 <h1 className="text-[16px] font-[500]">{item.title}</h1>
               </div>
               <div className="flex justify-between items-center">
-                <ReactStars
-                  count={5}
-                  value={4}
-                  size={24}
-                  activeColor="#ffd700"
-                />
+              <Rating
+        name="text-feedback"
+        value={4}
+        readOnly
+        style={{ color: "#FAC515" }}
+        emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+      />
                 <p className="text-[14px] font-[400]">15.03.2024</p>
               </div>
               <p>
