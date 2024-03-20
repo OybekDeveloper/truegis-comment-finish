@@ -27,7 +27,7 @@ const about = [
   },
 ];
 const tg = window.Telegram.WebApp;
-const isWhiteBackground = tg.themeParams.bg_color === 'FF0000';
+const isWhiteBackground = tg.themeParams.bg_color === "FF0000";
 export default function AllProduct() {
   const navigate = useNavigate();
   const id = localStorage.getItem("id");
@@ -74,7 +74,11 @@ export default function AllProduct() {
                 className="cursor-pointer flex  items-center gap-[8px]"
               >
                 <p className="font-[500] tg-button-text">Jadval</p>
-                {TableDown(tg.themeParams.button_color?tg.themeParams.button_color:"#0A84FF")}
+                {TableDown(
+                  tg.themeParams.button_color
+                    ? tg.themeParams.button_color
+                    : "#0A84FF"
+                )}
               </div>
             </article>
           </div>
@@ -89,32 +93,32 @@ export default function AllProduct() {
             <p className="text-[16px] font-[500]">24 soat</p>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-[16px] font-[400]">Dushanba</p>
+            <p className="text-[16px] font-[400]">Seshanba</p>
             <p className="text-[16px] font-[500]">24 soat</p>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-[16px] font-[400]">Dushanba</p>
+            <p className="text-[16px] font-[400]">Chorshanba</p>
             <p className="text-[16px] font-[500]">24 soat</p>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-[16px] font-[400]">Dushanba</p>
+            <p className="text-[16px] font-[400]">Payshanba</p>
             <p className="text-[16px] font-[500]">24 soat</p>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-[16px] font-[400]">Dushanba</p>
+            <p className="text-[16px] font-[400]">Juma</p>
             <p className="text-[16px] font-[500]">24 soat</p>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-[16px] font-[400]">Dushanba</p>
+            <p className="text-[16px] font-[400]">Shanba</p>
             <p className="text-[16px] font-[500]">24 soat</p>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-[16px] font-[400]">Dushanba</p>
+            <p className="text-[16px] font-[400]">Yakshanba</p>
             <p className="text-[16px] font-[500]">24 soat</p>
           </div>
         </div>
       </section>
-      <div className="hr w-full h-[1px] mb-[32px]" ></div>
+      <div className="hr w-full h-[1px] mb-[32px]"></div>
       <section className="px-[16px] mb-[32px]">
         <div className="flex justify-start items-start gap-[16px] mt-[24px]">
           <img className="w-[24px] h-[24px]" src={info} alt="" />
@@ -124,7 +128,7 @@ export default function AllProduct() {
               {about.map((item) => (
                 <button
                   key={item.id}
-                  className="mr-[6px] mt-[5px] inline-flex border-[1px] border-solid border-[#667085] rounded-[40px] px-[10px] py-[6px]  justify-center items-center"
+                  className="mr-[6px] mt-[12px] inline-flex border-[1px] border-solid border-[#667085] rounded-[40px] px-[10px] py-[6px]  justify-center items-center"
                 >
                   <img src={check} alt="" />{" "}
                   <p className="text-[14px] font-[500] gap-[8px]">
@@ -134,7 +138,7 @@ export default function AllProduct() {
               ))}
               <button
                 onClick={() => navigate(`/${id}/${km}/about`)}
-                className="bg-[#17B26A] mr-[6px] mt-[5px] px-[30px] inline-flex rounded-[40px]  py-[6px]  justify-center items-center"
+                className="bg-[#17B26A] mr-[6px] mt-[12px] px-[30px] inline-flex rounded-[40px]  py-[6px]  justify-center items-center"
               >
                 <p className="text-[14px] font-[500] gap-[8px] text-white">
                   Batafsil
@@ -146,7 +150,7 @@ export default function AllProduct() {
       </section>
       <section className="px-[16px] w-full">
         <h1 className="text-[18px] font-[500]">Sharhlar</h1>
-        <div className="w-full flex flex-col gap-[32px]">
+        <div className="w-full flex flex-col gap-[32px] mt-[20px]">
           {about.map((item) => (
             <main key={item.id} className="">
               <div className="flex justify-start items-center gap-[12px]">
@@ -177,7 +181,7 @@ export default function AllProduct() {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
               </h1>
-              <div className="hr w-full h-[1px] mt-[24px]" ></div>
+              <div className="hr w-full h-[1px] mt-[24px]"></div>
             </main>
           ))}
         </div>
