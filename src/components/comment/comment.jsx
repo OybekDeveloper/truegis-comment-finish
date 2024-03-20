@@ -117,7 +117,7 @@ export default function Comment() {
       {about.length > 0 ? (
         <section className="px-[16px] w-full mt-[48px]">
           <h1 className="text-[18px] font-[500] mb-[12px]">Sharhlar</h1>
-          <hr className="w-full h-[1px] text-[#EAECF0] mb-[24px]" />
+          <hr className="w-full h-[1px]  mb-[24px]" />
           <div className="w-full flex flex-col gap-[32px]">
             {about.map((item) => (
               <main key={item.id} className="">
@@ -142,7 +142,7 @@ export default function Comment() {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
                 </p>
-                <hr className="w-full h-[1px] text-[#EAECF0] mt-[24px]" />
+                <hr className="w-full h-[1px] mt-[24px]" />
               </main>
             ))}
           </div>
