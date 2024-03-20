@@ -43,7 +43,7 @@ export default function AllProduct() {
 
   return (
     <main className="all-product">
-      <h1 style={{color:tg.themeParams.secondary_bg_color}}>secondary_bg_color</h1>
+      {/* <h1 style={{color:tg.themeParams.secondary_bg_color}}>secondary_bg_color</h1> */}
       <section className="px-[16px]">
         <div className="flex justify-start items-start gap-[16px] mt-[24px]">
           <img className="w-[24px] h-[24px]" src={location} alt="" />
