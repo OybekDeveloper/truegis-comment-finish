@@ -23,6 +23,6 @@ p{
   color: var(--tg-theme-button-color,#0A84FF);
 }
 hr{
-  opacity: 0.7;
+  opacity: 0.5;
   color:#667085;
 }
