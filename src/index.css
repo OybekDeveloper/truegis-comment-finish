@@ -23,5 +23,5 @@ p{
   color: var(--tg-theme-button-color,#0A84FF);
 }
 hr{
-  color: var(--tg-theme-hint-color,#EAECF0);
+  color: var(--tg-theme-hint-color);
 }
