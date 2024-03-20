@@ -14,7 +14,7 @@ body{
 }
 
 p{
-  color: var(--tg-theme-hint-color,#667085);
+  color: var(--tg-theme-hint-color,#475467);
 }
 .tg-button{
   background-color: var(--tg-theme-button-color,#0A84FF);
