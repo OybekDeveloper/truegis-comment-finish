@@ -81,7 +81,7 @@ export default function AllProduct() {
         <div
           className={`table_content ${
             tableActive ? "transition-height active mb-[24px]" : ""
-          } mt-[32px] flex flex-col gap-[16px]`}
+          } mt-[32px] flex flex-col gap-[16px] ml-[40px] mr-[10px]`}
         >
           <div className="flex justify-between items-center">
             <p className="text-[16px] font-[400]">Dushanba</p>
