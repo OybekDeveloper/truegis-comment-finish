@@ -144,7 +144,8 @@ export default function AllProduct() {
           </div>
         </div>
       </section>
-      <div className={`hr w-full h-[1px] mb-[24px] mt-[32px]`}></div>
+      <div className="hr w-full h-[1px] mb-[24px]" ></div>
+
       <section>rasmlar</section>
       <div className="hr w-full h-[1px] mb-[24px]" ></div>
       <section className="px-[16px] w-full">
