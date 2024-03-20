@@ -44,22 +44,8 @@ export default function Home() {
     localStorage.setItem("id", id);
     localStorage.setItem("km", km);
   }, []);
-  useEffect(() => {
 
-    const backButton = new tg.BackButton();
-
-    backButton.show();
-
-    // backButton.onClick(() => {
-    //   window.history.back();
-    // });
-
-    // backButton.show();
-    // return () => {
-    //   backButton.offClick();
-    //   backButton.hide();
-    // };
-  }, []);
+   
 
   return (
     <main className="home relative ">
