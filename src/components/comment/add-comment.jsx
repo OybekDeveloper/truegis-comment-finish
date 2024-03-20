@@ -18,6 +18,8 @@ const imgs = [
     id: 4,
   },
 ];
+const tg=window.Telegram.WebApp;
+
 export default function AddComment() {
   const id = localStorage.getItem("id");
   const km = localStorage.getItem("km");
@@ -43,9 +45,7 @@ export default function AddComment() {
             onChange={handleChange}
             size="large"
             style={{ color: "#FAC515" }}
-            emptyIcon={
-              <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
-            }
+            emptyIcon={  <StarIcon style={{ opacity: 0.55,color:tg.themeParams.text_color}} fontSize="inherit" />}
           />
         </div>
       </section>

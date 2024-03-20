@@ -44,7 +44,7 @@ export default function Home() {
     localStorage.setItem("id", id);
     localStorage.setItem("km", km);
   }, []);
-  console.log(id, km);
+  console.log(tg);
 
   return (
     <main className="home relative ">
@@ -57,7 +57,7 @@ export default function Home() {
             readOnly
             style={{ color: "#FAC515" }}
             emptyIcon={
-              <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
+              <StarIcon style={{ opacity: 0.55,color:tg.themeParams.text_color}} fontSize="inherit" />
             }
           />
           <p className="text-[14px] font-[500] mt-[4px]">4.0</p>

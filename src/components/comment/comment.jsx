@@ -26,6 +26,7 @@ const about = [
   //   title: "Kofe",
   // },
 ];
+const tg=window.Telegram.WebApp;
 
 export default function Comment() {
   const getInitials = (fullName) => {
@@ -107,9 +108,8 @@ export default function Comment() {
             value={4}
             readOnly
             style={{ color: "#FAC515" }}
-            emptyIcon={
-              <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
-            }
+            emptyIcon={  <StarIcon style={{ opacity: 0.55,color:tg.themeParams.text_color}} fontSize="inherit" />}
+
           />  
         </div>
       </section>
@@ -133,9 +133,8 @@ export default function Comment() {
                     value={4}
                     readOnly
                     style={{ color: "#FAC515" }}
-                    emptyIcon={
-                      <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
-                    }
+                    emptyIcon={  <StarIcon style={{ opacity: 0.55,color:tg.themeParams.text_color}} fontSize="inherit" />}
+
                   />
                   <p className="text-[14px] font-[400]">15.03.2024</p>
                 </div>
