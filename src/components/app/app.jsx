@@ -27,7 +27,7 @@ export default function App() {
             onClick={handleBackButtonClick}
             className="mx-[16px] mt-[16px]"
           >
-            <ArrowBackIosIcon style={{color:tg.themeParams.text_color}} fontSize="24px" />
+            <ArrowBackIosIcon style={{color:tg.themeParams.button_color}} fontSize="24px" />
           </button>
         )}
       </div>
