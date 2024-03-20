@@ -107,7 +107,7 @@ export default function AddComment() {
           placeholder={"Sharh yozing"}
         ></textarea>
       </section>
-      <div className="mx-auto fixed bottom-[10px] w-full flex justify-center items-center">
+      <div className="max-w-[400px] mx-auto fixed bottom-[10px] w-full flex justify-center items-center">
         <button
           onClick={() => navigate(`/${id}/${km}/comment`)}
           className="text-[17px] font-[500] text-[#fff] px-[14px] py-[10px] w-[94%] tg-button rounded-[8px]"
