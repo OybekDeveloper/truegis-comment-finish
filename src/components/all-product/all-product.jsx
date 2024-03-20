@@ -131,15 +131,17 @@ export default function AllProduct() {
                   </p>
                 </button>
               ))}
+              <button
+                onClick={() => navigate(`/${id}/${km}/about`)}
+                className="bg-[#17B26A] mr-[6px] mt-[5px] px-[30px] inline-flex rounded-[40px]  py-[6px]  justify-center items-center"
+              >
+                <p className="text-[14px] font-[500] gap-[8px] text-white">
+                  Batafsil
+                </p>
+              </button>
             </div>
           </div>
         </div>
-        <button
-          onClick={() => navigate(`/${id}/${km}/about`)}
-          className="mt-[12px] w-full text-[14px] font-[400] rounded-[40px] bg-[#17B26A] p-[10px] text-[#fff]"
-        >
-          Batafsil ko’rish
-        </button>
       </section>
       <hr className="w-full h-[1px] mb-[24px]" />
       <section>rasmlar</section>
