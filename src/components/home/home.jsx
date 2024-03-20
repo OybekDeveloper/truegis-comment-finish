@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
+  const tg=window.Telegram.WebApp;
 
 export default function Home() {
   const { id, km } = useParams();
@@ -59,14 +60,14 @@ export default function Home() {
               <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
             }
           />
-          <h1 className="text-[14px] font-[500] mt-[4px]">4.0</h1>
+          <p className="text-[14px] font-[500] mt-[4px]">4.0</p>
           <p className="text-[14px] font-[500] mt-[4px]">100 sharhlar</p>
         </div>
         <div className="flex justify-between items-center mt-[32px]">
-          <h1 className="text-[14px] font-[500]">24 soat</h1>
+          <p className="text-[14px] font-[500]">24 soat</p>
           <div className="flex items-center gap-[8px]">
             <img src={line} alt="" />
-            <h1 className="text-[14px] font-[500]">4km</h1>
+            <p className="text-[14px] font-[500]">4km</p>
           </div>
         </div>
       </section>
@@ -82,7 +83,7 @@ export default function Home() {
           >
             <div className="flex items-center gap-[4px] h-[30px]">
               <span
-                className={`${pathname === item.link && "text-[#0A84FF] "}`}
+                className={`${pathname === item.link && "tg-button-text"}`}
               >
                 {item.title}
               </span>
@@ -96,7 +97,7 @@ export default function Home() {
             {pathname === item.link && (
               <motion.div
                 layoutId="active-pill"
-                className="absolute mt-[10px] h-[3px] w-full bg-blue-400"
+                className="absolute mt-[10px] h-[3px] w-full tg-button"
               />
             )}
           </button>
@@ -109,7 +110,7 @@ export default function Home() {
       {pathname === `/${id}/${km}/photo` ? (
         <div className="mx-auto fixed bottom-[10px] w-full flex justify-center items-center">
           <button
-            className="text-[17px] font-[500] text-[#fff] px-[14px] py-[10px] w-[94%] bg-[#0A84FF] rounded-[8px] flex justify-center items-center gap-[8px]"
+            className="text-[17px] font-[500] text-[#fff] px-[14px] py-[10px] w-[94%] tg-button rounded-[8px] flex justify-center items-center gap-[8px]"
           >
             <img src={imgplus} alt="sadf" />
             <h1>Rasm qo’shish</h1>
@@ -119,7 +120,7 @@ export default function Home() {
         <div className="mx-auto fixed bottom-[10px] w-full flex justify-center items-center">
           <button
             onClick={() => navigate(`/${id}/${km}/add-comment`)}
-            className="text-[17px] font-[500] text-[#fff] px-[14px] py-[10px] w-[94%] bg-[#0A84FF] rounded-[8px]"
+            className="text-[17px] font-[500] text-[#fff] px-[14px] py-[10px] w-[94%] tg-button rounded-[8px]"
           >
             Sharh qoldirish
           </button>

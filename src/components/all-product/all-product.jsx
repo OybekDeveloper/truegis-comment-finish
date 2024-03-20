@@ -46,7 +46,7 @@ export default function AllProduct() {
           <img className="w-[24px] h-[24px]" src={location} alt="" />
           <div className="flex flex-col gap-[12px]">
             <h1 className="text-[16px] font-[500]">Manzil</h1>
-            <p className="text-[16px] font-[400] text-[#667085]">
+            <p className="text-[16px] font-[400] ">
               Parkent bank xizmatlari, Parkent, 66, 1-8 qavat, Toshkent
             </p>
           </div>
@@ -55,7 +55,7 @@ export default function AllProduct() {
           <img className="w-[24px] h-[24px]" src={phone} alt="" />
           <div className="flex flex-col gap-[12px]">
             <h1 className="text-[16px] font-[500]">Aloqa</h1>
-            <p className="text-[16px] font-[500] text-[#0A84FF]">
+            <p className="text-[16px] font-[500] tg-button-text">
               +998 88 777 00 99
             </p>
           </div>
@@ -65,14 +65,14 @@ export default function AllProduct() {
           <div className="w-full flex flex-col gap-[12px]">
             <h1 className="text-[16px] font-[500]">Ishlash vaqtlari</h1>
             <article className="flex justify-between items-center w-full">
-              <h1 className="text-[16px] font-[400] text-[#667085]">
+              <h1 className="text-[16px] font-[400] ">
                 18:00 gacha ochiq
               </h1>
               <div
                 onClick={() => setTableActive(!tableActive)}
                 className="cursor-pointer flex  items-center gap-[8px]"
               >
-                <p className="font-[500] text-[#0A84FF]">Jadval</p>
+                <p className="font-[500] tg-button-text">Jadval</p>
                 <img src={down} alt="" />
               </div>
             </article>
@@ -84,32 +84,32 @@ export default function AllProduct() {
           } mt-[32px] flex flex-col gap-[16px]`}
         >
           <div className="flex justify-between items-center">
-            <h1 className="text-[16px] font-[400] text-[#667085]">Dushanba</h1>
-            <p className="text-[16px] font-[500] text-[#475467]">24 soat</p>
+            <p className="text-[16px] font-[400]">Dushanba</p>
+            <p className="text-[16px] font-[500]">24 soat</p>
           </div>
           <div className="flex justify-between items-center">
-            <h1 className="text-[16px] font-[400] text-[#667085]">Dushanba</h1>
-            <p className="text-[16px] font-[500] text-[#475467]">24 soat</p>
+            <p className="text-[16px] font-[400]">Dushanba</p>
+            <p className="text-[16px] font-[500]">24 soat</p>
           </div>
           <div className="flex justify-between items-center">
-            <h1 className="text-[16px] font-[400] text-[#667085]">Dushanba</h1>
-            <p className="text-[16px] font-[500] text-[#475467]">24 soat</p>
+            <p className="text-[16px] font-[400]">Dushanba</p>
+            <p className="text-[16px] font-[500]">24 soat</p>
           </div>
           <div className="flex justify-between items-center">
-            <h1 className="text-[16px] font-[400] text-[#667085]">Dushanba</h1>
-            <p className="text-[16px] font-[500] text-[#475467]">24 soat</p>
+            <p className="text-[16px] font-[400]">Dushanba</p>
+            <p className="text-[16px] font-[500]">24 soat</p>
           </div>
           <div className="flex justify-between items-center">
-            <h1 className="text-[16px] font-[400] text-[#667085]">Dushanba</h1>
-            <p className="text-[16px] font-[500] text-[#475467]">24 soat</p>
+            <p className="text-[16px] font-[400]">Dushanba</p>
+            <p className="text-[16px] font-[500]">24 soat</p>
           </div>
           <div className="flex justify-between items-center">
-            <h1 className="text-[16px] font-[400] text-[#667085]">Dushanba</h1>
-            <p className="text-[16px] font-[500] text-[#475467]">24 soat</p>
+            <p className="text-[16px] font-[400]">Dushanba</p>
+            <p className="text-[16px] font-[500]">24 soat</p>
           </div>
           <div className="flex justify-between items-center">
-            <h1 className="text-[16px] font-[400] text-[#667085]">Dushanba</h1>
-            <p className="text-[16px] font-[500] text-[#475467]">24 soat</p>
+            <p className="text-[16px] font-[400]">Dushanba</p>
+            <p className="text-[16px] font-[500]">24 soat</p>
           </div>
         </div>
       </section>
@@ -122,8 +122,7 @@ export default function AllProduct() {
             <div className="w-full">
               {about.map((item) => (
                 <button key={item.id} className="mr-[6px] mt-[5px] inline-flex border-[1px] border-solid border-[#667085] rounded-[40px] px-[10px] py-[6px]  justify-center items-center">
-                  <img src={check} alt="" />
-                  <p className="text-[14px] font-[500] text-[#475467] gap-[8px]">
+                  <img src={check} alt="" />                  <p className="text-[14px] font-[500] gap-[8px]">
                     {item.title}
                   </p>
                 </button>
@@ -147,7 +146,7 @@ export default function AllProduct() {
                 <div className=" text-[16px] font-[600] flex items-center justify-center w-[40px] h-[40px] rounded-full border-[1px] border-solid border-[#dfe0e3] bg-[#f2f4f7]">
                   {getInitials(item?.title)}
                 </div>
-                <h1 className="text-[16px] font-[500]">{item.title}</h1>
+                <p className="text-[16px] font-[500]">{item.title}</p>
               </div>
               <div className="flex justify-between items-center">
               <Rating

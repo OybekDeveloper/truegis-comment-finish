@@ -8,3 +8,17 @@
   box-sizing: border-box;
 }
 
+body{
+  background-color: var(--tg-theme-bg-color);
+  color:var(--tg-theme-text-color) ;
+}
+
+p{
+  color: var(--tg-theme-hint-color,#667085);
+}
+.tg-button{
+  background-color: var(--tg-theme-button-color,#0A84FF);
+}
+.tg-button-text{
+  color: var(--tg-theme-button-color,#0A84FF);
+}

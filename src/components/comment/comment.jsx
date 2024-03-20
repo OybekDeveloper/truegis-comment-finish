@@ -151,7 +151,7 @@ export default function Comment() {
       ) : (
         <div className="w-full flex flex-col justify-center items-center mt-[80px] gap-[16px]">
           <img src={empty} alt="" />
-          <h1 className="text-[14px] font-[400]">Sharhlar mavjud emas</h1>
+          <p className="text-[14px] font-[400]">Sharhlar mavjud emas</p>
         </div>
       )}
     </main>

@@ -11,11 +11,12 @@ export default function App() {
   const id = localStorage.getItem("id");
   const km = localStorage.getItem("km");
   const navigate = useNavigate();
+  const tg=window.Telegram.WebApp;
   useEffect(() => {
     navigate(`/${id}/${km}/all-product`);
   }, []);
   return (
-    <div className="max-w-[400px] mx-auto">
+    <div className="home max-w-[400px] mx-auto">
       <Routes>
         <Route path="/:id/:km" element={<Home />}>
           <Route path={"all-product"} element={<AllProduct />} />

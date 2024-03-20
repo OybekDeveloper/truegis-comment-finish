@@ -68,7 +68,7 @@ export default function AddComment() {
         ) : (
           <button className="flex gap-[8px] justify-center items-center px-[16px] py-[12px] w-full border-[1px] border-solid border-[#D0D5DD] rounded-[8px]">
             <img src={plusimg} alt="" />
-            <h1 className="text-[16px] font-[500] text-[#0A84FF]">
+            <h1 className="text-[16px] font-[500] tg-button-text">
               Rasm qo’shish
             </h1>
           </button>
@@ -76,9 +76,9 @@ export default function AddComment() {
       </section>
       <hr className="w-full h-[1px] text-[#EAECF0] mb-[24px] mt-[32px]" />
       <section className="px-[16px]">
-        <h1 className="text-[18px] font-[500]">
+        <p className="text-[18px] font-[500]">
           Joy haqida o’z fikringizni qoldiring
-        </h1>
+        </p>
         <textarea
           name="message"
           onChange={handleChange}
@@ -91,7 +91,7 @@ export default function AddComment() {
       <div className="mx-auto fixed bottom-[10px] w-full flex justify-center items-center">
         <button
           onClick={() => navigate(`/${id}/${km}/comment`)}
-          className="text-[17px] font-[500] text-[#fff] px-[10px] py-[14px] w-[94%] bg-[#0A84FF] rounded-[8px]"
+          className="text-[17px] font-[500] text-[#fff] px-[14px] py-[10px] w-[94%] tg-button rounded-[8px]"
         >
           Yuborish
         </button>
