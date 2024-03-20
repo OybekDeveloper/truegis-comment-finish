@@ -68,7 +68,7 @@ export default function AllProduct() {
           <div className="w-full flex flex-col gap-[12px]">
             <h1 className="text-[16px] font-[500]">Ishlash vaqtlari</h1>
             <article className="flex justify-between items-center w-full">
-              <h1 className="text-[16px] font-[400] ">18:00 gacha ochiq</h1>
+              <p className="text-[16px] font-[400] ">18:00 gacha ochiq</p>
               <div
                 onClick={() => setTableActive(!tableActive)}
                 className="cursor-pointer flex  items-center gap-[8px]"
@@ -93,28 +93,28 @@ export default function AllProduct() {
             <p className="text-[16px] font-[500]">24 soat</p>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-[16px] font-[400]">Seshanba</p>
-            <p className="text-[16px] font-[500]">24 soat</p>
+            <h2 className="text-[16px] font-[400]">Seshanba</h2>
+            <h2 className="text-[16px] font-[500]">24 soat</h2>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-[16px] font-[400]">Chorshanba</p>
-            <p className="text-[16px] font-[500]">24 soat</p>
+            <h2 className="text-[16px] font-[400]">Chorshanba</h2>
+            <h2 className="text-[16px] font-[500]">24 soat</h2>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-[16px] font-[400]">Payshanba</p>
-            <p className="text-[16px] font-[500]">24 soat</p>
+            <h2 className="text-[16px] font-[400]">Payshanba</h2>
+            <h2 className="text-[16px] font-[500]">24 soat</h2>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-[16px] font-[400]">Juma</p>
-            <p className="text-[16px] font-[500]">24 soat</p>
+            <h2 className="text-[16px] font-[400]">Juma</h2>
+            <h2 className="text-[16px] font-[500]">24 soat</h2>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-[16px] font-[400]">Shanba</p>
-            <p className="text-[16px] font-[500]">24 soat</p>
+            <h2 className="text-[16px] font-[400]">Shanba</h2>
+            <h2 className="text-[16px] font-[500]">24 soat</h2>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-[16px] font-[400]">Yakshanba</p>
-            <p className="text-[16px] font-[500]">24 soat</p>
+            <h2 className="text-[16px] font-[400]">Yakshanba</h2>
+            <h2 className="text-[16px] font-[500]">24 soat</h2>
           </div>
         </div>
       </section>
@@ -131,9 +131,9 @@ export default function AllProduct() {
                   className="mr-[6px] mt-[12px] inline-flex border-[1px] border-solid border-[#667085] rounded-[40px] px-[10px] py-[6px]  justify-center items-center"
                 >
                   <img src={check} alt="" />{" "}
-                  <p className="text-[14px] font-[500] gap-[8px]">
+                  <h2 className="text-[14px] font-[500] gap-[8px]">
                     {item.title}
-                  </p>
+                  </h2>
                 </button>
               ))}
               <button
