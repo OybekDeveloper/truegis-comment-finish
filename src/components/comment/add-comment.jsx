@@ -99,7 +99,7 @@ console.log(formData)
           placeholder={"Sharh yozing"}
         ></textarea>
       </section>
-      <section className="px-[16px]">
+      <section className="px-[16px] mb-[50px]">
         {imgs.length > 0 ? (
           <div className="overflow-x-scroll whitespace-nowrap comment-img">
             <div className="inline-flex justify-center items-center">
