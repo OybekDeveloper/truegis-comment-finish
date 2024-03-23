@@ -58,9 +58,9 @@ export default function AllProduct() {
   const close = () => setMenuActive(false);
   const open = () => setMenuActive(true);
 
-  const handleDelete=(id)=>{
-    setDeleteId(id)
-  }
+  const handleDelete = (id) => {
+    setDeleteId(id);
+  };
 
   useEffect(() => {
     const body = document.querySelector(".home");
@@ -75,17 +75,16 @@ export default function AllProduct() {
       <section className="px-[16px]">
         <div className="flex justify-start items-start gap-[16px] mt-[24px]">
           <img className="w-[24px] h-[24px]" src={location} alt="" />
-          <div className="flex flex-col gap-[12px]">
-            <h1 className="text-[16px] font-[500]">Manzil</h1>
-            <a
-              href={`https://t.me/loc?lat=${placeData?.latitude}&long=${placeData?.longitude}`}
-              className="font-[400] text-[16px] tg-button-text underline"
-            >
-              {placeData.street
-                ? placeData.street
-                : "Manzil haiqda ma'lumot mavjud emas!"}
-            </a>
-          </div>
+          <a
+            href={`https://t.me/loc?lat=${placeData?.latitude}&long=${placeData?.longitude}`}
+            className="font-[400] text-[16px] tg-button-text underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {placeData.street
+              ? placeData.street
+              : "Manzil haqida ma'lumot mavjud emas!"}
+          </a>
         </div>
         <div className="flex justify-start items-start gap-[16px] mt-[24px]">
           <img className="w-[24px] h-[24px]" src={phone} alt="" />
@@ -216,7 +215,7 @@ export default function AllProduct() {
                       </h1>
                     </article>
                     {item.user.id === 221 && (
-                      <main onClick={()=>handleDelete(item.id)}>
+                      <main onClick={() => handleDelete(item.id)}>
                         <div
                           onClick={() => (menuActive ? close() : open())}
                           className="w-[24px] h-[24px]"
@@ -261,7 +260,9 @@ export default function AllProduct() {
           </div>
         )}
       </section>
-      {menuActive && <Modal deleteId={deleteId} modalOpen={menuActive} handleClose={close} />}
+      {menuActive && (
+        <Modal deleteId={deleteId} modalOpen={menuActive} handleClose={close} />
+      )}
     </main>
   );
 }
