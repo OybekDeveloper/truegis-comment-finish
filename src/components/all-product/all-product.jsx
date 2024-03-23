@@ -61,6 +61,11 @@ export default function AllProduct() {
   const handleDelete = (id) => {
     setDeleteId(id);
   };
+  const latitude = 37.7749; // Example latitude
+const longitude = -122.4194; // Example longitude
+
+const telegramUrl = `https://t.me/share/url?url=&text=Latitude:${latitude}%0ALongitude:${longitude}`;
+
 
   useEffect(() => {
     const body = document.querySelector(".home");
@@ -75,7 +80,8 @@ export default function AllProduct() {
       <section className="px-[16px]">
         <div className="flex justify-start items-start gap-[16px] mt-[24px]">
           <img className="w-[24px] h-[24px]" src={location} alt="" />
-          <a
+          <a href={telegramUrl} target="_blank" rel="noopener noreferrer">View in Telegram</a>
+          {/* <a
             href={`https://t.me/loc?lat=${placeData?.latitude}&long=${placeData?.longitude}`}
             className="font-[400] text-[16px] tg-button-text underline"
             target="_blank"
@@ -84,7 +90,7 @@ export default function AllProduct() {
             {placeData.street
               ? placeData.street
               : "Manzil haqida ma'lumot mavjud emas!"}
-          </a>
+          </a> */}
         </div>
         <div className="flex justify-start items-start gap-[16px] mt-[24px]">
           <img className="w-[24px] h-[24px]" src={phone} alt="" />
