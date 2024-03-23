@@ -85,6 +85,20 @@ console.log(formData)
           />
         </div>
       </section>
+      <div className="hr w-full h-[1px]  mb-[24px] mt-[32px] "></div>
+      <section className="px-[16px] mb-[24px]">
+        <p className="text-[18px] font-[500]">
+          Joy haqida o’z fikringizni qoldiring
+        </p>
+        <textarea
+          name="message"
+          onChange={(e)=>setFormData({...formData,text:e.target.value})}
+          id="message"
+          rows="6"
+          className={`mt-[24px] border-[1px] border-solid comment-input p-[10px] bg-transparent text-[16px] font-[400] input-form`}
+          placeholder={"Sharh yozing"}
+        ></textarea>
+      </section>
       <section className="px-[16px]">
         {imgs.length > 0 ? (
           <div className="overflow-x-scroll whitespace-nowrap comment-img">
@@ -128,25 +142,11 @@ console.log(formData)
             </h1>
           </button>
         )}
-      </section>
-      <div className="hr w-full h-[1px]  mb-[24px] mt-[32px] "></div>
-      <section className="px-[16px] mb-[70px]">
-        <p className="text-[18px] font-[500]">
-          Joy haqida o’z fikringizni qoldiring
-        </p>
-        <textarea
-          name="message"
-          onChange={(e)=>setFormData({...formData,text:e.target.value})}
-          id="message"
-          rows="6"
-          className={`mt-[24px] border-[1px] border-solid comment-input p-[10px] bg-transparent text-[16px] font-[400] input-form`}
-          placeholder={"Sharh yozing"}
-        ></textarea>
-      </section>
+      </section>  
       <div className="max-w-[400px] mx-auto fixed bottom-[10px] w-full flex justify-center items-center">
         <button
           onClick={handleAddComment}
-          className="text-[17px] font-[500] text-[#fff] px-[14px] py-[10px] w-[94%] tg-button rounded-[8px]"
+          className="text-[17px] font-[500] text-[#fff] py-[14px] px-[10px] w-[94%] tg-button rounded-[8px]"
         >
           Yuborish
         </button>

@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { check, down, info, location, phone, time } from "../home/img";
+import {
+  check,
+  down,
+  info,
+  instagram,
+  location,
+  phone,
+  telegram,
+  time,
+  web,
+} from "../home/img";
 import "./main.scss";
 import { useNavigate } from "react-router-dom";
 import Rating from "@mui/material/Rating";
@@ -49,7 +59,14 @@ export default function AllProduct() {
           <img className="w-[24px] h-[24px]" src={location} alt="" />
           <div className="flex flex-col gap-[12px]">
             <h1 className="text-[16px] font-[500]">Manzil</h1>
-            <p className="text-[16px] font-[400] ">{placeData.street}</p>
+            <a
+              href="/"
+              className="font-[400] text-[16px] tg-button-text underline"
+            >
+              {placeData.street
+                ? placeData.street
+                : "Manzil haiqda ma'lumot mavjud emas!"}
+            </a>
           </div>
         </div>
         <div className="flex justify-start items-start gap-[16px] mt-[24px]">
@@ -59,6 +76,17 @@ export default function AllProduct() {
             <p className="text-[16px] font-[500] tg-button-text">
               +998 88 777 00 99
             </p>
+            <div className="flex justify-start items-center gap-[16px]">
+              <div className="social-media">
+                <img className="" src={instagram} alt="" />
+              </div>
+              <div className="social-media">
+                <img className="" src={telegram} alt="" />
+              </div>
+              <div className="social-media">
+                <img className="" src={web} alt="" />
+              </div>
+            </div>
           </div>
         </div>
         <div className="relative flex justify-start items-start gap-[16px] mt-[24px]">
@@ -121,27 +149,33 @@ export default function AllProduct() {
         <div className="flex justify-start items-start gap-[16px] mt-[24px]">
           <img className="w-[24px] h-[24px]" src={info} alt="" />
           <div className="flex flex-col gap-[12px]">
-            <h1 className="text-[16px] font-[500]">Joy haqida</h1>
+            <div
+              onClick={() => navigate(`/${id}/${km}/about`)}
+              className="cursor-pointer w-full flex justify-between items-center"
+            >
+              <h1 className="text-[16px] font-[500]">Joy haqida</h1>
+              {RightArrow(
+                tg.themeParams.button_color
+                  ? tg.themeParams.button_color
+                  : "#0A84FF"
+              )}
+            </div>
             <div className="w-full">
               {about.map((item) => (
                 <button
                   key={item.id}
-                  className="mr-[6px] mt-[12px] inline-flex border-[1px] border-solid border-[#667085] rounded-[40px] px-[10px] py-[6px]  justify-center items-center"
+                  className="mr-[6px] mt-[12px] inline-flex gap-[8px]  px-[10px] py-[6px]  justify-center items-center"
                 >
-                  <img src={check} alt="" />{" "}
-                  <p className="text-[14px] font-[500] gap-[8px]">
+                  {CheskSvg(
+                    tg.themeParams.button_color
+                      ? tg.themeParams.button_color
+                      : "#0A84FF"
+                  )}
+                  <p className="text-[#475467] text-[14px] font-[500] gap-[8px]">
                     {item.title}
                   </p>
                 </button>
               ))}
-              <button
-                onClick={() => navigate(`/${id}/${km}/about`)}
-                className="bg-[#17B26A] mr-[6px] mt-[12px] px-[30px] inline-flex rounded-[40px]  py-[6px]  justify-center items-center"
-              >
-                <p className="text-[14px] font-[500] gap-[8px] text-white">
-                  Batafsil
-                </p>
-              </button>
             </div>
           </div>
         </div>
@@ -199,7 +233,45 @@ function TableDown(color) {
     >
       <path
         d="M5 7.5L10 12.5L15 7.5"
-        stroke="#0A84FF"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+function CheskSvg(color) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+    >
+      <path
+        d="M16.6663 5L7.49967 14.1667L3.33301 10"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+function RightArrow(color) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+      <path
+        d="M9 18L15 12L9 6"
+        stroke={color}
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"

@@ -1,6 +1,7 @@
 import React from 'react'
 import BackDrop from './backdrop'
 import {motion} from 'framer-motion'
+const tg = window.Telegram.WebApp;
 
 const dropIn = {
     hidden: {
@@ -35,7 +36,9 @@ const Modal = ({handleClose}) => {
             <div className="w-[44px] h-[4px] bg-[#D9D9D9] mt-[12px] mx-auto"></div>
             <section className="max-w-[400px] mx-auto flex flex-col gap-[24px] mt-[32px]">
               <div className="cursor-pointer flex justify-start items-center gap-[12px] ">
-                {EditSvg()}
+                {EditSvg( tg.themeParams.button_color
+                ? tg.themeParams.button_color
+                : "#0A84FF")}
                 <h1 className="tg-button-text text-[18px] font-[500]">
                   Tahrirlash
                 </h1>
@@ -66,7 +69,7 @@ function EditSvg(color) {
       >
         <path
           d="M21 21H13M2.5 21.5L8.04927 19.3657C8.40421 19.2292 8.58168 19.1609 8.74772 19.0718C8.8952 18.9926 9.0358 18.9012 9.16804 18.7986C9.31692 18.6831 9.45137 18.5486 9.72028 18.2797L21 7C22.1046 5.89543 22.1046 4.10457 21 3C19.8955 1.89543 18.1046 1.89543 17 3L5.72028 14.2797C5.45138 14.5486 5.31692 14.6831 5.20139 14.832C5.09877 14.9642 5.0074 15.1048 4.92823 15.2523C4.83911 15.4183 4.77085 15.5958 4.63433 15.9507L2.5 21.5ZM2.5 21.5L4.55812 16.149C4.7054 15.766 4.77903 15.5746 4.90534 15.4869C5.01572 15.4102 5.1523 15.3813 5.2843 15.4065C5.43533 15.4353 5.58038 15.5804 5.87048 15.8705L8.12957 18.1295C8.41967 18.4196 8.56472 18.5647 8.59356 18.7157C8.61877 18.8477 8.58979 18.9843 8.51314 19.0947C8.42545 19.221 8.23399 19.2946 7.85107 19.4419L2.5 21.5Z"
-          stroke="#0A84FF"
+          stroke={color}
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -93,4 +96,5 @@ function EditSvg(color) {
       </svg>
     );
   }
+
   

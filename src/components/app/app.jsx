@@ -18,7 +18,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="home max-w-[400px] mx-auto">
+    <div className="app max-w-[400px] mx-auto">
       <Routes>
         <Route path="/:id/:km" element={<Home />}>
           <Route path={"all-product"} element={<AllProduct />} />

@@ -33,3 +33,6 @@ h2{
   height: 100vh;
   overflow: hidden;
 }
+.background-dark{
+  background-color: #000;
+}

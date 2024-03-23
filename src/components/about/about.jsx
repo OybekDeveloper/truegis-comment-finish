@@ -1,5 +1,7 @@
 import React from "react";
 import { check, info } from "../home/img";
+const tg = window.Telegram.WebApp;
+
 const about = [
   {
     id: 1,
@@ -48,9 +50,16 @@ export default function About() {
       {" "}
       <section className="px-[16px]">
         <div className="w-full mt-[24px]">
-              {about.map((item) => (
-                <button key={item.id} className="mr-[20px] mt-[16px] inline-flex border-[1px] border-solid border-[#667085] rounded-[40px] px-[10px] py-[6px]  justify-center items-center">
-                  <img src={check} alt="" />
+        {about.map((item) => (
+                <button
+                  key={item.id}
+                  className="mr-[6px] mt-[12px] inline-flex gap-[8px]  px-[10px] py-[6px]  justify-center items-center"
+                >
+                  {CheskSvg(
+                    tg.themeParams.button_color
+                      ? tg.themeParams.button_color
+                      : "#0A84FF"
+                  )}
                   <p className="text-[14px] font-[500] gap-[8px]">
                     {item.title}
                   </p>
@@ -59,5 +68,24 @@ export default function About() {
         </div>
       </section>
     </div>
+  );
+}
+function CheskSvg(color) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+    >
+      <path
+        d="M16.6663 5L7.49967 14.1667L3.33301 10"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }

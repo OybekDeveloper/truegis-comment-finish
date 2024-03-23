@@ -9,6 +9,8 @@ import { ApiServer } from "../../ApiServer/api";
 import { useDispatch, useSelector } from "react-redux";
 import { GetCommentData, GetPlaceData } from "../../reducer/event";
 const tg = window.Telegram.WebApp;
+const backgroundImage =
+    "https://s3-alpha-sig.figma.com/img/808e/7de1/0a383ce94c24b18e47af0e9ba369a18a?Expires=1711929600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=e7AE~1fTZ-cKSH-WZLl2-g9yhVsxw2rJ9qJ2UKefHAOZY7zlW89xrlkRsImEkHEpfT-NbJeMcmF8UOdemF1ZcKZ8pRYxqVXXTemn~8p8t33cVhaNCNt-owytQK4HRstvl2T7czB8Uz2ftE-2~XPFq3mqssd1E~DJ6zJFjmrRZAc8Aj~zpqEKSGWDut85W3WDy4YEr4KhHvbYk46g4mhrPl51d-gbgN-YbVSQXf7A5eVRYQQzFlf9bq5tIZttyyTLn9xbSDL2xeTsLI~AWyh-L84eXCGkG9-oVcYfLgeedzw9oa9Bk4xv45eGvhjGYLaflIBwXwzBq4TXwqefY87HuQ__";
 
 export default function Home() {
   const { id, km } = useParams();
@@ -78,16 +80,18 @@ export default function Home() {
     fetchData();
   }, []);
   console.log(placeData);
-  const backgroundImage =
-    "https://s3-alpha-sig.figma.com/img/58ef/2b86/66f16d551f0887f2d4ed0ddaff40fe2d?Expires=1711929600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=QaTGY63pu9C0ShD7msQky6-bl~4swVD6qyc8IXW7NDJ9bwie45OPiMj6UNpvLv6RGLTOrOmd0oHYfetce3DQ~xHnSUaTyg0jfv01Dqzw0dYGWGN9wwHwL-pQG5BfXvrHptmWo-nzBDKD465-GkMQaUwhb89v7A3xpRa69i4MkkVvcgtWyeovj-3YE9iukWsdJFtvXQK8z9h1~HM~IzfHHCeO3r2Hoh-drZBgD2uiWhRa4amA4v-LKvCfJBadJprC9i~fCc68nwpfU9WkEFAR03sFVcwGhxz83V3pD-XgWKyDFFMn2tJYD6jes0ziTfu~GN6ouVOSGv7emdgXwT~X4A__";
-
+  
   return (
     <main className="home relative ">
-      <section
-        className="px-[16px] h-[170px] home-back"
-        style={{ backgroundImage: `url(${backgroundImage})` }}
-      >
-        <div className="overlay"></div>
+      <section className="px-[16px] h-[170px] home-back">
+        <div className="overlay">
+          <div className="overlay"></div>
+          <img
+            className="img-back object-cover w-[400px] h-[170px]  z-[-10]"
+            src={placeData.photo_url ? placeData.photo_url : backgroundImage}
+            alt=""
+          />
+        </div>
         <div className="content">
           <h1 className="text-[#fff] text-[24px] font-[500] pt-[16px]">
             {placeData?.name}
@@ -203,9 +207,9 @@ function CommentAdd(color) {
       <path
         d="M21 21.0001H13M2.5 21.5001L8.04927 19.3657C8.40421 19.2292 8.58168 19.161 8.74772 19.0718C8.8952 18.9927 9.0358 18.9013 9.16804 18.7987C9.31692 18.6831 9.45137 18.5487 9.72028 18.2798L21 7.00006C22.1046 5.89549 22.1046 4.10463 21 3.00006C19.8955 1.89549 18.1046 1.89549 17 3.00006L5.72028 14.2798C5.45138 14.5487 5.31692 14.6831 5.20139 14.832C5.09877 14.9643 5.0074 15.1049 4.92823 15.2523C4.83911 15.4184 4.77085 15.5959 4.63433 15.9508L2.5 21.5001ZM2.5 21.5001L4.55812 16.149C4.7054 15.7661 4.77903 15.5746 4.90534 15.4869C5.01572 15.4103 5.1523 15.3813 5.2843 15.4065C5.43533 15.4354 5.58038 15.5804 5.87048 15.8705L8.12957 18.1296C8.41967 18.4197 8.56472 18.5648 8.59356 18.7158C8.61877 18.8478 8.58979 18.9844 8.51314 19.0947C8.42545 19.2211 8.23399 19.2947 7.85107 19.442L2.5 21.5001Z"
         stroke={color}
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
