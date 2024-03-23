@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import plusimg from "./imgplus.svg";
@@ -6,6 +6,9 @@ import trash from "./trash.svg";
 import { useNavigate } from "react-router-dom";
 import "./comment.scss";
 import { ApiServer } from "../../ApiServer/api";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { GetPlaceData } from "../../reducer/event";
 const imgs = [
   {
     id: 1,
@@ -26,37 +29,77 @@ export default function AddComment() {
   const id = localStorage.getItem("id");
   const km = localStorage.getItem("km");
   const navigate = useNavigate();
-  const [formData, setFormData] = useState([]);
-  const [value, setValue] = useState(0);
+  const fileInputRef = useRef(null);
+  const dispatch = useDispatch()
+  const { placeData } = useSelector((state) => state.event);
 
+  const [formData, setFormData] = useState([]);
+  const [fotos,setFotos]=useState([])
+  const handleFileInputClick = () => {
+    fileInputRef.current.click();
+  };
   const handleChange = (event, newValue) => {
     setFormData({
       ...formData,
       star: newValue,
-      user:221,
+      user: 221,
     });
   };
+  const handleFileUploaded = (e) => {
+    const files = e.target.files;
+    if (!files || files.length === 0 || !placeData) return;
+
+    const fd = new FormData();
+
+    for (let i = 0; i < files.length; i++) {
+        if (i === 0) {
+            fd.append("image", files[0]);
+        } else {
+            fd.append(`image${i + 1}`, files[i]);
+        }
+    }
+
+    axios
+        .patch(`https://admin13.uz/api/place/${id}/`, fd, {
+            headers: {
+                accept: "application/json",
+                "Content-Type": "multipart/form-data",
+            },
+        })
+        .then((res) => {
+          const fetchData = async () => {
+            try {
+              const place = await ApiServer.getData(`/place/${id}/`);
+              dispatch(GetPlaceData(place));
+            } catch (error) {
+              console.log(error);
+            }
+          };
+          fetchData();
+        })
+        .catch((err) => console.log(err));
+};
 
   const handleAddComment = async () => {
     try {
       await ApiServer.postData(`/comments/${id}/create/`, formData);
-      navigate(`/${id}/${km}/comment`)
+      navigate(`/${id}/${km}/comment`);
     } catch (error) {
       console.log(error);
     }
   };
-
-  // useEffect(()=>{
-  //   const fetchData=async()=>{
-  //     try {
-  //       await ApiServer.postData(`/comments/${id}/create/`,formData)
-  //     } catch (error) {
-  //       console.log(error)
-  //     }
-  //   }
-  //   fetchData()
-  // },[])
-console.log(formData)
+  useEffect(() => {
+    const { image, image2, image3, image4 } = placeData;
+    const photosArray = [];
+    if (image) photosArray.push(image);
+    if (image2) photosArray.push(image2);
+    if (image3) photosArray.push(image3);
+    if (image4) photosArray.push(image4);
+    setFotos(photosArray);
+  }, [placeData]);
+  console.log(fotos)
+  
+  console.log(formData);
   return (
     <main className="comment">
       <section className="px-[16px]">
@@ -92,18 +135,21 @@ console.log(formData)
         </p>
         <textarea
           name="message"
-          onChange={(e)=>setFormData({...formData,text:e.target.value})}
+          onChange={(e) => setFormData({ ...formData, text: e.target.value })}
           id="message"
           rows="6"
           className={`mt-[24px] border-[1px] border-solid comment-input p-[10px] bg-transparent text-[16px] font-[400] input-form`}
           placeholder={"Sharh yozing"}
         ></textarea>
       </section>
-      <section className="px-[16px] mb-[50px]">
-        {imgs.length > 0 ? (
+      <section className="px-[16px] mb-[70px]">
+        {fotos.length > 0 ? (
           <div className="overflow-x-scroll whitespace-nowrap comment-img">
             <div className="inline-flex justify-center items-center">
-              <div className="bg-white cursor-pointer w-[96px] h-[96px] mr-[16px]  border-[1px] border-solid border-[#D0D5DD] rounded-[8px]">
+              <div
+                onClick={handleFileInputClick}
+                className="bg-white cursor-pointer w-[96px] h-[96px] mr-[16px]  border-[1px] border-solid border-[#D0D5DD] rounded-[8px]"
+              >
                 <img
                   className="mx-auto mt-[32px] w-[32px] h-[32px]"
                   src={plusimg}
@@ -111,15 +157,14 @@ console.log(formData)
                 />
               </div>
             </div>
-
-            {imgs.map((item) => (
+            {fotos.map((item) => (
               <div
                 key={item.id}
                 className="relative inline-flex justify-center items-center"
               >
                 <img
                   className="rounded-[8px] mr-[24px] w-[96px] h-[96px] object-cover "
-                  src="https://s3-alpha-sig.figma.com/img/846f/5267/f91f9c16efda1587ffe0bc44bd39bb85?Expires=1711929600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=PNbQ-wI4pO1YuriliDRfhmdT212ZmzTsmreL6jEAOcXPR6JWKTnHJOSpnelh-7qiCLCNMudIKet6Huw7bcKMkv9NtwpOaJFycsWtDsuA8mXFoE~hZIoV7LgrWw6W0-HGxOjs-~aH0BItD~Fk0CEBd-7Xd1Cz4KSAUOyJcbViTXHEDs1raHjjFJHvVbXPmbMK2zfHitCqfS-DCRVUMCg4-7-QMdFKDvxlgbH2PQNPzL1KjhfqHb7SofSYU~Mim7uEW2CRlmqt1TUiNx9SClvVnB4Nb5AYAfZ~Nrs08GpWEb7b8cRE1HKlrIoam~RmnxAUdoc3bcRp5yIrl~Nt1uNHGQ__"
+                  src={item}
                   alt=""
                 />
                 <img
@@ -131,7 +176,10 @@ console.log(formData)
             ))}
           </div>
         ) : (
-          <button className="flex gap-[8px] justify-center items-center px-[16px] py-[12px] w-full border-[1px] border-solid border-[#D0D5DD] rounded-[8px]">
+          <button
+            onClick={handleFileInputClick}
+            className="flex gap-[8px] justify-center items-center px-[16px] py-[12px] w-full border-[1px] border-solid border-[#D0D5DD] rounded-[8px]"
+          >
             {photoAdd(
               tg.themeParams.button_color
                 ? tg.themeParams.button_color
@@ -142,7 +190,7 @@ console.log(formData)
             </h1>
           </button>
         )}
-      </section>  
+      </section>
       <div className="max-w-[400px] mx-auto fixed bottom-[10px] w-full flex justify-center items-center">
         <button
           onClick={handleAddComment}
@@ -151,6 +199,16 @@ console.log(formData)
           Yuborish
         </button>
       </div>
+      {/* file upload input */}
+      <input
+        multiple
+        type="file"
+        name="file"
+        hidden
+        ref={fileInputRef}
+        onChange={handleFileUploaded}
+        className="file-input"
+      />
     </main>
   );
 }

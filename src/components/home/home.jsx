@@ -15,6 +15,9 @@ const backgroundImage =
 export default function Home() {
   const { id, km } = useParams();
   const { pathname } = useLocation();
+  const[imgCount,setImgCount]=useState(0)
+  const { placeData, commentData } = useSelector((state) => state.event);
+
   const navlink = [
     {
       id: 1,
@@ -27,13 +30,13 @@ export default function Home() {
       id: 2,
       title: "Rasm",
       link: `/${id}/${km}/photo`,
-      count: 12,
+      count: imgCount,
     },
     {
       id: 3,
       title: "Sharhlar",
       link: `/${id}/${km}/comment`,
-      count: 23,
+      count: commentData.length,
     },
     {
       id: 4,
@@ -44,7 +47,6 @@ export default function Home() {
   ];
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { placeData, commentData } = useSelector((state) => state.event);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState(1);
 
@@ -58,6 +60,15 @@ export default function Home() {
       return workEnd - workStart + 24;
     }
   };
+  useEffect(() => {
+    const { image, image2, image3, image4 } = placeData;
+    const photosArray = [];
+    if (image) photosArray.push(image);
+    if (image2) photosArray.push(image2);
+    if (image3) photosArray.push(image3);
+    if (image4) photosArray.push(image4);
+    setImgCount(photosArray.length);
+  }, [placeData]);
 
   useEffect(() => {
     localStorage.setItem("id", id);
@@ -145,12 +156,12 @@ export default function Home() {
             }}
             className="font-[500] h-[70px] relative text-[16px]"
           >
-            <div className="flex items-center gap-[5px] h-[30px]">
+            <div className="flex items-center gap-[4px] h-[30px]">
               <span className={`${pathname === item.link && "tg-button-text"}`}>
                 {item.title}
               </span>
               {item.count && (
-                <p className="rounded-[10px] font-[600] px-[11px] py-[7px] bg-[#F2F4F7] text-[#667085]">
+                <p className="rounded-[10px] text-[12px] font-[600] px-[9px] py-[5px] bg-[#F2F4F7] text-[#667085]">
                   {item.count}
                 </p>
               )}

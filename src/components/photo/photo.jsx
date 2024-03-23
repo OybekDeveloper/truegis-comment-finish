@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import empty from "./empty.svg";
 import "./photo.scss";
 import Slider from "react-slick";
@@ -23,7 +23,10 @@ export default function Photo() {
   const [activeImageCount, setActiveImageCount] = useState(1);
   const [allImageCount, setAllImageCount] = useState(1);
   const [slideActive, setSlideActive] = useState(false);
-
+  const fileInputRef = useRef(null);
+  const handleFileInputClick = () => {
+    fileInputRef.current.click();
+};
   useEffect(() => {
     if (selectPhoto.length > 0) {
       setAllImageCount(selectPhoto.length);

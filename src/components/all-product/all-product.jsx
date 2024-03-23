@@ -10,11 +10,13 @@ import {
   time,
   web,
 } from "../home/img";
+import empty from "../comment/empty-comment.svg";
 import "./main.scss";
 import { useNavigate } from "react-router-dom";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import { useSelector } from "react-redux";
+import Modal from "../comment/modal";
 const about = [
   {
     id: 1,
@@ -43,15 +45,31 @@ export default function AllProduct() {
   const id = localStorage.getItem("id");
   const km = localStorage.getItem("km");
 
+  const [menuActive, setMenuActive] = useState(false);
   const { placeData, commentData } = useSelector((state) => state.event);
   const [tableActive, setTableActive] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
   const getInitials = (fullName) => {
     if (!fullName) return "";
     const words = fullName.split(" ");
     const initials = words.map((word) => word[0]);
     return initials.join("").toUpperCase();
   };
+  const close = () => setMenuActive(false);
+  const open = () => setMenuActive(true);
 
+  const handleDelete=(id)=>{
+    setDeleteId(id)
+  }
+
+  useEffect(() => {
+    const body = document.querySelector(".home");
+    if (menuActive) {
+      body.classList.add("blur-effect");
+    } else {
+      body.classList.remove("blur-effect");
+    }
+  }, [menuActive]);
   return (
     <main className="all-product">
       <section className="px-[16px]">
@@ -60,7 +78,7 @@ export default function AllProduct() {
           <div className="flex flex-col gap-[12px]">
             <h1 className="text-[16px] font-[500]">Manzil</h1>
             <a
-              href="/"
+              href={`https://t.me/loc?lat=${placeData?.latitude}&long=${placeData?.longitude}`}
               className="font-[400] text-[16px] tg-button-text underline"
             >
               {placeData.street
@@ -180,44 +198,70 @@ export default function AllProduct() {
           </div>
         </div>
       </section>
-      <section className="px-[16px] w-full">
+      <section className="px-[16px] w-full mb-[80px]">
         <h1 className="text-[18px] font-[500]">Sharhlar</h1>
-        <div className="w-full flex flex-col gap-[32px] mt-[20px]">
-          {commentData?.map((item) => (
-            <main key={item.id} className="">
-              <div className="flex justify-start items-center gap-[12px]">
-                <div className=" text-[16px] font-[600] flex items-center justify-center w-[40px] h-[40px] rounded-full border-[1px] border-solid border-[#dfe0e3] bg-[#f2f4f7] text-[#475467]">
-                  {getInitials(item?.title)}
-                </div>
-                <h1 className="text-[16px] font-[500]">{item.title}</h1>
-              </div>
-              <div className="flex justify-between items-center mt-[24px]">
-                <Rating
-                  name="text-feedback"
-                  value={4}
-                  readOnly
-                  style={{ color: "#FAC515" }}
-                  emptyIcon={
-                    <StarIcon
-                      style={{
-                        opacity: 0.55,
-                        color: tg.themeParams.text_color,
-                      }}
-                      fontSize="inherit"
+        {commentData?.length > 0 ? (
+          <section className="px-[16px] w-full mt-[48px]">
+            <div className="hr w-full h-[1px]  mb-[24px]"></div>
+            <div className="w-full flex flex-col gap-[32px]">
+              {commentData.map((item) => (
+                <main key={item.id} className="">
+                  <div className="flex justify-between items-center gap-[12px]">
+                    <article className="flex justify-start items-center gap-[12px]">
+                      <div className=" text-[16px] font-[600] flex items-center justify-center w-[40px] h-[40px] rounded-full border-[1px] border-solid border-[#dfe0e3] bg-[#f2f4f7] text-[#475467]">
+                        {getInitials(item.user.full_name)}
+                      </div>
+                      <h1 className="text-[16px] font-[500]">
+                        {item.user.full_name}
+                      </h1>
+                    </article>
+                    {item.user.id === 221 && (
+                      <main onClick={()=>handleDelete(item.id)}>
+                        <div
+                          onClick={() => (menuActive ? close() : open())}
+                          className="w-[24px] h-[24px]"
+                        >
+                          {MenuIcon()}
+                        </div>
+                      </main>
+                    )}
+                  </div>
+                  <div className="flex justify-between items-center mt-[24px]">
+                    <Rating
+                      name="text-feedback"
+                      value={item.star}
+                      readOnly
+                      style={{ color: "#FAC515" }}
+                      emptyIcon={
+                        <StarIcon
+                          style={{
+                            opacity: 0.55,
+                            color: tg.themeParams.text_color,
+                          }}
+                          fontSize="inherit"
+                        />
+                      }
                     />
-                  }
-                />
-                <p className="text-[14px] font-[400]">15.03.2024</p>
-              </div>
-              <h1 className="text-[16px] font-[400] mt-[16px]">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
-              </h1>
-              <div className="hr w-full h-[1px] mt-[24px]"></div>
-            </main>
-          ))}
-        </div>
+                    <p className="text-[14px] font-[400]">
+                      {item.created_time.split(" ")[0]}
+                    </p>
+                  </div>
+                  <h1 className="text-[16px] font-[400] mt-[16px]">
+                    {item.text}
+                  </h1>
+                  <div className=" hr w-full h-[1px] mt-[24px]"></div>
+                </main>
+              ))}
+            </div>
+          </section>
+        ) : (
+          <div className="w-full flex flex-col justify-center items-center mt-[20px] gap-[16px]">
+            <img src={empty} alt="" />
+            <p className="text-[14px] font-[400]">Sharhlar mavjud emas</p>
+          </div>
+        )}
       </section>
+      {menuActive && <Modal deleteId={deleteId} modalOpen={menuActive} handleClose={close} />}
     </main>
   );
 }
@@ -272,6 +316,39 @@ function RightArrow(color) {
       <path
         d="M9 18L15 12L9 6"
         stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+function MenuIcon(color) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+      <path
+        d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
+        stroke="#475467"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
+        stroke="#475467"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
+        stroke="#475467"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"

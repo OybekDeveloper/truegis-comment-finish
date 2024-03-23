@@ -1,6 +1,7 @@
 import React from 'react'
 import BackDrop from './backdrop'
 import {motion} from 'framer-motion'
+import { ApiServer } from '../../ApiServer/api';
 const tg = window.Telegram.WebApp;
 
 const dropIn = {
@@ -25,7 +26,14 @@ const dropIn = {
   };
   
 
-const Modal = ({handleClose}) => {
+const Modal = ({handleClose,deleteId}) => {
+    const handleDelete=async()=>{
+        try{
+            const res = await ApiServer.delData(`/comments/${deleteId}/`)
+        }catch(err){
+            console.log(err)
+        }
+    }
   return (
     <BackDrop onClick={handleClose}>
           <motion.div
@@ -43,7 +51,7 @@ const Modal = ({handleClose}) => {
                   Tahrirlash
                 </h1>
               </div>
-              <div className="cursor-pointer flex justify-start items-center gap-[12px] ">
+              <div onClick={handleDelete} className="cursor-pointer flex justify-start items-center gap-[12px] ">
                 {deleteSvg()}
                 <h1 className="text-[#F04438] text-[18px] font-[500]">
                   O’chirish
