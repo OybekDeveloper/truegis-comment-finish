@@ -29,3 +29,7 @@ h2{
   filter: brightness(0.6);
   color: var(--tg-theme-hint-color,#475467);
 }
+.blur-effect {
+  height: 100vh;
+  overflow: hidden;
+}

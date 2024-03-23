@@ -8,10 +8,12 @@ import About from "../about/about";
 import AddComment from "../comment/add-comment";
 export default function App() {
   const id = localStorage.getItem("id");
-  const km = localStorage.getItem("km");
+    const km = localStorage.getItem("km");
   const navigate = useNavigate();
   const tg = window.Telegram.WebApp;
   useEffect(() => {
+    const id = localStorage.getItem("id");
+    const km = localStorage.getItem("km");
     navigate(`/${id}/${km}/all-product`);
   }, []);
 

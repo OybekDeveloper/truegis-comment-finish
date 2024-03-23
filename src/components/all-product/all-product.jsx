@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { check, down, info, location, phone, time } from "../home/img";
 import "./main.scss";
 import { useNavigate } from "react-router-dom";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
+import { useSelector } from "react-redux";
 const about = [
   {
     id: 1,
@@ -27,13 +28,13 @@ const about = [
   },
 ];
 const tg = window.Telegram.WebApp;
-const isWhiteBackground = tg.themeParams.bg_color === "FF0000";
 export default function AllProduct() {
   const navigate = useNavigate();
   const id = localStorage.getItem("id");
   const km = localStorage.getItem("km");
-  const [tableActive, setTableActive] = useState(false);
 
+  const { placeData, commentData } = useSelector((state) => state.event);
+  const [tableActive, setTableActive] = useState(false);
   const getInitials = (fullName) => {
     if (!fullName) return "";
     const words = fullName.split(" ");
@@ -43,15 +44,12 @@ export default function AllProduct() {
 
   return (
     <main className="all-product">
-      {/* <h1 style={{color:tg.themeParams.secondary_bg_color}}>secondary_bg_color</h1> */}
       <section className="px-[16px]">
         <div className="flex justify-start items-start gap-[16px] mt-[24px]">
           <img className="w-[24px] h-[24px]" src={location} alt="" />
           <div className="flex flex-col gap-[12px]">
             <h1 className="text-[16px] font-[500]">Manzil</h1>
-            <p className="text-[16px] font-[400] ">
-              Parkent bank xizmatlari, Parkent, 66, 1-8 qavat, Toshkent
-            </p>
+            <p className="text-[16px] font-[400] ">{placeData.street}</p>
           </div>
         </div>
         <div className="flex justify-start items-start gap-[16px] mt-[24px]">
@@ -151,7 +149,7 @@ export default function AllProduct() {
       <section className="px-[16px] w-full">
         <h1 className="text-[18px] font-[500]">Sharhlar</h1>
         <div className="w-full flex flex-col gap-[32px] mt-[20px]">
-          {about.map((item) => (
+          {commentData?.map((item) => (
             <main key={item.id} className="">
               <div className="flex justify-start items-center gap-[12px]">
                 <div className=" text-[16px] font-[600] flex items-center justify-center w-[40px] h-[40px] rounded-full border-[1px] border-solid border-[#dfe0e3] bg-[#f2f4f7] text-[#475467]">
@@ -201,10 +199,10 @@ function TableDown(color) {
     >
       <path
         d="M5 7.5L10 12.5L15 7.5"
-        stroke={color}
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        stroke="#0A84FF"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
