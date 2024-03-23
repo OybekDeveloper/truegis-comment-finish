@@ -64,7 +64,9 @@ export default function AllProduct() {
   const latitude = '40.712776';
   const longitude = '-74.005974';
   
-const telegramMapUrl = `https://t.me/loc?lat=${latitude}&lon=${longitude}`;
+  // Constructing the telegramMapUrl using template literals
+  const telegramMapUrl = `https://t.me/loc?lat=${latitude}&lon=${longitude}`;
+  
   useEffect(() => {
     const body = document.querySelector(".home");
     if (menuActive) {
@@ -78,7 +80,7 @@ const telegramMapUrl = `https://t.me/loc?lat=${latitude}&lon=${longitude}`;
       <section className="px-[16px]">
         <div className="flex justify-start items-start gap-[16px] mt-[24px]">
           <img className="w-[24px] h-[24px]" src={location} alt="" />
-          <a href={telegramMapUrl} target="_blank">Telegram xaritasida ko'rish</a>
+           <a href={telegramMapUrl} target="_blank" rel="noopener noreferrer">Telegram xaritasida ko'rish</a>
           {/* <a
             href={`https://t.me/loc?lat=${placeData?.latitude}&long=${placeData?.longitude}`}
             className="font-[400] text-[16px] tg-button-text underline"
