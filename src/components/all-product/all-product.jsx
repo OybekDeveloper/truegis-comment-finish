@@ -61,11 +61,10 @@ export default function AllProduct() {
   const handleDelete = (id) => {
     setDeleteId(id);
   };
-  const latitude = '40.712776';
-  const longitude = '-74.005974';
+
   
   // Constructing the geo URI with latitude and longitude
-  const geoUri = `geo:${latitude},${longitude}`;
+  const geoUri = `geo:${placeData?.latitude},${placeData?.longitude}`;
   
   useEffect(() => {
     const body = document.querySelector(".home");
