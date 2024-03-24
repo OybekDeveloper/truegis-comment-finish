@@ -74,10 +74,10 @@ export default function Home() {
   useEffect(() => {
 
     const backBtn=tg.BackButton()
-    backBtn.show()
-    backBtn.onClick(()=>{
-      window.history.back()
-    })
+    // backBtn.show()
+    // backBtn.onClick(()=>{
+    //   window.history.back()
+    // })
 
     localStorage.setItem("id", id);
     localStorage.setItem("km", km);
