@@ -73,16 +73,29 @@ export default function Home() {
 
   useEffect(() => {
 
-    const backBtn=tg.BackButton()
-    // backBtn.show()
-    // backBtn.onClick(()=>{
-    //   window.history.back()
-    // })
-
+    
     localStorage.setItem("id", id);
     localStorage.setItem("km", km);
 
   }, []);
+  // useEffect(() => {
+  //   // Function to handle back button click
+  //   const handleBackButtonClick = () => {
+  //     navigate(-1); // Navigating back
+  //   };
+
+  //   // Show back button
+  //   tg.UI.backButton.show();
+
+  //   // Set click handler for back button
+  //   tg.UI.backButton.onClick(handleBackButtonClick);
+
+  //   // Clean up function
+  //   return () => {
+  //     tg.UI.backButton.offClick(handleBackButtonClick); // Remove click handler
+  //     tg.UI.backButton.hide(); // Hide back button
+  //   };
+  // }, [navigate]);
 
   useEffect(() => {
     const fetchData = async () => {
