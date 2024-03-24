@@ -17,6 +17,7 @@ import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import { useSelector } from "react-redux";
 import Modal from "../comment/modal";
+import MapAppSelector from "./map";
 // import { View, Button, Linking, Platform } from "react-native";
 const about = [
   {
@@ -62,16 +63,9 @@ export default function AllProduct() {
   const handleDelete = (id) => {
     setDeleteId(id);
   };
-  const latitude = "40.712776";
-  const longitude = "-74.005974";
-  const openMaps = () => {
-    const scheme = (navigator.platform === 'iPhone' || navigator.platform === 'iPad') ? 'maps:0,0?q=' : 'geo:0,0?q=';
-    const latLng = `${latitude},${longitude}`;
-    const label = 'Custom Label';
-    const url = (navigator.platform === 'iPhone' || navigator.platform === 'iPad') ? `${scheme}${label}@${latLng}` : `${scheme}${latLng}(${label})`;
-
-    window.open(url, '_blank');
-  };
+  const latitude = "41.287890";
+  const longitude = "69.205887";
+  
   useEffect(() => {
     const body = document.querySelector(".home");
     if (menuActive) {
@@ -85,7 +79,7 @@ export default function AllProduct() {
       <section className="px-[16px]">
         <div className="flex justify-start items-start gap-[16px] mt-[24px]">
           <img className="w-[24px] h-[24px]" src={location} alt="" />
-          <button onClick={openMaps}>Open Maps</button>
+          <MapAppSelector latitude={latitude} longitude={longitude}/>
           {/* <a
             href={`https://t.me/loc?lat=${placeData?.latitude}&long=${placeData?.longitude}`}
             className="font-[400] text-[16px] tg-button-text underline"
