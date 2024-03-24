@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import empty from "./empty.svg";
 import "./photo.scss";
 import Slider from "react-slick";
-
+import { IoMdClose } from "react-icons/io";
 const imgs = [
   {
     id: 1,
@@ -22,15 +22,14 @@ export default function Photo() {
   const [selectPhoto, setSelectPhoto] = useState([]);
   const [activeImageCount, setActiveImageCount] = useState(1);
   const [allImageCount, setAllImageCount] = useState(1);
-  const [slideActive, setSlideActive] = useState(false);
+  const [album, setAlbum] = useState(false);
   const fileInputRef = useRef(null);
   const handleFileInputClick = () => {
     fileInputRef.current.click();
-};
+  };
   useEffect(() => {
     if (selectPhoto.length > 0) {
       setAllImageCount(selectPhoto.length);
-      setSlideActive(true);
     }
   }, [selectPhoto]);
 
@@ -48,19 +47,26 @@ export default function Photo() {
 
   const handleSelectImage = (id) => {
     setActiveImageCount(id);
+    setAlbum(true);
     const selectedImage = imgs.find((image) => image.id === id);
     const remainingImages = imgs.filter((image) => image.id !== id);
     setSelectPhoto([selectedImage, ...remainingImages]);
   };
+  const handleClose = () => {
+    setAlbum(false);
+  };
 
   return (
     <div>
-      {selectPhoto.length > 0 && (
+      {selectPhoto.length > 0 && album && (
         <section className="backdrop-image">
           <div className="overflow-x-scroll whitespace-nowrap photo-slide">
             <h1 className="absolute text-[#fff] top-[32px] text-center w-full">
               {activeImageCount}/{allImageCount}
             </h1>
+            <div onClick={handleClose} className="cursor-pointer absolute top-[33px] right-[10px]">
+              <IoMdClose className="text-[24px] text-white" />
+            </div>
             <Slider {...settings}>
               {selectPhoto.map((photo, index) => (
                 <div key={index} className="z-[9999]">
@@ -78,11 +84,12 @@ export default function Photo() {
       {imgs.length > 0 ? (
         <section className="grid grid-cols-3 grid-rows-3 gap-4 px-[16px] mb-[50px] mt-[32px]">
           {imgs.map((image, index) => (
+            //eslint-disable-next-line
             <img
-              key={image.id} // Use a unique key
+              key={image.id}
               onClick={() => {
                 handleSelectImage(image.id);
-                setSlideActive(true);
+                setAlbum(true);
               }}
               src={image.url}
               alt={"image description"}

@@ -8,6 +8,7 @@ import StarIcon from "@mui/icons-material/Star";
 import { ApiServer } from "../../ApiServer/api";
 import { useDispatch, useSelector } from "react-redux";
 import { GetCommentData, GetPlaceData } from "../../reducer/event";
+
 const tg = window.Telegram.WebApp;
 const backgroundImage =
     "https://s3-alpha-sig.figma.com/img/808e/7de1/0a383ce94c24b18e47af0e9ba369a18a?Expires=1711929600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=e7AE~1fTZ-cKSH-WZLl2-g9yhVsxw2rJ9qJ2UKefHAOZY7zlW89xrlkRsImEkHEpfT-NbJeMcmF8UOdemF1ZcKZ8pRYxqVXXTemn~8p8t33cVhaNCNt-owytQK4HRstvl2T7czB8Uz2ftE-2~XPFq3mqssd1E~DJ6zJFjmrRZAc8Aj~zpqEKSGWDut85W3WDy4YEr4KhHvbYk46g4mhrPl51d-gbgN-YbVSQXf7A5eVRYQQzFlf9bq5tIZttyyTLn9xbSDL2xeTsLI~AWyh-L84eXCGkG9-oVcYfLgeedzw9oa9Bk4xv45eGvhjGYLaflIBwXwzBq4TXwqefY87HuQ__";
@@ -71,8 +72,16 @@ export default function Home() {
   }, [placeData]);
 
   useEffect(() => {
+
+    const backBtn=tg.BackButton()
+    backBtn.show()
+    backBtn.onClick(()=>{
+      window.history.back()
+    })
+
     localStorage.setItem("id", id);
     localStorage.setItem("km", km);
+
   }, []);
 
   useEffect(() => {
