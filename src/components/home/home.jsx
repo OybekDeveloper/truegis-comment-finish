@@ -76,26 +76,16 @@ export default function Home() {
     console.log(tg)
     localStorage.setItem("id", id);
     localStorage.setItem("km", km);
-    tg.BackButton.show();
   }, []);
-  // useEffect(() => {
-  //   // Function to handle back button click
-  //   const handleBackButtonClick = () => {
-  //     navigate(-1); // Navigating back
-  //   };
 
-  //   // Show back button
-  //   tg.UI.backButton.show();
-
-  //   // Set click handler for back button
-  //   tg.UI.backButton.onClick(handleBackButtonClick);
-
-  //   // Clean up function
-  //   return () => {
-  //     tg.UI.backButton.offClick(handleBackButtonClick); // Remove click handler
-  //     tg.UI.backButton.hide(); // Hide back button
-  //   };
-  // }, [navigate]);
+  useEffect(()=>{
+    if(pathname!==`/${id}/${km}/all-product`){
+      tg.BackButton.show()
+      tg.BackButton.onClick(()=>window.history.back())
+    }else{
+      tg.BackButton.hide()
+    }
+  },[pathname])
 
   useEffect(() => {
     const fetchData = async () => {
