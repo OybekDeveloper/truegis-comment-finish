@@ -86,8 +86,7 @@ export default function Home() {
     }
   },[pathname])
   
-  tg.BackButton.onClick(()=>window.history.back())
-
+  tg.BackButton.onClick(()=>window.history.back)
 
   useEffect(() => {
     const fetchData = async () => {
