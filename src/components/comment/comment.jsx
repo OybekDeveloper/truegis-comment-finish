@@ -12,8 +12,7 @@ const tg = window.Telegram.WebApp;
 
 export default function Comment() {
   const dispatch = useDispatch();
-  const { delModal } = useSelector((state) => state.event);
-  const { commentData, placeData } = useSelector((state) => state.event);
+  const { commentData, placeData,delModal } = useSelector((state) => state.event);
   const [menuActive, setMenuActive] = useState(false);
 
   const getInitials = (fullName) => {

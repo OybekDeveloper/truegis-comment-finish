@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./home.scss";
 import { imgplus, line, pointgreen } from "./img";
 import { motion } from "framer-motion";
@@ -8,17 +8,55 @@ import StarIcon from "@mui/icons-material/Star";
 import { ApiServer } from "../../ApiServer/api";
 import { useDispatch, useSelector } from "react-redux";
 import { GetCommentData, GetPlaceData } from "../../reducer/event";
+import axios from "axios";
 
 const tg = window.Telegram.WebApp;
 const backgroundImage =
-    "https://s3-alpha-sig.figma.com/img/808e/7de1/0a383ce94c24b18e47af0e9ba369a18a?Expires=1711929600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=e7AE~1fTZ-cKSH-WZLl2-g9yhVsxw2rJ9qJ2UKefHAOZY7zlW89xrlkRsImEkHEpfT-NbJeMcmF8UOdemF1ZcKZ8pRYxqVXXTemn~8p8t33cVhaNCNt-owytQK4HRstvl2T7czB8Uz2ftE-2~XPFq3mqssd1E~DJ6zJFjmrRZAc8Aj~zpqEKSGWDut85W3WDy4YEr4KhHvbYk46g4mhrPl51d-gbgN-YbVSQXf7A5eVRYQQzFlf9bq5tIZttyyTLn9xbSDL2xeTsLI~AWyh-L84eXCGkG9-oVcYfLgeedzw9oa9Bk4xv45eGvhjGYLaflIBwXwzBq4TXwqefY87HuQ__";
+  "https://s3-alpha-sig.figma.com/img/808e/7de1/0a383ce94c24b18e47af0e9ba369a18a?Expires=1711929600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=e7AE~1fTZ-cKSH-WZLl2-g9yhVsxw2rJ9qJ2UKefHAOZY7zlW89xrlkRsImEkHEpfT-NbJeMcmF8UOdemF1ZcKZ8pRYxqVXXTemn~8p8t33cVhaNCNt-owytQK4HRstvl2T7czB8Uz2ftE-2~XPFq3mqssd1E~DJ6zJFjmrRZAc8Aj~zpqEKSGWDut85W3WDy4YEr4KhHvbYk46g4mhrPl51d-gbgN-YbVSQXf7A5eVRYQQzFlf9bq5tIZttyyTLn9xbSDL2xeTsLI~AWyh-L84eXCGkG9-oVcYfLgeedzw9oa9Bk4xv45eGvhjGYLaflIBwXwzBq4TXwqefY87HuQ__";
 
 export default function Home() {
+  const fileInputRef = useRef(null);
   const { id, km } = useParams();
   const { pathname } = useLocation();
-  const[imgCount,setImgCount]=useState(0)
+  const [imgCount, setImgCount] = useState(0);
   const { placeData, commentData } = useSelector((state) => state.event);
+  const handleFileInputClick = () => {
+    fileInputRef.current.click();
+  };
+  const handleFileUploaded = (e) => {
+    const files = e.target.files;
+    if (!files || files.length === 0 || !placeData) return;
 
+    const fd = new FormData();
+
+    for (let i = 0; i < files.length; i++) {
+      if (i === 0) {
+        fd.append("image", files[0]);
+      } else {
+        fd.append(`image${i + 1}`, files[i]);
+      }
+    }
+
+    axios
+      .patch(`https://admin13.uz/api/place/${id}/`, fd, {
+        headers: {
+          accept: "application/json",
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        const fetchData = async () => {
+          try {
+            const place = await ApiServer.getData(`/place/${id}/`);
+            dispatch(GetPlaceData(place));
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        fetchData();
+      })
+      .catch((err) => console.log(err));
+  };
   const navlink = [
     {
       id: 1,
@@ -31,13 +69,13 @@ export default function Home() {
       id: 2,
       title: "Rasm",
       link: `/${id}/${km}/photo`,
-      count: imgCount!==0?imgCount:null,
+      count: imgCount !== 0 ? imgCount : null,
     },
     {
       id: 3,
       title: "Sharhlar",
       link: `/${id}/${km}/comment`,
-      count: commentData.length?commentData.length:null,
+      count: commentData.length ? commentData.length : null,
     },
     {
       id: 4,
@@ -47,7 +85,7 @@ export default function Home() {
     },
   ];
   const dispatch = useDispatch();
-  const {delModal}=useSelector(state=>state.event)
+  const { delModal } = useSelector((state) => state.event);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState(1);
@@ -73,7 +111,7 @@ export default function Home() {
   }, [placeData]);
 
   useEffect(() => {
-    console.log(tg)
+    console.log(tg);
     localStorage.setItem("id", id);
     localStorage.setItem("km", km);
   }, []);
@@ -84,12 +122,11 @@ export default function Home() {
     } else {
       tg.BackButton.hide();
     }
-    
   }, [pathname]);
-  const backPage=()=>{
-    window.history.back()
-  }
-  tg.onEvent("backButtonClicked",backPage);
+  const backPage = () => {
+    window.history.back();
+  };
+  tg.onEvent("backButtonClicked", backPage);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -106,7 +143,7 @@ export default function Home() {
     };
     fetchData();
   }, [delModal]);
-  
+
   return (
     <main className="home relative ">
       <section className="px-[16px] min-h-[200px] home-back">
@@ -146,7 +183,7 @@ export default function Home() {
             <div className="flex justify-start items-center gap-[8px]">
               <img src={pointgreen} alt="" />
               <p className="text-[#fff] text-[14px] font-[500]">{`${
-                (placeData.work_start_time &&placeData.work_end_time )
+                placeData.work_start_time && placeData.work_end_time
                   ? getTimeData(
                       placeData.work_start_time,
                       placeData.work_end_time
@@ -196,8 +233,11 @@ export default function Home() {
       <Outlet />
       <div className="mb-[40px]"></div>
       {pathname === `/${id}/${km}/photo` ? (
-        <div className="max-w-[400px] mx-auto fixed bottom-[4px] w-full flex justify-center items-center">
-          <button className="text-[17px] font-[500] text-[#fff] px-[14px] py-[10px] w-[94%] tg-button rounded-[8px] flex justify-center items-center gap-[8px]">
+        <div
+          onClick={handleFileInputClick}
+          className="max-w-[400px] mx-auto fixed bottom-[4px] w-full flex justify-center items-center"
+        >
+          <button className="text-[17px] font-[500] text-[#fff] px-[10px] py-[14px] w-[94%] tg-button rounded-[8px] flex justify-center items-center gap-[8px]">
             <img src={imgplus} alt="sadf" />
             <h1>Rasm qo’shish</h1>
           </button>
@@ -217,6 +257,15 @@ export default function Home() {
           </button>
         </div>
       )}
+      <input
+        multiple
+        type="file"
+        name="file"
+        hidden
+        ref={fileInputRef}
+        onChange={handleFileUploaded}
+        className="file-input"
+      />
     </main>
   );
 }

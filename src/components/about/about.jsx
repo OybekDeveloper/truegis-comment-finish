@@ -45,10 +45,6 @@ const about = [
   },
 ];
 export default function About() {
-  const backPage=()=>{
-    window.history.back()
-  }
-  tg.onEvent("backButtonClicked",backPage);
   return (
     <div>
       {" "}

@@ -3,6 +3,7 @@ import empty from "./empty.svg";
 import "./photo.scss";
 import Slider from "react-slick";
 import { IoMdClose } from "react-icons/io";
+import { useSelector } from "react-redux";
 const imgs = [
   {
     id: 1,
@@ -19,9 +20,13 @@ const imgs = [
 ];
 
 export default function Photo() {
+  const { placeData } = useSelector((state) => state.event);
+
   const [selectPhoto, setSelectPhoto] = useState([]);
   const [activeImageCount, setActiveImageCount] = useState(1);
   const [allImageCount, setAllImageCount] = useState(1);
+  const [fotos,setFotos]=useState([])
+
   const [album, setAlbum] = useState(false);
   const fileInputRef = useRef(null);
   const handleFileInputClick = () => {
@@ -48,14 +53,25 @@ export default function Photo() {
   const handleSelectImage = (id) => {
     setActiveImageCount(id);
     setAlbum(true);
-    const selectedImage = imgs.find((image) => image.id === id);
-    const remainingImages = imgs.filter((image) => image.id !== id);
+    const selectedImage = fotos.find((image) => image.id === id);
+    const remainingImages = fotos.filter((image) => image.id !== id);
     setSelectPhoto([selectedImage, ...remainingImages]);
   };
   const handleClose = () => {
     setAlbum(false);
   };
 
+  useEffect(() => {
+    const { image, image2, image3, image4 } = placeData;
+    const photosArray = [];
+    if (image) photosArray.push({ id: 1, image });
+    if (image2) photosArray.push({ id: 2, image });
+    if (image3) photosArray.push({ id: 3, image });
+    if (image4) photosArray.push({ id: 4, image });
+    setFotos(photosArray);
+  }, [placeData]);
+  
+  console.log(fotos)
   return (
     <div>
       {selectPhoto.length > 0 && album && (
@@ -72,7 +88,7 @@ export default function Photo() {
                 <div key={index} className="z-[9999]">
                   <img
                     className="sliderImg mx-auto"
-                    src={photo.url} // Fixed the src attribute
+                    src={photo.image} // Fixed the src attribute
                     alt={`slide-${index}`}
                   />
                 </div>
@@ -81,9 +97,9 @@ export default function Photo() {
           </div>
         </section>
       )}
-      {imgs.length > 0 ? (
+      {fotos.length > 0 ? (
         <section className="grid grid-cols-3 grid-rows-3 gap-4 px-[16px] mb-[50px] mt-[32px]">
-          {imgs.map((image, index) => (
+          {fotos.map((image, index) => (
             //eslint-disable-next-line
             <img
               key={image.id}
@@ -91,12 +107,12 @@ export default function Photo() {
                 handleSelectImage(image.id);
                 setAlbum(true);
               }}
-              src={image.url}
+              src={image.image}
               alt={"image description"}
               className={`w-full h-full object-cover ${
                 [1, 3, 7, 9, 13, 15].includes(index) && index < imgs.length
-                  ? "col-span-2 row-span-2"
-                  : "col-span-1 row-span-1"
+                  ? "col-span-2 row-span-2 h-[200px]"
+                  : "col-span-1 row-span-1 h-[100px]"
               } rounded-[8px]`}
             />
           ))}
