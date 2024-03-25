@@ -84,11 +84,11 @@ export default function Home() {
     } else {
       tg.BackButton.hide();
     }
-    tg.BackButton.onClick(() => {
-      tg.navigateToPreviousPage(); 
-    });
+    
   }, [pathname]);
-  
+  tg.BackButton.onClick(() => {
+    tg.navigateToPreviousPage(); 
+  });
 
   useEffect(() => {
     const fetchData = async () => {
