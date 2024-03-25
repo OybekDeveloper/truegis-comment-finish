@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit"
 export const initialState={
     placeData:[],
     commentData:[],
-    delModal:false
+    delModal:false,
+    deleteId:''
 }
 
 export const eventSlice = createSlice({
@@ -18,9 +19,12 @@ export const eventSlice = createSlice({
         },
         ActiveModal:(state,action)=>{
             state.delModal=action.payload
+        },
+        DeleteComment:(state,action)=>{
+            state.deleteId=action.payload
         }
     }
 })
 
-export const {GetPlaceData,GetCommentData,ActiveModal} = eventSlice.actions;
+export const {GetPlaceData,GetCommentData,ActiveModal,DeleteComment} = eventSlice.actions;
 export default eventSlice.reducer;

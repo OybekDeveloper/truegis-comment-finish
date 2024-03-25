@@ -18,7 +18,7 @@ import StarIcon from "@mui/icons-material/Star";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../comment/modal";
 import MapAppSelector from "./map";
-import { ActiveModal } from "../../reducer/event";
+import { ActiveModal, DeleteComment } from "../../reducer/event";
 // import { View, Button, Linking, Platform } from "react-native";
 const about = [
   {
@@ -48,11 +48,10 @@ export default function AllProduct() {
   const id = localStorage.getItem("id");
   const km = localStorage.getItem("km");
   const dispatch=useDispatch()
-  const {delModal}=useSelector(state=>state.event)
+  const {delModal,deleteId}=useSelector(state=>state.event)
   const [menuActive, setMenuActive] = useState(false);
   const { placeData, commentData } = useSelector((state) => state.event);
   const [tableActive, setTableActive] = useState(false);
-  const [deleteId, setDeleteId] = useState(null);
   const getInitials = (fullName) => {
     if (!fullName) return "";
     const words = fullName.split(" ");
@@ -63,7 +62,7 @@ export default function AllProduct() {
   const open = () => setMenuActive(true);
 
   const handleDelete = (id) => {
-    setDeleteId(id);
+    dispatch(DeleteComment(id))
   };
   const latitude = "41.287890";
   const longitude = "69.205887";
@@ -81,7 +80,7 @@ export default function AllProduct() {
       <section className="px-[16px]">
         <div className="flex justify-start items-start gap-[16px] mt-[24px]">
           <img className="w-[24px] h-[24px]" src={location} alt="" />
-          <MapAppSelector latitude={latitude} longitude={longitude} />
+          <MapAppSelector latitude={latitude} longitude={longitude} text={placeData.street} />
           {/* <a
             href={`https://t.me/loc?lat=${placeData?.latitude}&long=${placeData?.longitude}`}
             className="font-[400] text-[16px] tg-button-text underline"
@@ -236,7 +235,7 @@ export default function AllProduct() {
                           onClick={() => {(menuActive ? close() : open());dispatch(ActiveModal(true))}}
                           className="w-[24px] h-[24px]"
                         >
-                          {MenuIcon()}
+                          {MenuIcon(tg.themeParams.text_color?tg.themeParams.text_color:"black")}
                         </div>
                       </main>
                     )}
@@ -277,7 +276,7 @@ export default function AllProduct() {
         )}
       </section>
       {(menuActive && delModal) && (
-        <Modal deleteId={deleteId} modalOpen={menuActive} handleClose={close} />
+        <Modal modalOpen={menuActive} handleClose={close} />
       )}
     </main>
   );
@@ -351,21 +350,21 @@ function MenuIcon(color) {
     >
       <path
         d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
-        stroke="#475467"
+        stroke={color}
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
-        stroke="#475467"
+        stroke={color}
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
-        stroke="#475467"
+        stroke={color}
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"

@@ -100,7 +100,7 @@ export default function AddComment() {
     if (image4) photosArray.push(image4);
     setFotos(photosArray);
   }, [placeData]);
-  
+  console.log(placeData)
   return (
     <main className="comment">
       <section className="px-[16px]">

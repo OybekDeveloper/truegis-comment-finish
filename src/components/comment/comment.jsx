@@ -7,7 +7,7 @@ import "./comment.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { AnimatePresence, m, motion } from "framer-motion";
 import Modal from "./modal";
-import { ActiveModal } from "../../reducer/event";
+import { ActiveModal, DeleteComment } from "../../reducer/event";
 const tg = window.Telegram.WebApp;
 
 export default function Comment() {
@@ -35,9 +35,6 @@ export default function Comment() {
       body.classList.remove("blur-effect");
     }
   }, [menuActive, delModal]);
-  useEffect(() => {}, [commentData]);
-
-
   const close = () => {
     setMenuActive(false);
   };
@@ -143,7 +140,7 @@ export default function Comment() {
                   </article>
                   {item.user.id === 221 && (
                     <div
-                      onClick={() => {(menuActive ? close() : open());dispatch(ActiveModal(true))}}
+                      onClick={() => {(menuActive ? close() : open());dispatch(ActiveModal(true));dispatch(DeleteComment(item.id))}}
                       className="w-[24px] h-[24px]"
                     >
                       {MenuIcon()}

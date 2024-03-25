@@ -73,11 +73,10 @@ export default function Home() {
   }, [placeData]);
 
   useEffect(() => {
-
-    
+    console.log(tg)
     localStorage.setItem("id", id);
     localStorage.setItem("km", km);
-
+    tg.BackButton.show();
   }, []);
   // useEffect(() => {
   //   // Function to handle back button click
