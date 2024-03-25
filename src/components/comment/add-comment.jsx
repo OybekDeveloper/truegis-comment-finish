@@ -159,7 +159,7 @@ export default function AddComment() {
             </div>
             {fotos.map((item) => (
               <div
-                key={item.id}
+                key={crypto.randomUUID()}
                 className="relative inline-flex justify-center items-center"
               >
                 <img

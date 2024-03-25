@@ -31,13 +31,13 @@ export default function Home() {
       id: 2,
       title: "Rasm",
       link: `/${id}/${km}/photo`,
-      count: imgCount,
+      count: imgCount!==0?imgCount:null,
     },
     {
       id: 3,
       title: "Sharhlar",
       link: `/${id}/${km}/comment`,
-      count: commentData.length,
+      count: commentData.length?commentData.length:null,
     },
     {
       id: 4,
@@ -52,8 +52,8 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState(1);
 
   const getTimeData = (start, end) => {
-    const workStart = start.split(":")[0];
-    const workEnd = end.split(":")[0];
+    const workStart = start?.split(":")[0];
+    const workEnd = end?.split(":")[0];
 
     if (workEnd - workStart > 0) {
       return workEnd - workStart;
@@ -116,11 +116,11 @@ export default function Home() {
   
   return (
     <main className="home relative ">
-      <section className="px-[16px] h-[170px] home-back">
+      <section className="px-[16px] min-h-[200px] home-back">
         <div className="overlay">
           <div className="overlay"></div>
           <img
-            className="img-back object-cover w-[400px] h-[170px]  z-[-10]"
+            className="img-back object-cover w-[400px] min-h-[200px]  z-[-10]"
             src={placeData.photo_url ? placeData.photo_url : backgroundImage}
             alt=""
           />
@@ -146,14 +146,14 @@ export default function Home() {
               {placeData.rating ? placeData.rating : 0}
             </p>
             <p className="text-[#fff] opacity-[0.7] text-[14px] font-[500] mt-[4px]">
-              100 sharhlar
+              {commentData.length ? commentData.length : "0"} sharhlar
             </p>
           </div>
           <div className="flex justify-between items-center mt-[50px]">
             <div className="flex justify-start items-center gap-[8px]">
               <img src={pointgreen} alt="" />
               <p className="text-[#fff] text-[14px] font-[500]">{`${
-                placeData.id
+                (placeData.work_start_time &&placeData.work_end_time )
                   ? getTimeData(
                       placeData.work_start_time,
                       placeData.work_end_time

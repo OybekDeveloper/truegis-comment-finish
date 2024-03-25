@@ -65,7 +65,7 @@ export default function AllProduct() {
   };
   const latitude = "41.287890";
   const longitude = "69.205887";
-  
+
   useEffect(() => {
     const body = document.querySelector(".home");
     if (menuActive) {
@@ -79,7 +79,7 @@ export default function AllProduct() {
       <section className="px-[16px]">
         <div className="flex justify-start items-start gap-[16px] mt-[24px]">
           <img className="w-[24px] h-[24px]" src={location} alt="" />
-          <MapAppSelector latitude={latitude} longitude={longitude}/>
+          <MapAppSelector latitude={latitude} longitude={longitude} />
           {/* <a
             href={`https://t.me/loc?lat=${placeData?.latitude}&long=${placeData?.longitude}`}
             className="font-[400] text-[16px] tg-button-text underline"
@@ -95,19 +95,28 @@ export default function AllProduct() {
           <img className="w-[24px] h-[24px]" src={phone} alt="" />
           <div className="flex flex-col gap-[12px]">
             <h1 className="text-[16px] font-[500]">Aloqa</h1>
-            <p className="text-[16px] font-[500] tg-button-text">
+            <a
+              className="text-[16px] font-[500] tg-button-text"
+              href="tel:+998887770099"
+            >
               +998 88 777 00 99
-            </p>
+            </a>
             <div className="flex justify-start items-center gap-[16px]">
-              <div className="social-media">
-                <img className="" src={instagram} alt="" />
-              </div>
-              <div className="social-media">
-                <img className="" src={telegram} alt="" />
-              </div>
-              <div className="social-media">
-                <img className="" src={web} alt="" />
-              </div>
+              {placeData.instagram && (
+                <a href={placeData.instagram} className="social-media">
+                  <img className="" src={instagram} alt="" />
+                </a>
+              )}
+              {placeData.telegram && (
+                <a href={placeData.telegram} className="social-media">
+                  <img className="" src={telegram} alt="" />
+                </a>
+              )}
+              {placeData.website && (
+                <a href={placeData.website} className="social-media">
+                  <img className="" src={web} alt="" />
+                </a>
+              )}
             </div>
           </div>
         </div>
