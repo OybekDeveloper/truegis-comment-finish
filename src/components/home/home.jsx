@@ -78,17 +78,26 @@ export default function Home() {
     localStorage.setItem("km", km);
   }, []);
 
-  useEffect(()=>{
-    if(pathname!==`/${id}/${km}/all-product`){
-      tg.BackButton.show()
-    }else{
-      tg.BackButton.hide()
+  useEffect(() => {
+    if (pathname !== `/${id}/${km}/all-product`) {
+      tg.BackButton.show();
+    } else {
+      tg.BackButton.hide();
     }
-  },[pathname])
   
-  tg.onEvent('backButtonClicked',()=>{
-    window.history.back()
-  })
+    // Add event listener for back button click
+    tg.BackButton.onClick(() => {
+      // Call Telegram API function to navigate back
+      tg.navigateToPreviousPage(); // This is a hypothetical function, replace with actual Telegram API function
+    });
+  
+    // Cleanup function
+    return () => {
+      // Remove event listener when component unmounts
+      tg.BackButton.offClick();
+    };
+  }, [pathname]);
+  
 
   useEffect(() => {
     const fetchData = async () => {
