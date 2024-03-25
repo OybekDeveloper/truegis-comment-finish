@@ -86,7 +86,7 @@ export default function Home() {
     }
     
   }, [pathname]);
-  tg.BackButton.onClick(() => {
+  tg.onEvent("backButtonClicked",()=>{
     tg.navigateToPreviousPage(); 
   });
 
