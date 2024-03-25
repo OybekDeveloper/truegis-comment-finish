@@ -81,11 +81,13 @@ export default function Home() {
   useEffect(()=>{
     if(pathname!==`/${id}/${km}/all-product`){
       tg.BackButton.show()
-      tg.BackButton.onClick(()=>window.history.back())
     }else{
       tg.BackButton.hide()
     }
   },[pathname])
+  
+  tg.BackButton.onClick(()=>window.history.back())
+
 
   useEffect(() => {
     const fetchData = async () => {
