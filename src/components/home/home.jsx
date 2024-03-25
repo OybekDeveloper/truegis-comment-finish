@@ -84,18 +84,9 @@ export default function Home() {
     } else {
       tg.BackButton.hide();
     }
-  
-    // Add event listener for back button click
     tg.BackButton.onClick(() => {
-      // Call Telegram API function to navigate back
-      tg.navigateToPreviousPage(); // This is a hypothetical function, replace with actual Telegram API function
+      tg.navigateToPreviousPage(); 
     });
-  
-    // Cleanup function
-    return () => {
-      // Remove event listener when component unmounts
-      tg.BackButton.offClick();
-    };
   }, [pathname]);
   
 
