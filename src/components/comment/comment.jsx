@@ -12,6 +12,7 @@ const tg = window.Telegram.WebApp;
 
 export default function Comment() {
   const dispatch = useDispatch();
+  const userId=localStorage.getItem("userId")
   const { commentData, placeData,delModal } = useSelector((state) => state.event);
   const [menuActive, setMenuActive] = useState(false);
 
@@ -137,7 +138,7 @@ export default function Comment() {
                       {item.user.full_name}
                     </h1>
                   </article>
-                  {item.user.id === 221 && (
+                  {item.user.id === +userId && (
                     <div
                       onClick={() => {(menuActive ? close() : open());dispatch(ActiveModal(true));dispatch(DeleteComment(item.id))}}
                       className="w-[24px] h-[24px]"

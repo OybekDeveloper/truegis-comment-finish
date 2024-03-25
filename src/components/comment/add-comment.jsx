@@ -26,7 +26,8 @@ const imgs = [
 const tg = window.Telegram.WebApp;
 
 export default function AddComment() {
-  const id = localStorage.getItem("id");
+  const placeId = localStorage.getItem("placeId");
+  const userId = localStorage.getItem("userId");
   const km = localStorage.getItem("km");
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
@@ -63,7 +64,7 @@ export default function AddComment() {
     }
 
     axios
-        .patch(`https://admin13.uz/api/place/${id}/`, fd, {
+        .patch(`https://admin13.uz/api/place/${placeId}/`, fd, {
             headers: {
                 accept: "application/json",
                 "Content-Type": "multipart/form-data",
@@ -72,7 +73,7 @@ export default function AddComment() {
         .then((res) => {
           const fetchData = async () => {
             try {
-              const place = await ApiServer.getData(`/place/${id}/`);
+              const place = await ApiServer.getData(`/place/${placeId}/`);
               dispatch(GetPlaceData(place));
             } catch (error) {
               console.log(error);
@@ -85,8 +86,8 @@ export default function AddComment() {
 
   const handleAddComment = async () => {
     try {
-      await ApiServer.postData(`/comments/${id}/create/`, formData);
-      navigate(`/${id}/${km}/comment`);
+      await ApiServer.postData(`/comments/${placeId}/create/`, formData);
+      navigate(`/${placeId}/${userId}/${km}/comment`);
     } catch (error) {
       console.log(error);
     }

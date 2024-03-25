@@ -16,7 +16,7 @@ const backgroundImage =
 
 export default function Home() {
   const fileInputRef = useRef(null);
-  const { id, km } = useParams();
+  const { placeId,userId, km } = useParams();
   const { pathname } = useLocation();
   const [imgCount, setImgCount] = useState(0);
   const { placeData, commentData } = useSelector((state) => state.event);
@@ -38,7 +38,7 @@ export default function Home() {
     }
 
     axios
-      .patch(`https://admin13.uz/api/place/${id}/`, fd, {
+      .patch(`https://admin13.uz/api/place/${placeId}/`, fd, {
         headers: {
           accept: "application/json",
           "Content-Type": "multipart/form-data",
@@ -47,7 +47,7 @@ export default function Home() {
       .then((res) => {
         const fetchData = async () => {
           try {
-            const place = await ApiServer.getData(`/place/${id}/`);
+            const place = await ApiServer.getData(`/place/${placeId}/`);
             dispatch(GetPlaceData(place));
           } catch (error) {
             console.log(error);
@@ -61,26 +61,26 @@ export default function Home() {
     {
       id: 1,
       title: "Umumiy",
-      link: `/${id}/${km}/all-product`,
+      link: `/${placeId}/${userId}/${km}/all-product`,
       count: null,
     },
 
     {
       id: 2,
       title: "Rasm",
-      link: `/${id}/${km}/photo`,
+      link: `/${placeId}/${userId}/${km}/photo`,
       count: imgCount !== 0 ? imgCount : null,
     },
     {
       id: 3,
       title: "Sharhlar",
-      link: `/${id}/${km}/comment`,
+      link: `/${placeId}/${userId}/${km}/comment`,
       count: commentData.length ? commentData.length : null,
     },
     {
       id: 4,
       title: "Joy haqida",
-      link: `/${id}/${km}/about`,
+      link: `/${placeId}/${userId}/${km}/about`,
       count: null,
     },
   ];
@@ -112,12 +112,13 @@ export default function Home() {
 
   useEffect(() => {
     console.log(tg);
-    localStorage.setItem("id", id);
+    localStorage.setItem("placeId", placeId);
+    localStorage.setItem("userId", userId);
     localStorage.setItem("km", km);
   }, []);
 
   useEffect(() => {
-    if (pathname !== `/${id}/${km}/all-product`) {
+    if (pathname !== `/${placeId}/${userId}/${km}/all-product`) {
       tg.BackButton.show();
     } else {
       tg.BackButton.hide();
@@ -131,8 +132,8 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const place = await ApiServer.getData(`/place/${id}/`);
-        const comment = await ApiServer.getData(`/comments/${id}/list`);
+        const place = await ApiServer.getData(`/place/${placeId}/`);
+        const comment = await ApiServer.getData(`/comments/${placeId}/list`);
         dispatch(GetPlaceData(place));
         dispatch(GetCommentData(comment));
       } catch (error) {
@@ -143,6 +144,7 @@ export default function Home() {
     };
     fetchData();
   }, [delModal]);
+
 
   return (
     <main className="home relative ">
@@ -232,7 +234,7 @@ export default function Home() {
 
       <Outlet />
       <div className="mb-[40px]"></div>
-      {pathname === `/${id}/${km}/photo` ? (
+      {pathname === `/${placeId}/${userId}/${km}/photo` ? (
         <div
           onClick={handleFileInputClick}
           className="max-w-[400px] mx-auto fixed bottom-[4px] w-full flex justify-center items-center"
@@ -245,7 +247,7 @@ export default function Home() {
       ) : (
         <div className="max-w-[400px] mx-auto fixed bottom-[4px] w-full flex justify-center items-center">
           <button
-            onClick={() => navigate(`/${id}/${km}/add-comment`)}
+            onClick={() => navigate(`/${placeId}/${userId}/${km}/add-comment`)}
             className="flex  justify-center items-center gap-[12px] text-[17px] font-[500] text-[#fff] px-[10px] py-[14px] w-[94%] bg-[#F2F4F7]  rounded-[8px]"
           >
             {CommentAdd(
