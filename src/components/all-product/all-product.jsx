@@ -15,9 +15,10 @@ import "./main.scss";
 import { useNavigate } from "react-router-dom";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Modal from "../comment/modal";
 import MapAppSelector from "./map";
+import { ActiveModal } from "../../reducer/event";
 // import { View, Button, Linking, Platform } from "react-native";
 const about = [
   {
@@ -46,7 +47,8 @@ export default function AllProduct() {
   const navigate = useNavigate();
   const id = localStorage.getItem("id");
   const km = localStorage.getItem("km");
-
+  const dispatch=useDispatch()
+  const {delModal}=useSelector(state=>state.event)
   const [menuActive, setMenuActive] = useState(false);
   const { placeData, commentData } = useSelector((state) => state.event);
   const [tableActive, setTableActive] = useState(false);
@@ -68,12 +70,12 @@ export default function AllProduct() {
 
   useEffect(() => {
     const body = document.querySelector(".home");
-    if (menuActive) {
+    if (menuActive && delModal) {
       body.classList.add("blur-effect");
     } else {
       body.classList.remove("blur-effect");
     }
-  }, [menuActive]);
+  }, [menuActive,delModal]);
   return (
     <main className="all-product">
       <section className="px-[16px]">
@@ -231,7 +233,7 @@ export default function AllProduct() {
                     {item.user.id === 221 && (
                       <main onClick={() => handleDelete(item.id)}>
                         <div
-                          onClick={() => (menuActive ? close() : open())}
+                          onClick={() => {(menuActive ? close() : open());dispatch(ActiveModal(true))}}
                           className="w-[24px] h-[24px]"
                         >
                           {MenuIcon()}
@@ -274,7 +276,7 @@ export default function AllProduct() {
           </div>
         )}
       </section>
-      {menuActive && (
+      {(menuActive && delModal) && (
         <Modal deleteId={deleteId} modalOpen={menuActive} handleClose={close} />
       )}
     </main>

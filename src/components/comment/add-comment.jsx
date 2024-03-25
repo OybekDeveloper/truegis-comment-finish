@@ -33,7 +33,9 @@ export default function AddComment() {
   const dispatch = useDispatch()
   const { placeData } = useSelector((state) => state.event);
 
-  const [formData, setFormData] = useState([]);
+  const [formData, setFormData] = useState({
+    star: 0, // Initialize formData.star to a default value
+  });
   const [fotos,setFotos]=useState([])
   const handleFileInputClick = () => {
     fileInputRef.current.click();
@@ -41,10 +43,11 @@ export default function AddComment() {
   const handleChange = (event, newValue) => {
     setFormData({
       ...formData,
-      star: newValue,
+      star: newValue !== null ? newValue : 0, // Ensure formData.star is always defined
       user: 221,
     });
   };
+  
   const handleFileUploaded = (e) => {
     const files = e.target.files;
     if (!files || files.length === 0 || !placeData) return;
@@ -97,9 +100,7 @@ export default function AddComment() {
     if (image4) photosArray.push(image4);
     setFotos(photosArray);
   }, [placeData]);
-  console.log(fotos)
   
-  console.log(formData);
   return (
     <main className="comment">
       <section className="px-[16px]">

@@ -4,32 +4,46 @@ import empty from "./empty-comment.svg";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import "./comment.scss";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AnimatePresence, m, motion } from "framer-motion";
 import Modal from "./modal";
+import { ActiveModal } from "../../reducer/event";
 const tg = window.Telegram.WebApp;
 
 export default function Comment() {
-  const { commentData } = useSelector((state) => state.event);
+  const dispatch = useDispatch();
+  const { delModal } = useSelector((state) => state.event);
+  const { commentData, placeData } = useSelector((state) => state.event);
   const [menuActive, setMenuActive] = useState(false);
+
   const getInitials = (fullName) => {
     if (!fullName) return "";
     const words = fullName.split(" ");
     const initials = words.map((word) => word[0]);
     return initials.join("").toUpperCase();
   };
+  const starCount = (count) => {
+    let countStar = commentData.filter((item) => item.star === count);
+    return countStar.length;
+  };
 
   useEffect(() => {
     const body = document.querySelector(".home");
-    if (menuActive) {
+    if (menuActive && delModal) {
       body.classList.add("blur-effect");
     } else {
       body.classList.remove("blur-effect");
     }
-  }, [menuActive]);
+  }, [menuActive, delModal]);
+  useEffect(() => {}, [commentData]);
 
-  const close = () => setMenuActive(false);
-  const open = () => setMenuActive(true);
+
+  const close = () => {
+    setMenuActive(false);
+  };
+  const open = () => {
+    setMenuActive(true);
+  };
   return (
     <main className={`${menuActive && ""} comment  mb-[70px] mt-[24px]`}>
       <section className="w-full flex justify-between px-[16px]">
@@ -38,7 +52,7 @@ export default function Comment() {
             <h1 className="text-[18px] font-[500]">5</h1>
             <ProgressBar
               className="w-full"
-              completed={87}
+              completed={(starCount(5) / commentData.length) * 100}
               maxCompleted={100}
               bgColor="#FAC515"
               height="6px"
@@ -50,7 +64,7 @@ export default function Comment() {
             <h1 className="text-[18px] font-[500]">4</h1>
             <ProgressBar
               className="w-full"
-              completed={91}
+              completed={(starCount(4) / commentData.length) * 100}
               maxCompleted={100}
               bgColor="#FAC515"
               height="6px"
@@ -62,7 +76,7 @@ export default function Comment() {
             <h1 className="text-[18px] font-[500]">3</h1>
             <ProgressBar
               className="w-full"
-              completed={25}
+              completed={(starCount(3) / commentData.length) * 100}
               maxCompleted={100}
               bgColor="#FAC515"
               height="6px"
@@ -74,7 +88,7 @@ export default function Comment() {
             <h1 className="text-[18px] font-[500]">2</h1>
             <ProgressBar
               className="w-full"
-              completed={59}
+              completed={(starCount(2) / commentData.length) * 100}
               maxCompleted={100}
               bgColor="#FAC515"
               height="6px"
@@ -86,7 +100,7 @@ export default function Comment() {
             <h1 className="text-[18px] font-[500]">1</h1>
             <ProgressBar
               className="w-full"
-              completed={12}
+              completed={(starCount(1) / commentData.length) * 100}
               maxCompleted={100}
               bgColor="#FAC515"
               height="6px"
@@ -96,10 +110,10 @@ export default function Comment() {
           </div>
         </div>
         <div>
-          <h1 className="font-[500] text-[30px]">4.0</h1>
+          <h1 className="font-[500] text-[30px]">{placeData.rating}</h1>
           <Rating
             name="text-feedback"
-            value={4}
+            value={placeData.rating ? placeData.rating : 0}
             readOnly
             style={{ color: "#FAC515" }}
             emptyIcon={
@@ -129,7 +143,7 @@ export default function Comment() {
                   </article>
                   {item.user.id === 221 && (
                     <div
-                      onClick={() =>(menuActive ? close() : open())}
+                      onClick={() => {(menuActive ? close() : open());dispatch(ActiveModal(true))}}
                       className="w-[24px] h-[24px]"
                     >
                       {MenuIcon()}
@@ -170,8 +184,10 @@ export default function Comment() {
           <p className="text-[14px] font-[400]">Sharhlar mavjud emas</p>
         </div>
       )}
-    
-        {menuActive && <Modal modalOpen={menuActive} handleClose={close} />}
+
+      {menuActive && delModal && (
+        <Modal modalOpen={menuActive} handleClose={close} />
+      )}
     </main>
   );
 }
