@@ -86,9 +86,10 @@ export default function Home() {
     }
     
   }, [pathname]);
-  tg.onEvent("backButtonClicked",()=>{
-    tg.navigateToPreviousPage(); 
-  });
+  const backPage=()=>{
+    window.history.back()
+  }
+  tg.onEvent("backButtonClicked",backPage);
 
   useEffect(() => {
     const fetchData = async () => {
