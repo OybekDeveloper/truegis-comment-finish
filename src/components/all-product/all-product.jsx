@@ -286,7 +286,7 @@ export default function AllProduct() {
                         {item.user.full_name}
                       </h1>
                     </article>
-                    {item.user.id === userId && (
+                    {item.user.id === +userId && (
                       <main onClick={() => handleDelete(item.id)}>
                         <div
                           onClick={() => {
