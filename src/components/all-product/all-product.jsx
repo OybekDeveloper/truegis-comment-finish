@@ -218,7 +218,7 @@ export default function AllProduct() {
             </div>
           </div>
         </div>
-        {placeData.working_hours && (
+        {/* {placeData.working_hours && (
           <div className="relative flex justify-start items-start gap-[16px] mt-[24px]">
             <img className="w-[24px] h-[24px]" src={time} alt="" />
             <div className="w-full flex flex-col gap-[12px]">
@@ -239,7 +239,7 @@ export default function AllProduct() {
               </article>
             </div>
           </div>
-        )}
+        )} */}
 
         {/* {placeData.working_hours && (
           <div
