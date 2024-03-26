@@ -53,24 +53,29 @@ export default function Photo() {
   const handleSelectImage = (id) => {
     setActiveImageCount(id);
     setAlbum(true);
-    const selectedImage = fotos.find((image) => image.id === id);
-    const remainingImages = fotos.filter((image) => image.id !== id);
-    setSelectPhoto([selectedImage, ...remainingImages]);
+    if (fotos.length > 1) {
+      const selectedImage = fotos.find((image, idx) => idx === id);
+      const remainingImages = fotos.filter((image, idx) => idx !== id);
+      setSelectPhoto([selectedImage, ...remainingImages]);
+    }else{
+      setSelectPhoto(fotos)
+      setActiveImageCount(1)
+    }
   };
   const handleClose = () => {
     setAlbum(false);
   };
-
+console.log(fotos)
   useEffect(() => {
     const { image, image2, image3, image4 } = placeData;
     const photosArray = [];
-    if (image) photosArray.push({ id: 1, image });
-    if (image2) photosArray.push({ id: 2, image });
-    if (image3) photosArray.push({ id: 3, image });
-    if (image4) photosArray.push({ id: 4, image });
+    if (image) photosArray.push(image);
+    if (image2) photosArray.push(image2);
+    if (image3) photosArray.push(image3);
+    if (image4) photosArray.push(image4);
     setFotos(photosArray);
   }, [placeData]);
-
+  console.log(fotos);
   return (
     <div>
       {selectPhoto.length > 0 && album && (
@@ -85,17 +90,22 @@ export default function Photo() {
             >
               <IoMdClose className="text-[24px] text-white" />
             </div>
-            <Slider {...settings}>
+            {fotos.length>1?(
+              <Slider {...settings}>
               {selectPhoto.map((photo, index) => (
                 <div key={index} className="z-[9999]">
                   <img
                     className="sliderImg mx-auto"
-                    src={photo.image} // Fixed the src attribute
+                    src={photo} // Fixed the src attribute
                     alt={`slide-${index}`}
                   />
                 </div>
               ))}
             </Slider>
+            ):(
+              <img src={selectPhoto[0]} alt="fofot" className="h-[210px] w-screen object-cover"/>
+            )}
+            
           </div>
         </section>
       )}
@@ -106,10 +116,10 @@ export default function Photo() {
             <img
               key={image.id}
               onClick={() => {
-                handleSelectImage(image.id);
+                handleSelectImage(index);
                 setAlbum(true);
               }}
-              src={image.image}
+              src={image}
               alt={"image description"}
               className={`w-full h-full object-cover ${
                 [1, 3, 7, 9, 13, 15].includes(index) && index < imgs.length

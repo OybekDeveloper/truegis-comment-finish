@@ -129,6 +129,7 @@ export default function AllProduct() {
       filterTrueOptions(placeData.about.details);
     }
   }, [placeData.about]);
+  console.log(placeData)
   return (
     <main className="all-product">
       <section className="px-[16px]">
@@ -137,7 +138,7 @@ export default function AllProduct() {
           <MapAppSelector
             latitude={placeData?.latitude}
             longitude={placeData?.longitude}
-            text={placeData.street}
+            text={placeData.full_address?placeData.full_address:placeData.street}
           />
           {/* <a
             href={`https://t.me/loc?lat=${placeData?.latitude}&long=${placeData?.longitude}`}
@@ -264,7 +265,7 @@ export default function AllProduct() {
                         ? tg.themeParams.button_color
                         : "#0A84FF"
                     )}
-                    <p className="text-[#475467] text-[14px] font-[500] gap-[8px]">
+                    <p className="text-[14px] font-[500] gap-[8px]">
                       {item}
                     </p>
                   </button>
