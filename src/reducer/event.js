@@ -4,7 +4,8 @@ export const initialState={
     placeData:[],
     commentData:[],
     delModal:false,
-    deleteId:''
+    deleteId:'',
+    editId:''
 }
 
 export const eventSlice = createSlice({
@@ -22,9 +23,12 @@ export const eventSlice = createSlice({
         },
         DeleteComment:(state,action)=>{
             state.deleteId=action.payload
+        },
+        EditCommentModal:(state,action)=>{
+            state.editId=action.payload
         }
     }
 })
 
-export const {GetPlaceData,GetCommentData,ActiveModal,DeleteComment} = eventSlice.actions;
+export const {GetPlaceData,GetCommentData,ActiveModal,DeleteComment,EditCommentModal} = eventSlice.actions;
 export default eventSlice.reducer;

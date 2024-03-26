@@ -9,98 +9,88 @@ import { ApiServer } from "../../ApiServer/api";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { GetPlaceData } from "../../reducer/event";
-const imgs = [
-  {
-    id: 1,
-  },
-  {
-    id: 2,
-  },
-  {
-    id: 3,
-  },
-  {
-    id: 4,
-  },
-];
+
 const tg = window.Telegram.WebApp;
 
-export default function AddComment() {
+const EditComment = () => {
   const placeId = localStorage.getItem("placeId");
   const userId = localStorage.getItem("userId");
   const km = localStorage.getItem("km");
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
-  const dispatch = useDispatch()
-  const { placeData } = useSelector((state) => state.event);
-
+  const dispatch = useDispatch();
+  const { commentData, placeData, editId } = useSelector(
+    (state) => state.event
+  );
+  const [fotos, setFotos] = useState([]);
   const [formData, setFormData] = useState({
-    star: 0, // Initialize formData.star to a default value
+    star: 0,
+    text: "",
+    user: userId,
   });
-  const [fotos,setFotos]=useState([])
+
+  useEffect(() => {
+    if (editId && commentData) {
+      const editedComment = commentData.find((item) => item.id === editId);
+      if (editedComment) {
+        setFormData({
+          ...formData,
+          star: editedComment.star,
+          text: editedComment.text,
+          user:userId,
+        });
+      }
+    }
+  }, [editId, commentData]);
+  useEffect(() => {
+    const { image, image2, image3, image4 } = placeData;
+    const photosArray = [image, image2, image3, image4].filter(Boolean);
+    setFotos(photosArray);
+  }, [placeData]);
+
   const handleFileInputClick = () => {
     fileInputRef.current.click();
   };
+
   const handleChange = (event, newValue) => {
     setFormData({
       ...formData,
-      star: newValue !== null ? newValue : 0, // Ensure formData.star is always defined
-      user: 221,
+      star: newValue !== null ? newValue : 0,
     });
   };
-  
-  const handleFileUploaded = (e) => {
+
+  const handleFileUploaded = async (e) => {
     const files = e.target.files;
     if (!files || files.length === 0 || !placeData) return;
 
-    const fd = new FormData();
-
+    const formData = new FormData();
     for (let i = 0; i < files.length; i++) {
-        if (i === 0) {
-            fd.append("image", files[0]);
-        } else {
-            fd.append(`image${i + 1}`, files[i]);
-        }
+      formData.append(`image${i + 1}`, files[i]);
     }
 
-    axios
-        .patch(`https://admin13.uz/api/place/${placeId}/`, fd, {
-            headers: {
-                accept: "application/json",
-                "Content-Type": "multipart/form-data",
-            },
-        })
-        .then((res) => {
-          const fetchData = async () => {
-            try {
-              const place = await ApiServer.getData(`/place/${placeId}/`);
-              dispatch(GetPlaceData(place));
-            } catch (error) {
-              console.log(error);
-            }
-          };
-          fetchData();
-        })
-        .catch((err) => console.log(err));
-};
-
-  const handleAddComment = async () => {
     try {
-      await ApiServer.postData(`/comments/${placeId}/create/`, formData);
+      await axios.patch(`https://admin13.uz/api/place/${placeId}/`, formData, {
+        headers: {
+          accept: "application/json",
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      const place = await ApiServer.getData(`/place/${placeId}/`);
+      dispatch(GetPlaceData(place));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleEditComment = async () => {
+    try {
+      await ApiServer.putData(`/comments/${editId}/update`, formData);
       navigate(`/${placeId}/${userId}/${km}/comment`);
     } catch (error) {
       console.log(error);
     }
   };
-  useEffect(() => {
-    const { image, image2, image3, image4 } = placeData;
-    const photosArray = [];
-    if (image) photosArray.push(image);
-    if (image2) photosArray.push(image2);
-    if (image3) photosArray.push(image3);
-    if (image4) photosArray.push(image4);
-    setFotos(photosArray);
-  }, [placeData]);
+
   return (
     <main className="comment">
       <section className="px-[16px]">
@@ -111,7 +101,7 @@ export default function AddComment() {
         <div className="w-full flex justify-center items-center my-[32px]">
           <Rating
             name="size-large"
-            value={formData.star}
+            value={formData.star ? formData.star : 0}
             onChange={handleChange}
             size=""
             style={{
@@ -139,6 +129,7 @@ export default function AddComment() {
           onChange={(e) => setFormData({ ...formData, text: e.target.value })}
           id="message"
           rows="6"
+          value={formData.text}
           className={`mt-[24px] border-[1px] border-solid comment-input p-[10px] bg-transparent text-[16px] font-[400] input-form`}
           placeholder={"Sharh yozing"}
         ></textarea>
@@ -194,7 +185,7 @@ export default function AddComment() {
       </section>
       <div className="max-w-[400px] mx-auto fixed bottom-[10px] w-full flex justify-center items-center">
         <button
-          onClick={handleAddComment}
+          onClick={handleEditComment}
           className="text-[17px] font-[500] text-[#fff] py-[14px] px-[10px] w-[94%] tg-button rounded-[8px]"
         >
           Yuborish
@@ -212,7 +203,7 @@ export default function AddComment() {
       />
     </main>
   );
-}
+};
 function photoAdd(color) {
   return (
     <svg
@@ -232,3 +223,5 @@ function photoAdd(color) {
     </svg>
   );
 }
+
+export default EditComment;

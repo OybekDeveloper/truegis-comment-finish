@@ -6,6 +6,7 @@ import Photo from "../photo/photo";
 import Comment from "../comment/comment";
 import About from "../about/about";
 import AddComment from "../comment/add-comment";
+import EditComment from "../comment/edit-comment";
 export default function App() {
   const placeId = localStorage.getItem("placeId");
   const userId = localStorage.getItem("userId");
@@ -29,6 +30,7 @@ export default function App() {
           <Route path={"about"} element={<About />} />
         </Route>
         <Route path={`/${placeId}/${userId}/${km}/add-comment`} element={<AddComment />} />
+        <Route path={`/${placeId}/${userId}/${km}/edit-comment`} element={<EditComment />} />
       </Routes>
     </div>
   );

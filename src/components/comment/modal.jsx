@@ -3,7 +3,8 @@ import BackDrop from "./backdrop";
 import { motion } from "framer-motion";
 import { ApiServer } from "../../ApiServer/api";
 import { useDispatch, useSelector } from "react-redux";
-import { ActiveModal } from "../../reducer/event";
+import { ActiveModal, EditCommentModal } from "../../reducer/event";
+import { useNavigate } from "react-router-dom";
 const tg = window.Telegram.WebApp;
 
 const dropIn = {
@@ -29,6 +30,10 @@ const dropIn = {
 
 const Modal = ({ handleClose }) => {
   const dispatch = useDispatch();
+  const userId=localStorage.getItem("userId")
+  const placeId=localStorage.getItem("placeId")
+  const km=localStorage.getItem("km")
+  const navigate=useNavigate()
   const { deleteId } = useSelector((state) => state.event);
   const handleDelete = async () => {
     try {
@@ -38,21 +43,26 @@ const Modal = ({ handleClose }) => {
       console.log(err);
     }
   };
-  const handleEdit = () => {
-    dispatch(ActiveModal(false));
+  const handleEdit = (id) => {
+    dispatch(ActiveModal(false)); 
+    dispatch(EditCommentModal(id));
+    navigate(`/${placeId}/${userId}/${km}/edit-comment`)
+    
   };
-  console.log(deleteId);
   return (
     <BackDrop onClick={handleClose}>
       <motion.div
+        initial={{y:"150px"}}
+        animate={{y:0}}
+        transition={{duration:0.5}}
         onClick={(e) => e.stopPropagation()}
-        className=" menu flex flex-col gap-[24px] w-full h-[200px] bg-[#fff] rounded-t-[24px] px-[16px]"
+        className=" menu flex flex-col gap-[24px] w-full h-[150px] bg-[#fff] rounded-t-[24px] px-[16px]"
       >
         <div>
           <div className="w-[44px] h-[4px] bg-[#D9D9D9] mt-[12px] mx-auto"></div>
           <section className="max-w-[400px] mx-auto flex flex-col gap-[24px] mt-[32px]">
             <div
-              onClick={handleEdit}
+              onClick={()=>handleEdit(deleteId)}
               className="cursor-pointer flex justify-start items-center gap-[12px] "
             >
               {EditSvg(

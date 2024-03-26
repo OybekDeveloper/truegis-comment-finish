@@ -16,7 +16,7 @@ const backgroundImage =
 
 export default function Home() {
   const fileInputRef = useRef(null);
-  const { placeId,userId, km } = useParams();
+  const { placeId, userId, km } = useParams();
   const { pathname } = useLocation();
   const [imgCount, setImgCount] = useState(0);
   const { placeData, commentData } = useSelector((state) => state.event);
@@ -89,6 +89,7 @@ export default function Home() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState(1);
+  const [activeComment, setActiveComment] = useState(false);
 
   const getTimeData = (start, end) => {
     const workStart = start?.split(":")[0];
@@ -111,7 +112,6 @@ export default function Home() {
   }, [placeData]);
 
   useEffect(() => {
-    console.log(tg);
     localStorage.setItem("placeId", placeId);
     localStorage.setItem("userId", userId);
     localStorage.setItem("km", km);
@@ -144,7 +144,11 @@ export default function Home() {
     };
     fetchData();
   }, [delModal]);
-
+  useEffect(() => {
+    setActiveComment(
+      commentData.find((item) => item.user.id === +userId) ? true : false
+    );
+  }, [commentData]);
 
   return (
     <main className="home relative ">
@@ -158,7 +162,7 @@ export default function Home() {
           />
         </div>
         <div className="content">
-          <h1 className="text-[#fff] text-[24px] font-[500] pt-[16px]">
+          <h1 className="text-[#fff] text-[17px] font-[500] pt-[16px]">
             {placeData?.name}
           </h1>
           <div className="flex items-center gap-[14px]">
@@ -245,19 +249,23 @@ export default function Home() {
           </button>
         </div>
       ) : (
-        <div className="max-w-[400px] mx-auto fixed bottom-[4px] w-full flex justify-center items-center">
-          <button
-            onClick={() => navigate(`/${placeId}/${userId}/${km}/add-comment`)}
-            className="flex  justify-center items-center gap-[12px] text-[17px] font-[500] text-[#fff] px-[10px] py-[14px] w-[94%] bg-[#F2F4F7]  rounded-[8px]"
-          >
-            {CommentAdd(
-              tg.themeParams.button_color
-                ? tg.themeParams.button_color
-                : "#0A84FF"
-            )}
-            <h1 className="tg-button-text">Sharh qoldirish</h1>
-          </button>
-        </div>
+        !activeComment && (
+          <div className="max-w-[400px] mx-auto fixed bottom-[4px] w-full flex justify-center items-center">
+            <button
+              onClick={() =>
+                navigate(`/${placeId}/${userId}/${km}/add-comment`)
+              }
+              className="flex  justify-center items-center gap-[12px] text-[17px] font-[500] text-[#fff] px-[10px] py-[14px] w-[94%] bg-[#F2F4F7]  rounded-[8px]"
+            >
+              {CommentAdd(
+                tg.themeParams.button_color
+                  ? tg.themeParams.button_color
+                  : "#0A84FF"
+              )}
+              <h1 className="tg-button-text">Sharh qoldirish</h1>
+            </button>
+          </div>
+        )
       )}
       <input
         multiple

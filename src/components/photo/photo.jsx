@@ -25,7 +25,7 @@ export default function Photo() {
   const [selectPhoto, setSelectPhoto] = useState([]);
   const [activeImageCount, setActiveImageCount] = useState(1);
   const [allImageCount, setAllImageCount] = useState(1);
-  const [fotos,setFotos]=useState([])
+  const [fotos, setFotos] = useState([]);
 
   const [album, setAlbum] = useState(false);
   const fileInputRef = useRef(null);
@@ -70,8 +70,7 @@ export default function Photo() {
     if (image4) photosArray.push({ id: 4, image });
     setFotos(photosArray);
   }, [placeData]);
-  
-  console.log(fotos)
+
   return (
     <div>
       {selectPhoto.length > 0 && album && (
@@ -80,7 +79,10 @@ export default function Photo() {
             <h1 className="absolute text-[#fff] top-[32px] text-center w-full">
               {activeImageCount}/{allImageCount}
             </h1>
-            <div onClick={handleClose} className="cursor-pointer absolute top-[33px] right-[10px]">
+            <div
+              onClick={handleClose}
+              className="cursor-pointer absolute top-[33px] right-[10px]"
+            >
               <IoMdClose className="text-[24px] text-white" />
             </div>
             <Slider {...settings}>

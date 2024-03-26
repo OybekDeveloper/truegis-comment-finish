@@ -45,13 +45,16 @@ const about = [
 const tg = window.Telegram.WebApp;
 export default function AllProduct() {
   const navigate = useNavigate();
-  const id = localStorage.getItem("id");
+  const placeId = localStorage.getItem("placeId");
+  const userId = localStorage.getItem("userId");
   const km = localStorage.getItem("km");
-  const dispatch=useDispatch()
-  const {delModal,deleteId}=useSelector(state=>state.event)
+  const dispatch = useDispatch();
+  const { delModal, deleteId, placeData, commentData } = useSelector(
+    (state) => state.event
+  );
   const [menuActive, setMenuActive] = useState(false);
-  const { placeData, commentData } = useSelector((state) => state.event);
   const [tableActive, setTableActive] = useState(false);
+  const [aboutData, setAboutData] = useState([]);
   const getInitials = (fullName) => {
     if (!fullName) return "";
     const words = fullName.split(" ");
@@ -62,10 +65,33 @@ export default function AllProduct() {
   const open = () => setMenuActive(true);
 
   const handleDelete = (id) => {
-    dispatch(DeleteComment(id))
+    dispatch(DeleteComment(id));
   };
-  const latitude = "41.287890";
-  const longitude = "69.205887";
+
+  const handleFilterData = (timeRange) => {
+    const formattedTimeRange = formatTimeRange(timeRange);
+    return formattedTimeRange;
+  };
+
+  // Function to format time range
+  const formatTimeRange = (timeRange) => {
+    const [startTime, endTime] = timeRange.split("–");
+    const formattedStartTime = formatTime(startTime);
+    const formattedEndTime = formatTime(endTime);
+    return `${formattedStartTime} - ${formattedEndTime}`;
+  };
+
+  // Function to format time
+  const formatTime = (time) => {
+    const [hours, minutes] = time.split(" ");
+    const [hour, minute] = hours.split(":");
+    const isPM = minutes === "PM";
+    let formattedHour = parseInt(hour);
+    if (isPM && formattedHour !== 12) {
+      formattedHour += 12;
+    }
+    return `${formattedHour.toString().padStart(2, "0")}:${minute}`;
+  };
 
   useEffect(() => {
     const body = document.querySelector(".home");
@@ -74,13 +100,45 @@ export default function AllProduct() {
     } else {
       body.classList.remove("blur-effect");
     }
-  }, [menuActive,delModal]);
+  }, [menuActive, delModal]);
+
+  useEffect(() => {
+    function filterTrueOptions(data) {
+      const trueOptions = [];
+
+      // Check if "Service options" exists in data and it is an object
+      if (
+        data &&
+        typeof data === "object" &&
+        data.hasOwnProperty("Service options")
+      ) {
+        const serviceOptions = data["Service options"];
+        // Iterate over each key-value pair in serviceOptions
+        for (const option in serviceOptions) {
+          // Check if the value is true
+          if (serviceOptions[option] === true) {
+            trueOptions.push(option);
+          }
+        }
+      }
+
+      setAboutData(trueOptions);
+    }
+    if(placeData.about){
+
+      filterTrueOptions(placeData.about.details);
+    }
+  }, [placeData.about]);
   return (
     <main className="all-product">
       <section className="px-[16px]">
         <div className="flex justify-start items-start gap-[16px] mt-[24px]">
           <img className="w-[24px] h-[24px]" src={location} alt="" />
-          <MapAppSelector latitude={latitude} longitude={longitude} text={placeData.street} />
+          <MapAppSelector
+            latitude={placeData?.latitude}
+            longitude={placeData?.longitude}
+            text={placeData.street}
+          />
           {/* <a
             href={`https://t.me/loc?lat=${placeData?.latitude}&long=${placeData?.longitude}`}
             className="font-[400] text-[16px] tg-button-text underline"
@@ -141,77 +199,82 @@ export default function AllProduct() {
             </article>
           </div>
         </div>
-        <div
-          className={`table_content ${
-            tableActive ? "transition-height active mb-[24px]" : ""
-          } mt-[32px] flex flex-col gap-[16px] ml-[40px] mr-[10px]`}
-        >
-          <div className="flex justify-between items-center">
-            <p className="text-[16px] font-[400]">Dushanba</p>
-            <p className="text-[16px] font-[500]">24 soat</p>
+        {placeData.working_hours && (
+          <div
+            className={`table_content ${
+              tableActive ? "transition-height active mb-[24px]" : ""
+            } mt-[32px] flex flex-col gap-[16px] ml-[40px] mr-[10px]`}
+          >
+            <div className="flex justify-between items-center">
+              <p className="text-[16px] font-[400]">Dushanba</p>
+              {/* <p className="text-[16px] font-[500]">{handleFilterData(placeData.working_hours.Friday)}</p> */}
+            </div>
+            <div className="flex justify-between items-center">
+              <p className="text-[16px] font-[400]">Seshanba</p>
+              <p className="text-[16px] font-[500]">24 soat</p>
+            </div>
+            <div className="flex justify-between items-center">
+              <p className="text-[16px] font-[400]">Chorshanba</p>
+              <p className="text-[16px] font-[500]">24 soat</p>
+            </div>
+            <div className="flex justify-between items-center">
+              <p className="text-[16px] font-[400]">Payshanba</p>
+              <p className="text-[16px] font-[500]">24 soat</p>
+            </div>
+            <div className="flex justify-between items-center">
+              <p className="text-[16px] font-[400]">Juma</p>
+              <p className="text-[16px] font-[500]">24 soat</p>
+            </div>
+            <div className="flex justify-between items-center">
+              <p className="text-[16px] font-[400]">Shanba</p>
+              <p className="text-[16px] font-[500]">24 soat</p>
+            </div>
+            <div className="flex justify-between items-center">
+              <p className="text-[16px] font-[400]">Yakshanba</p>
+              <p className="text-[16px] font-[500]">24 soat</p>
+            </div>
           </div>
-          <div className="flex justify-between items-center">
-            <p className="text-[16px] font-[400]">Seshanba</p>
-            <p className="text-[16px] font-[500]">24 soat</p>
-          </div>
-          <div className="flex justify-between items-center">
-            <p className="text-[16px] font-[400]">Chorshanba</p>
-            <p className="text-[16px] font-[500]">24 soat</p>
-          </div>
-          <div className="flex justify-between items-center">
-            <p className="text-[16px] font-[400]">Payshanba</p>
-            <p className="text-[16px] font-[500]">24 soat</p>
-          </div>
-          <div className="flex justify-between items-center">
-            <p className="text-[16px] font-[400]">Juma</p>
-            <p className="text-[16px] font-[500]">24 soat</p>
-          </div>
-          <div className="flex justify-between items-center">
-            <p className="text-[16px] font-[400]">Shanba</p>
-            <p className="text-[16px] font-[500]">24 soat</p>
-          </div>
-          <div className="flex justify-between items-center">
-            <p className="text-[16px] font-[400]">Yakshanba</p>
-            <p className="text-[16px] font-[500]">24 soat</p>
-          </div>
-        </div>
+        )}
       </section>
       <div className="hr w-full h-[1px] mb-[32px]"></div>
-      <section className="px-[16px] mb-[32px]">
-        <div className="flex justify-start items-start gap-[16px] mt-[24px]">
-          <img className="w-[24px] h-[24px]" src={info} alt="" />
-          <div className="flex flex-col gap-[12px]">
-            <div
-              onClick={() => navigate(`/${id}/${km}/about`)}
-              className="cursor-pointer w-full flex justify-between items-center"
-            >
-              <h1 className="text-[16px] font-[500]">Joy haqida</h1>
-              {RightArrow(
-                tg.themeParams.button_color
-                  ? tg.themeParams.button_color
-                  : "#0A84FF"
-              )}
-            </div>
-            <div className="w-full">
-              {about.map((item) => (
-                <button
-                  key={item.id}
-                  className="mr-[6px] mt-[12px] inline-flex gap-[8px]  px-[10px] py-[6px]  justify-center items-center"
-                >
-                  {CheskSvg(
-                    tg.themeParams.button_color
-                      ? tg.themeParams.button_color
-                      : "#0A84FF"
-                  )}
-                  <p className="text-[#475467] text-[14px] font-[500] gap-[8px]">
-                    {item.title}
-                  </p>
-                </button>
-              ))}
+      {aboutData.length > 0 && (
+        <section className="px-[16px] mb-[32px]">
+          <div className="flex justify-start items-start gap-[16px] mt-[24px]">
+            <img className="w-[24px] h-[24px]" src={info} alt="" />
+            <div className="flex flex-col gap-[12px]">
+              <div
+                onClick={() => navigate(`/${placeId}/${userId}/${km}/about`)}
+                className="cursor-pointer w-full flex justify-between items-center"
+              >
+                <h1 className="text-[16px] font-[500]">Joy haqida</h1>
+                {RightArrow(
+                  tg.themeParams.button_color
+                    ? tg.themeParams.button_color
+                    : "#0A84FF"
+                )}
+              </div>
+              <div className="w-full">
+                {aboutData.map((item, idx) => (
+                  <button
+                    key={idx}
+                    className="mr-[6px] mt-[12px] inline-flex gap-[8px]  px-[10px] py-[6px]  justify-center items-center"
+                  >
+                    {CheskSvg(
+                      tg.themeParams.button_color
+                        ? tg.themeParams.button_color
+                        : "#0A84FF"
+                    )}
+                    <p className="text-[#475467] text-[14px] font-[500] gap-[8px]">
+                      {item}
+                    </p>
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
       <section className="px-[16px] w-full mb-[80px]">
         <h1 className="text-[18px] font-[500]">Sharhlar</h1>
         {commentData?.length > 0 ? (
@@ -232,10 +295,17 @@ export default function AllProduct() {
                     {item.user.id === 221 && (
                       <main onClick={() => handleDelete(item.id)}>
                         <div
-                          onClick={() => {(menuActive ? close() : open());dispatch(ActiveModal(true))}}
+                          onClick={() => {
+                            menuActive ? close() : open();
+                            dispatch(ActiveModal(true));
+                          }}
                           className="w-[24px] h-[24px]"
                         >
-                          {MenuIcon(tg.themeParams.text_color?tg.themeParams.text_color:"black")}
+                          {MenuIcon(
+                            tg.themeParams.text_color
+                              ? tg.themeParams.text_color
+                              : "black"
+                          )}
                         </div>
                       </main>
                     )}
@@ -275,7 +345,7 @@ export default function AllProduct() {
           </div>
         )}
       </section>
-      {(menuActive && delModal) && (
+      {menuActive && delModal && (
         <Modal modalOpen={menuActive} handleClose={close} />
       )}
     </main>
