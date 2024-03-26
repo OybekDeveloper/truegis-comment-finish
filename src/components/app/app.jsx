@@ -28,16 +28,18 @@ export default function App() {
       BackButton.hide();
     }
   }, [pathname]);
-  const backPage = () => {
-    window.history.back();
-  };
+
+  const back=()=>{
+    window.history.back()
+  }
   tg.onEvent('backButtonClicked', function() {
-      window.goBack()
+      back()
   });
   
 
   return (
     <div className="app max-w-[400px] mx-auto">
+      <button onClick={back}>butt</button>
       <Routes>
         <Route path="/:placeId/:userId/:km" element={<Home />}>
           <Route path={"all-product"} element={<AllProduct />} />
