@@ -158,11 +158,11 @@ export default function AllProduct() {
             <h1 className="text-[16px] font-[500]">Aloqa</h1>
             <a
               className="text-[16px] font-[500] tg-button-text"
-              href="//"
-              onclick="window.location.href = 'tel:+998887770099'; return false;"
+              href="tel:+998887770099"
             >
               +998 88 777 00 99
             </a>
+
             <div className="flex justify-start items-center gap-[16px]">
               {placeData.instagram && (
                 <a href={placeData.instagram} className="social-media">
