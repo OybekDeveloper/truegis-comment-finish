@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Home from "../home/home";
 import AllProduct from "../all-product/all-product";
@@ -13,11 +13,13 @@ export default function App() {
   const placeId = localStorage.getItem("placeId");
   const userId = localStorage.getItem("userId");
   const km = localStorage.getItem("km");
-  const {loading}=useSelector(state=>state.event)
   const {pathname}=useLocation()
   const navigate = useNavigate();
   const tg = window.Telegram.WebApp;
   let BackButton = tg.BackButton;
+
+  const [loading,setLoading]=useState(false)
+
   useEffect(() => {
     const placeId = localStorage.getItem("placeId");
     const userId = localStorage.getItem("userId");
@@ -38,7 +40,11 @@ export default function App() {
   // tg.onEvent('backButtonClicked', function() {
   //     back()
   // });
-  
+  useEffect(()=>{
+    setTimeout(() => {
+      setLoading(true)
+    }, 1300);
+  })
 
   return (
     <>
@@ -62,7 +68,7 @@ export default function App() {
         </Routes>
       </div>
     ):(
-      <div className="w-full h-screen">
+      <div className="w-full h-screen flex justify-center items-center">
         <Loading/>
       </div>
     )}

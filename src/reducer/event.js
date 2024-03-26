@@ -6,7 +6,7 @@ export const initialState={
     delModal:false,
     deleteId:'',
     editId:'',
-    loading:true
+    loading:false
 }
 
 export const eventSlice = createSlice({

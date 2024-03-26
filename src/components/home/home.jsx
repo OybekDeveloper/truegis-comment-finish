@@ -129,7 +129,7 @@ export default function Home() {
       } catch (error) {
         console.log(error);
       } finally {
-       dispatch(Loading())
+       dispatch(Loading)
       }
     };
     fetchData();
