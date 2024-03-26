@@ -128,7 +128,7 @@ export default function AllProduct() {
       filterTrueOptions(placeData.about.details);
     }
   }, [placeData.about]);
-  console.log(placeData)
+  console.log(placeData);
   return (
     <main className="all-product">
       <section className="px-[16px]">
@@ -172,26 +172,29 @@ export default function AllProduct() {
             </div>
           </div>
         </div>
-        <div className="relative flex justify-start items-start gap-[16px] mt-[24px]">
-          <img className="w-[24px] h-[24px]" src={time} alt="" />
-          <div className="w-full flex flex-col gap-[12px]">
-            <h1 className="text-[16px] font-[500]">Ishlash vaqtlari</h1>
-            <article className="flex justify-between items-center w-full">
-              <p className="text-[16px] font-[400] ">18:00 gacha ochiq</p>
-              <div
-                onClick={() => setTableActive(!tableActive)}
-                className="cursor-pointer flex  items-center gap-[8px]"
-              >
-                <p className="font-[500] tg-button-text">Jadval</p>
-                {TableDown(
-                  tg.themeParams.button_color
-                    ? tg.themeParams.button_color
-                    : "#0A84FF"
-                )}
-              </div>
-            </article>
+        {placeData.working_hours && (
+          <div className="relative flex justify-start items-start gap-[16px] mt-[24px]">
+            <img className="w-[24px] h-[24px]" src={time} alt="" />
+            <div className="w-full flex flex-col gap-[12px]">
+              <h1 className="text-[16px] font-[500]">Ishlash vaqtlari</h1>
+              <article className="flex justify-between items-center w-full">
+                <p className="text-[16px] font-[400] ">18:00 gacha ochiq</p>
+                <div
+                  onClick={() => setTableActive(!tableActive)}
+                  className="cursor-pointer flex  items-center gap-[8px]"
+                >
+                  <p className="font-[500] tg-button-text">Jadval</p>
+                  {TableDown(
+                    tg.themeParams.button_color
+                      ? tg.themeParams.button_color
+                      : "#0A84FF"
+                  )}
+                </div>
+              </article>
+            </div>
           </div>
-        </div>
+        )}
+
         {placeData.working_hours && (
           <div
             className={`table_content ${
@@ -247,8 +250,7 @@ export default function AllProduct() {
                 )}
               </div>
               <div className="w-full">
-                {aboutData
-                .map((item, idx) => (
+                {aboutData.map((item, idx) => (
                   <button
                     key={idx}
                     className="mr-[6px] mt-[12px] inline-flex gap-[8px]  px-[10px] py-[6px]  justify-center items-center"
