@@ -112,7 +112,7 @@ export default function Photo() {
           {fotos.map((image, index) => (
             //eslint-disable-next-line
             <img
-              key={image.id}
+              key={index}
               onClick={() => {
                 handleSelectImage(index);
                 setAlbum(true);

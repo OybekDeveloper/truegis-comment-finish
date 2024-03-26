@@ -14,6 +14,7 @@ export default function App() {
   const {pathname}=useLocation()
   const navigate = useNavigate();
   const tg = window.Telegram.WebApp;
+  let BackButton = tg.BackButton;
   useEffect(() => {
     const placeId = localStorage.getItem("placeId");
     const userId = localStorage.getItem("userId");
@@ -22,15 +23,24 @@ export default function App() {
   }, []);
   useEffect(() => {
     if (pathname !== `/${placeId}/${userId}/${km}/all-product`) {
-      tg.BackButton.show();
+      BackButton.show();
     } else {
-      tg.BackButton.hide();
+      BackButton.hide();
     }
   }, [pathname]);
   const backPage = () => {
     window.history.back();
   };
-  tg.onEvent("backButtonClicked", backPage);
+  BackButton.onClick(function() {
+    tg.showAlert("Нет пути назад!");
+    
+    BackButton.hide();
+  });
+  tg.onEvent('backButtonClicked', function() {
+    backPage()
+  });
+  
+
   return (
     <div className="app max-w-[400px] mx-auto">
       <Routes>
