@@ -31,7 +31,7 @@ export default function About() {
 
       setAboutData(trueOptions);
     }
-    filterTrueOptions(placeData.about.details);
+    filterTrueOptions(placeData?.about?.details);
   }, [placeData.about]);
   return (
     <div>

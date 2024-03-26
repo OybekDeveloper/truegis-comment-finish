@@ -24,7 +24,7 @@ export default function App() {
     const placeId = localStorage.getItem("placeId");
     const userId = localStorage.getItem("userId");
     const km = localStorage.getItem("km");
-    navigate(`/${placeId}/${userId}/${km}/all-product`);
+  
   }, []);
   // useEffect(() => {
   //   if (pathname !== `/${placeId}/${userId}/${km}/all-product`) {
