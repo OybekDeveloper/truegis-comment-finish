@@ -128,6 +128,7 @@ export default function AllProduct() {
       filterTrueOptions(placeData.about.details);
     }
   }, [placeData.about]);
+  console.log(placeData)
   return (
     <main className="all-product">
       <section className="px-[16px]">
@@ -282,7 +283,7 @@ export default function AllProduct() {
                         {item.user.full_name}
                       </h1>
                     </article>
-                    {item.user.id === 221 && (
+                    {item.user.id === userId && (
                       <main onClick={() => handleDelete(item.id)}>
                         <div
                           onClick={() => {

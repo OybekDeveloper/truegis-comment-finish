@@ -45,7 +45,7 @@ export default function AddComment() {
     setFormData({
       ...formData,
       star: newValue !== null ? newValue : 0, // Ensure formData.star is always defined
-      user: 221,
+      user: userId,
     });
   };
   

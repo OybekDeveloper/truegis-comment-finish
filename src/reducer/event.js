@@ -5,7 +5,8 @@ export const initialState={
     commentData:[],
     delModal:false,
     deleteId:'',
-    editId:''
+    editId:'',
+    loading:true
 }
 
 export const eventSlice = createSlice({
@@ -26,9 +27,12 @@ export const eventSlice = createSlice({
         },
         EditCommentModal:(state,action)=>{
             state.editId=action.payload
+        },
+        Loading:(state,action)=>{
+            state.loading=true
         }
     }
 })
 
-export const {GetPlaceData,GetCommentData,ActiveModal,DeleteComment,EditCommentModal} = eventSlice.actions;
+export const {GetPlaceData,GetCommentData,ActiveModal,DeleteComment,EditCommentModal,Loading} = eventSlice.actions;
 export default eventSlice.reducer;

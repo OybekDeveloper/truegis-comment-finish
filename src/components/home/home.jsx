@@ -7,7 +7,7 @@ import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import { ApiServer } from "../../ApiServer/api";
 import { useDispatch, useSelector } from "react-redux";
-import { GetCommentData, GetPlaceData } from "../../reducer/event";
+import { GetCommentData, GetPlaceData, Loading } from "../../reducer/event";
 import axios from "axios";
 
 const tg = window.Telegram.WebApp;
@@ -129,7 +129,7 @@ export default function Home() {
       } catch (error) {
         console.log(error);
       } finally {
-        setLoading(false);
+       dispatch(Loading())
       }
     };
     fetchData();

@@ -7,10 +7,13 @@ import Comment from "../comment/comment";
 import About from "../about/about";
 import AddComment from "../comment/add-comment";
 import EditComment from "../comment/edit-comment";
+import Loading from "../loading/loading";
+import { useSelector } from "react-redux";
 export default function App() {
   const placeId = localStorage.getItem("placeId");
   const userId = localStorage.getItem("userId");
   const km = localStorage.getItem("km");
+  const {loading}=useSelector(state=>state.event)
   const {pathname}=useLocation()
   const navigate = useNavigate();
   const tg = window.Telegram.WebApp;
@@ -38,23 +41,32 @@ export default function App() {
   
 
   return (
-    <div className="app max-w-[400px] mx-auto">
-      <Routes>
-        <Route path="/:placeId/:userId/:km" element={<Home />}>
-          <Route path={"all-product"} element={<AllProduct />} />
-          <Route path={"photo"} element={<Photo />} />
-          <Route path={"comment"} element={<Comment />} />
-          <Route path={"about"} element={<About />} />
-        </Route>
-        <Route
-          path={`/${placeId}/${userId}/${km}/add-comment`}
-          element={<AddComment />}
-        />
-        <Route
-          path={`/${placeId}/${userId}/${km}/edit-comment`}
-          element={<EditComment />}
-        />
-      </Routes>
-    </div>
+    <>
+    {loading?(
+        <div className="app max-w-[400px] mx-auto">
+        <Routes>
+          <Route path="/:placeId/:userId/:km" element={<Home />}>
+            <Route path={"all-product"} element={<AllProduct />} />
+            <Route path={"photo"} element={<Photo />} />
+            <Route path={"comment"} element={<Comment />} />
+            <Route path={"about"} element={<About />} />
+          </Route>
+          <Route
+            path={`/${placeId}/${userId}/${km}/add-comment`}
+            element={<AddComment />}
+          />
+          <Route
+            path={`/${placeId}/${userId}/${km}/edit-comment`}
+            element={<EditComment />}
+          />
+        </Routes>
+      </div>
+    ):(
+      <div className="w-full h-screen">
+        <Loading/>
+      </div>
+    )}
+    </>
+  
   );
 }
