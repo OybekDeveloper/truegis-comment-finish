@@ -117,17 +117,7 @@ export default function Home() {
     localStorage.setItem("km", km);
   }, []);
 
-  useEffect(() => {
-    if (pathname !== `/${placeId}/${userId}/${km}/all-product`) {
-      tg.BackButton.show();
-    } else {
-      tg.BackButton.hide();
-    }
-  }, [pathname]);
-  const backPage = () => {
-    window.history.back();
-  };
-  tg.onEvent("backButtonClicked", backPage);
+  
 
   useEffect(() => {
     const fetchData = async () => {

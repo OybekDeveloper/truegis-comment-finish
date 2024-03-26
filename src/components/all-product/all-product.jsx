@@ -157,7 +157,7 @@ export default function AllProduct() {
             <h1 className="text-[16px] font-[500]">Aloqa</h1>
             <a
               className="text-[16px] font-[500] tg-button-text"
-              href="tel:+998887770099"
+              href="phone:+998887770099"
             >
               +998 88 777 00 99
             </a>
