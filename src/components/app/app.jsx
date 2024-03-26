@@ -31,12 +31,9 @@ export default function App() {
   const backPage = () => {
     window.history.back();
   };
-  BackButton.onClick(function() {
-   backPage()
+  tg.onEvent('backButtonClicked', function() {
+      window.goBack()
   });
-  // tg.onEvent('backButtonClicked', function() {
-  //   backPage()
-  // });
   
 
   return (
