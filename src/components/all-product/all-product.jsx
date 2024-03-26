@@ -192,13 +192,13 @@ console.log(convertedWorkingHours)
           <img className="w-[24px] h-[24px]" src={phone} alt="" />
           <div className="flex flex-col gap-[12px]">
             <h1 className="text-[16px] font-[500]">{t("contact")}</h1>
-            <a
+            <h1
             className="text-[16px] font-[500] tg-button-text"
-            href={`tel:${placeData.phone}`}
-            onClick={() => handlePhoneClick(placeData.phone)}
+
+            onClick={() =>  window.open(`https://web.telegram.org/#/im?p=@${placeData.phone}`, '_blank')}
         >
             {placeData.phone}
-        </a>
+        </h1>
 
             <div className="flex justify-start items-center gap-[16px]">
               {placeData.instagram && (
