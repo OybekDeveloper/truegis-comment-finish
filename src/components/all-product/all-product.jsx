@@ -124,12 +124,11 @@ export default function AllProduct() {
 
       setAboutData(trueOptions);
     }
-    if(placeData.about){
-
+    if (placeData.about) {
       filterTrueOptions(placeData.about.details);
     }
   }, [placeData.about]);
-  console.log(placeData)
+  console.log(placeData);
   return (
     <main className="all-product">
       <section className="px-[16px]">
@@ -138,7 +137,9 @@ export default function AllProduct() {
           <MapAppSelector
             latitude={placeData?.latitude}
             longitude={placeData?.longitude}
-            text={placeData.full_address?placeData.full_address:placeData.street}
+            text={
+              placeData.full_address ? placeData.full_address : placeData.street
+            }
           />
           {/* <a
             href={`https://t.me/loc?lat=${placeData?.latitude}&long=${placeData?.longitude}`}
@@ -157,7 +158,8 @@ export default function AllProduct() {
             <h1 className="text-[16px] font-[500]">Aloqa</h1>
             <a
               className="text-[16px] font-[500] tg-button-text"
-              href="phone:+998887770099"
+              href="//"
+              onclick="window.location.href = 'tel:+998887770099'; return false;"
             >
               +998 88 777 00 99
             </a>
@@ -265,9 +267,7 @@ export default function AllProduct() {
                         ? tg.themeParams.button_color
                         : "#0A84FF"
                     )}
-                    <p className="text-[14px] font-[500] gap-[8px]">
-                      {item}
-                    </p>
+                    <p className="text-[14px] font-[500] gap-[8px]">{item}</p>
                   </button>
                 ))}
               </div>
