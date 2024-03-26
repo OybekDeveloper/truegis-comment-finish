@@ -39,20 +39,20 @@ export default function App() {
   let BackButton = tg.BackButton;
   const { t } = useTranslation();
   const [loading,setLoading]=useState(false)
-  // useEffect(() => {
-  //   if (pathname !== `/${placeId}/${userId}/${km}/all-product`) {
-  //     BackButton.show();
-  //   } else {
-  //     BackButton.hide();
-  //   }
-  // }, [pathname]);
+  useEffect(() => {
+    if (pathname !== `/${placeId}/${userId}/${km}/all-product`) {
+      BackButton.show();
+    } else {
+      BackButton.hide();
+    }
+  }, [pathname]);
 
-  // const back=()=>{
-  //   window.history.back()
-  // }
-  // tg.onEvent('backButtonClicked', function() {
-  //     back()
-  // });
+  const back=()=>{
+    window.history.back()
+  }
+  tg.onEvent('backButtonClicked', function() {
+      back()
+  });
   useEffect(()=>{
     setTimeout(() => {
       setLoading(true)
