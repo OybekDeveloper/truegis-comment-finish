@@ -194,7 +194,7 @@ export default function AllProduct() {
             <h1
             className="text-[16px] font-[500] tg-button-text"
 
-            onClick={() =>   window.open(`tel:${placeData}`)}
+            onClick={() =>window.open(`tel:${placeData.phone}`)}
         >
             {placeData.phone}
         </h1>
