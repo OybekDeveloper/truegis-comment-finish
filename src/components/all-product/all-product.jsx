@@ -134,7 +134,7 @@ const convertWorkingHours = () => {
   setConvertedWorkingHours(convertedHours);
 }
 const handlePhoneClick = (phoneNumber) => {
-  window.open(`tel:${phoneNumber}`, '_self');
+  window.location.href = `tel:${phoneNumber}`;
 };
   useEffect(() => {
     const body = document.querySelector(".home");
@@ -194,7 +194,7 @@ console.log(convertedWorkingHours)
             <h1 className="text-[16px] font-[500]">{t("contact")}</h1>
             <a
             className="text-[16px] font-[500] tg-button-text"
-            href="#"
+            href={`tel:${placeData.phone}`}
             onClick={() => handlePhoneClick(placeData.phone)}
         >
             {placeData.phone}
