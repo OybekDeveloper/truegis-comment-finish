@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { check, info } from "../home/img";
 import { useSelector } from "react-redux";
+import empty from './empty.svg'
 const tg = window.Telegram.WebApp;
 
 
@@ -53,7 +54,10 @@ export default function About() {
           </div>
         </section>
       ):(
-        <h1 className="mt-[20px] text-[16px] font-[500] text-center">Joy haqida ma'lumotlar mavjud emas!</h1>
+        <div className="w-full flex flex-col justify-center items-center mt-[20px] gap-[16px]">
+        <img src={empty} alt="" />
+        <p className="text-[14px] font-[400]">Joy haqida ma’lumotlar topilmadi</p>
+      </div>
       )}
     </div>
   );
