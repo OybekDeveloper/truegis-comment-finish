@@ -234,7 +234,7 @@ export default function AllProduct() {
         <section className="px-[16px] mb-[32px]">
           <div className="flex justify-start items-start gap-[16px] mt-[24px]">
             <img className="w-[24px] h-[24px]" src={info} alt="" />
-            <div className="flex flex-col gap-[12px]">
+            <div className="flex flex-col gap-[12px] w-full">
               <div
                 onClick={() => navigate(`/${placeId}/${userId}/${km}/about`)}
                 className="cursor-pointer w-full flex justify-between items-center"
@@ -247,7 +247,8 @@ export default function AllProduct() {
                 )}
               </div>
               <div className="w-full">
-                {aboutData.map((item, idx) => (
+                {aboutData
+                .map((item, idx) => (
                   <button
                     key={idx}
                     className="mr-[6px] mt-[12px] inline-flex gap-[8px]  px-[10px] py-[6px]  justify-center items-center"
