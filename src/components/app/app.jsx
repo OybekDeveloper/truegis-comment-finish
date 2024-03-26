@@ -48,7 +48,7 @@ export default function App() {
   }, [pathname]);
 
   const back=()=>{
-    window.history.back()
+    tg.history.back();
   }
   tg.onEvent('backButtonClicked', function() {
       back()
