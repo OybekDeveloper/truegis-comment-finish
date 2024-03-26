@@ -22,24 +22,23 @@ export default function App() {
     navigate(`/${placeId}/${userId}/${km}/all-product`);
   }, []);
   useEffect(() => {
-    if (pathname !== `/${placeId}/${userId}/${km}/all-product`) {
-      BackButton.show();
-    } else {
-      BackButton.hide();
-    }
-  }, [pathname]);
+  //   if (pathname !== `/${placeId}/${userId}/${km}/all-product`) {
+  //     BackButton.show();
+  //   } else {
+  //     BackButton.hide();
+  //   }
+  // }, [pathname]);
 
-  const back=()=>{
-    window.history.back()
-  }
-  tg.onEvent('backButtonClicked', function() {
-      back()
-  });
+  // const back=()=>{
+  //   window.history.back()
+  // }
+  // tg.onEvent('backButtonClicked', function() {
+  //     back()
+  // });
   
 
   return (
     <div className="app max-w-[400px] mx-auto">
-      <button onClick={back}>butt</button>
       <Routes>
         <Route path="/:placeId/:userId/:km" element={<Home />}>
           <Route path={"all-product"} element={<AllProduct />} />
