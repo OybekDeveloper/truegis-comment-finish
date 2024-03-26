@@ -69,73 +69,73 @@ export default function AllProduct() {
   const handleDelete = (id) => {
     dispatch(DeleteComment(id));
   };
-  const [workingHoursData, setWorkingHoursData] = useState(placeData.working_hours);
-const [convertedWorkingHours, setConvertedWorkingHours] = useState({});
+//   const [workingHoursData, setWorkingHoursData] = useState(placeData.working_hours);
+// const [convertedWorkingHours, setConvertedWorkingHours] = useState({});
 
-useEffect(() => {
-    convertWorkingHours();
-    setWorkingHoursData(placeData.working_hours)
-    let calculatedMaxTime = null;
+// useEffect(() => {
+//     convertWorkingHours();
+//     setWorkingHoursData(placeData.working_hours)
+//     let calculatedMaxTime = null;
 
-    for (const day in convertedWorkingHours) {
-        const times = convertedWorkingHours[day];
+//     for (const day in convertedWorkingHours) {
+//         const times = convertedWorkingHours[day];
 
-        if (times[0] === 'Closed') {
-            continue;
-        }
+//         if (times[0] === 'Closed') {
+//             continue;
+//         }
 
-        const [, endTime] = times[0].split(' - ');
-        const [endHour, endMinute] = endTime.split(':').map(Number);
+//         const [, endTime] = times[0].split(' - ');
+//         const [endHour, endMinute] = endTime.split(':').map(Number);
 
-        if (!calculatedMaxTime || (endHour > calculatedMaxTime[0] || (endHour === calculatedMaxTime[0] && endMinute > calculatedMaxTime[1]))) {
-            calculatedMaxTime = [endHour, endMinute];
-        }
-    }
+//         if (!calculatedMaxTime || (endHour > calculatedMaxTime[0] || (endHour === calculatedMaxTime[0] && endMinute > calculatedMaxTime[1]))) {
+//             calculatedMaxTime = [endHour, endMinute];
+//         }
+//     }
 
-    if (calculatedMaxTime) {
-        setMaxTime(`${calculatedMaxTime[0].toString().padStart(2, '0')}:${calculatedMaxTime[1].toString().padStart(2, '0')}`);
-    } else {
-        setMaxTime('No working hours available');
-    }
-}, [placeData]);
+//     if (calculatedMaxTime) {
+//         setMaxTime(`${calculatedMaxTime[0].toString().padStart(2, '0')}:${calculatedMaxTime[1].toString().padStart(2, '0')}`);
+//     } else {
+//         setMaxTime('No working hours available');
+//     }
+// }, [placeData]);
 
-const convertWorkingHours = () => {
-  const convertedHours = {};
+// const convertWorkingHours = () => {
+//   const convertedHours = {};
 
-  for (const day in workingHoursData) {
-      let hours = workingHoursData[day][0];
-      let convertedHoursValue;
+//   for (const day in workingHoursData) {
+//       let hours = workingHoursData[day][0];
+//       let convertedHoursValue;
 
-      if (hours === 'Closed' || hours === 'in Openit') {
-          convertedHoursValue = hours;
-      } else {
-          hours = hours.replace(/–/g, '-');
-          let [start, end] = hours.split('-').map(time => time.trim());
+//       if (hours === 'Closed' || hours === 'in Openit') {
+//           convertedHoursValue = hours;
+//       } else {
+//           hours = hours.replace(/–/g, '-');
+//           let [start, end] = hours.split('-').map(time => time.trim());
 
-          // Correcting AM/PM indicators and time formats
-          start = start.replace('PM', ' PM').replace('AM', ' AM');
-          end = end.replace('PM', ' PM').replace('AM', ' AM');
+//           // Correcting AM/PM indicators and time formats
+//           start = start.replace('PM', ' PM').replace('AM', ' AM');
+//           end = end.replace('PM', ' PM').replace('AM', ' AM');
 
-          const [startHour, startMinute, startPeriod] = start.split(' ');
-          const [endHour, endMinute, endPeriod] = end.split(' ');
+//           const [startHour, startMinute, startPeriod] = start.split(' ');
+//           const [endHour, endMinute, endPeriod] = end.split(' ');
 
-          const convertedStartHour = startPeriod === 'AM' ? (startHour === '12' ? '00' : startHour) : (parseInt(startHour) + 12).toString().padStart(2, '0');
-          const convertedEndHour = endPeriod === 'AM' ? (endHour === '12' ? '00' : endHour) : (parseInt(endHour) + 12).toString().padStart(2, '0');
+//           const convertedStartHour = startPeriod === 'AM' ? (startHour === '12' ? '00' : startHour) : (parseInt(startHour) + 12).toString().padStart(2, '0');
+//           const convertedEndHour = endPeriod === 'AM' ? (endHour === '12' ? '00' : endHour) : (parseInt(endHour) + 12).toString().padStart(2, '0');
 
-          const convertedStartMinute = startMinute ? startMinute.padEnd(2, '0') : '00';
-          const convertedEndMinute = endMinute ? endMinute.padEnd(2, '0') : '00';
+//           const convertedStartMinute = startMinute ? startMinute.padEnd(2, '0') : '00';
+//           const convertedEndMinute = endMinute ? endMinute.padEnd(2, '0') : '00';
 
-          convertedHoursValue = `${convertedStartHour}:${convertedStartMinute} - ${convertedEndHour}:${convertedEndMinute}`;
-      }
+//           convertedHoursValue = `${convertedStartHour}:${convertedStartMinute} - ${convertedEndHour}:${convertedEndMinute}`;
+//       }
 
-      convertedHours[day] = [convertedHoursValue];
-  }
+//       convertedHours[day] = [convertedHoursValue];
+//   }
 
-  setConvertedWorkingHours(convertedHours);
-}
-const handlePhoneClick = (phoneNumber) => {
-  window.location.href = `tel:${phoneNumber}`;
-};
+//   setConvertedWorkingHours(convertedHours);
+// }
+// const handlePhoneClick = (phoneNumber) => {
+//   window.location.href = `tel:${phoneNumber}`;
+// };
   useEffect(() => {
     const body = document.querySelector(".home");
     if (menuActive && delModal) {
@@ -144,7 +144,6 @@ const handlePhoneClick = (phoneNumber) => {
       body.classList.remove("blur-effect");
     }
   }, [menuActive, delModal]);
-console.log(convertedWorkingHours)
   useEffect(() => {
     function filterTrueOptions(data) {
       const trueOptions = [];
@@ -195,7 +194,7 @@ console.log(convertedWorkingHours)
             <h1
             className="text-[16px] font-[500] tg-button-text"
 
-            onClick={() =>   window.open(`tel:${placeData.phone}`)}
+            onClick={() =>   window.open(`tel:${placeData}`)}
         >
             {placeData.phone}
         </h1>
@@ -242,7 +241,7 @@ console.log(convertedWorkingHours)
           </div>
         )}
 
-        {placeData.working_hours && (
+        {/* {placeData.working_hours && (
           <div
             className={`table_content ${
               tableActive ? "transition-height active mb-[24px]" : ""
@@ -277,7 +276,7 @@ console.log(convertedWorkingHours)
               <p className={`${convertedWorkingHours.Sunday=="Closed"&& "text-red-500"} text-[16px] font-[500]`}>{convertedWorkingHours.Sunday}</p>
             </div>
           </div>
-        )}
+        )} */}
       </section>
       <div className="hr w-full h-[1px] mb-[32px]"></div>
       {aboutData.length > 0 && (
