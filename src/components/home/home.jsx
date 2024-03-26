@@ -7,7 +7,7 @@ import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import { ApiServer } from "../../ApiServer/api";
 import { useDispatch, useSelector } from "react-redux";
-import { GetCommentData, GetPlaceData, Loading } from "../../reducer/event";
+import { GetCommentData, GetPlaceData, Loading, SavePathData } from "../../reducer/event";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 
@@ -104,9 +104,6 @@ export default function Home() {
     }
   };
   useEffect(() => {
-    const placeId = localStorage.getItem("placeId");
-    const userId = localStorage.getItem("userId");
-    const km = localStorage.getItem("km");
     navigate(`/${placeId}/${userId}/${km}/all-product`);
   }, []);
   useEffect(() => {
@@ -123,6 +120,7 @@ export default function Home() {
     localStorage.setItem("placeId", placeId);
     localStorage.setItem("userId", userId);
     localStorage.setItem("km", km);
+    dispatch(SavePathData([placeId,userId,km]))
   }, []);
 
   
