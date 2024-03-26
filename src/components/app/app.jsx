@@ -19,13 +19,6 @@ export default function App() {
   let BackButton = tg.BackButton;
 
   const [loading,setLoading]=useState(false)
-
-  useEffect(() => {
-    const placeId = localStorage.getItem("placeId");
-    const userId = localStorage.getItem("userId");
-    const km = localStorage.getItem("km");
-  
-  }, []);
   // useEffect(() => {
   //   if (pathname !== `/${placeId}/${userId}/${km}/all-product`) {
   //     BackButton.show();

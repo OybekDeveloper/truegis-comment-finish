@@ -102,6 +102,12 @@ export default function Home() {
     }
   };
   useEffect(() => {
+    const placeId = localStorage.getItem("placeId");
+    const userId = localStorage.getItem("userId");
+    const km = localStorage.getItem("km");
+    navigate(`/${placeId}/${userId}/${km}/all-product`);
+  }, []);
+  useEffect(() => {
     const { image, image2, image3, image4 } = placeData;
     const photosArray = [];
     if (image) photosArray.push(image);
