@@ -128,7 +128,6 @@ export default function AllProduct() {
       filterTrueOptions(placeData.about.details);
     }
   }, [placeData.about]);
-  console.log(placeData);
   return (
     <main className="all-product">
       <section className="px-[16px]">
@@ -141,16 +140,6 @@ export default function AllProduct() {
               placeData.full_address ? placeData.full_address : placeData.street
             }
           />
-          {/* <a
-            href={`https://t.me/loc?lat=${placeData?.latitude}&long=${placeData?.longitude}`}
-            className="font-[400] text-[16px] tg-button-text underline"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {placeData.street
-              ? placeData.street
-              : "Manzil haqida ma'lumot mavjud emas!"}
-          </a> */}
         </div>
         <div className="flex justify-start items-start gap-[16px] mt-[24px]">
           <img className="w-[24px] h-[24px]" src={phone} alt="" />
@@ -158,9 +147,9 @@ export default function AllProduct() {
             <h1 className="text-[16px] font-[500]">Aloqa</h1>
             <a
               className="text-[16px] font-[500] tg-button-text"
-              href="tel:+998887770099"
+              href={`tel:${placeData.phone}`}
             >
-              +998 88 777 00 99
+              {placeData.phone}
             </a>
 
             <div className="flex justify-start items-center gap-[16px]">

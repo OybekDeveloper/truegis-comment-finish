@@ -65,7 +65,6 @@ export default function Photo() {
   const handleClose = () => {
     setAlbum(false);
   };
-console.log(fotos)
   useEffect(() => {
     const { image, image2, image3, image4 } = placeData;
     const photosArray = [];
@@ -75,7 +74,6 @@ console.log(fotos)
     if (image4) photosArray.push(image4);
     setFotos(photosArray);
   }, [placeData]);
-  console.log(fotos);
   return (
     <div>
       {selectPhoto.length > 0 && album && (
@@ -86,7 +84,7 @@ console.log(fotos)
             </h1>
             <div
               onClick={handleClose}
-              className="cursor-pointer absolute top-[33px] right-[10px]"
+              className="cursor-pointer absolute top-[33px] right-[24px]"
             >
               <IoMdClose className="text-[24px] text-white" />
             </div>
