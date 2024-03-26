@@ -133,7 +133,9 @@ const convertWorkingHours = () => {
 
   setConvertedWorkingHours(convertedHours);
 }
-
+const handlePhoneClick = (phoneNumber) => {
+  window.open(`tel:${phoneNumber}`, '_self');
+};
   useEffect(() => {
     const body = document.querySelector(".home");
     if (menuActive && delModal) {
@@ -191,11 +193,12 @@ console.log(convertedWorkingHours)
           <div className="flex flex-col gap-[12px]">
             <h1 className="text-[16px] font-[500]">{t("contact")}</h1>
             <a
-              className="text-[16px] font-[500] tg-button-text"
-              href={`tel:${placeData.phone}`}
-            >
-              {placeData.phone}
-            </a>
+            className="text-[16px] font-[500] tg-button-text"
+            href="#"
+            onClick={() => handlePhoneClick(placeData.phone)}
+        >
+            {placeData.phone}
+        </a>
 
             <div className="flex justify-start items-center gap-[16px]">
               {placeData.instagram && (
