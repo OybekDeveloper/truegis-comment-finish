@@ -32,13 +32,11 @@ export default function App() {
     window.history.back();
   };
   BackButton.onClick(function() {
-    tg.showAlert("Нет пути назад!");
-    
-    BackButton.hide();
+   backPage()
   });
-  tg.onEvent('backButtonClicked', function() {
-    backPage()
-  });
+  // tg.onEvent('backButtonClicked', function() {
+  //   backPage()
+  // });
   
 
   return (
