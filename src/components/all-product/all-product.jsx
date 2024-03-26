@@ -56,6 +56,7 @@ export default function AllProduct() {
   const [menuActive, setMenuActive] = useState(false);
   const [tableActive, setTableActive] = useState(false);
   const [aboutData, setAboutData] = useState([]);
+  const [maxTime, setMaxTime] = useState('');
   const getInitials = (fullName) => {
     if (!fullName) return "";
     const words = fullName.split(" ");
@@ -68,31 +69,70 @@ export default function AllProduct() {
   const handleDelete = (id) => {
     dispatch(DeleteComment(id));
   };
+  const [workingHoursData, setWorkingHoursData] = useState(placeData.working_hours);
+const [convertedWorkingHours, setConvertedWorkingHours] = useState({});
 
-  const handleFilterData = (timeRange) => {
-    const formattedTimeRange = formatTimeRange(timeRange);
-    return formattedTimeRange;
-  };
+useEffect(() => {
+    convertWorkingHours();
+    setWorkingHoursData(placeData.working_hours)
+    let calculatedMaxTime = null;
 
-  // Function to format time range
-  const formatTimeRange = (timeRange) => {
-    const [startTime, endTime] = timeRange.split("–");
-    const formattedStartTime = formatTime(startTime);
-    const formattedEndTime = formatTime(endTime);
-    return `${formattedStartTime} - ${formattedEndTime}`;
-  };
+    for (const day in convertedWorkingHours) {
+        const times = convertedWorkingHours[day];
 
-  // Function to format time
-  const formatTime = (time) => {
-    const [hours, minutes] = time.split(" ");
-    const [hour, minute] = hours.split(":");
-    const isPM = minutes === "PM";
-    let formattedHour = parseInt(hour);
-    if (isPM && formattedHour !== 12) {
-      formattedHour += 12;
+        if (times[0] === 'Closed') {
+            continue;
+        }
+
+        const [, endTime] = times[0].split(' - ');
+        const [endHour, endMinute] = endTime.split(':').map(Number);
+
+        if (!calculatedMaxTime || (endHour > calculatedMaxTime[0] || (endHour === calculatedMaxTime[0] && endMinute > calculatedMaxTime[1]))) {
+            calculatedMaxTime = [endHour, endMinute];
+        }
     }
-    return `${formattedHour.toString().padStart(2, "0")}:${minute}`;
-  };
+
+    if (calculatedMaxTime) {
+        setMaxTime(`${calculatedMaxTime[0].toString().padStart(2, '0')}:${calculatedMaxTime[1].toString().padStart(2, '0')}`);
+    } else {
+        setMaxTime('No working hours available');
+    }
+}, [placeData]);
+
+const convertWorkingHours = () => {
+  const convertedHours = {};
+
+  for (const day in workingHoursData) {
+      let hours = workingHoursData[day][0];
+      let convertedHoursValue;
+
+      if (hours === 'Closed' || hours === 'in Openit') {
+          convertedHoursValue = hours;
+      } else {
+          hours = hours.replace(/–/g, '-');
+          let [start, end] = hours.split('-').map(time => time.trim());
+
+          // Correcting AM/PM indicators and time formats
+          start = start.replace('PM', ' PM').replace('AM', ' AM');
+          end = end.replace('PM', ' PM').replace('AM', ' AM');
+
+          const [startHour, startMinute, startPeriod] = start.split(' ');
+          const [endHour, endMinute, endPeriod] = end.split(' ');
+
+          const convertedStartHour = startPeriod === 'AM' ? (startHour === '12' ? '00' : startHour) : (parseInt(startHour) + 12).toString().padStart(2, '0');
+          const convertedEndHour = endPeriod === 'AM' ? (endHour === '12' ? '00' : endHour) : (parseInt(endHour) + 12).toString().padStart(2, '0');
+
+          const convertedStartMinute = startMinute ? startMinute.padEnd(2, '0') : '00';
+          const convertedEndMinute = endMinute ? endMinute.padEnd(2, '0') : '00';
+
+          convertedHoursValue = `${convertedStartHour}:${convertedStartMinute} - ${convertedEndHour}:${convertedEndMinute}`;
+      }
+
+      convertedHours[day] = [convertedHoursValue];
+  }
+
+  setConvertedWorkingHours(convertedHours);
+}
 
   useEffect(() => {
     const body = document.querySelector(".home");
@@ -102,7 +142,7 @@ export default function AllProduct() {
       body.classList.remove("blur-effect");
     }
   }, [menuActive, delModal]);
-
+console.log(convertedWorkingHours)
   useEffect(() => {
     function filterTrueOptions(data) {
       const trueOptions = [];
@@ -182,7 +222,7 @@ export default function AllProduct() {
             <div className="w-full flex flex-col gap-[12px]">
               <h1 className="text-[16px] font-[500]">{t("work_time")}</h1>
               <article className="flex justify-between items-center w-full">
-                <p className="text-[16px] font-[400] ">18:00 gacha ochiq</p>
+                <p className="text-[16px] font-[400] ">{maxTime} gacha ochiq</p>
                 <div
                   onClick={() => setTableActive(!tableActive)}
                   className="cursor-pointer flex  items-center gap-[8px]"
@@ -207,31 +247,31 @@ export default function AllProduct() {
           >
             <div className="flex justify-between items-center">
               <p className="text-[16px] font-[400]">Dushanba</p>
-              {/* <p className="text-[16px] font-[500]">{handleFilterData(placeData.working_hours.Friday)}</p> */}
+              <p className={`${convertedWorkingHours.Monday=="Closed"&& "text-red-500"} text-[16px] font-[500]`}>{convertedWorkingHours.Monday}</p>
             </div>
             <div className="flex justify-between items-center">
               <p className="text-[16px] font-[400]">Seshanba</p>
-              <p className="text-[16px] font-[500]">24 soat</p>
+              <p className={`${convertedWorkingHours.Tuesday=="Closed"&& "text-red-500"} text-[16px] font-[500]`}>{convertedWorkingHours.Tuesday}</p>
             </div>
             <div className="flex justify-between items-center">
               <p className="text-[16px] font-[400]">Chorshanba</p>
-              <p className="text-[16px] font-[500]">24 soat</p>
+              <p className={`${convertedWorkingHours.Wednesday=="Closed"&& "text-red-500"} text-[16px] font-[500]`}>{convertedWorkingHours.Wednesday}</p>
             </div>
             <div className="flex justify-between items-center">
               <p className="text-[16px] font-[400]">Payshanba</p>
-              <p className="text-[16px] font-[500]">24 soat</p>
+              <p className={`${convertedWorkingHours.Thursday=="Closed"&& "text-red-500"} text-[16px] font-[500]`}>{convertedWorkingHours.Thursday}</p>
             </div>
             <div className="flex justify-between items-center">
               <p className="text-[16px] font-[400]">Juma</p>
-              <p className="text-[16px] font-[500]">24 soat</p>
+              <p className={`${convertedWorkingHours.Friday=="Closed"&& "text-red-500"} text-[16px] font-[500]`}>{convertedWorkingHours.Friday}</p>
             </div>
             <div className="flex justify-between items-center">
               <p className="text-[16px] font-[400]">Shanba</p>
-              <p className="text-[16px] font-[500]">24 soat</p>
+              <p className={`${convertedWorkingHours.Saturday=="Closed"&& "text-red-500"} text-[16px] font-[500]`}>{convertedWorkingHours.Saturday}</p>
             </div>
             <div className="flex justify-between items-center">
-              <p className="text-[16px] font-[400]">Yakshanba</p>
-              <p className="text-[16px] font-[500]">24 soat</p>
+              <p className="text-[16px] font-[400] ">Yakshanba</p>
+              <p className={`${convertedWorkingHours.Sunday=="Closed"&& "text-red-500"} text-[16px] font-[500]`}>{convertedWorkingHours.Sunday}</p>
             </div>
           </div>
         )}
