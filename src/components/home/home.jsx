@@ -9,12 +9,14 @@ import { ApiServer } from "../../ApiServer/api";
 import { useDispatch, useSelector } from "react-redux";
 import { GetCommentData, GetPlaceData, Loading } from "../../reducer/event";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const tg = window.Telegram.WebApp;
 const backgroundImage =
   "https://s3-alpha-sig.figma.com/img/808e/7de1/0a383ce94c24b18e47af0e9ba369a18a?Expires=1711929600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=e7AE~1fTZ-cKSH-WZLl2-g9yhVsxw2rJ9qJ2UKefHAOZY7zlW89xrlkRsImEkHEpfT-NbJeMcmF8UOdemF1ZcKZ8pRYxqVXXTemn~8p8t33cVhaNCNt-owytQK4HRstvl2T7czB8Uz2ftE-2~XPFq3mqssd1E~DJ6zJFjmrRZAc8Aj~zpqEKSGWDut85W3WDy4YEr4KhHvbYk46g4mhrPl51d-gbgN-YbVSQXf7A5eVRYQQzFlf9bq5tIZttyyTLn9xbSDL2xeTsLI~AWyh-L84eXCGkG9-oVcYfLgeedzw9oa9Bk4xv45eGvhjGYLaflIBwXwzBq4TXwqefY87HuQ__";
 
 export default function Home() {
+  const {t}=useTranslation()
   const fileInputRef = useRef(null);
   const { placeId, userId, km } = useParams();
   const { pathname } = useLocation();
@@ -60,26 +62,26 @@ export default function Home() {
   const navlink = [
     {
       id: 1,
-      title: "Umumiy",
+      title: t("li_1"),
       link: `/${placeId}/${userId}/${km}/all-product`,
       count: null,
     },
 
     {
       id: 2,
-      title: "Rasm",
+      title: t("li_2"),
       link: `/${placeId}/${userId}/${km}/photo`,
       count: imgCount !== 0 ? imgCount : null,
     },
     {
       id: 3,
-      title: "Sharhlar",
+      title: t("li_3"),
       link: `/${placeId}/${userId}/${km}/comment`,
       count: commentData.length ? commentData.length : null,
     },
     {
       id: 4,
-      title: "Joy haqida",
+      title: t("li_4"),
       link: `/${placeId}/${userId}/${km}/about`,
       count: null,
     },
@@ -145,7 +147,7 @@ export default function Home() {
       commentData.find((item) => item.user.id === +userId) ? true : false
     );
   }, [commentData]);
-
+  console.log(placeId,userId,km)
   return (
     <main className="home relative ">
       <section className="px-[16px] min-h-[200px] home-back">
@@ -178,7 +180,7 @@ export default function Home() {
               {placeData.rating ? placeData.rating : 0}
             </p>
             <p className="text-[#fff] opacity-[0.7] text-[14px] font-[500] mt-[4px]">
-              {commentData.length ? commentData.length : "0"} sharhlar
+              {commentData.length ? commentData.length : "0"} {t("home_comment")}
             </p>
           </div>
           <div className="flex justify-between items-center mt-[50px]">
@@ -191,7 +193,7 @@ export default function Home() {
                       placeData.work_end_time
                     )
                   : "0"
-              } soat`}</p>
+              } ${t('home_time')}`}</p>
             </div>
             <div className="flex items-center gap-[8px]">
               <img src={line} alt="" />

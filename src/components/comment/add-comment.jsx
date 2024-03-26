@@ -29,6 +29,7 @@ export default function AddComment() {
   const placeId = localStorage.getItem("placeId");
   const userId = localStorage.getItem("userId");
   const km = localStorage.getItem("km");
+
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
   const dispatch = useDispatch()

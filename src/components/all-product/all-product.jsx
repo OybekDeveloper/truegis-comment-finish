@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "../comment/modal";
 import MapAppSelector from "./map";
 import { ActiveModal, DeleteComment } from "../../reducer/event";
+import { t } from "i18next";
 // import { View, Button, Linking, Platform } from "react-native";
 const about = [
   {
@@ -49,7 +50,7 @@ export default function AllProduct() {
   const userId = localStorage.getItem("userId");
   const km = localStorage.getItem("km");
   const dispatch = useDispatch();
-  const { delModal, deleteId, placeData, commentData } = useSelector(
+  const { delModal, placeData, commentData } = useSelector(
     (state) => state.event
   );
   const [menuActive, setMenuActive] = useState(false);
@@ -128,24 +129,27 @@ export default function AllProduct() {
       filterTrueOptions(placeData.about.details);
     }
   }, [placeData.about]);
-  console.log(placeData);
+  console.log(placeData)
   return (
     <main className="all-product">
       <section className="px-[16px]">
         <div className="flex justify-start items-start gap-[16px] mt-[24px]">
           <img className="w-[24px] h-[24px]" src={location} alt="" />
-          <MapAppSelector
+            <div className="flex flex-col gap-[12px]">
+              <h1 className="text-[16px] font-[500]">{t("adress")}</h1>
+            <MapAppSelector
             latitude={placeData?.latitude}
             longitude={placeData?.longitude}
             text={
               placeData.full_address ? placeData.full_address : placeData.street
             }
           />
+            </div>
         </div>
         <div className="flex justify-start items-start gap-[16px] mt-[24px]">
           <img className="w-[24px] h-[24px]" src={phone} alt="" />
           <div className="flex flex-col gap-[12px]">
-            <h1 className="text-[16px] font-[500]">Aloqa</h1>
+            <h1 className="text-[16px] font-[500]">{t("contact")}</h1>
             <a
               className="text-[16px] font-[500] tg-button-text"
               href={`tel:${placeData.phone}`}
@@ -176,7 +180,7 @@ export default function AllProduct() {
           <div className="relative flex justify-start items-start gap-[16px] mt-[24px]">
             <img className="w-[24px] h-[24px]" src={time} alt="" />
             <div className="w-full flex flex-col gap-[12px]">
-              <h1 className="text-[16px] font-[500]">Ishlash vaqtlari</h1>
+              <h1 className="text-[16px] font-[500]">{t("work_time")}</h1>
               <article className="flex justify-between items-center w-full">
                 <p className="text-[16px] font-[400] ">18:00 gacha ochiq</p>
                 <div
