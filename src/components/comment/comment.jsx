@@ -8,10 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { AnimatePresence, m, motion } from "framer-motion";
 import Modal from "./modal";
 import { ActiveModal, DeleteComment } from "../../reducer/event";
+import { useTranslation } from "react-i18next";
 const tg = window.Telegram.WebApp;
 
 export default function Comment() {
   const dispatch = useDispatch();
+  const {t}=useTranslation()
   const userId=localStorage.getItem("userId")
   const { commentData, placeData,delModal } = useSelector((state) => state.event);
   const [menuActive, setMenuActive] = useState(false);
@@ -124,7 +126,7 @@ export default function Comment() {
       </section>
       {commentData?.length > 0 ? (
         <section className="px-[16px] w-full mt-[48px]">
-          <h1 className="text-[18px] font-[500] mb-[12px]">Sharhlar</h1>
+          <h1 className="text-[18px] font-[500] mb-[12px]">{t("li_3")}</h1>
           <div className="hr w-full h-[1px]  mb-[24px]"></div>
           <div className="w-full flex flex-col gap-[32px]">
             {commentData.map((item) => (
@@ -178,7 +180,7 @@ export default function Comment() {
       ) : (
         <div className="w-full flex flex-col justify-center items-center mt-[80px] gap-[16px]">
           <img src={empty} alt="" />
-          <p className="text-[14px] font-[400]">Sharhlar mavjud emas</p>
+          <p className="text-[14px] font-[400]">{t("empty_comment")}</p>
         </div>
       )}
 

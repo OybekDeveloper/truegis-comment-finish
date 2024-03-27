@@ -9,6 +9,7 @@ import { ApiServer } from "../../ApiServer/api";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { GetPlaceData } from "../../reducer/event";
+import { t } from "i18next";
 
 const tg = window.Telegram.WebApp;
 
@@ -37,7 +38,7 @@ const EditComment = () => {
           ...formData,
           star: editedComment.star,
           text: editedComment.text,
-          user:userId,
+          user: userId,
         });
       }
     }
@@ -94,9 +95,9 @@ const EditComment = () => {
   return (
     <main className="comment">
       <section className="px-[16px]">
-        <h1 className="text-[24px] font-[500] mt-[16px]">Tenge bank</h1>
+        <h1 className="text-[24px] font-[500] mt-[16px]">{placeData?.name}</h1>
         <p className="text-[16px] font-[400] mt-[12px]">
-          Parkent bank xizmatlari, Parkent, 66, 1-8 qavat, Toshkent
+          {placeData.full_address ? placeData.full_address : placeData.street}
         </p>
         <div className="w-full flex justify-center items-center my-[32px]">
           <Rating
@@ -122,7 +123,7 @@ const EditComment = () => {
       <div className="hr w-full h-[1px]  mb-[24px] mt-[32px] "></div>
       <section className="px-[16px] mb-[24px]">
         <p className="text-[18px] font-[500]">
-          Joy haqida o’z fikringizni qoldiring
+         {t("add_comment_title_info")}
         </p>
         <textarea
           name="message"
@@ -131,7 +132,7 @@ const EditComment = () => {
           rows="6"
           value={formData.text}
           className={`mt-[24px] border-[1px] border-solid comment-input p-[10px] bg-transparent text-[16px] font-[400] input-form`}
-          placeholder={"Sharh yozing"}
+          placeholder={t("add_comment_btn")}
         ></textarea>
       </section>
       <section className="px-[16px] mb-[70px]">
@@ -178,7 +179,7 @@ const EditComment = () => {
                 : "#0A84FF"
             )}
             <h1 className="text-[16px] font-[500] tg-button-text">
-              Rasm qo’shish
+              {t("add_photo")}
             </h1>
           </button>
         )}
@@ -188,7 +189,7 @@ const EditComment = () => {
           onClick={handleEditComment}
           className="text-[17px] font-[500] text-[#fff] py-[14px] px-[10px] w-[94%] tg-button rounded-[8px]"
         >
-          Yuborish
+          {t("send_btn")}
         </button>
       </div>
       {/* file upload input */}

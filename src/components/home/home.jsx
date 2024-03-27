@@ -240,7 +240,7 @@ export default function Home() {
         >
           <button className="text-[17px] font-[500] text-[#fff] px-[10px] py-[14px] w-[94%] tg-button rounded-[8px] flex justify-center items-center gap-[8px]">
             <img src={imgplus} alt="sadf" />
-            <h1>Rasm qo’shish</h1>
+            <h1>{t("add_photo_btn")}</h1>
           </button>
         </div>
       ) : (
@@ -257,7 +257,7 @@ export default function Home() {
                   ? tg.themeParams.button_color
                   : "#0A84FF"
               )}
-              <h1 className="tg-button-text">Sharh qoldirish</h1>
+              <h1 className="tg-button-text">{t("add_comment_btn")}</h1>
             </button>
           </div>
         )
@@ -298,8 +298,8 @@ function OpenClose(color) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="8"
-      height="8"
+      width="10"
+      height="10"
       viewBox="0 0 8 8"
       fill="none"
     >

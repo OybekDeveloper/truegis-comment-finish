@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { check, info } from "../home/img";
 import { useSelector } from "react-redux";
 import empty from './empty.svg'
+import { useTranslation } from "react-i18next";
 const tg = window.Telegram.WebApp;
 
 
 export default function About() {
   const { placeData } = useSelector((state) => state.event);
   const [aboutData, setAboutData] = useState([]);
-
+  const {t}=useTranslation()
   useEffect(() => {
     function filterTrueOptions(data) {
       const trueOptions = [];
@@ -56,7 +57,7 @@ export default function About() {
       ):(
         <div className="w-full flex flex-col justify-center items-center mt-[20px] gap-[16px]">
         <img src={empty} alt="" />
-        <p className="text-[14px] font-[400]">Joy haqida ma’lumotlar topilmadi</p>
+        <p className="text-[14px] font-[400]">{t("empty_place")}</p>
       </div>
       )}
     </div>

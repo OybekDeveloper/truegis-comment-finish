@@ -288,7 +288,7 @@ export default function AllProduct() {
                 onClick={() => navigate(`/${placeId}/${userId}/${km}/about`)}
                 className="cursor-pointer w-full flex justify-between items-center"
               >
-                <h1 className="text-[16px] font-[500]">Joy haqida</h1>
+                <h1 className="text-[16px] font-[500]">{t("li_4")}</h1>
                 {RightArrow(
                   tg.themeParams.button_color
                     ? tg.themeParams.button_color
@@ -316,7 +316,7 @@ export default function AllProduct() {
       )}
 
       <section className="px-[16px] w-full mb-[80px]">
-        <h1 className="text-[18px] font-[500]">Sharhlar</h1>
+        <h1 className="text-[18px] font-[500]">{t("li_3")}</h1>
         {commentData?.length > 0 ? (
           <section className="px-[16px] w-full mt-[48px]">
             <div className="hr w-full h-[1px]  mb-[24px]"></div>
@@ -381,7 +381,7 @@ export default function AllProduct() {
         ) : (
           <div className="w-full flex flex-col justify-center items-center mt-[20px] gap-[16px]">
             <img src={empty} alt="" />
-            <p className="text-[14px] font-[400]">Sharhlar mavjud emas</p>
+            <p className="text-[14px] font-[400]">{t("empty_comment")}</p>
           </div>
         )}
       </section>

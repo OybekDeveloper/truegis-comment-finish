@@ -4,6 +4,7 @@ import "./photo.scss";
 import Slider from "react-slick";
 import { IoMdClose } from "react-icons/io";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 const imgs = [
   {
     id: 1,
@@ -21,7 +22,7 @@ const imgs = [
 
 export default function Photo() {
   const { placeData } = useSelector((state) => state.event);
-
+  const {t}=useTranslation()
   const [selectPhoto, setSelectPhoto] = useState([]);
   const [activeImageCount, setActiveImageCount] = useState(1);
   const [allImageCount, setAllImageCount] = useState(1);
@@ -130,7 +131,7 @@ export default function Photo() {
       ) : (
         <div className="flex justify-center items-center w-full h-full gap-[16px] flex-col mt-[80px]">
           <img src={empty} alt="" />
-          <h1 className="font-[400] text-[14px]">Yuklangan rasmlar yo’q</h1>
+          <h1 className="font-[400] text-[14px]">{t("empty_photo")}</h1>
         </div>
       )}
     </div>

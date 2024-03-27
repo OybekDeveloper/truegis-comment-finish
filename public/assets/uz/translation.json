@@ -22,8 +22,12 @@
   "add_photo": "Rasm qo’shish",
   "comment_title": "Sharhlar",
   "add_comment_btn": "Sharh qoldirish",
+  "add_comment_title_info":"Joy haqida o’z fikringizni qoldiring",
   "add_photo_btn": "Rasm qo’shish",
   "empty_comment": "Sharhlar mavjud emas",
-  "empty_photo": "Rasmlar topilmadi",
-  "empty_place": "Joy haqida ma’lumotlar topilmadi"
+  "empty_photo": "Yuklangan rasmlar yo’q",
+  "empty_place": "Joy haqida ma’lumotlar topilmadi",
+  "send_btn":"Yuborish",
+  "status_true":"Ochiq",
+  "status_false":"Yopiq"
 }
