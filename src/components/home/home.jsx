@@ -130,7 +130,6 @@ export default function Home() {
     const fatchData=async()=>{
       try {
         const res=await ApiServer.getData(`/users/${userId}/`)
-        console.log(res);
         i18next.changeLanguage(res.lang)
       } catch (error) {
         console.log(error)
@@ -159,7 +158,6 @@ export default function Home() {
       commentData.find((item) => item.user.id === +userId) ? true : false
     );
   }, [commentData]);
-  console.log(placeId, userId, km);
   return (
     <main className="home relative ">
       <section className="px-[16px] min-h-[200px] home-back">

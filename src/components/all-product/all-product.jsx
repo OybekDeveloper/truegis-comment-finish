@@ -170,7 +170,6 @@ export default function AllProduct() {
       filterTrueOptions(placeData.about.details);
     }
   }, [placeData.about]);
-  console.log(placeData)
   return (
     <main className="all-product">
       <section className="px-[16px]">
