@@ -37,14 +37,9 @@ export default function Home() {
 
     const fd = new FormData();
 
-    for (let i = 0; i < files.length; i++) {
-      if (i === 0) {
-        fd.append("image", files[0]);
-      } else {
-        fd.append(`image${i + 1}`, files[i]);
-      }
-    }
-
+    for (let i = 1; i <= files.length; i++) {
+          fd.append(`image${i + 1}`, files[i-1]);
+  }
     axios
       .patch(`https://admin13.uz/api/place/${placeId}/`, fd, {
         headers: {
@@ -113,9 +108,8 @@ export default function Home() {
     navigate(`/${placeId}/${userId}/${km}/all-product`);
   }, []);
   useEffect(() => {
-    const { image, image2, image3, image4 } = placeData;
+    const {  image2, image3, image4 } = placeData;
     const photosArray = [];
-    if (image) photosArray.push(image);
     if (image2) photosArray.push(image2);
     if (image3) photosArray.push(image3);
     if (image4) photosArray.push(image4);
@@ -158,6 +152,7 @@ export default function Home() {
       commentData.find((item) => item.user.id === +userId) ? true : false
     );
   }, [commentData]);
+  console.log(placeData)
   return (
     <main className="home relative ">
       <section className="px-[16px] min-h-[200px] home-back">

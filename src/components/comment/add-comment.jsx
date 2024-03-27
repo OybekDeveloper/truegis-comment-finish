@@ -10,37 +10,24 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { GetPlaceData } from "../../reducer/event";
 import { useTranslation } from "react-i18next";
-const imgs = [
-  {
-    id: 1,
-  },
-  {
-    id: 2,
-  },
-  {
-    id: 3,
-  },
-  {
-    id: 4,
-  },
-];
+
 const tg = window.Telegram.WebApp;
 
 export default function AddComment() {
-  const {t}=useTranslation()
+  const { t } = useTranslation();
   const placeId = localStorage.getItem("placeId");
   const userId = localStorage.getItem("userId");
   const km = localStorage.getItem("km");
 
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { placeData } = useSelector((state) => state.event);
 
   const [formData, setFormData] = useState({
     star: 0, // Initialize formData.star to a default value
   });
-  const [fotos,setFotos]=useState([])
+  const [fotos, setFotos] = useState([]);
   const handleFileInputClick = () => {
     fileInputRef.current.click();
   };
@@ -51,41 +38,37 @@ export default function AddComment() {
       user: userId,
     });
   };
-  
+
   const handleFileUploaded = (e) => {
     const files = e.target.files;
     if (!files || files.length === 0 || !placeData) return;
 
     const fd = new FormData();
 
-    for (let i = 0; i < files.length; i++) {
-        if (i === 0) {
-            fd.append("image", files[0]);
-        } else {
-            fd.append(`image${i + 1}`, files[i]);
-        }
+    for (let i = 1; i <= files.length; i++) {
+      fd.append(`image${i + 1}`, files[i - 1]);
     }
 
     axios
-        .patch(`https://admin13.uz/api/place/${placeId}/`, fd, {
-            headers: {
-                accept: "application/json",
-                "Content-Type": "multipart/form-data",
-            },
-        })
-        .then((res) => {
-          const fetchData = async () => {
-            try {
-              const place = await ApiServer.getData(`/place/${placeId}/`);
-              dispatch(GetPlaceData(place));
-            } catch (error) {
-              console.log(error);
-            }
-          };
-          fetchData();
-        })
-        .catch((err) => console.log(err));
-};
+      .patch(`https://admin13.uz/api/place/${placeId}/`, fd, {
+        headers: {
+          accept: "application/json",
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        const fetchData = async () => {
+          try {
+            const place = await ApiServer.getData(`/place/${placeId}/`);
+            dispatch(GetPlaceData(place));
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        fetchData();
+      })
+      .catch((err) => console.log(err));
+  };
 
   const handleAddComment = async () => {
     try {
@@ -96,9 +79,8 @@ export default function AddComment() {
     }
   };
   useEffect(() => {
-    const { image, image2, image3, image4 } = placeData;
+    const { image2, image3, image4 } = placeData;
     const photosArray = [];
-    if (image) photosArray.push(image);
     if (image2) photosArray.push(image2);
     if (image3) photosArray.push(image3);
     if (image4) photosArray.push(image4);
@@ -109,7 +91,7 @@ export default function AddComment() {
       <section className="px-[16px]">
         <h1 className="text-[24px] font-[500] mt-[16px]">{placeData?.name}</h1>
         <p className="text-[16px] font-[400] mt-[12px]">
-         { placeData.full_address ? placeData.full_address : placeData.street}
+          {placeData.full_address ? placeData.full_address : placeData.street}
         </p>
         <div className="w-full flex justify-center items-center my-[32px]">
           <Rating
@@ -134,9 +116,7 @@ export default function AddComment() {
       </section>
       <div className="hr w-full h-[1px]  mb-[24px] mt-[32px] "></div>
       <section className="px-[16px] mb-[24px]">
-        <p className="text-[18px] font-[500]">
-          {t("add_comment_title_info")}
-        </p>
+        <p className="text-[18px] font-[500]">{t("add_comment_title_info")}</p>
         <textarea
           name="message"
           onChange={(e) => setFormData({ ...formData, text: e.target.value })}
@@ -171,7 +151,7 @@ export default function AddComment() {
                   src={item}
                   alt=""
                 />
-               </div>
+              </div>
             ))}
           </div>
         ) : (

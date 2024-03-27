@@ -67,9 +67,8 @@ export default function Photo() {
     setAlbum(false);
   };
   useEffect(() => {
-    const { image, image2, image3, image4 } = placeData;
+    const {  image2, image3, image4 } = placeData;
     const photosArray = [];
-    if (image) photosArray.push(image);
     if (image2) photosArray.push(image2);
     if (image3) photosArray.push(image3);
     if (image4) photosArray.push(image4);

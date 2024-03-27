@@ -44,8 +44,8 @@ const EditComment = () => {
     }
   }, [editId, commentData]);
   useEffect(() => {
-    const { image, image2, image3, image4 } = placeData;
-    const photosArray = [image, image2, image3, image4].filter(Boolean);
+    const {  image2, image3, image4 } = placeData;
+    const photosArray = [ image2, image3, image4].filter(Boolean);
     setFotos(photosArray);
   }, [placeData]);
 
@@ -65,9 +65,9 @@ const EditComment = () => {
     if (!files || files.length === 0 || !placeData) return;
 
     const formData = new FormData();
-    for (let i = 0; i < files.length; i++) {
-      formData.append(`image${i + 1}`, files[i]);
-    }
+     for (let i = 1; i <= files.length; i++) {
+          formData.append(`image${i + 1}`, files[i-1]);
+  }
 
     try {
       await axios.patch(`https://admin13.uz/api/place/${placeId}/`, formData, {
