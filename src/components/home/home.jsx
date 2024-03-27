@@ -15,6 +15,7 @@ import {
 } from "../../reducer/event";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+import i18next from "i18next";
 
 const tg = window.Telegram.WebApp;
 const backgroundImage =
@@ -126,6 +127,16 @@ export default function Home() {
     localStorage.setItem("userId", userId);
     localStorage.setItem("km", km);
     dispatch(SavePathData([placeId, userId, km]));
+    const fatchData=async()=>{
+      try {
+        const res=await ApiServer.getData(`/users/${userId}/`)
+        console.log(res);
+        i18next.changeLanguage(res.lang)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fatchData()
   }, []);
 
   useEffect(() => {
