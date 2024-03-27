@@ -60,7 +60,7 @@ export default function App() {
   },[])
   return (
     <>
-    <button onClick={back}>back</button>
+    {/* <button onClick={back}>back</button> */}
     {loading?(
         <div className="app max-w-[400px] mx-auto">
         <Routes>
