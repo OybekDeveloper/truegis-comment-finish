@@ -7,7 +7,12 @@ import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import { ApiServer } from "../../ApiServer/api";
 import { useDispatch, useSelector } from "react-redux";
-import { GetCommentData, GetPlaceData, Loading, SavePathData } from "../../reducer/event";
+import {
+  GetCommentData,
+  GetPlaceData,
+  Loading,
+  SavePathData,
+} from "../../reducer/event";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 
@@ -16,7 +21,7 @@ const backgroundImage =
   "https://s3-alpha-sig.figma.com/img/808e/7de1/0a383ce94c24b18e47af0e9ba369a18a?Expires=1711929600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=e7AE~1fTZ-cKSH-WZLl2-g9yhVsxw2rJ9qJ2UKefHAOZY7zlW89xrlkRsImEkHEpfT-NbJeMcmF8UOdemF1ZcKZ8pRYxqVXXTemn~8p8t33cVhaNCNt-owytQK4HRstvl2T7czB8Uz2ftE-2~XPFq3mqssd1E~DJ6zJFjmrRZAc8Aj~zpqEKSGWDut85W3WDy4YEr4KhHvbYk46g4mhrPl51d-gbgN-YbVSQXf7A5eVRYQQzFlf9bq5tIZttyyTLn9xbSDL2xeTsLI~AWyh-L84eXCGkG9-oVcYfLgeedzw9oa9Bk4xv45eGvhjGYLaflIBwXwzBq4TXwqefY87HuQ__";
 
 export default function Home() {
-  const {t}=useTranslation()
+  const { t } = useTranslation();
   const fileInputRef = useRef(null);
   const { placeId, userId, km } = useParams();
   const { pathname } = useLocation();
@@ -120,10 +125,8 @@ export default function Home() {
     localStorage.setItem("placeId", placeId);
     localStorage.setItem("userId", userId);
     localStorage.setItem("km", km);
-    dispatch(SavePathData([placeId,userId,km]))
+    dispatch(SavePathData([placeId, userId, km]));
   }, []);
-
-  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -135,7 +138,7 @@ export default function Home() {
       } catch (error) {
         console.log(error);
       } finally {
-       dispatch(Loading)
+        dispatch(Loading);
       }
     };
     fetchData();
@@ -145,7 +148,7 @@ export default function Home() {
       commentData.find((item) => item.user.id === +userId) ? true : false
     );
   }, [commentData]);
-  console.log(placeId,userId,km)
+  console.log(placeId, userId, km);
   return (
     <main className="home relative ">
       <section className="px-[16px] min-h-[200px] home-back">
@@ -178,20 +181,16 @@ export default function Home() {
               {placeData.rating ? placeData.rating : 0}
             </p>
             <p className="text-[#fff] opacity-[0.7] text-[14px] font-[500] mt-[4px]">
-              {commentData.length ? commentData.length : "0"} {t("home_comment")}
+              {commentData.length ? commentData.length : "0"}{" "}
+              {t("home_comment")}
             </p>
           </div>
           <div className="flex justify-between items-center mt-[50px]">
             <div className="flex justify-start items-center gap-[8px]">
-              <img src={pointgreen} alt="" />
-              <p className="text-[#fff] text-[14px] font-[500]">{`${
-                placeData.work_start_time && placeData.work_end_time
-                  ? getTimeData(
-                      placeData.work_start_time,
-                      placeData.work_end_time
-                    )
-                  : "0"
-              } ${t('home_time')}`}</p>
+              {OpenClose(placeData?.status ? "#17B26A" : "red")}
+              <p className="text-[#fff] text-[14px] font-[500]">
+                {placeData.status ? `Open` : `Close`}
+              </p>
             </div>
             <div className="flex items-center gap-[8px]">
               <img src={line} alt="" />
@@ -292,6 +291,19 @@ function CommentAdd(color) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+    </svg>
+  );
+}
+function OpenClose(color) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="8"
+      height="8"
+      viewBox="0 0 8 8"
+      fill="none"
+    >
+      <circle cx="4" cy="4" r="4" fill={color} />
     </svg>
   );
 }

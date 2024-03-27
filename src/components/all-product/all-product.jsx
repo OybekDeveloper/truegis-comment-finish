@@ -187,7 +187,7 @@ export default function AllProduct() {
           />
             </div>
         </div>
-        <div className="flex justify-start items-start gap-[16px] mt-[24px]">
+        <div className="flex justify-start items-start gap-[16px] mt-[24px] mb-[24px]">
           <img className="w-[24px] h-[24px]" src={phone} alt="" />
           <div className="flex flex-col gap-[12px]">
             <h1 className="text-[16px] font-[500]">{t("contact")}</h1>
