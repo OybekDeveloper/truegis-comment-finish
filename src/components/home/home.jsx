@@ -200,7 +200,7 @@ export default function Home() {
             <div className="flex justify-start items-center gap-[8px]">
               {OpenClose(placeData?.status ? "#17B26A" : "red")}
               <p className="text-[#fff] text-[14px] font-[500]">
-                {placeData.status ? `Open` : `Close`}
+                {placeData.status ? `${t('status_true')}` : `${t("status_false")}`}
               </p>
             </div>
             <div className="flex items-center gap-[8px]">
