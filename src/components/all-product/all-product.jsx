@@ -203,7 +203,7 @@ export default function AllProduct() {
               <div className="flex justify-between items-center">
                 <p className="text-[16px] font-[400]">Dushanba</p>
                 <p className={`text-[16px] font-[500]`}>
-                  {placeData?.work_days?.find((c) => c === 1) ? (
+                  {placeData?.work_days?.find((c) => c == 1) ? (
                     workData()
                   ) : (
                     <span className="text-[#F04438] font-[500] text-[16px]">Close</span>
@@ -213,7 +213,7 @@ export default function AllProduct() {
               <div className="flex justify-between items-center">
                 <p className="text-[16px] font-[400]">Seshanba</p>
                 <p className={`text-[16px] font-[500]`}>
-                  {placeData?.work_days?.find((c) => c === 2) ? (
+                  {placeData?.work_days?.find((c) => c == 2) ? (
                     workData()
                   ) : (
                     <span className="text-[#F04438] font-[500] text-[16px]">Close</span>
@@ -223,7 +223,7 @@ export default function AllProduct() {
               <div className="flex justify-between items-center">
                 <p className="text-[16px] font-[400]">Chorshanba</p>
                 <p className={`text-[16px] font-[500]`}>
-                  {placeData?.work_days?.find((c) => c === 3) ? (
+                  {placeData?.work_days?.find((c) => c == 3) ? (
                     workData()
                   ) : (
                     <span className="text-[#F04438] font-[500] text-[16px]">Close</span>
@@ -233,7 +233,7 @@ export default function AllProduct() {
               <div className="flex justify-between items-center">
                 <p className="text-[16px] font-[400]">Payshanba</p>
                 <p className={`text-[16px] font-[500]`}>
-                  {placeData?.work_days?.find((c) => c === 4) ? (
+                  {placeData?.work_days?.find((c) => c == 4) ? (
                     workData()
                   ) : (
                     <span className="text-[#F04438] font-[500] text-[16px]">Close</span>
@@ -243,7 +243,7 @@ export default function AllProduct() {
               <div className="flex justify-between items-center">
                 <p className="text-[16px] font-[400]">Juma</p>
                 <p className={`text-[16px] font-[500]`}>
-                  {placeData?.work_days?.find((c) => c === 5) ? (
+                  {placeData?.work_days?.find((c) => c == 5) ? (
                     workData()
                   ) : (
                     <span className="text-[#F04438] font-[500] text-[16px]">Close</span>
@@ -253,7 +253,7 @@ export default function AllProduct() {
               <div className="flex justify-between items-center">
                 <p className="text-[16px] font-[400]">Shanba</p>
                 <p className={`text-[16px] font-[500]`}>
-                  {placeData?.work_days?.find((c) => c === 6) ? (
+                  {placeData?.work_days?.find((c) => c == 6) ? (
                     workData()
                   ) : (
                     <span className="text-[#F04438] font-[500] text-[16px]">Close</span>
@@ -263,7 +263,7 @@ export default function AllProduct() {
               <div className="flex justify-between items-center">
                 <p className="text-[16px] font-[400] ">Yakshanba</p>
                 <p className={`text-[16px] font-[500]`}>
-                  {placeData?.work_days?.find((c) => c === 0) ? (
+                  {placeData?.work_days?.find((c) => c == 0) ? (
                     workData()
                   ) : (
                     <span className="text-[#F04438] font-[500] text-[16px]">Close</span>
