@@ -38,8 +38,8 @@ export default function Home() {
     const fd = new FormData();
 
     for (let i = 1; i <= files.length; i++) {
-          fd.append(`image${i + 1}`, files[i-1]);
-  }
+      fd.append(`image${i + 1}`, files[i - 1]);
+    }
     axios
       .patch(`https://admin13.uz/api/place/${placeId}/`, fd, {
         headers: {
@@ -91,29 +91,31 @@ export default function Home() {
   const { delModal } = useSelector((state) => state.event);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [statusWork, setStatusWork] = useState(true);
   const [activeTab, setActiveTab] = useState(1);
   const [activeComment, setActiveComment] = useState(false);
 
-  const getTimeData = (start, end) => {
-    const workStart = start?.split(":")[0];
-    const workEnd = end?.split(":")[0];
-
-    if (workEnd - workStart > 0) {
-      return workEnd - workStart;
+  const workStatus = () => {
+    const hours = new Date().getHours();
+    const minutes = new Date().getMinutes();
+    const secounds = new Date().getSeconds();
+    console.log(hours, minutes, secounds);
+    const start = placeData?.work_start_time?.split(":")[0];
+    const end = placeData?.work_end_time?.split(":")[0];
+    if (hours > start && hours < end) {
+      setStatusWork(true);
     } else {
-      return workEnd - workStart + 24;
+      setStatusWork(false);
     }
   };
   useEffect(() => {
-    navigate(`/${placeId}/${userId}/${km}/all-product`);
-  }, []);
-  useEffect(() => {
-    const {  image2, image3, image4 } = placeData;
+    const { image2, image3, image4 } = placeData;
     const photosArray = [];
     if (image2) photosArray.push(image2);
     if (image3) photosArray.push(image3);
     if (image4) photosArray.push(image4);
     setImgCount(photosArray.length);
+    workStatus();
   }, [placeData]);
 
   useEffect(() => {
@@ -121,15 +123,16 @@ export default function Home() {
     localStorage.setItem("userId", userId);
     localStorage.setItem("km", km);
     dispatch(SavePathData([placeId, userId, km]));
-    const fatchData=async()=>{
+    const fatchData = async () => {
       try {
-        const res=await ApiServer.getData(`/users/${userId}/`)
-        i18next.changeLanguage(res.lang)
+        const res = await ApiServer.getData(`/users/${userId}/`);
+        i18next.changeLanguage(res.lang);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    }
-    fatchData()
+    };
+    fatchData();
+    navigate(`/${placeId}/${userId}/${km}/all-product`);
   }, []);
 
   useEffect(() => {
@@ -152,7 +155,7 @@ export default function Home() {
       commentData.find((item) => item.user.id === +userId) ? true : false
     );
   }, [commentData]);
-  console.log(placeData)
+  console.log(placeData);
   return (
     <main className="home relative ">
       <section className="px-[16px] min-h-[200px] home-back">
@@ -191,9 +194,9 @@ export default function Home() {
           </div>
           <div className="flex justify-between items-center mt-[50px]">
             <div className="flex justify-start items-center gap-[8px]">
-              {OpenClose(placeData?.status ? "#17B26A" : "red")}
+              {OpenClose(statusWork ? "#17B26A" : "red")}
               <p className="text-[#fff] text-[14px] font-[500]">
-                {placeData.status ? `${t('status_true')}` : `${t("status_false")}`}
+                {statusWork ? `${t("status_true")}` : `${t("status_false")}`}
               </p>
             </div>
             <div className="flex items-center gap-[8px]">
