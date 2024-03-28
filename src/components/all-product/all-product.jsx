@@ -56,7 +56,7 @@ export default function AllProduct() {
   const [menuActive, setMenuActive] = useState(false);
   const [tableActive, setTableActive] = useState(false);
   const [aboutData, setAboutData] = useState([]);
-  const [maxTime, setMaxTime] = useState('');
+  const [maxTime, setMaxTime] = useState("");
   const getInitials = (fullName) => {
     if (!fullName) return "";
     const words = fullName.split(" ");
@@ -69,73 +69,7 @@ export default function AllProduct() {
   const handleDelete = (id) => {
     dispatch(DeleteComment(id));
   };
-//   const [workingHoursData, setWorkingHoursData] = useState(placeData.working_hours);
-// const [convertedWorkingHours, setConvertedWorkingHours] = useState({});
 
-// useEffect(() => {
-//     convertWorkingHours();
-//     setWorkingHoursData(placeData.working_hours)
-//     let calculatedMaxTime = null;
-
-//     for (const day in convertedWorkingHours) {
-//         const times = convertedWorkingHours[day];
-
-//         if (times[0] === 'Closed') {
-//             continue;
-//         }
-
-//         const [, endTime] = times[0].split(' - ');
-//         const [endHour, endMinute] = endTime.split(':').map(Number);
-
-//         if (!calculatedMaxTime || (endHour > calculatedMaxTime[0] || (endHour === calculatedMaxTime[0] && endMinute > calculatedMaxTime[1]))) {
-//             calculatedMaxTime = [endHour, endMinute];
-//         }
-//     }
-
-//     if (calculatedMaxTime) {
-//         setMaxTime(`${calculatedMaxTime[0].toString().padStart(2, '0')}:${calculatedMaxTime[1].toString().padStart(2, '0')}`);
-//     } else {
-//         setMaxTime('No working hours available');
-//     }
-// }, [placeData]);
-
-// const convertWorkingHours = () => {
-//   const convertedHours = {};
-
-//   for (const day in workingHoursData) {
-//       let hours = workingHoursData[day][0];
-//       let convertedHoursValue;
-
-//       if (hours === 'Closed' || hours === 'in Openit') {
-//           convertedHoursValue = hours;
-//       } else {
-//           hours = hours.replace(/–/g, '-');
-//           let [start, end] = hours.split('-').map(time => time.trim());
-
-//           // Correcting AM/PM indicators and time formats
-//           start = start.replace('PM', ' PM').replace('AM', ' AM');
-//           end = end.replace('PM', ' PM').replace('AM', ' AM');
-
-//           const [startHour, startMinute, startPeriod] = start.split(' ');
-//           const [endHour, endMinute, endPeriod] = end.split(' ');
-
-//           const convertedStartHour = startPeriod === 'AM' ? (startHour === '12' ? '00' : startHour) : (parseInt(startHour) + 12).toString().padStart(2, '0');
-//           const convertedEndHour = endPeriod === 'AM' ? (endHour === '12' ? '00' : endHour) : (parseInt(endHour) + 12).toString().padStart(2, '0');
-
-//           const convertedStartMinute = startMinute ? startMinute.padEnd(2, '0') : '00';
-//           const convertedEndMinute = endMinute ? endMinute.padEnd(2, '0') : '00';
-
-//           convertedHoursValue = `${convertedStartHour}:${convertedStartMinute} - ${convertedEndHour}:${convertedEndMinute}`;
-//       }
-
-//       convertedHours[day] = [convertedHoursValue];
-//   }
-
-//   setConvertedWorkingHours(convertedHours);
-// }
-// const handlePhoneClick = (phoneNumber) => {
-//   window.location.href = `tel:${phoneNumber}`;
-// };
   useEffect(() => {
     const body = document.querySelector(".home");
     if (menuActive && delModal) {
@@ -175,28 +109,29 @@ export default function AllProduct() {
       <section className="px-[16px]">
         <div className="flex justify-start items-start gap-[16px] mt-[24px]">
           <img className="w-[24px] h-[24px]" src={location} alt="" />
-            <div className="flex flex-col gap-[12px]">
-              <h1 className="text-[16px] font-[500]">{t("adress")}</h1>
+          <div className="flex flex-col gap-[12px]">
+            <h1 className="text-[16px] font-[500]">{t("adress")}</h1>
             <MapAppSelector
-            latitude={placeData?.latitude}
-            longitude={placeData?.longitude}
-            text={
-              placeData.full_address ? placeData.full_address : placeData.street
-            }
-          />
-            </div>
+              latitude={placeData?.latitude}
+              longitude={placeData?.longitude}
+              text={
+                placeData.full_address
+                  ? placeData.full_address
+                  : placeData.street
+              }
+            />
+          </div>
         </div>
         <div className="flex justify-start items-start gap-[16px] mt-[24px] mb-[24px]">
           <img className="w-[24px] h-[24px]" src={phone} alt="" />
           <div className="flex flex-col gap-[12px]">
             <h1 className="text-[16px] font-[500]">{t("contact")}</h1>
             <h1
-            className="text-[16px] font-[500] tg-button-text"
-
-            onClick={() =>window.open(`tel:${placeData.phone}`)}
-        >
-            {placeData.phone}
-        </h1>
+              className="text-[16px] font-[500] tg-button-text"
+              onClick={() => window.open(`tel:${placeData.phone}`)}
+            >
+              {placeData.phone}
+            </h1>
 
             <div className="flex justify-start items-center gap-[16px]">
               {placeData.instagram && (
@@ -217,13 +152,19 @@ export default function AllProduct() {
             </div>
           </div>
         </div>
-        {/* {placeData.working_hours && (
+        {(
+          placeData.work_days &&
+          placeData.work_end_time &&
+          placeData.work_start_time
+        )&&(
           <div className="relative flex justify-start items-start gap-[16px] mt-[24px]">
             <img className="w-[24px] h-[24px]" src={time} alt="" />
             <div className="w-full flex flex-col gap-[12px]">
               <h1 className="text-[16px] font-[500]">{t("work_time")}</h1>
               <article className="flex justify-between items-center w-full">
-                <p className="text-[16px] font-[400] ">{maxTime} gacha ochiq</p>
+                <p className="text-[16px] font-[400] ">
+                  {placeData?.work_end_time} gacha ochiq
+                </p>
                 <div
                   onClick={() => setTableActive(!tableActive)}
                   className="cursor-pointer flex  items-center gap-[8px]"
@@ -238,9 +179,13 @@ export default function AllProduct() {
               </article>
             </div>
           </div>
-        )} */}
+        )}
 
-        {/* {placeData.working_hours && (
+        {(
+          placeData.work_days &&
+          placeData.work_end_time &&
+          placeData.work_start_time
+        )&&(
           <div
             className={`table_content ${
               tableActive ? "transition-height active mb-[24px]" : ""
@@ -248,34 +193,104 @@ export default function AllProduct() {
           >
             <div className="flex justify-between items-center">
               <p className="text-[16px] font-[400]">Dushanba</p>
-              <p className={`${convertedWorkingHours.Monday=="Closed"&& "text-red-500"} text-[16px] font-[500]`}>{convertedWorkingHours.Monday}</p>
+              <p className={`text-[16px] font-[500]`}>
+                {placeData?.work_days?.filter((c) => c == 1) ? (
+                  `${
+                    placeData.work_start_time == placeData?.work_end_time
+                      ? `24 soat`
+                      : placeData.work_start_time - placeData.work_end_time
+                  }`
+                ) : (
+                  <h1 className="text-red-500">Close</h1>
+                )}
+              </p>
             </div>
             <div className="flex justify-between items-center">
               <p className="text-[16px] font-[400]">Seshanba</p>
-              <p className={`${convertedWorkingHours.Tuesday=="Closed"&& "text-red-500"} text-[16px] font-[500]`}>{convertedWorkingHours.Tuesday}</p>
+              <p className={`text-[16px] font-[500]`}>
+                {placeData?.work_days?.filter((c) => c == 2) ? (
+                  `${
+                    placeData.work_start_time == placeData?.work_end_time
+                      ? `24 soat`
+                      : placeData.work_start_time - placeData.work_end_time
+                  }`
+                ) : (
+                  <h1 className="text-red-500">Close</h1>
+                )}
+              </p>
             </div>
             <div className="flex justify-between items-center">
               <p className="text-[16px] font-[400]">Chorshanba</p>
-              <p className={`${convertedWorkingHours.Wednesday=="Closed"&& "text-red-500"} text-[16px] font-[500]`}>{convertedWorkingHours.Wednesday}</p>
+              <p className={`text-[16px] font-[500]`}>
+                {placeData?.work_days?.filter((c) => c == 3) ? (
+                  `${
+                    placeData.work_start_time == placeData?.work_end_time
+                      ? `24 soat`
+                      : placeData.work_start_time - placeData.work_end_time
+                  }`
+                ) : (
+                  <h1 className="text-red-500">Close</h1>
+                )}
+              </p>
             </div>
             <div className="flex justify-between items-center">
               <p className="text-[16px] font-[400]">Payshanba</p>
-              <p className={`${convertedWorkingHours.Thursday=="Closed"&& "text-red-500"} text-[16px] font-[500]`}>{convertedWorkingHours.Thursday}</p>
+              <p className={`text-[16px] font-[500]`}>
+                {placeData?.work_days?.filter((c) => c == 4) ? (
+                  `${
+                    placeData.work_start_time == placeData?.work_end_time
+                      ? `24 soat`
+                      : placeData.work_start_time - placeData.work_end_time
+                  }`
+                ) : (
+                  <h1 className="text-red-500">Close</h1>
+                )}
+              </p>
             </div>
             <div className="flex justify-between items-center">
               <p className="text-[16px] font-[400]">Juma</p>
-              <p className={`${convertedWorkingHours.Friday=="Closed"&& "text-red-500"} text-[16px] font-[500]`}>{convertedWorkingHours.Friday}</p>
+              <p className={`text-[16px] font-[500]`}>
+                {placeData?.work_days?.filter((c) => c == 5) ? (
+                  `${
+                    placeData.work_start_time == placeData?.work_end_time
+                      ? `24 soat`
+                      : placeData.work_start_time - placeData.work_end_time
+                  }`
+                ) : (
+                  <h1 className="text-red-500">Close</h1>
+                )}
+              </p>
             </div>
             <div className="flex justify-between items-center">
               <p className="text-[16px] font-[400]">Shanba</p>
-              <p className={`${convertedWorkingHours.Saturday=="Closed"&& "text-red-500"} text-[16px] font-[500]`}>{convertedWorkingHours.Saturday}</p>
+              <p className={`text-[16px] font-[500]`}>
+                {placeData?.work_days?.filter((c) => c == 6) ? (
+                  `${
+                    placeData.work_start_time == placeData?.work_end_time
+                      ? `24 soat`
+                      : placeData.work_start_time - placeData.work_end_time
+                  }`
+                ) : (
+                  <h1 className="text-red-500">Close</h1>
+                )}
+              </p>
             </div>
             <div className="flex justify-between items-center">
               <p className="text-[16px] font-[400] ">Yakshanba</p>
-              <p className={`${convertedWorkingHours.Sunday=="Closed"&& "text-red-500"} text-[16px] font-[500]`}>{convertedWorkingHours.Sunday}</p>
+              <p className={`text-[16px] font-[500]`}>
+                {placeData?.work_days?.filter((c) => c == 0) ? (
+                  `${
+                    placeData.work_start_time == placeData?.work_end_time
+                      ? `24 soat`
+                      : placeData.work_start_time - placeData.work_end_time
+                  }`
+                ) : (
+                  <h1 className="text-red-500">Close</h1>
+                )}
+              </p>
             </div>
           </div>
-        )} */}
+        )}
       </section>
       <div className="hr w-full h-[1px] mb-[32px]"></div>
       {aboutData.length > 0 && (
