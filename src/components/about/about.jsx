@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { check, info } from "../home/img";
 import { useSelector } from "react-redux";
-import empty from './empty.svg'
+import empty from "./empty.svg";
 import { useTranslation } from "react-i18next";
 const tg = window.Telegram.WebApp;
-
 
 export default function About() {
   const { placeData } = useSelector((state) => state.event);
   const [aboutData, setAboutData] = useState([]);
-  const {t}=useTranslation()
+  const { t } = useTranslation();
   useEffect(() => {
     function filterTrueOptions(data) {
       const trueOptions = [];
@@ -36,29 +35,37 @@ export default function About() {
   }, [placeData.about]);
   return (
     <div>
-      {aboutData.length > 0 ? (
-        <section className="px-[16px]">
-          <div className="w-full mt-[24px]">
-            {aboutData.map((item,idx) => (
-              <button
-                key={idx}
-                className="mr-[6px] mt-[12px] inline-flex gap-[8px]  px-[10px] py-[6px]  justify-center items-center"
-              >
-                {CheskSvg(
-                  tg.themeParams.button_color
-                    ? tg.themeParams.button_color
-                    : "#0A84FF"
-                )}
-                <p className="text-[14px] font-[500] gap-[8px]">{item}</p>
-              </button>
-            ))}
-          </div>
-        </section>
-      ):(
+      {(aboutData.length > 0 && placeData.info) ? (
+        <>
+          <section className="mt-[32px] mb-[32px]">
+            <h1 className="text-[16px] font-400">
+             {placeData.info}
+            </h1>
+          </section>
+          <div className="hr w-full h-[1px] mb-[32px]"></div>
+          <section className="px-[16px]">
+            <div className="w-full mt-[24px]">
+              {aboutData.map((item, idx) => (
+                <button
+                  key={idx}
+                  className="mr-[6px] mt-[12px] inline-flex gap-[8px]  px-[10px] py-[6px]  justify-center items-center"
+                >
+                  {CheskSvg(
+                    tg.themeParams.button_color
+                      ? tg.themeParams.button_color
+                      : "#0A84FF"
+                  )}
+                  <p className="text-[14px] font-[500] gap-[8px]">{item}</p>
+                </button>
+              ))}
+            </div>
+          </section>
+        </>
+      ) : (
         <div className="w-full flex flex-col justify-center items-center mt-[20px] gap-[16px]">
-        <img src={empty} alt="" />
-        <p className="text-[14px] font-[400]">{t("empty_place")}</p>
-      </div>
+          <img src={empty} alt="" />
+          <p className="text-[14px] font-[400]">{t("empty_place")}</p>
+        </div>
       )}
     </div>
   );
