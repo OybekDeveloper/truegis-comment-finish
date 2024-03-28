@@ -193,11 +193,17 @@ export default function Home() {
             </p>
           </div>
           <div className="flex justify-between items-center mt-[50px]">
-            <div className="flex justify-start items-center gap-[8px]">
-              {OpenClose(statusWork ? "#17B26A" : "red")}
-              <p className="text-[#fff] text-[14px] font-[500]">
-                {statusWork ? `${t("status_true")}` : `${t("status_false")}`}
-              </p>
+            <div>
+              {placeData?.work_end_time && placeData.work_end_time && (
+                <div className="flex justify-start items-center gap-[8px]">
+                  {OpenClose(statusWork ? "#17B26A" : "red")}
+                  <p className="text-[#fff] text-[14px] font-[500]">
+                    {statusWork
+                      ? `${t("status_true")}`
+                      : `${t("status_false")}`}
+                  </p>
+                </div>
+              )}
             </div>
             <div className="flex items-center gap-[8px]">
               <img src={line} alt="" />

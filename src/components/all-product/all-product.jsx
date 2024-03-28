@@ -174,7 +174,7 @@ export default function AllProduct() {
                 <h1 className="text-[16px] font-[500]">{t("work_time")}</h1>
                 <article className="flex justify-between items-center w-full">
                   <p className="text-[16px] font-[400] ">
-                    {placeData?.work_end_time} gacha ochiq
+                    {placeData?.work_end_time.split(":")[0]+":"+placeData?.work_end_time.split(":")[1]} gacha ochiq
                   </p>
                   <div
                     onClick={() => setTableActive(!tableActive)}
