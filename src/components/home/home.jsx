@@ -133,6 +133,7 @@ export default function Home() {
     };
     fatchData();
     navigate(`/${placeId}/${userId}/${km}/all-product`);
+    workStatus();
   }, []);
 
   useEffect(() => {
