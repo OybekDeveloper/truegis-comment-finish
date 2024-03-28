@@ -135,19 +135,19 @@ export default function AllProduct() {
 
             <div className="flex justify-start items-center gap-[16px]">
               {placeData.instagram && (
-                <div onClick={()=>window.open(placeData.instagram)} className="social-media">
+                <a href={placeData.instagram} className="social-media">
                   <img className="" src={instagram} alt="" />
-                </div>
+                </a>
               )}
               {placeData.telegram && (
-                <div onClick={()=>window.open(placeData.telegram)} className="social-media">
+                <a href={placeData.telegram} className="social-media">
                   <img className="" src={telegram} alt="" />
-                </div>
+                </a>
               )}
               {placeData.website && (
-                <div onClick={()=>window.open(placeData.website)} className="social-media">
+                <a href={placeData.website} className="social-media">
                   <img className="" src={web} alt="" />
-                </div>
+                </a>
               )}
             </div>
           </div>
