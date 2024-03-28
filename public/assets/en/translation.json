@@ -22,12 +22,14 @@
   "add_photo": "Add Photo",
   "comment_title": "Comments",
   "add_comment_btn": "Add Comment",
-  "add_comment_title_info":"Leave your opinion about the place",
+  "add_comment_title_info": "Leave your opinion about the place",
   "add_photo_btn": "Add Photo",
   "empty_comment": "No comments available",
   "empty_photo": "No uploaded photos",
   "empty_place": "No information found about the place",
-  "send_btn":"Send",
-  "status_true":"Open",
-  "status_false":"Closed"
+  "send_btn": "Send",
+  "status_true": "Open",
+  "status_false": "Closed",
+  "delete_btn": "Delete",
+  "edit_btn": "Edit"
 }

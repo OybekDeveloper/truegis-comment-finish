@@ -5,6 +5,7 @@ import { ApiServer } from "../../ApiServer/api";
 import { useDispatch, useSelector } from "react-redux";
 import { ActiveModal, EditCommentModal } from "../../reducer/event";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 const tg = window.Telegram.WebApp;
 
 const dropIn = {
@@ -30,6 +31,7 @@ const dropIn = {
 
 const Modal = ({ handleClose }) => {
   const dispatch = useDispatch();
+  const {t}=useTranslation()
   const userId=localStorage.getItem("userId")
   const placeId=localStorage.getItem("placeId")
   const km=localStorage.getItem("km")
@@ -56,7 +58,7 @@ const Modal = ({ handleClose }) => {
         animate={{y:0}}
         transition={{duration:0.5}}
         onClick={(e) => e.stopPropagation()}
-        className=" menu flex flex-col gap-[24px] w-full h-[150px] bg-[#fff] rounded-t-[24px] px-[16px]"
+        className=" menu flex flex-col gap-[24px] w-full h-[150px]  rounded-t-[24px] px-[16px]"
       >
         <div>
           <div className="w-[44px] h-[4px] bg-[#D9D9D9] mt-[12px] mx-auto"></div>
@@ -71,7 +73,7 @@ const Modal = ({ handleClose }) => {
                   : "#0A84FF"
               )}
               <h1 className="tg-button-text text-[18px] font-[500]">
-                Tahrirlash
+                {t("edit_btn")}
               </h1>
             </div>
             <div
@@ -80,7 +82,7 @@ const Modal = ({ handleClose }) => {
             >
               {deleteSvg()}
               <h1 className="text-[#F04438] text-[18px] font-[500]">
-                O’chirish
+                {t("delete_btn")}
               </h1>
             </div>
           </section>

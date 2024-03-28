@@ -36,3 +36,7 @@
     align-items: end;
     justify-content: end;
   } 
+  .menu{
+    background-color: var(--tg-theme-bg-color,#fff);
+    color:var(--tg-theme-text-color) ;
+  }

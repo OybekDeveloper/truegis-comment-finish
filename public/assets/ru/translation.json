@@ -22,12 +22,14 @@
   "add_photo": "Добавить фото",
   "comment_title": "Комментарии",
   "add_comment_btn": "Добавить комментарий",
-  "add_comment_title_info":"Оставьте свой отзыв о месте",
+  "add_comment_title_info": "Оставьте свой отзыв о месте",
   "add_photo_btn": "Добавить фото",
   "empty_comment": "Комментарии отсутствуют",
   "empty_photo": "Фотографии не загружены",
   "empty_place": "Информация о месте не найдена",
-  "send_btn":"Отправить",
-  "status_true":"Открыто",
-  "status_false":"Закрыто"
+  "send_btn": "Отправить",
+  "status_true": "Открыто",
+  "status_false": "Закрыто",
+  "delete_btn": "Удалить",
+  "edit_btn": "Редактировать"
 }

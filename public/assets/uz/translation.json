@@ -29,5 +29,7 @@
   "empty_place": "Joy haqida ma’lumotlar topilmadi",
   "send_btn":"Yuborish",
   "status_true":"Ochiq",
-  "status_false":"Yopiq"
+  "status_false":"Yopiq",
+  "delete_btn":"O’chirish",
+  "edit_btn:":"Tahrirlash"
 }
