@@ -160,11 +160,6 @@ const EditComment = () => {
                   src={item}
                   alt=""
                 />
-                <img
-                  className="absolute bg-[#EAECF0] rounded-full p-[5px] top-0 right-[10px]"
-                  src={trash}
-                  alt=""
-                />
               </div>
             ))}
           </div>
