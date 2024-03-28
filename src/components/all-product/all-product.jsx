@@ -69,6 +69,19 @@ export default function AllProduct() {
   const handleDelete = (id) => {
     dispatch(DeleteComment(id));
   };
+  const workData = () => {
+    const finalData =
+      placeData.work_start_time === placeData?.work_end_time
+        ? `24 soat`
+        : placeData.work_start_time.split(":")[0] +
+          ":" +
+          placeData.work_start_time.split(":")[1] +
+          " - " +
+          placeData.work_end_time.split(":")[0] +
+          ":" +
+          placeData.work_end_time.split(":")[1];
+          return finalData;
+  };
 
   useEffect(() => {
     const body = document.querySelector(".home");
@@ -152,145 +165,113 @@ export default function AllProduct() {
             </div>
           </div>
         </div>
-        {(
-          placeData.work_days &&
+        {placeData.work_days &&
           placeData.work_end_time &&
-          placeData.work_start_time
-        )&&(
-          <div className="relative flex justify-start items-start gap-[16px] mt-[24px]">
-            <img className="w-[24px] h-[24px]" src={time} alt="" />
-            <div className="w-full flex flex-col gap-[12px]">
-              <h1 className="text-[16px] font-[500]">{t("work_time")}</h1>
-              <article className="flex justify-between items-center w-full">
-                <p className="text-[16px] font-[400] ">
-                  {placeData?.work_end_time} gacha ochiq
-                </p>
-                <div
-                  onClick={() => setTableActive(!tableActive)}
-                  className="cursor-pointer flex  items-center gap-[8px]"
-                >
-                  <p className="font-[500] tg-button-text">Jadval</p>
-                  {TableDown(
-                    tg.themeParams.button_color
-                      ? tg.themeParams.button_color
-                      : "#0A84FF"
+          placeData.work_start_time && (
+            <div className="relative flex justify-start items-start gap-[16px] mt-[24px]">
+              <img className="w-[24px] h-[24px]" src={time} alt="" />
+              <div className="w-full flex flex-col gap-[12px]">
+                <h1 className="text-[16px] font-[500]">{t("work_time")}</h1>
+                <article className="flex justify-between items-center w-full">
+                  <p className="text-[16px] font-[400] ">
+                    {placeData?.work_end_time} gacha ochiq
+                  </p>
+                  <div
+                    onClick={() => setTableActive(!tableActive)}
+                    className="cursor-pointer flex  items-center gap-[8px]"
+                  >
+                    <p className="font-[500] tg-button-text">Jadval</p>
+                    {TableDown(
+                      tg.themeParams.button_color
+                        ? tg.themeParams.button_color
+                        : "#0A84FF"
+                    )}
+                  </div>
+                </article>
+              </div>
+            </div>
+          )}
+
+        {placeData.work_days &&
+          placeData.work_end_time &&
+          placeData.work_start_time && (
+            <div
+              className={`table_content ${
+                tableActive ? "transition-height active mb-[24px]" : ""
+              } mt-[32px] flex flex-col gap-[16px] ml-[40px] mr-[10px]`}
+            >
+              <div className="flex justify-between items-center">
+                <p className="text-[16px] font-[400]">Dushanba</p>
+                <div className={`text-[16px] font-[500]`}>
+                  {placeData?.work_days?.find((c) => c === 1) ? (
+                    workData()
+                  ) : (
+                    <h1 className="text-red-500">Close</h1>
                   )}
                 </div>
-              </article>
+              </div>
+              <div className="flex justify-between items-center">
+                <p className="text-[16px] font-[400]">Seshanba</p>
+                <div className={`text-[16px] font-[500]`}>
+                  {placeData?.work_days?.find((c) => c === 2) ? (
+                    workData()
+                  ) : (
+                    <h1 className="text-red-500">Close</h1>
+                  )}
+                </div>
+              </div>
+              <div className="flex justify-between items-center">
+                <p className="text-[16px] font-[400]">Chorshanba</p>
+                <div className={`text-[16px] font-[500]`}>
+                  {placeData?.work_days?.find((c) => c === 3) ? (
+                    workData()
+                  ) : (
+                    <h1 className="text-red-500">Close</h1>
+                  )}
+                </div>
+              </div>
+              <div className="flex justify-between items-center">
+                <p className="text-[16px] font-[400]">Payshanba</p>
+                <div className={`text-[16px] font-[500]`}>
+                  {placeData?.work_days?.find((c) => c === 4) ? (
+                    workData()
+                  ) : (
+                    <h1 className="text-red-500">Close</h1>
+                  )}
+                </div>
+              </div>
+              <div className="flex justify-between items-center">
+                <p className="text-[16px] font-[400]">Juma</p>
+                <div className={`text-[16px] font-[500]`}>
+                  {placeData?.work_days?.find((c) => c === 5) ? (
+                    workData()
+                  ) : (
+                    <h1 className="text-red-500">Close</h1>
+                  )}
+                </div>
+              </div>
+              <div className="flex justify-between items-center">
+                <p className="text-[16px] font-[400]">Shanba</p>
+                <div className={`text-[16px] font-[500]`}>
+                  {placeData?.work_days?.find((c) => c === 6) ? (
+                    workData()
+                  ) : (
+                    <h1 className="text-red-500">Close</h1>
+                  )}
+                </div>
+              </div>
+              <div className="flex justify-between items-center">
+                <p className="text-[16px] font-[400] ">Yakshanba</p>
+                <div className={`text-[16px] font-[500]`}>
+                  {placeData?.work_days?.find((c) => c === 0) ? (
+                    workData()
+                  ) : (
+                    <h1 className="text-red-500">Close</h1>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
-        )}
-
-        {(
-          placeData.work_days &&
-          placeData.work_end_time &&
-          placeData.work_start_time
-        )&&(
-          <div
-            className={`table_content ${
-              tableActive ? "transition-height active mb-[24px]" : ""
-            } mt-[32px] flex flex-col gap-[16px] ml-[40px] mr-[10px]`}
-          >
-            <div className="flex justify-between items-center">
-              <p className="text-[16px] font-[400]">Dushanba</p>
-              <p className={`text-[16px] font-[500]`}>
-                {placeData?.work_days?.filter((c) => c == 1) ? (
-                  `${
-                    placeData.work_start_time == placeData?.work_end_time
-                      ? `24 soat`
-                      : placeData.work_start_time - placeData.work_end_time
-                  }`
-                ) : (
-                  <h1 className="text-red-500">Close</h1>
-                )}
-              </p>
-            </div>
-            <div className="flex justify-between items-center">
-              <p className="text-[16px] font-[400]">Seshanba</p>
-              <p className={`text-[16px] font-[500]`}>
-                {placeData?.work_days?.filter((c) => c == 2) ? (
-                  `${
-                    placeData.work_start_time == placeData?.work_end_time
-                      ? `24 soat`
-                      : placeData.work_start_time - placeData.work_end_time
-                  }`
-                ) : (
-                  <h1 className="text-red-500">Close</h1>
-                )}
-              </p>
-            </div>
-            <div className="flex justify-between items-center">
-              <p className="text-[16px] font-[400]">Chorshanba</p>
-              <p className={`text-[16px] font-[500]`}>
-                {placeData?.work_days?.filter((c) => c == 3) ? (
-                  `${
-                    placeData.work_start_time == placeData?.work_end_time
-                      ? `24 soat`
-                      : placeData.work_start_time - placeData.work_end_time
-                  }`
-                ) : (
-                  <h1 className="text-red-500">Close</h1>
-                )}
-              </p>
-            </div>
-            <div className="flex justify-between items-center">
-              <p className="text-[16px] font-[400]">Payshanba</p>
-              <p className={`text-[16px] font-[500]`}>
-                {placeData?.work_days?.filter((c) => c == 4) ? (
-                  `${
-                    placeData.work_start_time == placeData?.work_end_time
-                      ? `24 soat`
-                      : placeData.work_start_time - placeData.work_end_time
-                  }`
-                ) : (
-                  <h1 className="text-red-500">Close</h1>
-                )}
-              </p>
-            </div>
-            <div className="flex justify-between items-center">
-              <p className="text-[16px] font-[400]">Juma</p>
-              <p className={`text-[16px] font-[500]`}>
-                {placeData?.work_days?.filter((c) => c == 5) ? (
-                  `${
-                    placeData.work_start_time == placeData?.work_end_time
-                      ? `24 soat`
-                      : placeData.work_start_time - placeData.work_end_time
-                  }`
-                ) : (
-                  <h1 className="text-red-500">Close</h1>
-                )}
-              </p>
-            </div>
-            <div className="flex justify-between items-center">
-              <p className="text-[16px] font-[400]">Shanba</p>
-              <p className={`text-[16px] font-[500]`}>
-                {placeData?.work_days?.filter((c) => c == 6) ? (
-                  `${
-                    placeData.work_start_time == placeData?.work_end_time
-                      ? `24 soat`
-                      : placeData.work_start_time - placeData.work_end_time
-                  }`
-                ) : (
-                  <h1 className="text-red-500">Close</h1>
-                )}
-              </p>
-            </div>
-            <div className="flex justify-between items-center">
-              <p className="text-[16px] font-[400] ">Yakshanba</p>
-              <p className={`text-[16px] font-[500]`}>
-                {placeData?.work_days?.filter((c) => c == 0) ? (
-                  `${
-                    placeData.work_start_time == placeData?.work_end_time
-                      ? `24 soat`
-                      : placeData.work_start_time - placeData.work_end_time
-                  }`
-                ) : (
-                  <h1 className="text-red-500">Close</h1>
-                )}
-              </p>
-            </div>
-          </div>
-        )}
+          )}
       </section>
       <div className="hr w-full h-[1px] mb-[32px]"></div>
       {aboutData.length > 0 && (
