@@ -72,7 +72,7 @@ export default function AllProduct() {
   const workData = () => {
     const finalData =
       placeData.work_start_time === placeData?.work_end_time
-        ? `24 soat`
+        ? `24 ${t("home_time")}`
         : placeData.work_start_time.split(":")[0] +
           ":" +
           placeData.work_start_time.split(":")[1] +
@@ -202,73 +202,73 @@ export default function AllProduct() {
             >
               <div className="flex justify-between items-center">
                 <p className="text-[16px] font-[400]">Dushanba</p>
-                <div className={`text-[16px] font-[500]`}>
+                <p className={`text-[16px] font-[500]`}>
                   {placeData?.work_days?.find((c) => c === 1) ? (
                     workData()
                   ) : (
-                    <h1 className="text-red-500">Close</h1>
+                    <span className="text-[#F04438] font-[500] text-[16px]">Close</span>
                   )}
-                </div>
+                </p>
               </div>
               <div className="flex justify-between items-center">
                 <p className="text-[16px] font-[400]">Seshanba</p>
-                <div className={`text-[16px] font-[500]`}>
+                <p className={`text-[16px] font-[500]`}>
                   {placeData?.work_days?.find((c) => c === 2) ? (
                     workData()
                   ) : (
-                    <h1 className="text-red-500">Close</h1>
+                    <span className="text-[#F04438] font-[500] text-[16px]">Close</span>
                   )}
-                </div>
+                </p>
               </div>
               <div className="flex justify-between items-center">
                 <p className="text-[16px] font-[400]">Chorshanba</p>
-                <div className={`text-[16px] font-[500]`}>
+                <p className={`text-[16px] font-[500]`}>
                   {placeData?.work_days?.find((c) => c === 3) ? (
                     workData()
                   ) : (
-                    <h1 className="text-red-500">Close</h1>
+                    <span className="text-[#F04438] font-[500] text-[16px]">Close</span>
                   )}
-                </div>
+                </p>
               </div>
               <div className="flex justify-between items-center">
                 <p className="text-[16px] font-[400]">Payshanba</p>
-                <div className={`text-[16px] font-[500]`}>
+                <p className={`text-[16px] font-[500]`}>
                   {placeData?.work_days?.find((c) => c === 4) ? (
                     workData()
                   ) : (
-                    <h1 className="text-red-500">Close</h1>
+                    <span className="text-[#F04438] font-[500] text-[16px]">Close</span>
                   )}
-                </div>
+                </p>
               </div>
               <div className="flex justify-between items-center">
                 <p className="text-[16px] font-[400]">Juma</p>
-                <div className={`text-[16px] font-[500]`}>
+                <p className={`text-[16px] font-[500]`}>
                   {placeData?.work_days?.find((c) => c === 5) ? (
                     workData()
                   ) : (
-                    <h1 className="text-red-500">Close</h1>
+                    <span className="text-[#F04438] font-[500] text-[16px]">Close</span>
                   )}
-                </div>
+                </p>
               </div>
               <div className="flex justify-between items-center">
                 <p className="text-[16px] font-[400]">Shanba</p>
-                <div className={`text-[16px] font-[500]`}>
+                <p className={`text-[16px] font-[500]`}>
                   {placeData?.work_days?.find((c) => c === 6) ? (
                     workData()
                   ) : (
-                    <h1 className="text-red-500">Close</h1>
+                    <span className="text-[#F04438] font-[500] text-[16px]">Close</span>
                   )}
-                </div>
+                </p>
               </div>
               <div className="flex justify-between items-center">
                 <p className="text-[16px] font-[400] ">Yakshanba</p>
-                <div className={`text-[16px] font-[500]`}>
+                <p className={`text-[16px] font-[500]`}>
                   {placeData?.work_days?.find((c) => c === 0) ? (
                     workData()
                   ) : (
-                    <h1 className="text-red-500">Close</h1>
+                    <span className="text-[#F04438] font-[500] text-[16px]">Close</span>
                   )}
-                </div>
+                </p>
               </div>
             </div>
           )}
