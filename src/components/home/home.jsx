@@ -213,12 +213,12 @@ export default function Home() {
       ></div>
       {!(pathname === `/${placeId}/${userId}/${km}/photo`) &&
         !activeComment && (
-          <div className="max-w-[400px] mx-auto fixed bottom-0 w-full flex justify-around  items-center add-button py-[12px]">
+          <div className="max-w-[400px] mx-auto fixed bottom-0 w-full flex justify-around  items-center add-button py-[10px]">
             <button
               onClick={() =>
                 navigate(`/${placeId}/${userId}/${km}/add-comment`)
               }
-              className="w-[75%] flex justify-center items-center gap-[12px] text-[17px] font-[500] text-[#fff] px-[10px] py-[14px] tg-button rounded-[8px]"
+              className="w-[75%] flex justify-center items-center gap-[12px] text-[17px] font-[500] text-[#fff] px-[10px] h-[44px] tg-button rounded-[8px]"
             >
               {CommentAdd("#fff")}
               <h1 className="text-[16px] font-[500] text-[#fff]">
@@ -227,7 +227,7 @@ export default function Home() {
             </button>
             <button
               onClick={sendDataTelegram}
-              className="tg-button rounded-[8px] p-[14px]"
+              className="tg-button rounded-[8px] px-[14px] h-[44px]"
             >
               <img src={share} alt="" />
             </button>
