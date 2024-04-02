@@ -83,11 +83,11 @@ export default function Home() {
       }
     };
     fatchData();
-    if (pathname === `/${placeId}/${userId}/${km}/comment`) {
-      navigate(`/${placeId}/${userId}/${km}/comment`);
-    } else {
+    // if (pathname === `/${placeId}/${userId}/${km}/comment`) {
+    //   navigate(`/${placeId}/${userId}/${km}/comment`);
+    // } else {
       navigate(`/${placeId}/${userId}/${km}/all-product`);
-    }
+    // }
     workStatus();
   }, []);
 
