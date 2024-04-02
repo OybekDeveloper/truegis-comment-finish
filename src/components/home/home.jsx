@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./home.scss";
-import { imgplus, line, pointgreen } from "./img";
 import { motion } from "framer-motion";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import Rating from "@mui/material/Rating";
@@ -13,9 +12,9 @@ import {
   Loading,
   SavePathData,
 } from "../../reducer/event";
-import axios from "axios";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
+import { share } from "./img";
 
 const tg = window.Telegram.WebApp;
 const backgroundImage =
@@ -23,43 +22,9 @@ const backgroundImage =
 
 export default function Home() {
   const { t } = useTranslation();
-  const fileInputRef = useRef(null);
   const { placeId, userId, km } = useParams();
   const { pathname } = useLocation();
-  const [imgCount, setImgCount] = useState(0);
   const { placeData, commentData } = useSelector((state) => state.event);
-  const handleFileInputClick = () => {
-    fileInputRef.current.click();
-  };
-  const handleFileUploaded = (e) => {
-    const files = e.target.files;
-    if (!files || files.length === 0 || !placeData) return;
-
-    const fd = new FormData();
-
-    for (let i = 1; i <= files.length; i++) {
-      fd.append(`image${i + 1}`, files[i - 1]);
-    }
-    axios
-      .patch(`https://admin13.uz/api/place/${placeId}/`, fd, {
-        headers: {
-          accept: "application/json",
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        const fetchData = async () => {
-          try {
-            const place = await ApiServer.getData(`/place/${placeId}/`);
-            dispatch(GetPlaceData(place));
-          } catch (error) {
-            console.log(error);
-          }
-        };
-        fetchData();
-      })
-      .catch((err) => console.log(err));
-  };
   const navlink = [
     {
       id: 1,
@@ -72,13 +37,13 @@ export default function Home() {
       id: 2,
       title: t("li_2"),
       link: `/${placeId}/${userId}/${km}/photo`,
-      count: imgCount !== 0 ? imgCount : null,
+      count: null,
     },
     {
       id: 3,
       title: t("li_3"),
       link: `/${placeId}/${userId}/${km}/comment`,
-      count: commentData.length ? commentData.length : null,
+      count: null,
     },
     {
       id: 4,
@@ -90,16 +55,12 @@ export default function Home() {
   const dispatch = useDispatch();
   const { delModal } = useSelector((state) => state.event);
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
   const [statusWork, setStatusWork] = useState(true);
   const [activeTab, setActiveTab] = useState(1);
   const [activeComment, setActiveComment] = useState(false);
 
   const workStatus = () => {
     const hours = new Date().getHours();
-    const minutes = new Date().getMinutes();
-    const secounds = new Date().getSeconds();
-    console.log(hours, minutes, secounds);
     const start = placeData?.work_start_time?.split(":")[0];
     const end = placeData?.work_end_time?.split(":")[0];
     if (hours > start && hours < end) {
@@ -108,16 +69,6 @@ export default function Home() {
       setStatusWork(false);
     }
   };
-  useEffect(() => {
-    const { image2, image3, image4 } = placeData;
-    const photosArray = [];
-    if (image2) photosArray.push(image2);
-    if (image3) photosArray.push(image3);
-    if (image4) photosArray.push(image4);
-    setImgCount(photosArray.length);
-    workStatus();
-  }, [placeData]);
-
   useEffect(() => {
     localStorage.setItem("placeId", placeId);
     localStorage.setItem("userId", userId);
@@ -132,7 +83,11 @@ export default function Home() {
       }
     };
     fatchData();
-    navigate(`/${placeId}/${userId}/${km}/all-product`);
+    if (pathname === `/${placeId}/${userId}/${km}/comment`) {
+      navigate(`/${placeId}/${userId}/${km}/comment`);
+    } else {
+      navigate(`/${placeId}/${userId}/${km}/all-product`);
+    }
     workStatus();
   }, []);
 
@@ -145,21 +100,20 @@ export default function Home() {
         dispatch(GetCommentData(comment));
       } catch (error) {
         console.log(error);
-      } finally {
-        dispatch(Loading);
       }
     };
     fetchData();
+    workStatus();
   }, [delModal]);
   useEffect(() => {
     setActiveComment(
       commentData.find((item) => item.user.id === +userId) ? true : false
     );
+    workStatus();
   }, [commentData]);
-  console.log(placeData);
   return (
     <main className="home relative ">
-      <section className="px-[16px] min-h-[200px] home-back">
+      <section className="px-[16px] min-h-[190px] home-back flex justify-end flex-col pb-[30px]">
         <div className="overlay">
           <div className="overlay"></div>
           <img
@@ -168,10 +122,24 @@ export default function Home() {
             alt=""
           />
         </div>
-        <div className="content">
-          <h1 className="text-[#fff] text-[17px] font-[500] pt-[16px]">
-            {placeData?.name}
-          </h1>
+        <div className="content flex flex-col gap-[12px]">
+          <div className="mt-[56px]">
+            <div className="flex justify-between items-center">
+              <h1 className="text-[#fff] text-[17px] font-[500]">
+                {placeData?.name}
+              </h1>
+              {placeData?.work_end_time && placeData.work_end_time && (
+                <div className="flex justify-start items-center gap-[8px]">
+                  {OpenClose(statusWork ? "#17B26A" : "red")}
+                  <p className="text-[#fff] text-[14px] font-[500]">
+                    {statusWork
+                      ? `${t("status_true")}`
+                      : `${t("status_false")}`}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
           <div className="flex items-center gap-[14px]">
             <Rating
               name="text-feedback"
@@ -193,27 +161,18 @@ export default function Home() {
               {t("home_comment")}
             </p>
           </div>
-          <div className="flex justify-between items-center mt-[50px]">
-            <div>
-              {placeData?.work_end_time && placeData.work_end_time && (
-                <div className="flex justify-start items-center gap-[8px]">
-                  {OpenClose(statusWork ? "#17B26A" : "red")}
-                  <p className="text-[#fff] text-[14px] font-[500]">
-                    {statusWork
-                      ? `${t("status_true")}`
-                      : `${t("status_false")}`}
-                  </p>
-                </div>
-              )}
-            </div>
-            <div className="flex items-center gap-[8px]">
-              <img src={line} alt="" />
-              <p className="text-[#fff] text-[14px] font-[500]">{`${km} km`}</p>
-            </div>
-          </div>
+          {/* <div className="flex justify-between items-center mt-[50px]">
+              <div className="flex items-center gap-[8px]">
+                <img src={line} alt="" />
+                <p className="text-[#fff] text-[14px] font-[500]">{`${km} km`}</p>
+              </div>
+            </div> */}
         </div>
+        {/* <button className="text-[14px] font-[500] text-[#fff] mt-[20px] home-btn w-full h-[44px] z-10 rounded-[8px]">
+          Joy buyurtma qilish
+        </button> */}
       </section>
-      <nav className="relative navbar w-full overflow-x-scroll whitespace-nowrap  flex gap-[20px]  px-[16px]">
+      <nav className="sticky top-0 bg-[#fff] z-[999] navbar w-full overflow-x-scroll whitespace-nowrap  flex gap-[20px]  px-[16px]">
         {navlink.map((item) => (
           <button
             key={item.id}
@@ -246,45 +205,26 @@ export default function Home() {
       </nav>
 
       <Outlet />
-      <div className="mb-[40px]"></div>
-      {pathname === `/${placeId}/${userId}/${km}/photo` ? (
-        <div
-          onClick={handleFileInputClick}
-          className="max-w-[400px] mx-auto fixed bottom-[4px] w-full flex justify-center items-center"
-        >
-          <button className="text-[17px] font-[500] text-[#fff] px-[10px] py-[14px] w-[94%] tg-button rounded-[8px] flex justify-center items-center gap-[8px]">
-            <img src={imgplus} alt="sadf" />
-            <h1>{t("add_photo_btn")}</h1>
-          </button>
-        </div>
-      ) : (
+      <div className="mb-[70px]"></div>
+      {!(pathname === `/${placeId}/${userId}/${km}/photo`) &&
         !activeComment && (
-          <div className="max-w-[400px] mx-auto fixed bottom-[4px] w-full flex justify-center items-center">
+          <div className="max-w-[400px] mx-auto fixed bottom-[4px] w-full flex justify-around  items-center">
             <button
               onClick={() =>
                 navigate(`/${placeId}/${userId}/${km}/add-comment`)
               }
-              className="flex  justify-center items-center gap-[12px] text-[17px] font-[500] text-[#fff] px-[10px] py-[14px] w-[94%] bg-[#F2F4F7]  rounded-[8px]"
+              className="w-[80%] flex justify-center items-center gap-[12px] text-[17px] font-[500] text-[#fff] px-[10px] py-[14px] tg-button rounded-[8px]"
             >
-              {CommentAdd(
-                tg.themeParams.button_color
-                  ? tg.themeParams.button_color
-                  : "#0A84FF"
-              )}
-              <h1 className="tg-button-text">{t("add_comment_btn")}</h1>
+              {CommentAdd("#fff")}
+              <h1 className="text-[16px] font-[500] text-[#fff]">
+                {t("add_comment_btn")}
+              </h1>
+            </button>
+            <button onClick={()=>tg.sendData("Salom")} className="tg-button rounded-[8px] p-[14px]">
+              <img src={share} alt="" />
             </button>
           </div>
-        )
-      )}
-      <input
-        multiple
-        type="file"
-        name="file"
-        hidden
-        ref={fileInputRef}
-        onChange={handleFileUploaded}
-        className="file-input"
-      />
+        )}
     </main>
   );
 }
@@ -293,17 +233,15 @@ function CommentAdd(color) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
+      width="26"
+      height="26"
+      viewBox="0 0 26 26"
       fill="none"
     >
       <path
-        d="M21 21.0001H13M2.5 21.5001L8.04927 19.3657C8.40421 19.2292 8.58168 19.161 8.74772 19.0718C8.8952 18.9927 9.0358 18.9013 9.16804 18.7987C9.31692 18.6831 9.45137 18.5487 9.72028 18.2798L21 7.00006C22.1046 5.89549 22.1046 4.10463 21 3.00006C19.8955 1.89549 18.1046 1.89549 17 3.00006L5.72028 14.2798C5.45138 14.5487 5.31692 14.6831 5.20139 14.832C5.09877 14.9643 5.0074 15.1049 4.92823 15.2523C4.83911 15.4184 4.77085 15.5959 4.63433 15.9508L2.5 21.5001ZM2.5 21.5001L4.55812 16.149C4.7054 15.7661 4.77903 15.5746 4.90534 15.4869C5.01572 15.4103 5.1523 15.3813 5.2843 15.4065C5.43533 15.4354 5.58038 15.5804 5.87048 15.8705L8.12957 18.1296C8.41967 18.4197 8.56472 18.5648 8.59356 18.7158C8.61877 18.8478 8.58979 18.9844 8.51314 19.0947C8.42545 19.2211 8.23399 19.2947 7.85107 19.442L2.5 21.5001Z"
-        stroke={color}
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        d="M18.3982 11.6158C14.7931 15.2577 10.0245 20.0749 9.7109 20.3917C9.33182 20.7746 8.71055 20.8704 8.4473 20.8704H6.23534C5.86679 20.8704 5.12968 20.647 5.12968 19.7535C5.12968 18.8599 5.12903 17.8387 5.12968 17.5196C5.13034 17.2005 5.25719 16.752 5.60415 16.4027C5.73619 16.2697 10.6925 11.3734 14.4436 7.62092M18.3982 11.6158C19.1503 10.8561 19.8517 10.1475 20.4515 9.54155C20.7674 9.22242 21.2097 8.3927 20.4515 7.62681C20.083 7.2545 19.1563 6.31842 18.3982 5.55253C17.64 4.78664 16.8187 5.23341 16.5028 5.55253C15.8969 6.16458 15.1944 6.86984 14.4436 7.62092M18.3982 11.6158L14.4436 7.62092"
+        stroke="#FAFAFA"
+        strokeWidth="1.5"
       />
     </svg>
   );

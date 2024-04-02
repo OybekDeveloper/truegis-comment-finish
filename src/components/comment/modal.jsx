@@ -54,34 +54,34 @@ const Modal = ({ handleClose }) => {
   return (
     <BackDrop onClick={handleClose}>
       <motion.div
-        initial={{y:"150px"}}
+        initial={{y:"190px"}}
         animate={{y:0}}
         transition={{duration:0.5}}
         onClick={(e) => e.stopPropagation()}
-        className=" menu flex flex-col gap-[24px] w-full h-[150px]  rounded-t-[24px] px-[16px]"
+        className=" menu flex flex-col gap-[24px] w-full h-[190px]  rounded-t-[24px] px-[16px]"
       >
         <div>
           <div className="w-[44px] h-[4px] bg-[#D9D9D9] mt-[12px] mx-auto"></div>
-          <section className="max-w-[400px] mx-auto flex flex-col gap-[24px] mt-[32px]">
+          <section className="max-w-[400px] mx-auto flex flex-col gap-[16px] mt-[32px]">
             <div
               onClick={()=>handleEdit(deleteId)}
-              className="cursor-pointer flex justify-start items-center gap-[12px] "
+              className="tg-button py-[12px] flex justify-center items-center cursor-pointer gap-[12px] rounded-[8px] "
             >
-              {EditSvg(
+              {/* {EditSvg(
                 tg.themeParams.button_color
                   ? tg.themeParams.button_color
                   : "#0A84FF"
-              )}
-              <h1 className="tg-button-text text-[18px] font-[500]">
+              )} */}
+              <h1 className="text-white text-[16px] font-[500]">
                 {t("edit_btn")}
               </h1>
             </div>
             <div
               onClick={handleDelete}
-              className="cursor-pointer flex justify-start items-center gap-[12px] "
+              className="cursor-pointer flex justify-center py-[10px] items-center gap-[12px] rounded-[8px] border-[1px] border-solid border-[#DE3A3A]"
             >
-              {deleteSvg()}
-              <h1 className="text-[#F04438] text-[18px] font-[500]">
+              {/* {deleteSvg()} */}
+              <h1 className="text-[#F04438] text-[16px] font-[500]">
                 {t("delete_btn")}
               </h1>
             </div>

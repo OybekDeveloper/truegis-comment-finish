@@ -12,7 +12,14 @@ import pointgreen from "./point-green.svg";
 import instagram from './Instagram.svg'
 import telegram from './telegram.svg'
 import web from './website.svg'
+import facebook from './facebook.svg'
+import twitter from './twitter.svg'
+import bot from './bot.svg'
+import share from './share.svg'
+import arrowRight from './arrow-right.svg'
+import star from './star.svg'
 export {
+  star,
   starte,
   startf,
   info,
@@ -26,5 +33,10 @@ export {
   pointgreen,
   instagram,
   telegram,
-  web
+  web,
+  bot,
+  facebook,
+  twitter,
+  share,
+  arrowRight
 };

@@ -3,41 +3,68 @@ import empty from "./empty.svg";
 import "./photo.scss";
 import Slider from "react-slick";
 import { IoMdClose } from "react-icons/io";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-const imgs = [
-  {
-    id: 1,
-    url: "https://www.decowallpaper.com.au/wp-content/uploads/2023/02/M-888..jpg",
-  },
-  {
-    id: 2,
-    url: "https://c4.wallpaperflare.com/wallpaper/880/112/963/logo-nike-wallpaper-preview.jpg",
-  },
-  {
-    id: 3,
-    url: "https://blogger.googleusercontent.com/img/a/AVvXsEh16ZmNnnuuoNmXuf9B_Yny-qC6IKX3sXz08dhAjydrj9w8001zplc3gIVbMWdzu659oH1P0BkAG1_4FepY6fOiCq_TG90nKg1QSC9MGay_RXakXKe1zjz9ZbRXzOW34RUFH9KKqxIWqg643Go328_AmQvHH4cj4lTu2XzMq_MDbWwk3PMhhdDicxeCaJji",
-  },
-];
+import axios from "axios";
+import { ApiServer } from "../../ApiServer/api";
+import addphoto from "./add-photo.svg";
+import arrowL from "./arrow-left.svg";
+import { GetCommentData, GetPlaceData } from "../../reducer/event";
+import LoadingC from "../loading/loader";
 
 export default function Photo() {
+  const placeId = localStorage.getItem("placeId");
+  const userId = localStorage.getItem("userId");
+  const dispatch = useDispatch();
   const { placeData } = useSelector((state) => state.event);
-  const {t}=useTranslation()
+  const { t } = useTranslation();
   const [selectPhoto, setSelectPhoto] = useState([]);
   const [activeImageCount, setActiveImageCount] = useState(1);
   const [allImageCount, setAllImageCount] = useState(1);
   const [fotos, setFotos] = useState([]);
-
   const [album, setAlbum] = useState(false);
+  const [loading ,setLoading]=useState(true)
+  const [userFullName, setUserFullName] = useState("");
   const fileInputRef = useRef(null);
   const handleFileInputClick = () => {
     fileInputRef.current.click();
   };
-  useEffect(() => {
-    if (selectPhoto.length > 0) {
-      setAllImageCount(selectPhoto.length);
-    }
-  }, [selectPhoto]);
+
+  const handleFileUploaded = (e) => {
+    const file = e.target.files[0];
+    if (!file || !placeData || file.type=="image/jpeg") return;
+    setLoading(true)
+    
+    const fd = new FormData();
+    fd.append(`image`, file);
+    fd.append("place", placeId);
+    fd.append("user", userId);
+    axios
+      .post("https://admin13.uz/api/image/", fd, {
+        headers: {
+          accept: "application/json",
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        const fetchData = async () => {
+          try {
+            const place = await ApiServer.getData(`/place/${placeId}/`);
+            const comment = await ApiServer.getData(
+              `/comments/${placeId}/list`
+            );
+            dispatch(GetPlaceData(place));
+            dispatch(GetCommentData(comment));
+            setFotos(placeData.images);
+            setLoading(false)
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        fetchData();
+      })
+      .catch((err) => console.log(err));
+  };
 
   const settings = {
     dots: true,
@@ -51,31 +78,58 @@ export default function Photo() {
     prevArrow: null,
   };
 
-  const handleSelectImage = (id) => {
-    setActiveImageCount(id);
-    setAlbum(true);
-    if (fotos.length > 1) {
-      const selectedImage = fotos.find((image, idx) => idx === id);
-      const remainingImages = fotos.filter((image, idx) => idx !== id);
-      setSelectPhoto([selectedImage, ...remainingImages]);
-    }else{
-      setSelectPhoto(fotos)
-      setActiveImageCount(1)
+  const fetchUserFullName = async (id) => {
+    try {
+      const user = await ApiServer.getData(`/users/${id}/`);
+      setUserFullName(user.full_name);
+    } catch (error) {
+      console.log(error);
     }
   };
+
+  const handleSelectImage = async (id, idx) => {
+    setActiveImageCount(idx + 1);
+    setAlbum(true);
+    if (fotos.length > 0) {
+      const selectedImage = fotos.find((image) => image.id === id);
+      const remainingImages = fotos.filter((image) => image.id !== id);
+      setSelectPhoto([selectedImage, ...remainingImages]);
+      await fetchUserFullName(selectedImage.user); // Fetch user full name for the selected image
+    } else {
+      setSelectPhoto(fotos);
+      setActiveImageCount(1);
+    }
+  };
+
   const handleClose = () => {
     setAlbum(false);
   };
+
   useEffect(() => {
-    const {  image2, image3, image4 } = placeData;
-    const photosArray = [];
-    if (image2) photosArray.push(image2);
-    if (image3) photosArray.push(image3);
-    if (image4) photosArray.push(image4);
-    setFotos(photosArray);
+    if (selectPhoto.length > 0) {
+      setAllImageCount(selectPhoto.length);
+    }
+  }, [selectPhoto]);
+
+  useEffect(() => {
+    setFotos(placeData.images);
+    setTimeout(() => {
+      setLoading(false)
+    }, 500);
   }, [placeData]);
+
+  useEffect(() => {
+    if (fotos.length > 0) {
+      fetchUserFullName(fotos[0].user);
+    }
+  }, [fotos]);
+console.log(fotos)
   return (
-    <div>
+   <>
+    {loading?(
+      <LoadingC/>
+    ):(
+      <div className="relative">
       {selectPhoto.length > 0 && album && (
         <section className="backdrop-image">
           <div className="overflow-x-scroll whitespace-nowrap photo-slide">
@@ -84,46 +138,60 @@ export default function Photo() {
             </h1>
             <div
               onClick={handleClose}
-              className="cursor-pointer absolute top-[33px] right-[24px]"
+              className="cursor-pointer absolute top-[33px] left-[24px] z-[999]"
             >
-              <IoMdClose className="text-[24px] text-white" />
+              <img src={arrowL} alt="" />
             </div>
-            {fotos.length>1?(
-              <Slider {...settings}>
-              {selectPhoto.map((photo, index) => (
-                <div key={index} className="z-[9999]">
-                  <img
-                    className="sliderImg mx-auto"
-                    src={photo} // Fixed the src attribute
-                    alt={`slide-${index}`}
-                  />
-                </div>
-              ))}
-            </Slider>
-            ):(
-              <img src={selectPhoto[0]} alt="fofot" className="h-[210px] w-screen object-cover"/>
+            {fotos.length > 1 ? (
+              <Slider {...settings} className="overflow-hidden">
+                {selectPhoto.map((photo, index) => (
+                  <div key={index}>
+                    <div className="z-[9999] h-[90vh] flex justify-center items-center">
+                      <img
+                        className="w-full object-cover"
+                        src={photo.image}
+                        alt={`slide-${index}`}
+                      />
+                    </div>
+                    <div className="absolute text-white bottom-0 z-10 ml-[40px]">
+                      {/* <h1 className="text-[#fff] text-[18px] font-[500] ">{userFullName}</h1> */}
+                      <h2 className="text-[#fff] text-[14px] font-[500] opacity-[0.7]">
+                        {photo.created.slice(0, 10)}
+                      </h2>
+                    </div>
+                  </div>
+                ))}
+              </Slider>
+            ) : (
+              <div>
+                <img
+                  src={selectPhoto[0].image}
+                  alt="fofot"
+                  className="w-screen object-cover"
+                />
+                <div className="absolute text-white bottom-[100px] z-10 ml-[40px]">
+                      {/* <h1 className="text-[#fff] text-[18px] font-[500] ">{userFullName}</h1> */}
+                      <h2 className="text-[#fff] text-[14px] font-[500] opacity-[0.7]">
+                        {selectPhoto[0].created.slice(0, 10)}
+                      </h2>
+                    </div>
+              </div>
             )}
-            
           </div>
         </section>
       )}
       {fotos.length > 0 ? (
-        <section className="grid grid-cols-3 grid-rows-3 gap-4 px-[16px] mb-[50px] mt-[32px]">
+        <section className="grid grid-cols-2 gap-[17px] mt-[23px] px-[16px]">
           {fotos.map((image, index) => (
-            //eslint-disable-next-line
             <img
               key={index}
               onClick={() => {
-                handleSelectImage(index);
+                handleSelectImage(image.id, index);
                 setAlbum(true);
               }}
-              src={image}
-              alt={"image description"}
-              className={`w-full h-full object-cover ${
-                [1, 3, 7, 9, 13, 15].includes(index) && index < imgs.length
-                  ? "col-span-2 row-span-2 h-[200px]"
-                  : "col-span-1 row-span-1 h-[100px]"
-              } rounded-[8px]`}
+              className="w-full object-cover rounded-[6px]"
+              src={image.image}
+              alt="foto"
             />
           ))}
         </section>
@@ -133,6 +201,25 @@ export default function Photo() {
           <h1 className="font-[400] text-[14px]">{t("empty_photo")}</h1>
         </div>
       )}
+      <input
+        multiple
+        type="file"
+        name="file"
+        hidden
+        ref={fileInputRef}
+        onChange={handleFileUploaded}
+        className="file-input"
+      />
+      <div
+        onClick={handleFileInputClick}
+        className="mx-auto fixed bottom-[20px] flex justify-center items-center right-[16px]"
+      >
+        <button className="rounded-full pl-[19px] pr-[16px] py-[16px] bg-[#4ECC5E]">
+          <img src={addphoto} alt="sadf" />
+        </button>
+      </div>
     </div>
+    )}
+   </>
   );
 }

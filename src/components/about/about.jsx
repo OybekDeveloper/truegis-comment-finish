@@ -3,11 +3,13 @@ import { check, info } from "../home/img";
 import { useSelector } from "react-redux";
 import empty from "./empty.svg";
 import { useTranslation } from "react-i18next";
+import LoadingC from "../loading/loader";
 const tg = window.Telegram.WebApp;
 
 export default function About() {
   const { placeData } = useSelector((state) => state.event);
   const [aboutData, setAboutData] = useState([]);
+  const[loading,setLoading]=useState(true)
   const { t } = useTranslation();
   useEffect(() => {
     function filterTrueOptions(data) {
@@ -32,13 +34,20 @@ export default function About() {
       setAboutData(trueOptions);
     }
     filterTrueOptions(placeData?.about?.details);
+    setTimeout(() => {
+      setLoading(false)
+    }, 500);
   }, [placeData.about]);
   return (
-    <div>
-      {!(aboutData.length > 0 && placeData.info) ? (
+    <main className="">
+      {loading?(
+        <LoadingC/>
+      ):(
+        <div>
+      {(placeData.info) ? (
         <>
-          <section className="mt-[32px] mb-[32px] mx-[16px]">
-            <h1 className="text-[16px] font-400">{placeData.info}</h1>
+          <section className="relative mt-[24px] mx-[16px]">
+            <h1 className="text-justify  text-[16px] font-400 ">{placeData.info}</h1>
           </section>
           {aboutData.length > 0 && (
             <>
@@ -70,6 +79,8 @@ export default function About() {
         </div>
       )}
     </div>
+      )}
+    </main>
   );
 }
 function CheskSvg(color) {

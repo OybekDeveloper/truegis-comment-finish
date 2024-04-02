@@ -9,15 +9,18 @@ import { AnimatePresence, m, motion } from "framer-motion";
 import Modal from "./modal";
 import { ActiveModal, DeleteComment } from "../../reducer/event";
 import { useTranslation } from "react-i18next";
+import LoadingC from "../loading/loader";
 const tg = window.Telegram.WebApp;
 
 export default function Comment() {
   const dispatch = useDispatch();
-  const {t}=useTranslation()
-  const userId=localStorage.getItem("userId")
-  const { commentData, placeData,delModal } = useSelector((state) => state.event);
+  const { t } = useTranslation();
+  const userId = localStorage.getItem("userId");
+  const { commentData, placeData, delModal } = useSelector(
+    (state) => state.event
+  );
   const [menuActive, setMenuActive] = useState(false);
-
+  const [loading, setLoading] = useState(true);
   const getInitials = (fullName) => {
     if (!fullName) return "";
     const words = fullName.split(" ");
@@ -43,151 +46,167 @@ export default function Comment() {
   const open = () => {
     setMenuActive(true);
   };
+  useEffect(()=>{
+    setTimeout(() => {
+      setLoading(false)
+    }, 500);
+  },[commentData])
+  console.log(commentData)
   return (
-    <main className={`${menuActive && ""} comment  mb-[70px] mt-[24px]`}>
-      <section className="w-full flex justify-between px-[16px]">
-        <div className="w-1/2 flex flex-col gap-2">
-          <div className="w-full flex justify-center items-center gap-[12px]">
-            <h1 className="text-[18px] font-[500]">5</h1>
-            <ProgressBar
-              className="w-full"
-              completed={(starCount(5) / commentData.length) * 100}
-              maxCompleted={100}
-              bgColor="#FAC515"
-              height="6px"
-              animateOnRender={true}
-              customLabel=" "
-            />
-          </div>
-          <div className="flex justify-center items-center gap-[12px]">
-            <h1 className="text-[18px] font-[500]">4</h1>
-            <ProgressBar
-              className="w-full"
-              completed={(starCount(4) / commentData.length) * 100}
-              maxCompleted={100}
-              bgColor="#FAC515"
-              height="6px"
-              animateOnRender={true}
-              customLabel=" "
-            />
-          </div>
-          <div className="flex justify-center items-center gap-[12px]">
-            <h1 className="text-[18px] font-[500]">3</h1>
-            <ProgressBar
-              className="w-full"
-              completed={(starCount(3) / commentData.length) * 100}
-              maxCompleted={100}
-              bgColor="#FAC515"
-              height="6px"
-              animateOnRender={true}
-              customLabel=" "
-            />
-          </div>
-          <div className="flex justify-center items-center gap-[12px]">
-            <h1 className="text-[18px] font-[500]">2</h1>
-            <ProgressBar
-              className="w-full"
-              completed={(starCount(2) / commentData.length) * 100}
-              maxCompleted={100}
-              bgColor="#FAC515"
-              height="6px"
-              animateOnRender={true}
-              customLabel=" "
-            />
-          </div>
-          <div className="flex justify-center items-center gap-[12px]">
-            <h1 className="text-[18px] font-[500]">1</h1>
-            <ProgressBar
-              className="w-full"
-              completed={(starCount(1) / commentData.length) * 100}
-              maxCompleted={100}
-              bgColor="#FAC515"
-              height="6px"
-              animateOnRender={true}
-              customLabel=" "
-            />
-          </div>
-        </div>
-        <div>
-          <h1 className="font-[500] text-[30px]">{placeData.rating}</h1>
-          <Rating
-            name="text-feedback"
-            value={placeData.rating ? placeData.rating : 0}
-            readOnly
-            style={{ color: "#FAC515" }}
-            emptyIcon={
-              <StarIcon
-                style={{ opacity: 0.55, color: "#D0D5DD" }}
-                fontSize="inherit"
-              />
-            }
-          />
-        </div>
-      </section>
-      {commentData?.length > 0 ? (
-        <section className="px-[16px] w-full mt-[48px]">
-          <h1 className="text-[18px] font-[500] mb-[12px]">{t("li_3")}</h1>
-          <div className="hr w-full h-[1px]  mb-[24px]"></div>
-          <div className="w-full flex flex-col gap-[32px]">
-            {commentData.map((item) => (
-              <main key={item.id} className="">
-                <div className="flex justify-between items-center gap-[12px]">
-                  <article className="flex justify-start items-center gap-[12px]">
-                    <div className=" text-[16px] font-[600] flex items-center justify-center w-[40px] h-[40px] rounded-full border-[1px] border-solid border-[#dfe0e3] bg-[#f2f4f7] text-[#475467]">
-                      {getInitials(item.user.full_name)}
-                    </div>
-                    <h1 className="text-[16px] font-[500]">
-                      {item.user.full_name}
-                    </h1>
-                  </article>
-                  {item.user.id === +userId && (
-                    <div
-                      onClick={() => {(menuActive ? close() : open());dispatch(ActiveModal(true));dispatch(DeleteComment(item.id))}}
-                      className="w-[24px] h-[24px]"
-                    >
-                      {MenuIcon()}
-                    </div>
-                  )}
-                </div>
-                <div className="flex justify-between items-center mt-[24px]">
-                  <Rating
-                    name="text-feedback"
-                    value={item.star}
-                    readOnly
-                    style={{ color: "#FAC515" }}
-                    emptyIcon={
-                      <StarIcon
-                        style={{
-                          opacity: 0.55,
-                          color: tg.themeParams.text_color,
-                        }}
-                        fontSize="inherit"
-                      />
-                    }
-                  />
-                  <p className="text-[14px] font-[400]">
-                    {item.created_time.split(" ")[0]}
-                  </p>
-                </div>
-                <h1 className="text-[16px] font-[400] mt-[16px]">
-                  {item.text}
-                </h1>
-                <div className=" hr w-full h-[1px] mt-[24px]"></div>
-              </main>
-            ))}
-          </div>
-        </section>
+    <>
+      {loading ? (
+        <LoadingC />
       ) : (
-        <div className="w-full flex flex-col justify-center items-center mt-[80px] gap-[16px]">
-          <img src={empty} alt="" />
-          <p className="text-[14px] font-[400]">{t("empty_comment")}</p>
-        </div>
-      )}
+        <main className={`${menuActive && ""} comment  mb-[70px] mt-[24px]`}>
+          <section className="w-full flex justify-between px-[16px]">
+            <div className="w-1/2 flex flex-col gap-2">
+              <div className="w-full flex justify-center items-center gap-[12px]">
+                <h1 className="text-[18px] font-[500]">5</h1>
+                <ProgressBar
+                  className="w-full"
+                  completed={(starCount(5) / commentData.length) * 100}
+                  maxCompleted={100}
+                  bgColor="#FAC515"
+                  height="6px"
+                  animateOnRender={true}
+                  customLabel=" "
+                />
+              </div>
+              <div className="flex justify-center items-center gap-[12px]">
+                <h1 className="text-[18px] font-[500]">4</h1>
+                <ProgressBar
+                  className="w-full"
+                  completed={(starCount(4) / commentData.length) * 100}
+                  maxCompleted={100}
+                  bgColor="#FAC515"
+                  height="6px"
+                  animateOnRender={true}
+                  customLabel=" "
+                />
+              </div>
+              <div className="flex justify-center items-center gap-[12px]">
+                <h1 className="text-[18px] font-[500]">3</h1>
+                <ProgressBar
+                  className="w-full"
+                  completed={(starCount(3) / commentData.length) * 100}
+                  maxCompleted={100}
+                  bgColor="#FAC515"
+                  height="6px"
+                  animateOnRender={true}
+                  customLabel=" "
+                />
+              </div>
+              <div className="flex justify-center items-center gap-[12px]">
+                <h1 className="text-[18px] font-[500]">2</h1>
+                <ProgressBar
+                  className="w-full"
+                  completed={(starCount(2) / commentData.length) * 100}
+                  maxCompleted={100}
+                  bgColor="#FAC515"
+                  height="6px"
+                  animateOnRender={true}
+                  customLabel=" "
+                />
+              </div>
+              <div className="flex justify-center items-center gap-[12px]">
+                <h1 className="text-[18px] font-[500]">1</h1>
+                <ProgressBar
+                  className="w-full"
+                  completed={(starCount(1) / commentData.length) * 100}
+                  maxCompleted={100}
+                  bgColor="#FAC515"
+                  height="6px"
+                  animateOnRender={true}
+                  customLabel=" "
+                />
+              </div>
+            </div>
+            <div>
+              <h1 className="font-[500] text-[30px]">{placeData.rating}</h1>
+              <Rating
+                name="text-feedback"
+                value={placeData.rating ? placeData.rating : 0}
+                readOnly
+                style={{ color: "#FAC515" }}
+                emptyIcon={
+                  <StarIcon
+                    style={{ opacity: 0.55, color: "#D0D5DD" }}
+                    fontSize="inherit"
+                  />
+                }
+              />
+            </div>
+          </section>
+          {commentData?.length > 0 ? (
+            <section className="px-[16px] w-full mt-[48px]">
+              <h1 className="text-[18px] font-[500] mb-[12px]">{t("li_3")}</h1>
+              <div className="hr w-full h-[1px]  mb-[24px]"></div>
+              <div className="w-full flex flex-col gap-[32px]">
+                {commentData.slice().reverse().map((item,idx) => (
+                  <main key={idx} className="">
+                    <div className="flex justify-between items-center gap-[12px]">
+                      <article className="flex justify-start items-center gap-[12px]">
+                        <div className=" text-[16px] font-[600] flex items-center justify-center w-[40px] h-[40px] rounded-full border-[1px] border-solid border-[#dfe0e3] bg-[#f2f4f7] text-[#475467]">
+                          {getInitials(item.user.full_name)}
+                        </div>
+                        <h1 className="text-[16px] font-[500]">
+                          {item.user.full_name}
+                        </h1>
+                      </article>
+                      {item.user.id === +userId && (
+                        <div
+                          onClick={() => {
+                            menuActive ? close() : open();
+                            dispatch(ActiveModal(true));
+                            dispatch(DeleteComment(item.id));
+                          }}
+                          className="w-[24px] h-[24px]"
+                        >
+                          {MenuIcon()}
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex justify-between items-center mt-[24px]">
+                      <Rating
+                        name="text-feedback"
+                        value={item.star}
+                        readOnly
+                        style={{ color: "#FAC515" }}
+                        emptyIcon={
+                          <StarIcon
+                            style={{
+                              opacity: 0.55,
+                              color: tg.themeParams.text_color,
+                            }}
+                            fontSize="inherit"
+                          />
+                        }
+                      />
+                      <p className="text-[14px] font-[400]">
+                        {item.created_time.split(" ")[0]}
+                      </p>
+                    </div>
+                    <h1 className="text-[16px] font-[400] mt-[16px]">
+                      {item.text}
+                    </h1>
+                    <div className=" hr w-full h-[1px] mt-[24px]"></div>
+                  </main>
+                ))}
+              </div>
+            </section>
+          ) : (
+            <div className="w-full flex flex-col justify-center items-center mt-[80px] gap-[16px]">
+              <img src={empty} alt="" />
+              <p className="text-[14px] font-[400]">{t("empty_comment")}</p>
+            </div>
+          )}
 
-      {menuActive && delModal && (
-        <Modal modalOpen={menuActive} handleClose={close} />
+          {menuActive && delModal && (
+            <Modal modalOpen={menuActive} handleClose={close} />
+          )}
+        </main>
       )}
-    </main>
+    </>
   );
 }
 

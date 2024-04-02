@@ -44,9 +44,7 @@ const EditComment = () => {
     }
   }, [editId, commentData]);
   useEffect(() => {
-    const {  image2, image3, image4 } = placeData;
-    const photosArray = [ image2, image3, image4].filter(Boolean);
-    setFotos(photosArray);
+    setFotos(placeData.images ? placeData.images : []);
   }, [placeData]);
 
   const handleFileInputClick = () => {
@@ -60,27 +58,33 @@ const EditComment = () => {
     });
   };
 
-  const handleFileUploaded = async (e) => {
-    const files = e.target.files;
-    if (!files || files.length === 0 || !placeData) return;
-
-    const formData = new FormData();
-     for (let i = 1; i <= files.length; i++) {
-          formData.append(`image${i + 1}`, files[i-1]);
-  }
-
-    try {
-      await axios.patch(`https://admin13.uz/api/place/${placeId}/`, formData, {
+  const handleFileUploaded = (e) => {
+    const file = e.target.files[0];
+    if (!file || !placeData || file.type == "image/jpeg") return;
+    const fd = new FormData();
+    fd.append(`image`, file);
+    fd.append("place", placeId);
+    fd.append("user", userId);
+    axios
+      .post("https://admin13.uz/api/image/", fd, {
         headers: {
           accept: "application/json",
           "Content-Type": "multipart/form-data",
         },
-      });
-      const place = await ApiServer.getData(`/place/${placeId}/`);
-      dispatch(GetPlaceData(place));
-    } catch (error) {
-      console.log(error);
-    }
+      })
+      .then((res) => {
+        const fetchData = async () => {
+          try {
+            const place = await ApiServer.getData(`/place/${placeId}/`);
+            dispatch(GetPlaceData(place));
+            setFotos(placeData.images);
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        fetchData();
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleEditComment = async () => {
@@ -122,9 +126,7 @@ const EditComment = () => {
       </section>
       <div className="hr w-full h-[1px]  mb-[24px] mt-[32px] "></div>
       <section className="px-[16px] mb-[24px]">
-        <p className="text-[18px] font-[500]">
-         {t("add_comment_title_info")}
-        </p>
+        <p className="text-[18px] font-[500]">{t("add_comment_title_info")}</p>
         <textarea
           name="message"
           onChange={(e) => setFormData({ ...formData, text: e.target.value })}
@@ -157,7 +159,7 @@ const EditComment = () => {
               >
                 <img
                   className="rounded-[8px] mr-[24px] w-[96px] h-[96px] object-cover "
-                  src={item}
+                  src={item.image}
                   alt=""
                 />
               </div>
@@ -200,21 +202,21 @@ const EditComment = () => {
     </main>
   );
 };
+
 function photoAdd(color) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
+      width="24"
+      height="22"
+      viewBox="0 0 24 22"
       fill="none"
     >
       <path
-        d="M10.4167 2.49999H6.5C5.09987 2.49999 4.3998 2.49999 3.86502 2.77247C3.39462 3.01216 3.01217 3.39461 2.77248 3.86501C2.5 4.39979 2.5 5.09986 2.5 6.49999V13.5C2.5 14.9001 2.5 15.6002 2.77248 16.135C3.01217 16.6054 3.39462 16.9878 3.86502 17.2275C4.3998 17.5 5.09987 17.5 6.5 17.5H14.1667C14.9416 17.5 15.3291 17.5 15.647 17.4148C16.5098 17.1836 17.1836 16.5098 17.4148 15.647C17.5 15.3291 17.5 14.9416 17.5 14.1667M15.8333 6.66666V1.66666M13.3333 4.16666H18.3333M8.75 7.08332C8.75 8.0038 8.00381 8.74999 7.08333 8.74999C6.16286 8.74999 5.41667 8.0038 5.41667 7.08332C5.41667 6.16285 6.16286 5.41666 7.08333 5.41666C8.00381 5.41666 8.75 6.16285 8.75 7.08332ZM12.4917 9.93178L5.44262 16.34C5.04614 16.7005 4.84789 16.8807 4.83036 17.0368C4.81516 17.1721 4.86704 17.3064 4.96932 17.3963C5.08732 17.5 5.35523 17.5 5.89107 17.5H13.7133C14.9126 17.5 15.5123 17.5 15.9833 17.2985C16.5745 17.0456 17.0456 16.5745 17.2985 15.9833C17.5 15.5123 17.5 14.9126 17.5 13.7133C17.5 13.3098 17.5 13.108 17.4559 12.9201C17.4005 12.684 17.2941 12.4628 17.1444 12.272C17.0252 12.1202 16.8677 11.9941 16.5526 11.742L14.2215 9.87721C13.9062 9.62491 13.7485 9.49877 13.5748 9.45425C13.4218 9.41501 13.2607 9.42009 13.1104 9.4689C12.94 9.52427 12.7905 9.66011 12.4917 9.93178Z"
+        d="M19.1429 11V5.7143C19.1429 4.90478 18.6572 3.28573 16.7144 3.28573H15.2858C15.0001 3.28573 14.4286 3.00001 14.0001 2.57144C13.7144 2.28573 13.2286 1.57144 11.8572 1.57144H9.00007C7.62864 1.57144 7.14293 2.28573 6.85721 2.57144C6.42864 3.00001 5.85721 3.28573 5.5715 3.28573H4.14293C2.20007 3.28573 1.71436 4.90478 1.71436 5.7143V14.8572C1.71436 16.8 3.3334 17.2857 4.14293 17.2857H12.8572M16.0001 17.2857H22.2858M19.1429 14.1429V20.4286M13.8572 10C13.8572 11.8936 12.3222 13.4286 10.4286 13.4286C8.53509 13.4286 7.00007 11.8936 7.00007 10C7.00007 8.10647 8.53509 6.57144 10.4286 6.57144C12.3222 6.57144 13.8572 8.10647 13.8572 10Z"
         stroke={color}
-        strokeWidth="1.66667"
+        strokeWidth="1.5"
         strokeLinecap="round"
-        strokeLinejoin="round"
       />
     </svg>
   );

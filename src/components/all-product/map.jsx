@@ -8,7 +8,7 @@ const MapAppSelector = ({ latitude, longitude, text }) => {
       <ul>
         <li>
           <a
-            className="font-[400] text-[16px] tg-button-text underline"
+            className="font-[500] text-[16px] tg-button-text underline"
             href={googleMapsUrl}
             target="_blank"
             rel="noopener noreferrer"
