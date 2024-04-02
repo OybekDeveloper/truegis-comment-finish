@@ -65,16 +65,16 @@ export default function Home() {
     const end = placeData?.work_end_time?.split(":")[0];
     if (hours > start && hours < end) {
       setStatusWork(true);
-    }else if(start==end){
-      setStatusWork(true)
+    } else if (start == end) {
+      setStatusWork(true);
     } else {
       setStatusWork(false);
     }
-  }
+  };
   const sendDataTelegram = () => {
     tg.sendData("@truegis_bot", "Your data here");
-  }
-  console.log(tg)
+  };
+  console.log(tg);
   useEffect(() => {
     localStorage.setItem("placeId", placeId);
     localStorage.setItem("userId", userId);
@@ -178,7 +178,7 @@ export default function Home() {
           Joy buyurtma qilish
         </button> */}
       </section>
-      <nav  className="sticky top-[-5px] z-[999] navbar w-full overflow-x-scroll whitespace-nowrap flex gap-[24px] px-[16px]">
+      <nav className="sticky top-[-5px] z-[999] navbar w-full overflow-x-scroll whitespace-nowrap flex gap-[24px] px-[16px]">
         {navlink.map((item) => (
           <button
             key={item.id}
@@ -206,10 +206,14 @@ export default function Home() {
       </nav>
 
       <Outlet />
-      <div className="mb-[70px]"></div>
+      <div
+        className={`${
+          !activeComment && "mb-[70px]"
+        }`}
+      ></div>
       {!(pathname === `/${placeId}/${userId}/${km}/photo`) &&
         !activeComment && (
-          <div className="max-w-[400px] mx-auto fixed bottom-[4px] w-full flex justify-around  items-center add-button">
+          <div className="max-w-[400px] mx-auto fixed bottom-0 w-full flex justify-around  items-center add-button py-[12px]">
             <button
               onClick={() =>
                 navigate(`/${placeId}/${userId}/${km}/add-comment`)
@@ -221,7 +225,10 @@ export default function Home() {
                 {t("add_comment_btn")}
               </h1>
             </button>
-            <button onClick={sendDataTelegram} className="tg-button rounded-[8px] p-[14px]">
+            <button
+              onClick={sendDataTelegram}
+              className="tg-button rounded-[8px] p-[14px]"
+            >
               <img src={share} alt="" />
             </button>
           </div>

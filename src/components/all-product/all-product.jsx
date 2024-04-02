@@ -399,7 +399,7 @@ export default function AllProduct() {
           {placeData.work_days &&
             placeData.work_end_time &&
             placeData.work_start_time && (
-              <div className={`hr w-full h-[1px] mb-[32px]`}></div>
+              <div className={`hr w-full h-[1px] mb-[24px]`}></div>
             )}
           {aboutData.length > 0 && (
             <section className="px-[16px] mb-[32px]">
@@ -441,7 +441,7 @@ export default function AllProduct() {
             </section>
           )}
           {aboutData.length > 0 && (
-            <div className={`hr w-full h-[1px] mb-[32px]`}></div>
+            <div className={`hr w-full h-[1px] mb-[24px]`}></div>
           )}
           {placeData?.images && (
             <section
@@ -469,7 +469,7 @@ export default function AllProduct() {
             </section>
           )}
           {imageLength > 0 && (
-            <div className={`hr w-full h-[1px] mb-[32px] mt-[24px]`}></div>
+            <div className={`hr w-full h-[1px] mb-[24px] mt-[24px]`}></div>
           )}
           {/* <section className="px-[16px] mt-[24px]">
         <h1 className="text-[17px] font-[500] mb-[20px] ">O’xshash joylar</h1>
