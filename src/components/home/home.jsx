@@ -129,7 +129,7 @@ export default function Home() {
         <div className="content flex flex-col gap-[12px]">
           <div className="mt-[56px]">
             <div className="flex justify-between items-center">
-              <h1 className="text-[#fff] text-[17px] font-[500]">
+              <h1 className="text-[#fff] text-[20px] font-[500]">
                 {placeData?.name}
               </h1>
               {placeData?.work_end_time && placeData.work_end_time && (
@@ -176,7 +176,7 @@ export default function Home() {
           Joy buyurtma qilish
         </button> */}
       </section>
-      <nav  className="sticky top-[-5px] z-[999] navbar w-full overflow-x-scroll whitespace-nowrap flex gap-[20px] px-[16px]">
+      <nav  className="sticky top-[-5px] z-[999] navbar w-full overflow-x-scroll whitespace-nowrap flex gap-[24px] px-[16px]">
         {navlink.map((item) => (
           <button
             key={item.id}

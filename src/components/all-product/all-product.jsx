@@ -42,8 +42,10 @@ export default function AllProduct() {
     const end = placeData?.work_end_time?.split(":")[0];
     if (hours > start && hours < end) {
       setStatusWork(true);
-    } else {
-      setStatusWork(false);
+    } else if(start===end){
+      setStatusWork(true);
+    }else{
+      setStatusWork(false)
     }
   };
   const workData = () => {

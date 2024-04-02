@@ -41,7 +41,7 @@ export default function AddComment() {
 
   const handleFileUploaded = (e) => {
     const file = e.target.files[0];
-    if (!file || !placeData || file.type=="image/jpeg") return;
+    if (!file || !placeData) return;
     const fd = new FormData();
     fd.append(`image`, file);
     fd.append("place", placeId);

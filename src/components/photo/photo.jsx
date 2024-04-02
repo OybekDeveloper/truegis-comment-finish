@@ -32,7 +32,7 @@ export default function Photo() {
 
   const handleFileUploaded = (e) => {
     const file = e.target.files[0];
-    if (!file || !placeData || file.type=="image/jpeg") return;
+    if (!file || !placeData) return;
     setLoading(true)
     
     const fd = new FormData();
