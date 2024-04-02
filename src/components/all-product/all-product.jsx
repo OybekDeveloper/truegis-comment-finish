@@ -31,6 +31,7 @@ export default function AllProduct() {
   const [tableActive, setTableActive] = useState(false);
   const [aboutData, setAboutData] = useState([]);
   const [statusWork, setStatusWork] = useState(true);
+  const [imageLength,setImageLength]=useState(0)
   const [loading, setLoading] = useState(true);
   const workStatus = () => {
     const hours = new Date().getHours();
@@ -66,6 +67,7 @@ export default function AllProduct() {
     } else {
       body.classList.remove("blur-effect");
     }
+    workStatus()
   }, [menuActive, delModal]);
   useEffect(() => {
     function filterTrueOptions(data) {
@@ -97,6 +99,12 @@ export default function AllProduct() {
     setTimeout(() => {
       setLoading(false);
     }, 500);
+    if(placeData.images){
+      setImageLength(placeData.images.length)
+    }else{
+      setImageLength(0)
+    }
+    workStatus()
   }, [placeData]);
   console.log(placeData);
   return (
@@ -445,7 +453,7 @@ export default function AllProduct() {
                   alt="dsfa"
                 />
               ))}
-              {placeData.images.length > 0 && (
+              {imageLength > 0 && (
                 <div
                   onClick={() => navigate(`/${placeId}/${userId}/${km}/photo`)}
                   className="inline-flex flex-col justify-center items-center opacity-[0.7] tg-button w-[90px] h-[100px] rounded-[4px] cursor-pointer"
@@ -458,7 +466,7 @@ export default function AllProduct() {
               )}
             </section>
           )}
-          {placeData?.images.length > 0 && (
+          {imageLength > 0 && (
             <div className={`hr w-full h-[1px] mb-[32px] mt-[24px]`}></div>
           )}
           {/* <section className="px-[16px] mt-[24px]">
