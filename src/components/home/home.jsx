@@ -192,7 +192,15 @@ export default function Home() {
               <span className={`${pathname === item.link && "tg-button-text"}`}>
                 {item.title}
               </span>
-              {item.count && <span className={`${pathname === item.link ? "tg-theme-color":"tg-hint-color"} px-[6px] text-[12px] rounded-[4px] bg-[#eeebeb]`}>{item.count}</span>}
+              {item.count && (
+                <div
+                  className={`${
+                    pathname === item.link ? "tg-theme-color" : "tg-hint-color"
+                  } text-[12px] rounded-full w-[20px] h-[20px] flex justify-center`}
+                >
+                  <h1 className="text-center justify-center mt-[0.5px]">{item.count}</h1>
+                </div>
+              )}
             </div>
 
             {pathname === item.link && (
