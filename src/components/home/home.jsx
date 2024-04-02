@@ -204,8 +204,8 @@ export default function Home() {
                     pathname === item.link ? "tg-theme-color" : "tg-hint-color"
                   } rounded-full w-[20px] h-[20px] flex justify-center`}
                 >
-                  <h1 className=" text-[14px] font-[500] text-center justify-center mt-[0.5px]">
-                    {item.count}1
+                  <h1 className="text-[12px] font-[600] text-center justify-center mt-[0.5px]">
+                    {item.count}
                   </h1>
                 </div>
               )}
