@@ -31,5 +31,9 @@
   "status_true": "Open",
   "status_false": "Closed",
   "delete_btn": "Delete",
-  "edit_btn": "Edit"
+  "edit_btn": "Edit",
+  "open_close_info": "open until",
+  "contact_info": "Contact Information",
+  "social_info": "Social Media",
+  "all_photo_info": "All Photos"
 }

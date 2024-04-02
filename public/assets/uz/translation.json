@@ -31,5 +31,9 @@
   "status_true":"Ochiq",
   "status_false":"Yopiq",
   "delete_btn":"O’chirish",
-  "edit_btn:":"Tahrirlash"
+  "edit_btn:":"Tahrirlash",
+  "open_close_info":"gacha ochiq",
+  "contact_info":"Aloqa ma’lumotlari",
+  "social_info":"Ijtimoiy tarmoqlar  ",
+  "all_photo_info":"Barcha rasmlar"
 }

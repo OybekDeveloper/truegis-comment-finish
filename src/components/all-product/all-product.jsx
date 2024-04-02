@@ -31,7 +31,7 @@ export default function AllProduct() {
   const [tableActive, setTableActive] = useState(false);
   const [aboutData, setAboutData] = useState([]);
   const [statusWork, setStatusWork] = useState(true);
-  const [imageLength,setImageLength]=useState(0)
+  const [imageLength, setImageLength] = useState(0);
   const [loading, setLoading] = useState(true);
   const workStatus = () => {
     const hours = new Date().getHours();
@@ -42,10 +42,10 @@ export default function AllProduct() {
     const end = placeData?.work_end_time?.split(":")[0];
     if (hours > start && hours < end) {
       setStatusWork(true);
-    } else if(start===end){
+    } else if (start === end) {
       setStatusWork(true);
-    }else{
-      setStatusWork(false)
+    } else {
+      setStatusWork(false);
     }
   };
   const workData = () => {
@@ -69,7 +69,7 @@ export default function AllProduct() {
     } else {
       body.classList.remove("blur-effect");
     }
-    workStatus()
+    workStatus();
   }, [menuActive, delModal]);
   useEffect(() => {
     function filterTrueOptions(data) {
@@ -101,12 +101,12 @@ export default function AllProduct() {
     setTimeout(() => {
       setLoading(false);
     }, 500);
-    if(placeData.images){
-      setImageLength(placeData.images.length)
-    }else{
-      setImageLength(0)
+    if (placeData.images) {
+      setImageLength(placeData.images.length);
+    } else {
+      setImageLength(0);
     }
-    workStatus()
+    workStatus();
   }, [placeData]);
   console.log(placeData);
   return (
@@ -133,7 +133,7 @@ export default function AllProduct() {
                 />
               </div>
               <div className="w-[70px]">
-                  <p className=" text-end w-full text-[14px] font-[500]">{`${km} km`}</p>
+                <p className=" text-end w-full text-[14px] font-[500]">{`${km} km`}</p>
               </div>
             </div>
           </section>
@@ -153,7 +153,7 @@ export default function AllProduct() {
               !(placeData.phone && placeData.website) && "none"
             } flex flex-col justify-start items-start gap-[20px] mt-[24px] px-[16px]`}
           >
-            <h1 className="font-[500] text-[17px] ">Aloqa ma’lumotlari</h1>
+            <h1 className="font-[500] text-[17px] ">{t("contact_info")}</h1>
             <div className="flex flex-col gap-[25px] w-full">
               {placeData.phone && (
                 <div className="flex justify-start items-center gap-[12px]">
@@ -198,7 +198,7 @@ export default function AllProduct() {
           )}
           <div className="hr w-full h-[1px] mb-[32px]"></div>
           <section className="w-full flex flex-col justify-start px-[16px]">
-            <h1 className="font-[500] text-[17px]">Ijtimoiy tarmoqlar</h1>
+            <h1 className="font-[500] text-[17px]">{t("social_info")}</h1>
             <div className="flex flex-row gap-[20px] py-[20px]">
               <a
                 href={placeData.instagram}
@@ -270,12 +270,22 @@ export default function AllProduct() {
                         onClick={() => setTableActive(!tableActive)}
                         className="cursor-pointer flex  items-center gap-[8px]"
                       >
-                        <p className="text-[16px] font-[400] ">
-                          {placeData?.work_end_time.split(":")[0] +
-                            ":" +
-                            placeData?.work_end_time.split(":")[1]}{" "}
-                          gacha ochiq
-                        </p>
+                        {placeData.work_start_time ==
+                        placeData.work_end_time ? (
+                          <p className="text-[16px] font-[400] ">
+                            24 {t("home_time")}
+                          </p>
+                        ) : (
+                          <>
+                            <p className="text-[16px] font-[400] ">
+                              {placeData?.work_end_time.split(":")[0] +
+                                ":" +
+                                placeData?.work_end_time.split(":")[1]}
+                               {" "}{t("open_close_info")}
+                            </p>
+                          </>
+                        )}
+
                         {TableDown(
                           tg.themeParams.button_color
                             ? tg.themeParams.button_color
@@ -296,7 +306,7 @@ export default function AllProduct() {
                   } mt-[32px] flex flex-col gap-[16px] px-[16px]`}
                 >
                   <div className="flex justify-between items-center">
-                    <h1 className="text-[16px] font-[500] ">Dushanba</h1>
+                    <h1 className="text-[16px] font-[500] ">{t("monday")}</h1>
                     <p
                       className={`text-[16px] font-[500] tg-button-text opacity-[0.7]`}
                     >
@@ -310,7 +320,7 @@ export default function AllProduct() {
                     </p>
                   </div>
                   <div className="flex justify-between items-center">
-                    <h1 className="text-[16px] font-[500] ">Seshanba</h1>
+                    <h1 className="text-[16px] font-[500] ">{t("tuesday")}</h1>
                     <p
                       className={`text-[16px] font-[500] tg-button-text opacity-[0.7]`}
                     >
@@ -324,7 +334,9 @@ export default function AllProduct() {
                     </p>
                   </div>
                   <div className="flex justify-between items-center">
-                    <h1 className="text-[16px] font-[500] ">Chorshanba</h1>
+                    <h1 className="text-[16px] font-[500] ">
+                      {t("wednesday")}
+                    </h1>
                     <p
                       className={`text-[16px] font-[500] tg-button-text opacity-[0.7]`}
                     >
@@ -338,7 +350,7 @@ export default function AllProduct() {
                     </p>
                   </div>
                   <div className="flex justify-between items-center">
-                    <h1 className="text-[16px] font-[500] ">Payshanba</h1>
+                    <h1 className="text-[16px] font-[500] ">{t("thursday")}</h1>
                     <p
                       className={`text-[16px] font-[500] tg-button-text opacity-[0.7]`}
                     >
@@ -352,7 +364,7 @@ export default function AllProduct() {
                     </p>
                   </div>
                   <div className="flex justify-between items-center">
-                    <h1 className="text-[16px] font-[500] ">Juma</h1>
+                    <h1 className="text-[16px] font-[500] ">{t("friday")}</h1>
                     <p
                       className={`text-[16px] font-[500] tg-button-text opacity-[0.7]`}
                     >
@@ -366,7 +378,7 @@ export default function AllProduct() {
                     </p>
                   </div>
                   <div className="flex justify-between items-center">
-                    <h1 className="text-[16px] font-[500] ">Shanba</h1>
+                    <h1 className="text-[16px] font-[500] ">{t("saturday")}</h1>
                     <p
                       className={`text-[16px] font-[500] tg-button-text opacity-[0.7]`}
                     >
@@ -380,7 +392,7 @@ export default function AllProduct() {
                     </p>
                   </div>
                   <div className="flex justify-between items-center">
-                    <h1 className="text-[16px] font-[500]  ">Yakshanba</h1>
+                    <h1 className="text-[16px] font-[500]  ">{t("sunday")}</h1>
                     <p
                       className={`text-[16px] font-[500] tg-button-text opacity-[0.7]`}
                     >
@@ -462,7 +474,7 @@ export default function AllProduct() {
                 >
                   <img className="" src={arrowRight} alt="add" />
                   <h1 className="text-[12px] font-[400] text-[#fff]">
-                    Barcha rasmlar
+                    {t("all_photo_info")}
                   </h1>
                 </div>
               )}

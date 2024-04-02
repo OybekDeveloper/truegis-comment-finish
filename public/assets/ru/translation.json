@@ -31,5 +31,9 @@
   "status_true": "Открыто",
   "status_false": "Закрыто",
   "delete_btn": "Удалить",
-  "edit_btn": "Редактировать"
+  "edit_btn": "Редактировать",
+  "open_close_info": "oткрыто до",
+  "contact_info": "Контактная информация",
+  "social_info": "Социальные сети",
+  "all_photo_info": "Все фотографии"
 }
