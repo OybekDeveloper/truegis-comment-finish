@@ -43,7 +43,7 @@ export default function Home() {
       id: 3,
       title: t("li_3"),
       link: `/${placeId}/${userId}/${km}/comment`,
-      count: commentData ? commentData.length : null,
+      count: commentData?.length ? commentData.length : null,
     },
     {
       id: 4,
