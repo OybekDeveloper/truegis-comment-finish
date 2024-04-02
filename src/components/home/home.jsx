@@ -69,6 +69,10 @@ export default function Home() {
       setStatusWork(false);
     }
   };
+  const sendDataTelegram=()=>{
+    tg.sendData("@truegis_bot")
+  }
+  console.log(tg)
   useEffect(() => {
     localStorage.setItem("placeId", placeId);
     localStorage.setItem("userId", userId);
@@ -215,7 +219,7 @@ export default function Home() {
                 {t("add_comment_btn")}
               </h1>
             </button>
-            <button onClick={()=>tg.sendData("Salom")} className="tg-button rounded-[8px] p-[14px]">
+            <button onClick={sendDataTelegram} className="tg-button rounded-[8px] p-[14px]">
               <img src={share} alt="" />
             </button>
           </div>
