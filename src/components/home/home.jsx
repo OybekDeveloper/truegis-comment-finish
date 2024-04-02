@@ -71,9 +71,9 @@ export default function Home() {
       setStatusWork(false);
     }
   };
-  const sendDataTelegram = () => {
-    tg.sendData("@truegis_bot", "Your data here");
-  };
+  // const sendDataTelegram = () => {
+  //   tg.sendData("@truegis_bot", "Your data here");
+  // };
   console.log(tg);
   useEffect(() => {
     localStorage.setItem("placeId", placeId);
@@ -225,12 +225,12 @@ export default function Home() {
                 {t("add_comment_btn")}
               </h1>
             </button>
-            <button
-              onClick={sendDataTelegram}
-              className="tg-button rounded-[8px] px-[14px] h-[44px]"
+            <a 
+            href={`https://t.me/share/url?url=${"https://t.me/TrueGis_bot"}&text=${"Botimizdan foydalaning!"}`}
+              className="tg-button flex justify-center items-center rounded-[8px] px-[14px] h-[44px]"
             >
               <img src={share} alt="" />
-            </button>
+            </a>
           </div>
         )}
     </main>
