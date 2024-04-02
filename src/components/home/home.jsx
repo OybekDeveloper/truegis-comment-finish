@@ -208,7 +208,7 @@ export default function Home() {
               onClick={() =>
                 navigate(`/${placeId}/${userId}/${km}/add-comment`)
               }
-              className="w-[80%] flex justify-center items-center gap-[12px] text-[17px] font-[500] text-[#fff] px-[10px] py-[14px] tg-button rounded-[8px]"
+              className="w-[75%] flex justify-center items-center gap-[12px] text-[17px] font-[500] text-[#fff] px-[10px] py-[14px] tg-button rounded-[8px]"
             >
               {CommentAdd("#fff")}
               <h1 className="text-[16px] font-[500] text-[#fff]">
