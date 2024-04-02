@@ -122,10 +122,8 @@ export default function AllProduct() {
                   }
                 />
               </div>
-              <div className="flex justify-between items-center">
-                <div className="flex items-center gap-[8px]">
-                  <p className="text-[14px] font-[500]">{`${km} km`}</p>
-                </div>
+              <div className="w-[70px]">
+                  <p className=" text-end w-full text-[14px] font-[500]">{`${km} km`}</p>
               </div>
             </div>
           </section>
