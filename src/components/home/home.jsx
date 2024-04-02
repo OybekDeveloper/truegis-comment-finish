@@ -68,9 +68,9 @@ export default function Home() {
     } else {
       setStatusWork(false);
     }
-  };
-  const sendDataTelegram=()=>{
-    tg.sendData("@truegis_bot")
+  }
+  const sendDataTelegram = () => {
+    tg.sendData("@truegis_bot", "Your data here");
   }
   console.log(tg)
   useEffect(() => {
