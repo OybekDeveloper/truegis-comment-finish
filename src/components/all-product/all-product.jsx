@@ -292,7 +292,7 @@ export default function AllProduct() {
                     <p
                       className={`text-[16px] font-[500] tg-button-text opacity-[0.7]`}
                     >
-                      {placeData?.work_days?.find((c) => c == 1) ? (
+                      {placeData?.work_days?.find((c) => +c == 1) ? (
                         workData()
                       ) : (
                         <span className="text-[#F04438] font-[500] text-[16px]">
@@ -306,7 +306,7 @@ export default function AllProduct() {
                     <p
                       className={`text-[16px] font-[500] tg-button-text opacity-[0.7]`}
                     >
-                      {placeData?.work_days?.find((c) => c == 2) ? (
+                      {placeData?.work_days?.find((c) => +c == 2) ? (
                         workData()
                       ) : (
                         <span className="text-[#F04438] font-[500] text-[16px]">
@@ -320,7 +320,7 @@ export default function AllProduct() {
                     <p
                       className={`text-[16px] font-[500] tg-button-text opacity-[0.7]`}
                     >
-                      {placeData?.work_days?.find((c) => c == 3) ? (
+                      {placeData?.work_days?.find((c) => +c == 3) ? (
                         workData()
                       ) : (
                         <span className="text-[#F04438] font-[500] text-[16px]">
@@ -334,7 +334,7 @@ export default function AllProduct() {
                     <p
                       className={`text-[16px] font-[500] tg-button-text opacity-[0.7]`}
                     >
-                      {placeData?.work_days?.find((c) => c == 4) ? (
+                      {placeData?.work_days?.find((c) => +c == 4) ? (
                         workData()
                       ) : (
                         <span className="text-[#F04438] font-[500] text-[16px]">
@@ -348,7 +348,7 @@ export default function AllProduct() {
                     <p
                       className={`text-[16px] font-[500] tg-button-text opacity-[0.7]`}
                     >
-                      {placeData?.work_days?.find((c) => c == 5) ? (
+                      {placeData?.work_days?.find((c) => +c == 5) ? (
                         workData()
                       ) : (
                         <span className="text-[#F04438] font-[500] text-[16px]">
@@ -362,7 +362,7 @@ export default function AllProduct() {
                     <p
                       className={`text-[16px] font-[500] tg-button-text opacity-[0.7]`}
                     >
-                      {placeData?.work_days?.find((c) => c == 6) ? (
+                      {placeData?.work_days?.find((c) => +c == 6) ? (
                         workData()
                       ) : (
                         <span className="text-[#F04438] font-[500] text-[16px]">
@@ -376,7 +376,7 @@ export default function AllProduct() {
                     <p
                       className={`text-[16px] font-[500] tg-button-text opacity-[0.7]`}
                     >
-                      {placeData?.work_days?.find((c) => c == 0) ? (
+                      {placeData?.work_days?.find((c) => +c == 0) ? (
                         workData()
                       ) : (
                         <span className="text-[#F04438] font-[500] text-[16px]">
