@@ -209,7 +209,7 @@ export default function Home() {
       <div className="mb-[70px]"></div>
       {!(pathname === `/${placeId}/${userId}/${km}/photo`) &&
         !activeComment && (
-          <div className="max-w-[400px] mx-auto fixed bottom-[4px] w-full flex justify-around  items-center">
+          <div className="max-w-[400px] mx-auto fixed bottom-[4px] w-full flex justify-around  items-center add-button">
             <button
               onClick={() =>
                 navigate(`/${placeId}/${userId}/${km}/add-comment`)
