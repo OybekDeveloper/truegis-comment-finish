@@ -117,6 +117,12 @@ export default function Home() {
     );
     workStatus();
   }, [commentData]);
+  const telegramShareUrl = `https://t.me/share/url?url=https://t.me/TrueGis_bot&text=
+🏢:${placeData.name}\n
+🛣:${km} km\n
+⏰:${placeData.work_start_time} - ${placeData.work_end_time}\n
+⭐️${placeData.rating}&photo=${placeData.photo_url}`;
+
   return (
     <main className="home relative ">
       <section className="px-[16px] min-h-[190px] home-back flex justify-end flex-col pb-[30px]">
@@ -196,9 +202,11 @@ export default function Home() {
                 <div
                   className={`${
                     pathname === item.link ? "tg-theme-color" : "tg-hint-color"
-                  } text-[12px] rounded-full w-[20px] h-[20px] flex justify-center`}
+                  } text-[12px] font-[500] rounded-full w-[20px] h-[20px] flex justify-center`}
                 >
-                  <h1 className="text-center justify-center mt-[0.5px]">{item.count}</h1>
+                  <h1 className="text-center justify-center mt-[0.5px]">
+                    {item.count}
+                  </h1>
                 </div>
               )}
             </div>
