@@ -22,6 +22,14 @@ p{
 .tg-button-text{
   color: var(--tg-theme-button-color,#0A84FF);
 }
+.tg-theme-color{
+  color:var(--tg-theme-bg-color,white);
+  background-color: var(--tg-theme-button-color,#0A84FF);
+}
+.tg-hint-color{
+  background-color: var(--tg-theme-hint-color,#d2d3d5);
+  color:var(--tg-theme-bg-color,white);
+}
 .hr{
   background-color: var(--tg-theme-hint-color,#EAECF0);
 }

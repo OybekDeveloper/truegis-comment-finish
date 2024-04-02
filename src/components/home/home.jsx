@@ -37,13 +37,13 @@ export default function Home() {
       id: 2,
       title: t("li_2"),
       link: `/${placeId}/${userId}/${km}/photo`,
-      count: null,
+      count: placeData?.images?.length ? placeData.images.length : null,
     },
     {
       id: 3,
       title: t("li_3"),
       link: `/${placeId}/${userId}/${km}/comment`,
-      count: null,
+      count: commentData ? commentData.length : null,
     },
     {
       id: 4,
@@ -192,6 +192,7 @@ export default function Home() {
               <span className={`${pathname === item.link && "tg-button-text"}`}>
                 {item.title}
               </span>
+              {item.count && <span className={`${pathname === item.link ? "tg-theme-color":"tg-hint-color"} px-[6px] text-[12px] rounded-[4px] bg-[#eeebeb]`}>{item.count}</span>}
             </div>
 
             {pathname === item.link && (
@@ -206,11 +207,7 @@ export default function Home() {
       </nav>
 
       <Outlet />
-      <div
-        className={`${
-          !activeComment && "mb-[70px]"
-        }`}
-      ></div>
+      <div className={`${!activeComment && "mb-[70px]"}`}></div>
       {!(pathname === `/${placeId}/${userId}/${km}/photo`) &&
         !activeComment && (
           <div className="max-w-[400px] mx-auto fixed bottom-0 w-full flex justify-around  items-center add-button py-[10px]">
@@ -225,8 +222,8 @@ export default function Home() {
                 {t("add_comment_btn")}
               </h1>
             </button>
-            <a 
-            href={`https://t.me/share/url?url=${"https://t.me/TrueGis_bot"}&text=${"Botimizdan foydalaning!"}`}
+            <a
+              href={`https://t.me/share/url?url=${"https://t.me/TrueGis_bot"}&text=${"Botimizdan foydalaning!"}`}
               className="tg-button flex justify-center items-center rounded-[8px] px-[14px] h-[44px]"
             >
               <img src={share} alt="" />
