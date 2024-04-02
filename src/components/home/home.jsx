@@ -172,7 +172,7 @@ export default function Home() {
           Joy buyurtma qilish
         </button> */}
       </section>
-      <nav  className="sticky top-0  z-[999] navbar w-full overflow-x-scroll whitespace-nowrap  flex gap-[20px]  px-[16px]">
+      <nav  className="sticky top-[-5px] z-[999] navbar w-full overflow-x-scroll whitespace-nowrap flex gap-[20px] px-[16px]">
         {navlink.map((item) => (
           <button
             key={item.id}
@@ -180,28 +180,23 @@ export default function Home() {
               navigate(item.link);
               setActiveTab(item.id);
             }}
-            className="font-[500] h-[70px] relative text-[16px]"
+            className="font-[500] h-[50px] relative text-[16px]"
           >
             <div className="flex items-center gap-[4px] h-[30px]">
               <span className={`${pathname === item.link && "tg-button-text"}`}>
                 {item.title}
               </span>
-              {item.count && (
-                <p className="rounded-[10px] text-[12px] font-[600] px-[9px] py-[5px] bg-[#F2F4F7] text-[#667085]">
-                  {item.count}
-                </p>
-              )}
             </div>
 
             {pathname === item.link && (
               <motion.div
                 layoutId="active-pill"
-                className="absolute mt-[10px] h-[3px] w-full tg-button"
+                className="absolute mt-[5px] h-[3px] w-full tg-button rounded-t-[5px]"
               />
             )}
           </button>
         ))}
-        <div className="hr z-[-10] absolute bottom-[-16px] w-full h-[1px]  mb-[24px]"></div>
+        {/* <div className="hr z-[-10] absolute bottom-[-16px] w-full h-[1px]  mb-[24px]"></div> */}
       </nav>
 
       <Outlet />

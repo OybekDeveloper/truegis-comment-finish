@@ -3,7 +3,7 @@
     display: none;
   }
   .navbar{
-    background-color: var(--tg-theme-bg-color);
+    background-color: var(--tg-theme-bg-color,#fff);
   }
   .home-back {
     position: relative;
