@@ -189,7 +189,7 @@ console.log(fotos)
                 handleSelectImage(image.id, index);
                 setAlbum(true);
               }}
-              className="w-full object-cover rounded-[6px]"
+              className="w-full object-cover rounded-[6px] h-[140px]"
               src={image.image}
               alt="foto"
             />
