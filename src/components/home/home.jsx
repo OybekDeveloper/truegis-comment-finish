@@ -202,10 +202,10 @@ export default function Home() {
                 <div
                   className={`${
                     pathname === item.link ? "tg-theme-color" : "tg-hint-color"
-                  } text-[12px] font-[500] rounded-full w-[20px] h-[20px] flex justify-center`}
+                  } rounded-full w-[20px] h-[20px] flex justify-center`}
                 >
-                  <h1 className="text-center justify-center mt-[0.5px]">
-                    {item.count}
+                  <h1 className=" text-[14px] font-[500] text-center justify-center mt-[0.5px]">
+                    {item.count}1
                   </h1>
                 </div>
               )}
