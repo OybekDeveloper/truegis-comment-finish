@@ -172,7 +172,7 @@ export default function Home() {
           Joy buyurtma qilish
         </button> */}
       </section>
-      <nav className="sticky top-0 tg-button z-[999] navbar w-full overflow-x-scroll whitespace-nowrap  flex gap-[20px]  px-[16px]">
+      <nav  className="sticky top-0  z-[999] navbar w-full overflow-x-scroll whitespace-nowrap  flex gap-[20px]  px-[16px]">
         {navlink.map((item) => (
           <button
             key={item.id}

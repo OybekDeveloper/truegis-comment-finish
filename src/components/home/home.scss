@@ -2,6 +2,9 @@
   .navbar::-webkit-scrollbar {
     display: none;
   }
+  .navbar{
+    background-color: var(--tg-theme-bg-color);
+  }
   .home-back {
     position: relative;
     overflow: hidden;

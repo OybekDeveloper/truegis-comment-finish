@@ -110,8 +110,8 @@ export default function AllProduct() {
             <div className="flex  gap-[12px] justify-between w-full">
               <div className="flex justify-start items-center gap-[12px]">
                 {LocationSvg(
-                  tg.themeParams.text_color
-                    ? tg.themeParams.text_color
+                  tg.themeParams.button_color
+                    ? tg.themeParams.button_color
                     : "#1C93E3"
                 )}
                 <MapAppSelector
@@ -150,8 +150,8 @@ export default function AllProduct() {
               {placeData.phone && (
                 <div className="flex justify-start items-center gap-[12px]">
                   {PhoneSVG(
-                    tg.themeParams.text_color
-                      ? tg.themeParams.text_color
+                    tg.themeParams.button_color
+                      ? tg.themeParams.button_color
                       : "#1C93E3"
                   )}
                   <h1
@@ -167,8 +167,8 @@ export default function AllProduct() {
                   <div className="flex justify-between w-full items-center gap-[12px]">
                     <div className="flex justify-start items-center gap-[16px]">
                       {LinkSvg(
-                        tg.themeParams.text_color
-                          ? tg.themeParams.text_color
+                        tg.themeParams.button_color
+                          ? tg.themeParams.button_color
                           : "#1C93E3"
                       )}
                       <h1 className="text-[16px] font-[500] tg-button-text">
@@ -176,8 +176,8 @@ export default function AllProduct() {
                       </h1>
                     </div>
                     {WebSvg(
-                      tg.themeParams.text_color
-                        ? tg.themeParams.text_color
+                      tg.themeParams.button_color
+                        ? tg.themeParams.button_color
                         : "#1C93E3"
                     )}
                   </div>
