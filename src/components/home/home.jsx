@@ -223,29 +223,31 @@ export default function Home() {
       </nav>
 
       <Outlet />
-      <div className={`${!activeComment && "mb-[70px]"}`}></div>
-      {!(pathname === `/${placeId}/${userId}/${km}/photo`) &&
-        !activeComment && (
-          <div className="max-w-[400px] mx-auto fixed bottom-0 w-full flex justify-around  items-center add-button py-[10px]">
-            <button
-              onClick={() =>
-                navigate(`/${placeId}/${userId}/${km}/add-comment`)
-              }
-              className="w-[75%] flex justify-center items-center gap-[12px] text-[17px] font-[500] text-[#fff] px-[10px] h-[44px] tg-button rounded-[8px]"
-            >
-              {CommentAdd("#fff")}
-              <h1 className="text-[16px] font-[500] text-[#fff]">
-                {t("add_comment_btn")}
-              </h1>
-            </button>
-            <a
-              href={`https://t.me/share/url?url=${"https://t.me/TrueGis_bot"}&text=${"Botimizdan foydalaning!"}`}
-              className="tg-button flex justify-center items-center rounded-[8px] px-[14px] h-[44px]"
-            >
-              <img src={share} alt="" />
-            </a>
-          </div>
-        )}
+      <div className={`mb-[70px]`}></div>
+      {!(pathname === `/${placeId}/${userId}/${km}/photo`) && (
+        <div className="max-w-[400px] mx-auto fixed bottom-0 w-full flex justify-around  items-center add-button py-[10px]">
+          <button
+            onClick={() => {
+              !activeComment &&
+                navigate(`/${placeId}/${userId}/${km}/add-comment`);
+            }}
+            className={`${
+              activeComment ? "opacity-[0.7]" : "opacity-1"
+            } w-[75%] flex justify-center items-center gap-[12px] text-[17px] font-[500] text-[#fff] px-[10px] h-[44px] tg-button rounded-[8px]`}
+          >
+            {CommentAdd("#fff")}
+            <h1 className="text-[16px] font-[500] text-[#fff]">
+              {t("add_comment_btn")}
+            </h1>
+          </button>
+          <a
+            href={`https://t.me/share/url?url=${"https://t.me/TrueGis_bot"}&text=${"Botimizdan foydalaning!"}`}
+            className="tg-button flex justify-center items-center rounded-[8px] px-[14px] h-[44px]"
+          >
+            <img src={share} alt="" />
+          </a>
+        </div>
+      )}
     </main>
   );
 }
