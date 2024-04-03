@@ -1,29 +1,41 @@
-.photo{
-    
+.photo {
 }
-.photo-slide::-webkit-scrollbar{
-    display: none;
+.photo-slide::-webkit-scrollbar {
+  display: none;
 }
-.backdrop-image{
-    position: fixed;
-    z-index: 999;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100%;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.90) 0%, rgba(0, 0, 0, 0.90) 100%), #FFF;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  } 
+.backdrop-image {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 0, 0, 0.9) 100%
+    ),
+    #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.backdrop-image-content {
+  background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 0, 0, 0.9) 100%
+    ),
+    #fff;
+}
 
-  .sliderImg{
-    width: 100vw;
-    height: 210px;
-    object-fit: cover;
-  }
-  
-  .slick-prev,
-  .slick-next {
-    display: none !important;
-  }
+.sliderImg {
+  width: 100vw;
+  height: 210px;
+  object-fit: cover;
+}
+
+.slick-prev,
+.slick-next {
+  display: none !important;
+}
