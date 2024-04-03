@@ -46,12 +46,12 @@ export default function Comment() {
   const open = () => {
     setMenuActive(true);
   };
-  useEffect(()=>{
+  useEffect(() => {
     setTimeout(() => {
-      setLoading(false)
+      setLoading(false);
     }, 500);
-  },[commentData])
-  console.log(commentData)
+  }, [commentData]);
+  console.log(commentData);
   return (
     <>
       {loading ? (
@@ -142,56 +142,67 @@ export default function Comment() {
               <h1 className="text-[18px] font-[500] mb-[12px]">{t("li_3")}</h1>
               <div className="hr w-full h-[1px]  mb-[24px]"></div>
               <div className="w-full flex flex-col gap-[32px]">
-                {commentData.slice().reverse().map((item,idx) => (
-                  <main key={idx} className="">
-                    <div className="flex justify-between items-center gap-[12px]">
-                      <article className="flex justify-start items-center gap-[12px]">
-                        <div className=" text-[16px] font-[600] flex items-center justify-center w-[40px] h-[40px] rounded-full border-[1px] border-solid border-[#dfe0e3] bg-[#f2f4f7] text-[#475467]">
-                          {getInitials(item.user.full_name)}
-                        </div>
-                        <h1 className="text-[16px] font-[500]">
-                          {item.user.full_name}
-                        </h1>
-                      </article>
-                      {item.user.id === +userId && (
-                        <div
-                          onClick={() => {
-                            menuActive ? close() : open();
-                            dispatch(ActiveModal(true));
-                            dispatch(DeleteComment(item.id));
-                          }}
-                          className="w-[24px] h-[24px]"
-                        >
-                          {MenuIcon()}
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex justify-between items-center mt-[24px]">
-                      <Rating
-                        name="text-feedback"
-                        value={item.star}
-                        readOnly
-                        style={{ color: "#FAC515" }}
-                        emptyIcon={
-                          <StarIcon
-                            style={{
-                              opacity: 0.55,
-                              color: tg.themeParams.text_color,
+                {commentData
+                  .slice()
+                  .reverse()
+                  .map((item, idx) => (
+                    <main key={idx} className="">
+                      <div className="flex justify-between items-center gap-[12px]">
+                        <article className="flex justify-start items-center gap-[12px]">
+                          <div className=" text-[16px] font-[600] flex items-center justify-center w-[40px] h-[40px] rounded-full border-[1px] border-solid border-[#dfe0e3] bg-[#f2f4f7] text-[#475467]">
+                            {item.user.profile_photo_url ? (
+                              <img
+                              className="rounded-full object-cover"
+                                src={item?.user.profile_photo_url}
+                                alt="foto"
+                              />
+                            ) : (
+                              getInitials(item.user.full_name)
+                            )}
+                          </div>
+                          <h1 className="text-[16px] font-[500]">
+                            {item.user.full_name}
+                          </h1>
+                        </article>
+                        {item.user.id === +userId && (
+                          <div
+                            onClick={() => {
+                              menuActive ? close() : open();
+                              dispatch(ActiveModal(true));
+                              dispatch(DeleteComment(item.id));
                             }}
-                            fontSize="inherit"
-                          />
-                        }
-                      />
-                      <p className="text-[14px] font-[400]">
-                        {item.created_time.split(" ")[0]}
-                      </p>
-                    </div>
-                    <h1 className="text-[16px] font-[400] mt-[16px]">
-                      {item.text}
-                    </h1>
-                    <div className=" hr w-full h-[1px] mt-[24px]"></div>
-                  </main>
-                ))}
+                            className="w-[24px] h-[24px]"
+                          >
+                            {MenuIcon()}
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex justify-between items-center mt-[24px]">
+                        <Rating
+                          name="text-feedback"
+                          value={item.star}
+                          readOnly
+                          style={{ color: "#FAC515" }}
+                          emptyIcon={
+                            <StarIcon
+                              style={{
+                                opacity: 0.55,
+                                color: tg.themeParams.text_color,
+                              }}
+                              fontSize="inherit"
+                            />
+                          }
+                        />
+                        <p className="text-[14px] font-[400]">
+                          {item.created_time.split(" ")[0]}
+                        </p>
+                      </div>
+                      <h1 className="text-[16px] font-[400] mt-[16px]">
+                        {item.text}
+                      </h1>
+                      <div className=" hr w-full h-[1px] mt-[24px]"></div>
+                    </main>
+                  ))}
               </div>
             </section>
           ) : (
