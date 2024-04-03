@@ -122,7 +122,7 @@ export default function Home() {
 🛣:${km} km\n
 ⏰:${placeData.work_start_time} - ${placeData.work_end_time}\n
 ⭐️${placeData.rating}&photo=${placeData.photo_url}`;
-  console.log(placeData)
+  
   return (
     <main className="home relative ">
       <section className="px-[16px] min-h-[190px] home-back flex justify-end flex-col pb-[30px]">
