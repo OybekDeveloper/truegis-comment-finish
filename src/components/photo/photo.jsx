@@ -118,13 +118,14 @@ export default function Photo() {
           {selectPhoto.length > 0 && album && (
             <section className="backdrop-image">
               <div className="overflow-x-scroll whitespace-nowrap photo-slide">
-                <div className="flex w-full justify-start gap-[100px] pl-[10px] z-[999]">
+                <div className="flex w-full justify-between gap-[100px] pl-[10px] z-[999]">
                   <div onClick={handleClose} className="cursor-pointer ">
                     <img src={arrowL} alt="" />
                   </div>
                   <h1 className="text-[#fff] ">
                     {activeImageCount}/{allImageCount}
                   </h1>
+                  <div></div>
                 </div>
                 {fotos.length > 1 ? (
                   <Slider {...settings} className="overflow-hidden">
@@ -132,7 +133,7 @@ export default function Photo() {
                       <div key={index}>
                         <div className="z-[9999] h-[90vh] flex justify-center items-center">
                           <img
-                            className="w-full object-cover"
+                            className="w-full max-h-[380px] object-cover"
                             src={photo.image}
                             alt={`slide-${index}`}
                           />
