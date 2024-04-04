@@ -148,18 +148,18 @@ export default function Photo() {
                     ))}
                   </Slider>
                 ) : (
-                  <div>
+                  <div className="z-[9999] h-[90vh] flex justify-center items-center">
                     <img
                       src={selectPhoto[0].image}
                       alt="fofot"
                       className="w-screen object-cover"
                     />
-                    <div className="absolute text-white bottom-[100px] z-10 ml-[40px]">
-                      {/* <h1 className="text-[#fff] text-[18px] font-[500] ">{userFullName}</h1> */}
-                      <h2 className="text-[#fff] text-[14px] font-[500] opacity-[0.7]">
-                        {selectPhoto[0].created.slice(0, 10)}
-                      </h2>
-                    </div>
+                     <div className="absolute text-white bottom-[28px] z-10 ml-[40px]">
+                          <UserFullNameComponent
+                            userId={selectPhoto[0].user}
+                            created={selectPhoto[0].created}
+                          />
+                        </div>
                   </div>
                 )}
               </div>
