@@ -74,7 +74,6 @@ export default function Home() {
   // const sendDataTelegram = () => {
   //   tg.sendData("@truegis_bot", "Your data here");
   // };
-  console.log(tg);
   useEffect(() => {
     localStorage.setItem("placeId", placeId);
     localStorage.setItem("userId", userId);

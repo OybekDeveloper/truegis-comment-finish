@@ -51,7 +51,6 @@ export default function Comment() {
       setLoading(false);
     }, 500);
   }, [commentData]);
-  console.log(commentData);
   return (
     <>
       {loading ? (

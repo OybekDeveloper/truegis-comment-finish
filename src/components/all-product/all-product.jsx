@@ -37,7 +37,6 @@ export default function AllProduct() {
     const hours = new Date().getHours();
     const minutes = new Date().getMinutes();
     const secounds = new Date().getSeconds();
-    console.log(hours, minutes, secounds);
     const start = placeData?.work_start_time?.split(":")[0];
     const end = placeData?.work_end_time?.split(":")[0];
     if (hours > start && hours < end) {
