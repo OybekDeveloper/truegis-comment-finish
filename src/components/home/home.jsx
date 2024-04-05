@@ -122,7 +122,7 @@ export default function Home() {
 🛣:${km} km\n
 ⏰:${placeData.work_start_time} - ${placeData.work_end_time}\n
 ⭐️${placeData.rating}&photo=${placeData.photo_url}`;
-
+  
   return (
     <main className="home relative ">
       <section className="px-[16px] min-h-[190px] home-back flex justify-end flex-col pb-[30px]">
@@ -241,9 +241,7 @@ export default function Home() {
             </h1>
           </button>
           <a
-            href={`tg://msg_url?url=${encodeURIComponent(
-              "https://t.me/TrueGis_bot"
-            )}&text=${encodeURIComponent("Botimizdan foydalaning!")}`}
+            href={`https://t.me/share/url?url=${"https://t.me/TrueGis_bot"}&text=${"Botimizdan foydalaning!"}`}
             className="tg-button flex justify-center items-center rounded-[8px] px-[14px] h-[44px]"
           >
             <img src={share} alt="" />
