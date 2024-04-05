@@ -31,8 +31,6 @@ export default function Photo() {
   };
 
   const handleFileUploaded = (e) => {
-    return;
-    //eslint-disable-next-line
     const file = e.target.files[0];
     if (!file || !placeData) return;
     setLoading(true);
@@ -156,12 +154,12 @@ export default function Photo() {
                       alt="fofot"
                       className="w-screen object-cover"
                     />
-                     <div className="absolute text-white bottom-[28px] z-10 ml-[40px]">
-                          <UserFullNameComponent
-                            userId={selectPhoto[0].user}
-                            created={selectPhoto[0].created}
-                          />
-                        </div>
+                    <div className="absolute text-white bottom-[28px] z-10 ml-[40px]">
+                      <UserFullNameComponent
+                        userId={selectPhoto[0].user}
+                        created={selectPhoto[0].created}
+                      />
+                    </div>
                   </div>
                 )}
               </div>
@@ -211,33 +209,36 @@ export default function Photo() {
   );
 }
 
+const userId = localStorage.getItem("userId");
+
 export const fetchUserFullName = async (id, created) => {
-  try {
-    const user = await ApiServer.getData(`/users/${id}/`);
-    return (
-      <div className="w-screen  pt-[24px] backdrop-image-content flex justify-start items-center gap-[16px]">
-        <img
-          className="w-[56px] h-[56px] rounded-full object-cover"
-          src={user.profile_photo_url}
-          alt="user"
-        />
-        <div className="flex flex-col">
-          <h1 className="text-[#fff] text-[18px] font-[500]">
-            {user.full_name}
-          </h1>
-          <h2 className="text-[#fff] text-[14px] font-[500] opacity-[0.7]">
-            {created?.slice(0, 10)}
-          </h2>
+  if (userId) {
+    try {
+      const user = await ApiServer.getData(`/users/${id}/`);
+      return (
+        <div className="w-screen  pt-[24px] backdrop-image-content flex justify-start items-center gap-[16px]">
+          <img
+            className="w-[56px] h-[56px] rounded-full object-cover"
+            src={user.profile_photo_url}
+            alt="user"
+          />
+          <div className="flex flex-col">
+            <h1 className="text-[#fff] text-[18px] font-[500]">
+              {user.full_name}
+            </h1>
+            <h2 className="text-[#fff] text-[14px] font-[500] opacity-[0.7]">
+              {created?.slice(0, 10)}
+            </h2>
+          </div>
         </div>
-      </div>
-    );
-  } catch (error) {
-    console.log(error);
-    return null;
+      );
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
   }
 };
 
-// Inside your component, you can use fetchUserFullName like this:
 const UserFullNameComponent = ({ userId, created }) => {
   const [userFullName, setUserFullName] = useState(null);
 
@@ -251,5 +252,3 @@ const UserFullNameComponent = ({ userId, created }) => {
 
   return userFullName;
 };
-
-// Then use UserFullNameComponent inside your component's JSX:
