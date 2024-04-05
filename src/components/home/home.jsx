@@ -122,7 +122,23 @@ export default function Home() {
 🛣:${km} km\n
 ⏰:${placeData.work_start_time} - ${placeData.work_end_time}\n
 ⭐️${placeData.rating}&photo=${placeData.photo_url}`;
-  
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(success, error);
+  } else {
+    console.log("Geolocation not supported");
+  }
+
+  function success(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+  }
+
+  function error() {
+    console.log("Unable to retrieve your location");
+  }
+
   return (
     <main className="home relative ">
       <section className="px-[16px] min-h-[190px] home-back flex justify-end flex-col pb-[30px]">
