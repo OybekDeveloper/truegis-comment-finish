@@ -134,7 +134,7 @@ export default function Home() {
 
   // function error() {
   //   console.log("Unable to retrieve your location");
-  }
+  // }
 
   return (
     <main className="home relative ">
