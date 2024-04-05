@@ -117,11 +117,7 @@ export default function Home() {
     );
     workStatus();
   }, [commentData]);
-  const telegramShareUrl = `https://t.me/share/url?url=https://t.me/TrueGis_bot&text=
-🏢:${placeData.name}\n
-🛣:${km} km\n
-⏰:${placeData.work_start_time} - ${placeData.work_end_time}\n
-⭐️${placeData.rating}&photo=${placeData.photo_url}`;
+  
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(success, error);
@@ -132,7 +128,8 @@ export default function Home() {
   function success(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
-    console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+    localStorage.setItem("latitude",latitude)
+    localStorage.setItem("longitude",longitude)
   }
 
   function error() {

@@ -31,6 +31,8 @@ export default function Photo() {
   };
 
   const handleFileUploaded = (e) => {
+    return;
+    //eslint-disable-next-line
     const file = e.target.files[0];
     if (!file || !placeData) return;
     setLoading(true);
