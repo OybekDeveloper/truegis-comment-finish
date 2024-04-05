@@ -210,32 +210,36 @@ export default function Photo() {
 }
 
 const userId = localStorage.getItem("userId");
+console.log(userId)
 
-export const fetchUserFullName = async (id, created) => {
+export const fetchUserFullName =  (id, created) => {
   if (userId) {
-    try {
-      const user = await ApiServer.getData(`/users/${id}/`);
-      return (
-        <div className="w-screen  pt-[24px] backdrop-image-content flex justify-start items-center gap-[16px]">
-          <img
-            className="w-[56px] h-[56px] rounded-full object-cover"
-            src={user.profile_photo_url}
-            alt="user"
-          />
-          <div className="flex flex-col">
-            <h1 className="text-[#fff] text-[18px] font-[500]">
-              {user.full_name}
-            </h1>
-            <h2 className="text-[#fff] text-[14px] font-[500] opacity-[0.7]">
-              {created?.slice(0, 10)}
-            </h2>
+    const fetchData=async()=>{
+      try {
+        const user = await ApiServer.getData(`/users/${id}/`);
+        return (
+          <div className="w-screen  pt-[24px] backdrop-image-content flex justify-start items-center gap-[16px]">
+            <img
+              className="w-[56px] h-[56px] rounded-full object-cover"
+              src={user.profile_photo_url}
+              alt="user"
+            />
+            <div className="flex flex-col">
+              <h1 className="text-[#fff] text-[18px] font-[500]">
+                {user.full_name}
+              </h1>
+              <h2 className="text-[#fff] text-[14px] font-[500] opacity-[0.7]">
+                {created?.slice(0, 10)}
+              </h2>
+            </div>
           </div>
-        </div>
-      );
-    } catch (error) {
-      console.log(error);
-      return null;
+        );
+      } catch (error) {
+        console.log(error);
+        return null;
+      }
     }
+    fetchData()
   }
 };
 
