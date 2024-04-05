@@ -241,7 +241,7 @@ export default function Home() {
             </h1>
           </button>
           <a
-            href={`https://t.me/share/url?url=${"https://t.me/TrueGis_bot"}&text=${"Botimizdan foydalaning!"}`}
+            href={`https://t.me/share/url?url=${`https://truegis-comment01.vercel.app/${placeId}/${userId}/${km}`}&text=${"Botimizdan foydalaning!"}`}
             className="tg-button flex justify-center items-center rounded-[8px] px-[14px] h-[44px]"
           >
             <img src={share} alt="" />
