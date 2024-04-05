@@ -119,22 +119,7 @@ export default function Home() {
   }, [commentData]);
   
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(success, error);
-  } else {
-    console.log("Geolocation not supported");
-  }
-
-  function success(position) {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
-    localStorage.setItem("latitude",latitude)
-    localStorage.setItem("longitude",longitude)
-  }
-
-  function error() {
-    console.log("Unable to retrieve your location");
-  }
+ 
 
   return (
     <main className="home relative ">
