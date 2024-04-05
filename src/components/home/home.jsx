@@ -122,7 +122,7 @@ export default function Home() {
 🛣:${km} km\n
 ⏰:${placeData.work_start_time} - ${placeData.work_end_time}\n
 ⭐️${placeData.rating}&photo=${placeData.photo_url}`;
-  
+
   return (
     <main className="home relative ">
       <section className="px-[16px] min-h-[190px] home-back flex justify-end flex-col pb-[30px]">
@@ -241,7 +241,9 @@ export default function Home() {
             </h1>
           </button>
           <a
-            href={`https://t.me/share/url?url=${`https://truegis-comment01.vercel.app/${placeId}/${userId}/${km}`}&text=${"Botimizdan foydalaning!"}`}
+            href={`https://t.me/share/url?url=https://truegis-comment01.vercel.app/${placeId}/${userId}/${km}&text=${encodeURIComponent(
+              "Botimizdan foydalaning!"
+            )}`}
             className="tg-button flex justify-center items-center rounded-[8px] px-[14px] h-[44px]"
           >
             <img src={share} alt="" />
