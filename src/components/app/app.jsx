@@ -45,10 +45,10 @@ export default function App() {
   const [lat, setLat] = useState("");
 
   useEffect(() => {
-    if (pathname !== `/${placeId}/${userId}/${km}/all-product`||pathname !== `/${placeId}/${userId}/${km}`) {
-      BackButton.show();
-    } else {
+    if (pathname === `/${placeId}/${userId}/${km}/all-product`||pathname === `/${placeId}/${userId}/${km}`) {
       BackButton.hide();
+    } else {
+      BackButton.show();
     }
   }, [pathname]);
 
