@@ -33,10 +33,9 @@ export default function AllProduct() {
   const [statusWork, setStatusWork] = useState(true);
   const [imageLength, setImageLength] = useState(0);
   const [loading, setLoading] = useState(true);
+
   const workStatus = () => {
     const hours = new Date().getHours();
-    const minutes = new Date().getMinutes();
-    const secounds = new Date().getSeconds();
     const start = placeData?.work_start_time?.split(":")[0];
     const end = placeData?.work_end_time?.split(":")[0];
     if (hours > start && hours < end) {
@@ -70,6 +69,7 @@ export default function AllProduct() {
     }
     workStatus();
   }, [menuActive, delModal]);
+
   useEffect(() => {
     function filterTrueOptions(data) {
       const trueOptions = [];
@@ -95,6 +95,7 @@ export default function AllProduct() {
       filterTrueOptions(placeData.about.details);
     }
   }, [placeData.about]);
+
   useEffect(() => {
     workData();
     setTimeout(() => {
@@ -107,7 +108,8 @@ export default function AllProduct() {
     }
     workStatus();
   }, [placeData]);
-  console.log(placeData);
+
+
   return (
     <>
       {loading ? (
@@ -458,7 +460,6 @@ export default function AllProduct() {
           )}
           {imageLength > 0 && (
             <>
-            {imageLength}
               <section
                 className={`overflow-x-scroll whitespace-nowrap photo-slide px-[16px]`}
               >
