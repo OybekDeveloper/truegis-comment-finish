@@ -14,7 +14,7 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import HttpApi from "i18next-http-backend";
 import i18next from "i18next";
 const tg = window.Telegram.WebApp;
-
+console.log(localStorage.getItem("userId"))
 i18n
   .use(initReactI18next)
   .use(HttpApi)
@@ -34,11 +34,16 @@ export default function App() {
   const placeId = localStorage.getItem("placeId");
   const userId = localStorage.getItem("userId");
   const km = localStorage.getItem("km");
+
   const { pathname } = useLocation();
   const navigate = useNavigate();
   let BackButton = tg.BackButton;
   const { t } = useTranslation();
+
   const [loading, setLoading] = useState(false);
+  const [long,setLong]=useState('')
+  const [lat,setLat]=useState('')
+
   useEffect(() => {
     if (pathname !== `/${placeId}/${userId}/${km}/all-product`) {
       BackButton.show();
@@ -58,56 +63,19 @@ export default function App() {
       setLoading(true);
     }, 1300);
 
-    if (navigator.permissions) {
-      // Check if the Permissions API is supported
-      navigator.permissions
-        .query({ name: "geolocation" })
-        .then((permissionStatus) => {
-          if (permissionStatus.state === "denied") {
-            console.log("Location permission denied by user");
-            // Here, you can prompt the user to enable location services
-            // Maybe display a message or UI to inform the user
-          } else {
-            // Request location if permission is not denied
-            navigator.geolocation.getCurrentPosition(
-              success, // Success callback
-              error, // Error callback
-              {
-                // Geolocation options
-                enableHighAccuracy: true, // Request high accuracy
-                timeout: 5000, // Timeout in milliseconds
-                maximumAge: 0, // Force the device to provide a new location
-              }
-            );
-          }
-        })
-        .catch((error) => {
-          console.log("Error while checking location permission:", error);
-        });
-    } else {
-      console.log("Permissions API not supported");
-      // Here, you can prompt the user to enable location services
-      // Maybe display a message or UI to inform the user
-    }
-
-    function success(position) {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-      localStorage.setItem("latitude", latitude);
-      localStorage.setItem("longitude", longitude);
-    }
-
-    function error() {
-      console.log("Unable to retrieve your location");
-      // Here, you can prompt the user to enable location services
-      // Maybe display a message or UI to inform the user
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition((position)=>{
+        console.log(position.coords.latitude , position.coords.longitude)
+        setLong(position.coords.longitude)
+        setLat(position.coords.latitude)
+      })
     }
   }, []);
-
-  console.log(navigator.geolocation);
   return (
     <>
-      {/* <button onClick={back}>back</button> */}
+      <button onClick={back}>back</button>
+      <h1>{long}</h1>
+      <h1>{lat}</h1>
       {loading ? (
         <div className="app max-w-[400px] mx-auto">
           <Routes>

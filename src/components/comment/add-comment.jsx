@@ -40,12 +40,15 @@ export default function AddComment() {
   };
 
   const handleFileUploaded = (e) => {
-    const file = e.target.files[0];
-    if (!file || !placeData) return;
+    const files = e.target.files;
+    if (!files || !placeData) return;
     const fd = new FormData();
-    fd.append(`image`, file);
-    fd.append("place", placeId);
-    fd.append("user", userId);
+    for(let i=0;i<files.length;i++){
+      fd.append(`image`, files[i]);
+      fd.append("place", placeId);
+      fd.append("user", userId);
+    }
+   
     axios
       .post("https://admin13.uz/api/image/", fd, {
         headers: {
