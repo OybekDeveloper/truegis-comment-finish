@@ -127,10 +127,11 @@ export default function Comment() {
                 value={placeData.rating ? placeData.rating : 0}
                 readOnly
                 style={{ color: "#FAC515" }}
+                precision={0.5}
                 emptyIcon={
                   <StarIcon
-                    style={{ opacity: 0.55, color: "#D0D5DD" }}
                     fontSize="inherit"
+                    style={{ opacity: 1, color: "#b4b5b5", fontSize: "18px" }}
                   />
                 }
               />
@@ -151,7 +152,7 @@ export default function Comment() {
                           <div className=" text-[16px] font-[600] flex items-center justify-center w-[40px] h-[40px] rounded-full border-[1px] border-solid border-[#dfe0e3] bg-[#f2f4f7] text-[#475467]">
                             {item.user.profile_photo_url ? (
                               <img
-                              className="rounded-full object-cover"
+                                className="rounded-full object-cover"
                                 src={item?.user.profile_photo_url}
                                 alt="foto"
                               />
@@ -182,13 +183,15 @@ export default function Comment() {
                           value={item.star}
                           readOnly
                           style={{ color: "#FAC515" }}
+                          precision={0.5}
                           emptyIcon={
                             <StarIcon
-                              style={{
-                                opacity: 0.55,
-                                color: tg.themeParams.text_color,
-                              }}
                               fontSize="inherit"
+                              style={{
+                                opacity: 1,
+                                color: "#b4b5b5",
+                                fontSize: "18px",
+                              }}
                             />
                           }
                         />
