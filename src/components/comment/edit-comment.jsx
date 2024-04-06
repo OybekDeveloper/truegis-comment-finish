@@ -184,7 +184,7 @@ const EditComment = () => {
       <div className="max-w-[400px] mx-auto fixed bottom-[10px] w-full flex justify-center items-center">
         <button
           onClick={handleEditComment}
-          className="text-[17px] font-[500] text-[#fff] py-[14px] px-[10px] w-[94%] tg-button rounded-[8px]"
+          className="text-[17px] font-[500] text-[#fff] h-[44px] w-[94%] tg-button rounded-[8px]"
         >
           {t("send_btn")}
         </button>

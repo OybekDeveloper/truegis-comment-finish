@@ -188,9 +188,13 @@ export default function Home({ lat, long }) {
               </div>
             </div> */}
             </div>
-            <button className="text-[14px] font-[500] text-[#fff] mt-[20px] home-btn w-full h-[44px] z-10 rounded-[8px]">
-              Joy buyurtma qilish
-            </button>
+            {placeData?.order_url && (
+              <a href={placeData.order_url.url} className="z-10">
+                <button className="text-[14px] font-[500] text-[#fff] mt-[20px] home-btn w-full h-[44px] z-10 rounded-[8px]">
+                  {placeData.order_url.name}
+                </button>
+              </a>
+            )}
           </section>
           <nav className="sticky top-[-5px] z-[999] navbar w-full overflow-x-scroll whitespace-nowrap flex gap-[24px] px-[16px]">
             {navlink.map((item) => (
@@ -238,26 +242,28 @@ export default function Home({ lat, long }) {
           <div className={`mb-[70px]`}></div>
           {!(pathname === `/${placeId}/${userId}/${km}/photo`) && (
             <div className="max-w-[400px] mx-auto fixed bottom-0 w-full flex justify-around  items-center add-button py-[10px]">
-              <button
-                onClick={() => {
-                  !activeComment &&
-                    navigate(`/${placeId}/${userId}/${km}/add-comment`);
-                }}
-                className={`${
-                  activeComment ? "opacity-[0.7]" : "opacity-1"
-                } w-[75%] flex justify-center items-center gap-[12px] text-[17px] font-[500] text-[#fff] px-[10px] h-[44px] tg-button rounded-[8px]`}
-              >
-                {CommentAdd("#fff")}
-                <h1 className="text-[15px] font-[500] text-[#fff]">
-                  {t("add_comment_btn")}
-                </h1>
-              </button>
-              <a
-                href={`https://t.me/share/url?url=${"https://t.me/TrueGis_bot"}&text=${"Botimizdan foydalaning!"}`}
-                className="tg-button flex justify-center items-center rounded-[8px] px-[14px] h-[44px]"
-              >
-                <img src={share} alt="" />
-              </a>
+              <div className="flex justify-between  items-center w-full ">
+                <button
+                  onClick={() => {
+                    !activeComment &&
+                      navigate(`/${placeId}/${userId}/${km}/add-comment`);
+                  }}
+                  className={`${
+                    activeComment ? "opacity-[0.7]" : "opacity-1"
+                  } w-[80%] flex justify-center items-center gap-[12px] text-[17px] font-[500] text-[#fff] h-[44px] tg-button rounded-[8px]`}
+                >
+                  {CommentAdd("#fff")}
+                  <h1 className="text-[15px] font-[500] text-[#fff]">
+                    {t("add_comment_btn")}
+                  </h1>
+                </button>
+                <a
+                  href={`https://t.me/share/url?url=${"https://t.me/TrueGis_bot"}&text=${"Botimizdan foydalaning!"}`}
+                  className="tg-button flex justify-center items-center rounded-[8px] px-[14px] h-[44px]"
+                >
+                  <img src={share} alt="" />
+                </a>
+              </div>
             </div>
           )}
         </main>

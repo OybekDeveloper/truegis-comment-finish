@@ -153,7 +153,7 @@ export default function AddComment() {
         ) : (
           <button
             onClick={handleFileInputClick}
-            className="flex gap-[8px] justify-center items-center px-[16px] py-[12px] w-full border-[1px] border-solid border-[#D0D5DD] rounded-[8px]"
+            className="flex gap-[8px] justify-center items-center h-[44px] w-full border-[1px] border-solid border-[#D0D5DD] rounded-[8px]"
           >
             {photoAdd(
               tg.themeParams.button_color
@@ -169,7 +169,7 @@ export default function AddComment() {
       <div className="max-w-[400px] mx-auto fixed bottom-[10px] w-full flex justify-center items-center">
         <button
           onClick={handleAddComment}
-          className="text-[17px] font-[500] text-[#fff] py-[14px] px-[10px] w-[94%] tg-button rounded-[8px]"
+          className="text-[17px] font-[500] text-[#fff] h-[44px] w-[94%] tg-button rounded-[8px]"
         >
           {t("send_btn")}
         </button>
