@@ -2,45 +2,94 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
+@font-face {
+  font-family: "Roboto";
+  font-weight: 900;
+  font-display: swap;
+  src: local("Roboto Black"), url(../fonts/Roboto-Black.woff2) format("woff2"),
+    url(../fonts/Roboto-Black.woff) format("woff");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-weight: 600;
+  font-display: swap;
+  src: local("Roboto Bold"), url(../fonts/Roboto-Bold.woff2) format("woff2"),
+    url(../fonts/Roboto-Bold.woff) format("woff");
+}
+@font-face {
+  font-family: "Roboto";
+  font-weight: 500;
+  font-display: swap;
+  src: local("Roboto Medium"), url(../fonts/Roboto-Medium.woff2) format("woff2"),
+    url(../fonts/Roboto-Medium.woff) format("woff");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-weight: 400;
+  font-display: swap;
+  src: local("Roboto Regular"),
+    url(../fonts/Roboto-Regular.woff2) format("woff2"),
+    url(../fonts/Roboto-Regular.woff2) format("woff");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-weight: 300;
+  font-display: swap;
+  src: local("Roboto Light"), url(../fonts/Roboto-Light.woff2) format("woff2"),
+    url(../fonts/Roboto-Light.woff) format("woff");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-weight: 100;
+  font-display: swap;
+  src: local("Roboto Thin"), url(../fonts/Roboto-Thin.woff2) format("woff2"),
+    url(../fonts/Roboto-Thin.woff) format("woff");
+}
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body{
+body {
+  font-family: "Roboto";
   background-color: var(--tg-theme-bg-color);
-  color:var(--tg-theme-text-color) ;
+  color: var(--tg-theme-text-color);
 }
 
-p{
-  color: var(--tg-theme-hint-color,#475467);
+p {
+  color: var(--tg-theme-hint-color, #475467);
 }
-.tg-button{
-  background-color: var(--tg-theme-button-color,#0A84FF);
+.tg-button {
+  background-color: var(--tg-theme-button-color, #0a84ff);
 }
-.tg-button-text{
-  color: var(--tg-theme-button-color,#0A84FF);
+.tg-button-text {
+  color: var(--tg-theme-button-color, #0a84ff);
 }
-.tg-theme-color{
-  color:var(--tg-theme-bg-color,white);
-  background-color: var(--tg-theme-button-color,#0A84FF);
+.tg-theme-color {
+  color: var(--tg-theme-bg-color, white);
+  background-color: var(--tg-theme-button-color, #0a84ff);
 }
-.tg-hint-color{
-  background-color: var(--tg-theme-hint-color,#d2d3d5);
-  color:var(--tg-theme-bg-color,white);
+.tg-hint-color {
+  background-color: var(--tg-theme-hint-color, #d2d3d5);
+  color: var(--tg-theme-bg-color, white);
 }
-.hr{
-  background-color: var(--tg-theme-hint-color,#EAECF0);
+.hr {
+  background-color: var(--tg-theme-hint-color, #eaecf0);
 }
-h2{
+h2 {
   filter: brightness(0.6);
-  color: var(--tg-theme-hint-color,#475467);
+  color: var(--tg-theme-hint-color, #475467);
 }
 .blur-effect {
   height: 100vh;
   overflow: hidden;
 }
-.background-dark{
+.background-dark {
   background-color: #000;
 }
