@@ -105,15 +105,15 @@ export default function Home({ lat, long }) {
         dispatch(GetCommentData(comment));
       } catch (error) {
         console.log(error);
-      }finally{
-        if(lat && long){
-          setLoading(false)
+      } finally {
+        if (lat && long) {
+          setLoading(false);
         }
       }
     };
     fetchData();
     workStatus();
-  }, [delModal,lat,long]);
+  }, [delModal, lat, long]);
   useEffect(() => {
     setActiveComment(
       commentData.find((item) => item.user.id === +userId) ? true : false
@@ -214,9 +214,9 @@ export default function Home({ lat, long }) {
                         pathname === item.link
                           ? "tg-theme-color"
                           : "tg-hint-color"
-                      } rounded-full w-[20px] h-[20px] flex justify-center`}
+                      } rounded-full w-[20px] h-[20px] flex justify-center items-center`}
                     >
-                      <h1 className="text-[12px] font-[600] text-center justify-center mt-[0.5px]">
+                      <h1 className="text-[12px] font-[600]  mt-[0.5px]">
                         {item.count}
                       </h1>
                     </div>

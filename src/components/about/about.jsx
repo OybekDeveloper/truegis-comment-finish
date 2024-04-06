@@ -44,7 +44,7 @@ export default function About() {
         <LoadingC/>
       ):(
         <div>
-      {(placeData.info) ? (
+      {(placeData.info || aboutData.length>0) ? (
         <>
           <section className="relative mt-[24px] mx-[16px]">
             <h1 className="text-justify  text-[16px] font-400 ">{placeData.info}</h1>
