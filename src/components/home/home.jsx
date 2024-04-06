@@ -242,7 +242,7 @@ export default function Home({ lat, long }) {
           <div className={`mb-[70px]`}></div>
           {!(pathname === `/${placeId}/${userId}/${km}/photo`) && (
             <div className="max-w-[400px] mx-auto fixed bottom-0 w-full flex justify-around  items-center add-button py-[10px]">
-              <div className="flex justify-between  items-center w-full ">
+              <div className="flex justify-between  items-center w-full mx-[16px] ">
                 <button
                   onClick={() => {
                     !activeComment &&
