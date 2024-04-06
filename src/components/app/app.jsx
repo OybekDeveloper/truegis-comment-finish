@@ -68,9 +68,9 @@ export default function App() {
       
     }
     if(long && lat){
-      setLoading(false)
+      setLoading(true)
     }else{
-      tg.close()
+      // tg.close()
     }
   }, []);
   return (
