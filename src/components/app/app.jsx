@@ -107,9 +107,8 @@ export default function App() {
   console.log(navigator.geolocation);
   return (
     <>
-    <h1>test...</h1>
       {/* <button onClick={back}>back</button> */}
-      {/* {loading ? (
+      {loading ? (
         <div className="app max-w-[400px] mx-auto">
           <Routes>
             <Route path="/:placeId/:userId/:km" element={<Home />}>
@@ -132,7 +131,7 @@ export default function App() {
         <div className="w-full h-screen flex justify-center items-center">
           <Loading />
         </div>
-      )} */}
+      )}
     </>
   );
 }

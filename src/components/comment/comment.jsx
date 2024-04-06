@@ -130,8 +130,8 @@ export default function Comment() {
                 precision={0.5}
                 emptyIcon={
                   <StarIcon
-                    fontSize="inherit"
-                    style={{ opacity: 1, color: "#b4b5b5", fontSize: "18px" }}
+                  fontSize="inherit"
+                    style={{ opacity: 1, color: "#dbdbdb",}}
                   />
                 }
               />
@@ -152,7 +152,7 @@ export default function Comment() {
                           <div className=" text-[16px] font-[600] flex items-center justify-center w-[40px] h-[40px] rounded-full border-[1px] border-solid border-[#dfe0e3] bg-[#f2f4f7] text-[#475467]">
                             {item.user.profile_photo_url ? (
                               <img
-                                className="rounded-full object-cover"
+                              className="rounded-full object-cover"
                                 src={item?.user.profile_photo_url}
                                 alt="foto"
                               />
@@ -183,15 +183,13 @@ export default function Comment() {
                           value={item.star}
                           readOnly
                           style={{ color: "#FAC515" }}
-                          precision={0.5}
                           emptyIcon={
                             <StarIcon
-                              fontSize="inherit"
                               style={{
-                                opacity: 1,
-                                color: "#b4b5b5",
-                                fontSize: "18px",
+                                opacity: 0.55,
+                                color: tg.themeParams.text_color,
                               }}
+                              fontSize="inherit"
                             />
                           }
                         />
