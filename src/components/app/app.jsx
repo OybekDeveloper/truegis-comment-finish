@@ -45,10 +45,7 @@ export default function App() {
   const [lat, setLat] = useState("");
 
   useEffect(() => {
-    if (
-      pathname === `/${placeId}/${userId}/${km}/all-product` ||
-      pathname === `/${placeId}/${userId}/${km}`
-    ) {
+    if (pathname === `/${placeId}/${userId}/${km}/all-product`||pathname === `/${placeId}/${userId}/${km}`) {
       BackButton.hide();
     } else {
       BackButton.show();
@@ -63,39 +60,21 @@ export default function App() {
   });
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.permissions.query({ name: "geolocation" }).then((result) => {
-        if (result.state === "prompt") {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              // User granted permission, handle the position data
-              console.log("Latitude:", position.coords.latitude);
-              console.log("Longitude:", position.coords.longitude);
-              setLong(position.coords.longitude);
-              setLat(position.coords.latitude);
-            },
-            (error) => {
-              // Handle errors (e.g., user denied permission)
-              console.error("Error getting location:", error.message);
-              tg.close(); // Close the Telegram Web App
-            }
-          );
-        } else if (result.state === "denied") {
-          // User denied permission, handle accordingly (e.g., show a message)
-          console.log("Geolocation permission denied.");
-          tg.close(); // Close the Telegram Web App
-        }
-      });
-    } else {
-      // Geolocation is not supported
-      console.log("Geolocation is not available in this browser.");
-      tg.close(); // Close the Telegram Web App
+      navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position.coords.latitude, position.coords.longitude);
+        setLong(position.coords.longitude);
+        setLat(position.coords.latitude);
+      })
+      console.log(navigator.geolocation);
+    }else{
+      tg.close()
     }
   }, []);
   useEffect(() => {
     if (long && lat) {
       setLoading(true);
     } else {
-      // tg.close()
+     // tg.close()
     }
   }, [lat, long]);
   return (
