@@ -515,10 +515,10 @@ console.log(placeData)
         </main>
       </section> */}
 
-        <section className="mx-[16px] border-[1px] border-solid border-[#EEE] flex items-center justify-start gap-[12px] px-[12px] py-[10px] rounded-[8px]" >
+        <a href="https://t.me/TrueGisSupport_bot" className="mx-[16px] border-[1px] border-solid border-[#EEE] flex items-center justify-start gap-[12px] px-[12px] py-[10px] rounded-[8px]" >
             <img src={info} alt="" />
             <p>{t("support")}</p>
-        </section>
+        </a>
         </main>
       )}
     </>
