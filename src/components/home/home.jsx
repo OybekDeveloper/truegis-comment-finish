@@ -116,9 +116,6 @@ export default function Home() {
     );
     workStatus();
   }, [commentData]);
-  
-
- 
 
   return (
     <main className="home relative ">
@@ -158,9 +155,9 @@ export default function Home() {
               style={{ color: "#FAC515" }}
               emptyIcon={
                 <StarIcon
-                  style={{ opacity: 0.55, color: "#D0D5DD" }}
+                  
+                  style={{ opacity: 0.55, color: "#D0D5DD",fontSize:'18px' }}
                 />
-
               }
             />
             <p className="text-[#fff] opacity-[0.7] text-[14px] font-[500] mt-[4px]">
