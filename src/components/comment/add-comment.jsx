@@ -98,11 +98,10 @@ export default function AddComment() {
               gap: "16px",
               color: "#FAC515",
             }}
-            precision={0.5}
             emptyIcon={
               <StarIcon
-              fontSize="inherit"
-                style={{ opacity: 1, color: "#b4b5b5",fontSize:'18px' }}
+                style={{ opacity: 0.55, color: tg.themeParams.text_color }}
+                fontSize="inherit"
               />
             }
           />
