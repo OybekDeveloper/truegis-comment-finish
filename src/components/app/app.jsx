@@ -59,35 +59,15 @@ export default function App() {
     back();
   });
   useEffect(() => {
-    // Check if geolocation is supported by the browser
     if (navigator.geolocation) {
-      // Request permission only if it hasn't been granted before
-      navigator.permissions.query({ name: "geolocation" }).then((result) => {
-        if (result.state === "prompt") {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              // User granted permission, handle the position data
-              console.log("Latitude:", position.coords.latitude);
-              console.log("Longitude:", position.coords.longitude);
-              setLong(position.coords.longitude);
-              setLat(position.coords.latitude);
-            },
-            (error) => {
-              // Handle errors (e.g., user denied permission)
-              console.error("Error getting location:", error.message);
-            }
-          );
-        } else if (result.state === "denied") {
-          // User denied permission, handle accordingly (e.g., show a message)
-          console.log("Geolocation permission denied.");
-        }
+      navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position.coords.latitude, position.coords.longitude);
+        setLong(position.coords.longitude);
+        setLat(position.coords.latitude);
       });
-    } else {
-      // Geolocation is not supported
-      console.log("Geolocation is not available in this browser.");
+      console.log(navigator.geolocation);
     }
   }, []);
-
   useEffect(() => {
     if (long && lat) {
       setLoading(true);
