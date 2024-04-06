@@ -65,14 +65,14 @@ export default function App() {
         setLong(position.coords.longitude)
         setLat(position.coords.latitude)
       })
-      
+      console.log(navigator.geolocation)
     }
     if(long && lat){
       setLoading(true)
     }else{
       // tg.close()
     }
-  }, []);
+  }, [lat,long]);
   return (
     <>
       {/* <button onClick={back}>back</button>
