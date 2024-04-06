@@ -14,7 +14,7 @@ import {
 } from "../../reducer/event";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
-import { share } from "./img";
+import { line, share } from "./img";
 
 const tg = window.Telegram.WebApp;
 const backgroundImage =
@@ -134,7 +134,7 @@ export default function Home() {
         <div className="content flex flex-col gap-[12px]">
           <div className="mt-[56px]">
             <div className="flex justify-between items-center">
-              <h1 className="text-[#fff] text-[20px] font-[500]">
+              <h1 className="text-[#fff] text-[18px] font-[500]">
                 {placeData?.name}
               </h1>
               {placeData?.work_end_time && placeData.work_end_time && (
@@ -154,12 +154,13 @@ export default function Home() {
               name="text-feedback"
               value={placeData.rating ? placeData.rating : 0}
               readOnly
+              size="small"
               style={{ color: "#FAC515" }}
               emptyIcon={
                 <StarIcon
                   style={{ opacity: 0.55, color: "#D0D5DD" }}
-                  fontSize="inherit"
                 />
+
               }
             />
             <p className="text-[#fff] opacity-[0.7] text-[14px] font-[500] mt-[4px]">
@@ -177,9 +178,9 @@ export default function Home() {
               </div>
             </div> */}
         </div>
-        {/* <button className="text-[14px] font-[500] text-[#fff] mt-[20px] home-btn w-full h-[44px] z-10 rounded-[8px]">
+        <button className="text-[14px] font-[500] text-[#fff] mt-[20px] home-btn w-full h-[44px] z-10 rounded-[8px]">
           Joy buyurtma qilish
-        </button> */}
+        </button>
       </section>
       <nav className="sticky top-[-5px] z-[999] navbar w-full overflow-x-scroll whitespace-nowrap flex gap-[24px] px-[16px]">
         {navlink.map((item) => (
@@ -189,7 +190,7 @@ export default function Home() {
               navigate(item.link);
               setActiveTab(item.id);
             }}
-            className="font-[500] h-[50px] relative text-[16px]"
+            className="font-[500] h-[50px] relative text-[15px]"
           >
             <div className="flex items-center gap-[4px] h-[30px]">
               <span className={`${pathname === item.link && "tg-button-text"}`}>
@@ -233,7 +234,7 @@ export default function Home() {
             } w-[75%] flex justify-center items-center gap-[12px] text-[17px] font-[500] text-[#fff] px-[10px] h-[44px] tg-button rounded-[8px]`}
           >
             {CommentAdd("#fff")}
-            <h1 className="text-[16px] font-[500] text-[#fff]">
+            <h1 className="text-[15px] font-[500] text-[#fff]">
               {t("add_comment_btn")}
             </h1>
           </button>

@@ -115,7 +115,7 @@ export default function AllProduct() {
       ) : (
         <main className="all-product">
           <section className="flex flex-col justify-start items-start gap-[16px] my-[24px] px-[16px]">
-            <h1 className="text-[16px] font-[500]">{t("adress")}</h1>
+            <h1 className="text-[15px] font-[500]">{t("adress")}</h1>
             <div className="flex  gap-[12px] justify-between w-full">
               <div className="flex justify-start items-center gap-[12px]">
                 {LocationSvg(
@@ -132,7 +132,7 @@ export default function AllProduct() {
                 />
               </div>
               <div className="w-[70px]">
-                <p className=" text-end w-full text-[14px] font-[500]">{`${km} km`}</p>
+                <p className=" text-end w-full text-[13px] font-[500]">{`${km} km`}</p>
               </div>
             </div>
           </section>
@@ -152,7 +152,7 @@ export default function AllProduct() {
               !(placeData.phone && placeData.website) && "none"
             } flex flex-col justify-start items-start gap-[20px] mt-[24px] px-[16px]`}
           >
-            <h1 className="font-[500] text-[17px] ">{t("contact_info")}</h1>
+            <h1 className="font-[500] text-[16px] ">{t("contact_info")}</h1>
             <div className="flex flex-col gap-[25px] w-full">
               {placeData.phone && (
                 <div className="flex justify-start items-center gap-[12px]">
@@ -162,7 +162,7 @@ export default function AllProduct() {
                       : "#1C93E3"
                   )}
                   <h1
-                    className="text-[16px] font-[500] tg-button-text"
+                    className="text-[15px] font-[500] tg-button-text"
                     onClick={() => window.open(`tel:${placeData.phone}`)}
                   >
                     {placeData.phone}

@@ -16,7 +16,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #000000a8; /* Semi-transparent black overlay */
+    background: linear-gradient(360deg, rgba(0, 0, 0, 0.76) 40.63%, rgba(0, 0, 0, 0.12) 100%);
     z-index: 1;
   }
 
@@ -25,14 +25,6 @@
     z-index: 2;
   }
   .img-back {
-    background: linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.66) 0%,
-        rgba(0, 0, 0, 0.66) 100%
-      ),
-      lightgray 50% / cover no-repeat;
-    mix-blend-mode: luminosity;
-    filter: grayscale(100%);
   }
   .home-btn {
     border-radius: 8px;
