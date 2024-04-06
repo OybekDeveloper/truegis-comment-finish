@@ -456,7 +456,7 @@ export default function AllProduct() {
               <div className={`hr w-full h-[1px] mt-[24px] mb-[32px]`}></div>
             </>
           )}
-          {placeData?.images && (
+          {placeData?.images.length>0 && (
             <>
               <section
                 className={`overflow-x-scroll whitespace-nowrap photo-slide px-[16px]`}
