@@ -15,12 +15,14 @@ import {
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 import { line, share } from "./img";
+import { TurnedInOutlined } from "@mui/icons-material";
+import LoadingT from "../loading/loading";
 
 const tg = window.Telegram.WebApp;
 const backgroundImage =
   "https://s3-alpha-sig.figma.com/img/808e/7de1/0a383ce94c24b18e47af0e9ba369a18a?Expires=1711929600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=e7AE~1fTZ-cKSH-WZLl2-g9yhVsxw2rJ9qJ2UKefHAOZY7zlW89xrlkRsImEkHEpfT-NbJeMcmF8UOdemF1ZcKZ8pRYxqVXXTemn~8p8t33cVhaNCNt-owytQK4HRstvl2T7czB8Uz2ftE-2~XPFq3mqssd1E~DJ6zJFjmrRZAc8Aj~zpqEKSGWDut85W3WDy4YEr4KhHvbYk46g4mhrPl51d-gbgN-YbVSQXf7A5eVRYQQzFlf9bq5tIZttyyTLn9xbSDL2xeTsLI~AWyh-L84eXCGkG9-oVcYfLgeedzw9oa9Bk4xv45eGvhjGYLaflIBwXwzBq4TXwqefY87HuQ__";
 
-export default function Home() {
+export default function Home({ lat, long }) {
   const { t } = useTranslation();
   const { placeId, userId, km } = useParams();
   const { pathname } = useLocation();
@@ -58,6 +60,7 @@ export default function Home() {
   const [statusWork, setStatusWork] = useState(true);
   const [activeTab, setActiveTab] = useState(1);
   const [activeComment, setActiveComment] = useState(false);
+  const [loading, setLoading] = useState(TurnedInOutlined);
 
   const workStatus = () => {
     const hours = new Date().getHours();
@@ -71,9 +74,6 @@ export default function Home() {
       setStatusWork(false);
     }
   };
-  // const sendDataTelegram = () => {
-  //   tg.sendData("@truegis_bot", "Your data here");
-  // };
   useEffect(() => {
     localStorage.setItem("placeId", placeId);
     localStorage.setItem("userId", userId);
@@ -105,11 +105,15 @@ export default function Home() {
         dispatch(GetCommentData(comment));
       } catch (error) {
         console.log(error);
+      }finally{
+        if(lat && long){
+          setLoading(false)
+        }
       }
     };
     fetchData();
     workStatus();
-  }, [delModal]);
+  }, [delModal,lat,long]);
   useEffect(() => {
     setActiveComment(
       commentData.find((item) => item.user.id === +userId) ? true : false
@@ -118,133 +122,147 @@ export default function Home() {
   }, [commentData]);
 
   return (
-    <main className="home relative ">
-      <section className="px-[16px] min-h-[190px] home-back flex justify-end flex-col pb-[30px]">
-        <div className="overlay">
-          <div className="overlay"></div>
-          <img
-            className="img-back object-cover w-[400px] min-h-[200px]  z-[-10]"
-            src={placeData.photo_url ? placeData.photo_url : backgroundImage}
-            alt=""
-          />
+    <>
+      {loading ? (
+        <div className="w-full h-screen flex justify-center items-center">
+          <LoadingT />
         </div>
-        <div className="content flex flex-col gap-[12px]">
-          <div className="mt-[56px]">
-            <div className="flex justify-between items-center">
-              <h1 className="text-[#fff] text-[18px] font-[500]">
-                {placeData?.name}
-              </h1>
-              {placeData?.work_end_time && placeData.work_end_time && (
-                <div className="flex justify-start items-center gap-[8px]">
-                  {OpenClose(statusWork ? "#17B26A" : "red")}
-                  <p className="text-[#fff] text-[14px] font-[500]">
-                    {statusWork
-                      ? `${t("status_true")}`
-                      : `${t("status_false")}`}
-                  </p>
-                </div>
-              )}
+      ) : (
+        <main className="home relative ">
+          <section className="px-[16px] min-h-[190px] home-back flex justify-end flex-col pb-[30px]">
+            <div className="overlay">
+              <div className="overlay"></div>
+              <img
+                className="img-back object-cover w-[400px] min-h-[200px]  z-[-10]"
+                src={
+                  placeData.photo_url ? placeData.photo_url : backgroundImage
+                }
+                alt=""
+              />
             </div>
-          </div>
-          <div className="flex items-center gap-[14px]">
-            <Rating
-              name="text-feedback"
-              value={placeData.rating ? placeData.rating : 0}
-              readOnly
-              size="small"
-              style={{ color: "#FAC515" }}
-              precision={0.5}
-              emptyIcon={
-                <StarIcon
-                fontSize="inherit"
-                  style={{ opacity: 1, color: "#b4b5b5",fontSize:'18px' }}
+            <div className="content flex flex-col gap-[12px]">
+              <div className="mt-[56px]">
+                <div className="flex justify-between items-center">
+                  <h1 className="text-[#fff] text-[18px] font-[500]">
+                    {placeData?.name}
+                  </h1>
+                  {placeData?.work_end_time && placeData.work_end_time && (
+                    <div className="flex justify-start items-center gap-[8px]">
+                      {OpenClose(statusWork ? "#17B26A" : "red")}
+                      <p className="text-[#fff] text-[14px] font-[500]">
+                        {statusWork
+                          ? `${t("status_true")}`
+                          : `${t("status_false")}`}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="flex items-center gap-[14px]">
+                <Rating
+                  name="text-feedback"
+                  value={placeData.rating ? placeData.rating : 0}
+                  readOnly
+                  size="small"
+                  style={{ color: "#FAC515" }}
+                  precision={0.5}
+                  emptyIcon={
+                    <StarIcon
+                      fontSize="inherit"
+                      style={{ opacity: 1, color: "#b4b5b5", fontSize: "18px" }}
+                    />
+                  }
                 />
-              }
-            />
-            <p className="text-[#fff] opacity-[0.7] text-[14px] font-[500] mt-[4px]">
-              {placeData.rating ? placeData.rating : 0}
-            </p>
-            <p className="text-[#fff] opacity-[0.7] text-[14px] font-[500] mt-[4px]">
-              {commentData.length ? commentData.length : "0"}{" "}
-              {t("home_comment")}
-            </p>
-          </div>
-          {/* <div className="flex justify-between items-center mt-[50px]">
+                <p className="text-[#fff] opacity-[0.7] text-[14px] font-[500] mt-[4px]">
+                  {placeData.rating ? placeData.rating : 0}
+                </p>
+                <p className="text-[#fff] opacity-[0.7] text-[14px] font-[500] mt-[4px]">
+                  {commentData.length ? commentData.length : "0"}{" "}
+                  {t("home_comment")}
+                </p>
+              </div>
+              {/* <div className="flex justify-between items-center mt-[50px]">
               <div className="flex items-center gap-[8px]">
                 <img src={line} alt="" />
                 <p className="text-[#fff] text-[14px] font-[500]">{`${km} km`}</p>
               </div>
             </div> */}
-        </div>
-        <button className="text-[14px] font-[500] text-[#fff] mt-[20px] home-btn w-full h-[44px] z-10 rounded-[8px]">
-          Joy buyurtma qilish
-        </button>
-      </section>
-      <nav className="sticky top-[-5px] z-[999] navbar w-full overflow-x-scroll whitespace-nowrap flex gap-[24px] px-[16px]">
-        {navlink.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => {
-              navigate(item.link);
-              setActiveTab(item.id);
-            }}
-            className="font-[500] h-[50px] relative text-[15px]"
-          >
-            <div className="flex items-center gap-[4px] h-[30px]">
-              <span className={`${pathname === item.link && "tg-button-text"}`}>
-                {item.title}
-              </span>
-              {item.count && (
-                <div
-                  className={`${
-                    pathname === item.link ? "tg-theme-color" : "tg-hint-color"
-                  } rounded-full w-[20px] h-[20px] flex justify-center`}
-                >
-                  <h1 className="text-[12px] font-[600] text-center justify-center mt-[0.5px]">
-                    {item.count}
-                  </h1>
-                </div>
-              )}
             </div>
+            <button className="text-[14px] font-[500] text-[#fff] mt-[20px] home-btn w-full h-[44px] z-10 rounded-[8px]">
+              Joy buyurtma qilish
+            </button>
+          </section>
+          <nav className="sticky top-[-5px] z-[999] navbar w-full overflow-x-scroll whitespace-nowrap flex gap-[24px] px-[16px]">
+            {navlink.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => {
+                  navigate(item.link);
+                  setActiveTab(item.id);
+                }}
+                className="font-[500] h-[50px] relative text-[15px]"
+              >
+                <div className="flex items-center gap-[4px] h-[30px]">
+                  <span
+                    className={`${pathname === item.link && "tg-button-text"}`}
+                  >
+                    {item.title}
+                  </span>
+                  {item.count && (
+                    <div
+                      className={`${
+                        pathname === item.link
+                          ? "tg-theme-color"
+                          : "tg-hint-color"
+                      } rounded-full w-[20px] h-[20px] flex justify-center`}
+                    >
+                      <h1 className="text-[12px] font-[600] text-center justify-center mt-[0.5px]">
+                        {item.count}
+                      </h1>
+                    </div>
+                  )}
+                </div>
 
-            {pathname === item.link && (
-              <motion.div
-                layoutId="active-pill"
-                className="absolute mt-[5px] h-[3px] w-full tg-button rounded-t-[5px]"
-              />
-            )}
-          </button>
-        ))}
-        {/* <div className="hr z-[-10] absolute bottom-[-16px] w-full h-[1px]  mb-[24px]"></div> */}
-      </nav>
+                {pathname === item.link && (
+                  <motion.div
+                    layoutId="active-pill"
+                    className="absolute mt-[5px] h-[3px] w-full tg-button rounded-t-[5px]"
+                  />
+                )}
+              </button>
+            ))}
+            {/* <div className="hr z-[-10] absolute bottom-[-16px] w-full h-[1px]  mb-[24px]"></div> */}
+          </nav>
 
-      <Outlet />
-      <div className={`mb-[70px]`}></div>
-      {!(pathname === `/${placeId}/${userId}/${km}/photo`) && (
-        <div className="max-w-[400px] mx-auto fixed bottom-0 w-full flex justify-around  items-center add-button py-[10px]">
-          <button
-            onClick={() => {
-              !activeComment &&
-                navigate(`/${placeId}/${userId}/${km}/add-comment`);
-            }}
-            className={`${
-              activeComment ? "opacity-[0.7]" : "opacity-1"
-            } w-[75%] flex justify-center items-center gap-[12px] text-[17px] font-[500] text-[#fff] px-[10px] h-[44px] tg-button rounded-[8px]`}
-          >
-            {CommentAdd("#fff")}
-            <h1 className="text-[15px] font-[500] text-[#fff]">
-              {t("add_comment_btn")}
-            </h1>
-          </button>
-          <a
-            href={`https://t.me/share/url?url=${"https://t.me/TrueGis_bot"}&text=${"Botimizdan foydalaning!"}`}
-            className="tg-button flex justify-center items-center rounded-[8px] px-[14px] h-[44px]"
-          >
-            <img src={share} alt="" />
-          </a>
-        </div>
+          <Outlet />
+          <div className={`mb-[70px]`}></div>
+          {!(pathname === `/${placeId}/${userId}/${km}/photo`) && (
+            <div className="max-w-[400px] mx-auto fixed bottom-0 w-full flex justify-around  items-center add-button py-[10px]">
+              <button
+                onClick={() => {
+                  !activeComment &&
+                    navigate(`/${placeId}/${userId}/${km}/add-comment`);
+                }}
+                className={`${
+                  activeComment ? "opacity-[0.7]" : "opacity-1"
+                } w-[75%] flex justify-center items-center gap-[12px] text-[17px] font-[500] text-[#fff] px-[10px] h-[44px] tg-button rounded-[8px]`}
+              >
+                {CommentAdd("#fff")}
+                <h1 className="text-[15px] font-[500] text-[#fff]">
+                  {t("add_comment_btn")}
+                </h1>
+              </button>
+              <a
+                href={`https://t.me/share/url?url=${"https://t.me/TrueGis_bot"}&text=${"Botimizdan foydalaning!"}`}
+                className="tg-button flex justify-center items-center rounded-[8px] px-[14px] h-[44px]"
+              >
+                <img src={share} alt="" />
+              </a>
+            </div>
+          )}
+        </main>
       )}
-    </main>
+    </>
   );
 }
 

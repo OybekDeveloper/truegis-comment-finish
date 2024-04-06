@@ -7,7 +7,6 @@ import Comment from "../comment/comment";
 import About from "../about/about";
 import AddComment from "../comment/add-comment";
 import EditComment from "../comment/edit-comment";
-import Loading from "../loading/loading";
 import i18n from "i18next";
 import { initReactI18next, useTranslation } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
@@ -45,10 +44,10 @@ export default function App() {
   const [lat, setLat] = useState("");
 
   useEffect(() => {
-    if (pathname === `/${placeId}/${userId}/${km}/all-product`||pathname === `/${placeId}/${userId}/${km}`) {
-      BackButton.hide();
-    } else {
+    if (pathname !== `/${placeId}/${userId}/${km}/all-product`) {
       BackButton.show();
+    } else {
+      BackButton.hide();
     }
   }, [pathname]);
 
@@ -64,28 +63,20 @@ export default function App() {
         console.log(position.coords.latitude, position.coords.longitude);
         setLong(position.coords.longitude);
         setLat(position.coords.latitude);
-      })
-      console.log(navigator.geolocation);
-    }else{
-      tg.close()
+      });
     }
   }, []);
+
   useEffect(() => {
     if (long && lat) {
       setLoading(true);
-    } else {
-     // tg.close()
     }
   }, [lat, long]);
   return (
     <>
-      {/* <button onClick={back}>back</button>
-      <h1>{long}</h1>
-      <h1>{lat}</h1> */}
-      {loading ? (
         <div className="app max-w-[400px] mx-auto">
           <Routes>
-            <Route path="/:placeId/:userId/:km" element={<Home />}>
+            <Route path="/:placeId/:userId/:km" element={<Home lat={lat} long={long} />}>
               <Route path={"all-product"} element={<AllProduct />} />
               <Route path={"photo"} element={<Photo />} />
               <Route path={"comment"} element={<Comment />} />
@@ -101,11 +92,7 @@ export default function App() {
             />
           </Routes>
         </div>
-      ) : (
-        <div className="w-full h-screen flex justify-center items-center">
-          <Loading />
-        </div>
-      )}
+
     </>
   );
 }

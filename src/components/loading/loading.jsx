@@ -1,7 +1,7 @@
 import React from 'react'
 import logo from './logo 2 1 (1).png'
 import {motion} from 'framer-motion'
-export default function Loading() {
+export default function LoadingT() {
   return (
     <div className='flex flex-col justify-center items-center gap-[24px]'>
 <motion.img 

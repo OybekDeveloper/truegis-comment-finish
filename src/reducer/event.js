@@ -7,9 +7,11 @@ export const initialState = {
   deleteId: "",
   editId: "",
   loading: false,
-  savePlaceId:'',
-  saveUserId:'',
-  saveKm:''
+  savePlaceId: "",
+  saveUserId: "",
+  saveKm: "",
+  lat: "",
+  long: "",
 };
 
 export const eventSlice = createSlice({
@@ -41,10 +43,17 @@ export const eventSlice = createSlice({
         state.saveKm = action.payload[2];
       }
     },
+    SaveLocation: (state, action) => {
+      // if (action.payload) {
+      //   state.lat = action.payload[0];
+      //   state.long = action.payload[1];
+      // }
+    },
   },
 });
 
 export const {
+  SaveLocation,
   SavePathData,
   GetPlaceData,
   GetCommentData,
