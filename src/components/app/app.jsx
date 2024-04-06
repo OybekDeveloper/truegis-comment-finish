@@ -14,7 +14,7 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import HttpApi from "i18next-http-backend";
 import i18next from "i18next";
 const tg = window.Telegram.WebApp;
-console.log(localStorage.getItem("userId"))
+console.log(localStorage.getItem("userId"));
 i18n
   .use(initReactI18next)
   .use(HttpApi)
@@ -41,8 +41,8 @@ export default function App() {
   const { t } = useTranslation();
 
   const [loading, setLoading] = useState(false);
-  const [long,setLong]=useState('')
-  const [lat,setLat]=useState('')
+  const [long, setLong] = useState("");
+  const [lat, setLat] = useState("");
 
   useEffect(() => {
     if (pathname !== `/${placeId}/${userId}/${km}/all-product`) {
@@ -59,20 +59,22 @@ export default function App() {
     back();
   });
   useEffect(() => {
-    if(navigator.geolocation){
-      navigator.geolocation.getCurrentPosition((position)=>{
-        console.log(position.coords.latitude , position.coords.longitude)
-        setLong(position.coords.longitude)
-        setLat(position.coords.latitude)
-      })
-      console.log(navigator.geolocation)
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position.coords.latitude, position.coords.longitude);
+        setLong(position.coords.longitude);
+        setLat(position.coords.latitude);
+      });
+      console.log(navigator.geolocation);
     }
-    if(long && lat){
-      setLoading(true)
-    }else{
+  }, []);
+  useEffect(() => {
+    if (long && lat) {
+      setLoading(true);
+    } else {
       // tg.close()
     }
-  }, [lat,long]);
+  }, [lat, long]);
   return (
     <>
       {/* <button onClick={back}>back</button>
