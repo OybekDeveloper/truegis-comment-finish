@@ -279,8 +279,8 @@ export default function AllProduct() {
                             <p className="text-[15px] font-[400] ">
                               {placeData?.work_end_time.split(":")[0] +
                                 ":" +
-                                placeData?.work_end_time.split(":")[1]}
-                               {" "}{t("open_close_info")}
+                                placeData?.work_end_time.split(":")[1]}{" "}
+                              {t("open_close_info")}
                             </p>
                           </>
                         )}
