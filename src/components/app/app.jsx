@@ -59,23 +59,23 @@ export default function App() {
     back();
   });
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(true);
-    }, 1300);
-
     if(navigator.geolocation){
       navigator.geolocation.getCurrentPosition((position)=>{
         console.log(position.coords.latitude , position.coords.longitude)
         setLong(position.coords.longitude)
         setLat(position.coords.latitude)
       })
+      
+    }
+    if(long && lat){
+      setLoading(false)
     }
   }, []);
   return (
     <>
-      <button onClick={back}>back</button>
+      {/* <button onClick={back}>back</button>
       <h1>{long}</h1>
-      <h1>{lat}</h1>
+      <h1>{lat}</h1> */}
       {loading ? (
         <div className="app max-w-[400px] mx-auto">
           <Routes>
