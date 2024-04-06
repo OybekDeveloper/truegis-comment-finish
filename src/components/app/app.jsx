@@ -64,15 +64,17 @@ export default function App() {
         console.log(position.coords.latitude, position.coords.longitude);
         setLong(position.coords.longitude);
         setLat(position.coords.latitude);
-      });
+      })
       console.log(navigator.geolocation);
+    }else{
+      tg.close()
     }
   }, []);
   useEffect(() => {
     if (long && lat) {
       setLoading(true);
     } else {
-      // tg.close()
+     // tg.close()
     }
   }, [lat, long]);
   return (
