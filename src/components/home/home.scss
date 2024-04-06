@@ -18,7 +18,7 @@
     height: 100%;
     background: linear-gradient(360deg, rgba(0, 0, 0, 0.76) 40.63%, rgba(0, 0, 0, 0.12) 100%);
     z-index: 1;
-    backdrop-filter: blur(1px);
+    backdrop-filter: blur(0.5px);
   }
 
   .content {
