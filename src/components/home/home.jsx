@@ -148,15 +148,16 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-[14px]">
             <Rating
-              name="hover-feedback"
-              precision={0.5}
+              name="text-feedback"
               value={placeData.rating ? placeData.rating : 0}
               readOnly
               size="small"
               style={{ color: "#FAC515" }}
+              precision={0.5}
               emptyIcon={
                 <StarIcon
-                  style={{ opacity: 0.55, color: "#D0D5DD", fontSize: "18px" }}
+                fontSize="inherit"
+                  style={{ opacity: 1, color: "#b4b5b5",fontSize:'18px' }}
                 />
               }
             />
