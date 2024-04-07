@@ -150,7 +150,6 @@ console.log(`The distance between the two points is approximately ${distance.toF
 
   return (
     <>
-    {distance} km
       {loading ? (
         <div className="w-full h-screen flex justify-center items-center">
           <LoadingT />
