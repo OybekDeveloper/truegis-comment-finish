@@ -51,7 +51,7 @@ export default function About() {
           </section>
           {aboutData.length > 0 && (
             <>
-              <div className={`hr w-full h-[1px] mb-[32px]`}></div>
+              <div className={`hr w-full h-[0.5px] mb-[32px]`}></div>
               <section className="px-[16px]">
                 <div className="w-full mt-[24px]">
                   {aboutData.map((item, idx) => (

@@ -140,7 +140,7 @@ export default function Comment() {
           {commentData?.length > 0 ? (
             <section className="px-[16px] w-full mt-[48px]">
               <h1 className="text-[18px] font-[500] mb-[12px]">{t("li_3")}</h1>
-              <div className="hr w-full h-[1px]  mb-[24px]"></div>
+              <div className="hr w-full h-[0.5px]  mb-[24px]"></div>
               <div className="w-full flex flex-col gap-[32px]">
                 {commentData
                   .slice()
@@ -200,7 +200,7 @@ export default function Comment() {
                       <h1 className="text-[16px] font-[400] mt-[16px]">
                         {item.text}
                       </h1>
-                      <div className=" hr w-full h-[1px] mt-[24px]"></div>
+                      <div className=" hr w-full h-[0.5px] mt-[24px]"></div>
                     </main>
                   ))}
               </div>

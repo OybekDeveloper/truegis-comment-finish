@@ -171,7 +171,7 @@ export default function AllProduct() {
               </div>
             </div>
           </section>
-          <div className="hr w-full h-[1px] mb-[32px]"></div>
+          <div className="hr w-full h-[0.5px] mb-[32px]"></div>
           {/* <section className="w-full flex justify-between mb-[20px] px-[16px]">
         <div className="flex justify-start items-center gap-[12px] tg-button-text">
           <img src={yandex} alt="yandex" />
@@ -181,7 +181,7 @@ export default function AllProduct() {
           tg.themeParams.text_color ? tg.themeParams.text_color : "#1C93E3"
         )}
       </section>
-      <div className="hr w-full h-[1px] mb-[32px]"></div> */}
+      <div className="hr w-full h-[0.5px] mb-[32px]"></div> */}
           {placeData.phone && placeData.website && (
             <>
               <section
@@ -227,7 +227,7 @@ export default function AllProduct() {
                   )}
                 </div>
               </section>
-              <div className={`hr w-full h-[1px] mt-[24px] mb-[32px]`}></div>
+              <div className={`hr w-full h-[0.5px] mt-[24px] mb-[32px]`}></div>
             </>
           )}
           <section className="w-full flex flex-col justify-start px-[16px]">
@@ -275,7 +275,7 @@ export default function AllProduct() {
               </a>
             </div>
           </section>
-          <div className="hr w-full h-[1px] mt-[24px] mb-[32px]"></div>
+          <div className="hr w-full h-[0.5px] mt-[24px] mb-[32px]"></div>
           <section>
             {placeData.work_days &&
               placeData.work_end_time &&
@@ -445,7 +445,7 @@ export default function AllProduct() {
                     </div>
                   </div>
                   <div
-                    className={`hr w-full h-[1px] mt-[24px] mb-[32px]`}
+                    className={`hr w-full h-[0.5px] mt-[24px] mb-[32px]`}
                   ></div>
                 </>
               )}
@@ -488,7 +488,7 @@ export default function AllProduct() {
                   </div>
                 </div>
               </section>
-              <div className={`hr w-full h-[1px] mt-[24px] mb-[32px]`}></div>
+              <div className={`hr w-full h-[0.5px] mt-[24px] mb-[32px]`}></div>
             </>
           )}
           {imageLength > 0 && (
@@ -518,12 +518,12 @@ export default function AllProduct() {
                   </div>
                 )}
               </section>
-              <div className={`hr w-full h-[1px] mb-[32px] mt-[24px]`}></div>
+              <div className={`hr w-full h-[0.5px] mb-[32px] mt-[24px]`}></div>
             </>
           )}
           <section>
             <PlaceSearch placeData={placeData} />
-            <div className={`hr w-full h-[1px] mb-[32px] mt-[24px]`}></div>
+            <div className={`hr w-full h-[0.5px] mb-[32px] mt-[24px]`}></div>
           </section>
           {/* xabar qoldirish qismi  */}
           <a

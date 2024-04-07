@@ -124,7 +124,7 @@ const EditComment = () => {
           />
         </div>
       </section>
-      <div className="hr w-full h-[1px]  mb-[24px] mt-[32px] "></div>
+      <div className="hr w-full h-[0.5px]  mb-[24px] mt-[32px] "></div>
       <section className="px-[16px] mb-[24px]">
         <p className="text-[18px] font-[500]">{t("add_comment_title_info")}</p>
         <textarea
