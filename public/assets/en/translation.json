@@ -36,5 +36,7 @@
   "contact_info": "Contact Information",
   "social_info": "Social Media",
   "all_photo_info": "All Photos",
-  "support":"Found an error in the data?"
+  "support": "Found an error in the data?",
+  "place_simillar": "Similar places",
+  "place_simillar_error": "Similar places not found!"
 }

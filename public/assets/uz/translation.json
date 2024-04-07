@@ -36,5 +36,7 @@
   "contact_info":"Aloqa ma’lumotlari",
   "social_info":"Ijtimoiy tarmoqlar  ",
   "all_photo_info":"Barcha rasmlar",
-  "support":"Ma’lumotlarda xatolik topildimi?"
+  "support":"Ma’lumotlarda xatolik topildimi?",
+  "place_simillar":"O'xshash joylar",
+  "place_simillar_error":"O'xshash joylar mavjud emas!"
 }

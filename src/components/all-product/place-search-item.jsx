@@ -52,7 +52,7 @@ const PlaceSearchItem = ({ item }) => {
       top: 0,
       behavior: "smooth",
     });
-    localStorage.setItem("placeId",item.id)
+    localStorage.setItem("placeId", item.id);
   };
   useEffect(() => {
     const lat = localStorage.getItem("lat");
@@ -68,10 +68,9 @@ const PlaceSearchItem = ({ item }) => {
   }, [item]);
 
   return (
-    <NavLink
+    <main
       onClick={handleClickPlace}
-    //   to={`/${item.id}/${userId}/${distance}/all-product`}
-      className="w-[188px] mr-[16px] cursor-pointer inline-flex flex-col gap-[10px] border-[1px] border-solid rounded-[8px] overflow-hidden"
+      className="w-[188px] mr-[16px] cursor-pointer inline-flex flex-col gap-[10px] border-place rounded-[8px] overflow-hidden"
     >
       <img
         className="w[188px] h-[100px] object-cover"
@@ -89,15 +88,19 @@ const PlaceSearchItem = ({ item }) => {
             {item.rating ? item.rating : 0}
           </p>
         </main>
-        <h1
-          className={`${
-            statusWork ? "text-[#4ECC5E]" : "text-red-500"
-          } text-[13px] font-[500]`}
-        >
-          {statusWork ? `${t("status_true")}` : `${t("status_false")}`}
-        </h1>
+        {item.work_end_time && item.work_start_time ? (
+          <h1
+            className={`${
+              statusWork ? "text-[#4ECC5E]" : "text-red-500"
+            } text-[13px] font-[500]`}
+          >
+            {statusWork ? `${t("status_true")}` : `${t("status_false")}`}
+          </h1>
+        ) : (
+          <div></div>
+        )}
       </div>
-    </NavLink>
+    </main>
   );
 };
 
