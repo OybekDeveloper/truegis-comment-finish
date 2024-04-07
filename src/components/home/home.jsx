@@ -74,6 +74,33 @@ export default function Home({ lat, long }) {
       setStatusWork(false);
     }
   };
+
+
+  function degreesToRadians(degrees) {
+    return degrees * Math.PI / 180;
+}
+
+function calculateDistance(lat1, lon1, lat2, lon2) {
+    const earthRadiusKm = 6371;
+
+    const dLat = degreesToRadians(lat2 - lat1);
+    const dLon = degreesToRadians(lon2 - lon1);
+
+    const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(degreesToRadians(lat1)) * Math.cos(degreesToRadians(lat2)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    const distance = earthRadiusKm * c;
+    return distance;
+}
+
+const distance = calculateDistance(placeData.latitude, placeData.longitude, lat , long);
+console.log(`The distance between the two points is approximately ${distance.toFixed(2)} kilometers.`);
+
+
   useEffect(() => {
     localStorage.setItem("placeId", placeId);
     localStorage.setItem("userId", userId);
@@ -123,6 +150,7 @@ export default function Home({ lat, long }) {
 
   return (
     <>
+    {distance} km
       {loading ? (
         <div className="w-full h-screen flex justify-center items-center">
           <LoadingT />
