@@ -19,13 +19,15 @@ import PlaceSearch from "./place-search";
 // import { View, Button, Linking, Platform } from "react-native";
 
 const tg = window.Telegram.WebApp;
-export default function AllProduct({lat,long}) {
+export default function AllProduct() {
   const navigate = useNavigate();
   const placeId = localStorage.getItem("placeId");
   const userId = localStorage.getItem("userId");
   const km = localStorage.getItem("km");
+  const lat=localStorage.getItem('lat')
+  const long =localStorage.getItem("long")
   const dispatch = useDispatch();
-  const { delModal, placeData, commentData,distance } = useSelector(
+  const { delModal, placeData, commentData } = useSelector(
     (state) => state.event
   );
   const [menuActive, setMenuActive] = useState(false);
@@ -33,8 +35,30 @@ export default function AllProduct({lat,long}) {
   const [aboutData, setAboutData] = useState([]);
   const [statusWork, setStatusWork] = useState(true);
   const [imageLength, setImageLength] = useState(0);
+  const [distance,setDistance]=useState(0)
   const [loading, setLoading] = useState(true);
-  console.log(lat,long,"alll")
+  console.log(lat, long, "alll");
+  function degreesToRadians(degrees) {
+    return (degrees * Math.PI) / 180;
+  }
+  function calculateDistance(lat1, lon1, lat2, lon2) {
+    const earthRadiusKm = 6371;
+
+    const dLat = degreesToRadians(lat2 - lat1);
+    const dLon = degreesToRadians(lon2 - lon1);
+
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(degreesToRadians(lat1)) *
+        Math.cos(degreesToRadians(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    const distance = earthRadiusKm * c;
+    return distance;
+  }
   const workStatus = () => {
     const hours = new Date().getHours();
     const start = placeData?.work_start_time?.split(":")[0];
@@ -97,6 +121,7 @@ export default function AllProduct({lat,long}) {
     }
   }, [placeData.about]);
 
+  
   useEffect(() => {
     workData();
     setTimeout(() => {
@@ -108,6 +133,13 @@ export default function AllProduct({lat,long}) {
       setImageLength(0);
     }
     workStatus();
+    const distance = calculateDistance(
+      placeData.latitude,
+      placeData.longitude,
+      lat,
+      long
+    );
+    setDistance(distance.toFixed(2))
   }, [placeData]);
 
   console.log(placeData);
@@ -135,7 +167,7 @@ export default function AllProduct({lat,long}) {
                 />
               </div>
               <div className="w-[70px]">
-                <p className=" text-end w-full text-[13px] font-[500]">{`${km} km`}</p>
+                <p className=" text-end w-full text-[13px] font-[500]">{`${distance} km`}</p>
               </div>
             </div>
           </section>

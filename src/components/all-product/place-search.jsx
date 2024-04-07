@@ -22,7 +22,7 @@ const PlaceSearch = () => {
       } catch (error) {
         console.log(error);
       } finally {
-             }
+      }
     };
     fetchData();
   }, [placeData]);
@@ -33,10 +33,10 @@ const PlaceSearch = () => {
         <LoadingC />
       ) : (
         <main className="overflow-x-scroll whitespace-nowrap photo-slide">
-          {place ? (
+          {place?.length>0 ? (
             place?.map((item, idx) => <PlaceSearchItem key={idx} item={item} />)
           ) : (
-            <h1 className="text-yellow-500">O'xshash joylar mavjud emas!</h1>
+            <h1 className="text-yellow-400">O'xshash joylar mavjud emas!</h1>
           )}
         </main>
       )}

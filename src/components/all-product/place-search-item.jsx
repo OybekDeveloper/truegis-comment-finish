@@ -48,6 +48,11 @@ const PlaceSearchItem = ({ item }) => {
   }
   const handleClickPlace = () => {
     dispatch(GetPlaceData(item));
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    localStorage.setItem("placeId",item.id)
   };
   useEffect(() => {
     const lat = localStorage.getItem("lat");
@@ -60,16 +65,12 @@ const PlaceSearchItem = ({ item }) => {
     );
     setDistance(distance.toFixed(2));
     workStatus();
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
   }, [item]);
 
   return (
     <NavLink
       onClick={handleClickPlace}
-      to={`/${item.id}/${userId}/${distance}/all-product`}
+    //   to={`/${item.id}/${userId}/${distance}/all-product`}
       className="w-[188px] mr-[16px] cursor-pointer inline-flex flex-col gap-[10px] border-[1px] border-solid rounded-[8px] overflow-hidden"
     >
       <img

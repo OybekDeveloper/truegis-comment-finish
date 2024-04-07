@@ -18,6 +18,7 @@ import i18next from "i18next";
 import { share } from "./img";
 import { TurnedInOutlined } from "@mui/icons-material";
 import LoadingT from "../loading/loading";
+import LoadingC from "../loading/loader";
 
 const tg = window.Telegram.WebApp;
 const backgroundImage =
@@ -152,12 +153,11 @@ export default function Home({ lat, long }) {
     );
     workStatus();
   }, [commentData]);
-
   return (
     <>
       {loading ? (
         <div className="w-full h-screen flex justify-center items-center">
-          <LoadingT />
+          <LoadingC />
         </div>
       ) : (
         <main className="home relative ">

@@ -12,6 +12,7 @@ import { initReactI18next, useTranslation } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import HttpApi from "i18next-http-backend";
 import i18next from "i18next";
+import LoadingT from "../loading/loading";
 const tg = window.Telegram.WebApp;
 console.log(localStorage.getItem("userId"));
 i18n
@@ -39,7 +40,7 @@ export default function App() {
   let BackButton = tg.BackButton;
   const { t } = useTranslation();
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [long, setLong] = useState("");
   const [lat, setLat] = useState("");
 
@@ -69,14 +70,24 @@ export default function App() {
 
   useEffect(() => {
     if (long && lat) {
-      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     }
   }, [lat, long]);
   return (
     <>
+      {loading ? (
+        <div className="flex justify-center items-center w-full h-screen">
+          <LoadingT />
+        </div>
+      ) : (
         <div className="app max-w-[400px] mx-auto">
           <Routes>
-            <Route path="/:placeId/:userId/:km" element={<Home lat={lat} long={long} />}>
+            <Route
+              path="/:placeId/:userId/:km"
+              element={<Home lat={lat} long={long} />}
+            >
               <Route path={"all-product"} element={<AllProduct />} />
               <Route path={"photo"} element={<Photo />} />
               <Route path={"comment"} element={<Comment />} />
@@ -92,7 +103,7 @@ export default function App() {
             />
           </Routes>
         </div>
-
+      )}
     </>
   );
 }
