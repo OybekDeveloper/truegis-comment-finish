@@ -15,16 +15,17 @@ import { useDispatch, useSelector } from "react-redux";
 import MapAppSelector from "./map";
 import { t } from "i18next";
 import LoadingC from "../loading/loader";
+import PlaceSearch from "./place-search";
 // import { View, Button, Linking, Platform } from "react-native";
 
 const tg = window.Telegram.WebApp;
-export default function AllProduct() {
+export default function AllProduct({lat,long}) {
   const navigate = useNavigate();
   const placeId = localStorage.getItem("placeId");
   const userId = localStorage.getItem("userId");
   const km = localStorage.getItem("km");
   const dispatch = useDispatch();
-  const { delModal, placeData, commentData } = useSelector(
+  const { delModal, placeData, commentData,distance } = useSelector(
     (state) => state.event
   );
   const [menuActive, setMenuActive] = useState(false);
@@ -33,7 +34,7 @@ export default function AllProduct() {
   const [statusWork, setStatusWork] = useState(true);
   const [imageLength, setImageLength] = useState(0);
   const [loading, setLoading] = useState(true);
-
+  console.log(lat,long,"alll")
   const workStatus = () => {
     const hours = new Date().getHours();
     const start = placeData?.work_start_time?.split(":")[0];
@@ -109,7 +110,7 @@ export default function AllProduct() {
     workStatus();
   }, [placeData]);
 
-console.log(placeData)
+  console.log(placeData);
   return (
     <>
       {loading ? (
@@ -488,37 +489,18 @@ console.log(placeData)
               <div className={`hr w-full h-[1px] mb-[32px] mt-[24px]`}></div>
             </>
           )}
-          {/* <section className="px-[16px] mt-[24px]">
-        <h1 className="text-[17px] font-[500] mb-[20px] ">O’xshash joylar</h1>
-        <main className="overflow-x-scroll whitespace-nowrap photo-slide">
-          {[1, 2, 3, 4].map((item,idx) => (
-            <div key={idx} className="w-[188px] mr-[16px] cursor-pointer inline-flex flex-col gap-[10px] border-[1px] border-solid rounded-[8px] overflow-hidden">
-              <img
-                src={
-                  "https://s3-alpha-sig.figma.com/img/ad20/076f/45abfffd923a28871fbce3b7287bbb51?Expires=1713139200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=K4p9Rcbpe7BbbPENjcHn5-4y~unkIP4NTIIGYRd0~xYKpLwCHp16wT8sv4Hobl5l3uva4CdK7ObyTQbTq1TlxUNUElCmz9ktiJ4NmIeNVU5UO9iF5FEu5FjIcy120toaUMsZTO-op-vX3mUyi6Io9DgjIf0TpjXVu1cdHblfSbZNJiAHRweBjrMQ9ay054zV2ZvnMgtOQ6G8ll0x~-Fs5f7snD19QNFKEdW0lvHnICby7J4kr3Maw2nXtWjsAZ9cYm9J99zhTTyKFD-pepvrfQXRmTnbm0A5HZ6uZ1BxdayD~1KDLpeeHPnnFEQ~4CsBzlT4ufspynx6UrfprBossw__"
-                }
-                alt=""
-              />
-              <div className="flex justify-between px-[8px]">
-                <p>Ipak yo’li bank</p>
-                <h1 className="tg-button-text text-[13px] font-[500]">5km</h1>
-              </div>
-              <div className="flex justify-between px-[8px] mb-[10px]">
-                <main className="flex gap-[4px]">
-                  <img src={star} alt="" />
-                  <p className="text-[14px] font-[500]">4.2</p>
-                </main>
-                <h1 className="text-[#4ECC5E] font-[400] text-[14px]">Ochiq</h1>
-              </div>
-            </div>
-          ))}
-        </main>
-      </section> */}
-
-        <a href="https://t.me/TrueGisSupport_bot" className="mx-[16px] border-[1px] border-solid border-[#EEE] flex items-center justify-start gap-[12px] px-[12px] py-[10px] rounded-[8px]" >
+          <section>
+            <PlaceSearch placeData={placeData} />
+            <div className={`hr w-full h-[1px] mb-[32px] mt-[24px]`}></div>
+          </section>
+          {/* xabar qoldirish qismi  */}
+          <a
+            href="https://t.me/TrueGisSupport_bot"
+            className="mx-[16px] border-[1px] border-solid border-[#EEE] flex items-center justify-start gap-[12px] px-[12px] py-[10px] rounded-[8px]"
+          >
             <img src={info} alt="" />
             <p>{t("support")}</p>
-        </a>
+          </a>
         </main>
       )}
     </>

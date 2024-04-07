@@ -12,6 +12,7 @@ export const initialState = {
   saveKm: "",
   lat: "",
   long: "",
+  distance:""
 };
 
 export const eventSlice = createSlice({
@@ -49,10 +50,14 @@ export const eventSlice = createSlice({
       //   state.long = action.payload[1];
       // }
     },
+    SaveDistance:(state,action)=>{
+      state.distance=action.payload
+    }
   },
 });
 
 export const {
+  SaveDistance,
   SaveLocation,
   SavePathData,
   GetPlaceData,

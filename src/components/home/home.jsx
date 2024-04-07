@@ -10,11 +10,12 @@ import {
   GetCommentData,
   GetPlaceData,
   Loading,
+  SaveDistance,
   SavePathData,
 } from "../../reducer/event";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
-import { line, share } from "./img";
+import { share } from "./img";
 import { TurnedInOutlined } from "@mui/icons-material";
 import LoadingT from "../loading/loading";
 
@@ -75,36 +76,28 @@ export default function Home({ lat, long }) {
     }
   };
 
-
   function degreesToRadians(degrees) {
-    return degrees * Math.PI / 180;
-}
-
-function calculateDistance(lat1, lon1, lat2, lon2) {
+    return (degrees * Math.PI) / 180;
+  }
+  function calculateDistance(lat1, lon1, lat2, lon2) {
     const earthRadiusKm = 6371;
 
     const dLat = degreesToRadians(lat2 - lat1);
     const dLon = degreesToRadians(lon2 - lon1);
 
     const a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(degreesToRadians(lat1)) * Math.cos(degreesToRadians(lat2)) *
-        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(degreesToRadians(lat1)) *
+        Math.cos(degreesToRadians(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
 
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
     const distance = earthRadiusKm * c;
     return distance;
-}
-
-const distance = calculateDistance(placeData.latitude, placeData.longitude, lat , long);
-console.log(`The distance between the two points is approximately ${distance.toFixed(2)} kilometers.`);
-
-
+  }
   useEffect(() => {
-    localStorage.setItem("placeId", placeId);
-    localStorage.setItem("userId", userId);
-    localStorage.setItem("km", km);
     dispatch(SavePathData([placeId, userId, km]));
     const fatchData = async () => {
       try {
@@ -124,6 +117,9 @@ console.log(`The distance between the two points is approximately ${distance.toF
   }, []);
 
   useEffect(() => {
+    localStorage.setItem("placeId", placeId);
+    localStorage.setItem("userId", userId);
+    localStorage.setItem("km", km);
     const fetchData = async () => {
       try {
         const place = await ApiServer.getData(`/place/${placeId}/`);
@@ -134,13 +130,22 @@ console.log(`The distance between the two points is approximately ${distance.toF
         console.log(error);
       } finally {
         if (lat && long) {
+          localStorage.setItem("lat", lat);
+          localStorage.setItem("long", long);
           setLoading(false);
         }
       }
     };
     fetchData();
     workStatus();
-  }, [delModal, lat, long]);
+    const distance = calculateDistance(
+      placeData.latitude,
+      placeData.longitude,
+      lat,
+      long
+    );
+    dispatch(SaveDistance(distance.toFixed(2)));
+  }, [delModal, placeId, lat, long]);
   useEffect(() => {
     setActiveComment(
       commentData.find((item) => item.user.id === +userId) ? true : false
@@ -264,7 +269,6 @@ console.log(`The distance between the two points is approximately ${distance.toF
             ))}
             {/* <div className="hr z-[-10] absolute bottom-[-16px] w-full h-[1px]  mb-[24px]"></div> */}
           </nav>
-
           <Outlet />
           <div className={`mb-[70px]`}></div>
           {!(pathname === `/${placeId}/${userId}/${km}/photo`) && (
