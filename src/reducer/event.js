@@ -12,7 +12,9 @@ export const initialState = {
   saveKm: "",
   lat: "",
   long: "",
-  distance:""
+  distance:"",
+  deleteModal:false,
+  deletePhotoId:""
 };
 
 export const eventSlice = createSlice({
@@ -52,11 +54,16 @@ export const eventSlice = createSlice({
     },
     SaveDistance:(state,action)=>{
       state.distance=action.payload
+    },
+    DeleteModalRedux:(state,action)=>{
+      state.deleteModal=!state.deleteModal
+      state.deletePhotoId=action.payload
     }
   },
 });
 
 export const {
+  DeleteModalRedux,
   SaveDistance,
   SaveLocation,
   SavePathData,

@@ -2,21 +2,26 @@ import React, { useState, useEffect, useRef } from "react";
 import empty from "./empty.svg";
 import "./photo.scss";
 import Slider from "react-slick";
-import { IoMdClose } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { ApiServer } from "../../ApiServer/api";
 import addphoto from "./add-photo.svg";
 import arrowL from "./arrow-left.svg";
-import { GetCommentData, GetPlaceData } from "../../reducer/event";
+import {
+  DeleteModalRedux,
+  GetCommentData,
+  GetPlaceData,
+} from "../../reducer/event";
 import LoadingC from "../loading/loader";
+import DeleteModal from "./delete-modal";
+import trash from "./trash.svg";
 
 export default function Photo() {
   const placeId = localStorage.getItem("placeId");
   const userId = localStorage.getItem("userId");
   const dispatch = useDispatch();
-  const { placeData } = useSelector((state) => state.event);
+  const { placeData, deleteModal } = useSelector((state) => state.event);
   const { t } = useTranslation();
   const [selectPhoto, setSelectPhoto] = useState([]);
   const [activeImageCount, setActiveImageCount] = useState(1);
@@ -24,8 +29,8 @@ export default function Photo() {
   const [fotos, setFotos] = useState([]);
   const [album, setAlbum] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [userFullName, setUserFullName] = useState("");
   const fileInputRef = useRef(null);
+
   const handleFileInputClick = () => {
     fileInputRef.current.click();
   };
@@ -65,7 +70,6 @@ export default function Photo() {
       })
       .catch((err) => console.log(err));
   };
-
   const settings = {
     dots: true,
     infinite: true,
@@ -95,6 +99,9 @@ export default function Photo() {
   const handleClose = () => {
     setAlbum(false);
   };
+  const handleDeleteImg = (id) => {
+    dispatch(DeleteModalRedux(id));
+  };
 
   useEffect(() => {
     if (selectPhoto.length > 0) {
@@ -103,11 +110,19 @@ export default function Photo() {
   }, [selectPhoto]);
 
   useEffect(() => {
-    setFotos(placeData.images);
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
-  }, [placeData]);
+    const fetchData = async () => {
+      try {
+        const place = await ApiServer.getData(`/place/${placeId}/`);
+        setFotos(place.images);
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, [placeData.images, deleteModal]);
   return (
     <>
       {loading ? (
@@ -148,6 +163,7 @@ export default function Photo() {
                   </Slider>
                 ) : (
                   <div className="z-[9999] h-[90vh] flex justify-center items-center">
+                    {}
                     <img
                       src={selectPhoto[0].image}
                       alt="fofot"
@@ -167,16 +183,23 @@ export default function Photo() {
           {fotos.length > 0 ? (
             <section className="grid grid-cols-2 gap-[17px] mt-[23px] px-[16px]">
               {fotos.map((image, index) => (
-                <img
-                  key={index}
-                  onClick={() => {
-                    handleSelectImage(image.id, index);
-                    setAlbum(true);
-                  }}
-                  className="w-full object-cover rounded-[6px] h-[140px]"
-                  src={image.image}
-                  alt="foto"
-                />
+                <div key={index} className="relative">
+                  <img
+                    onClick={() => handleDeleteImg(image.id)}
+                    className="absolute right-2 top-2 cursor-pointer"
+                    src={trash}
+                    alt=""
+                  />
+                  <img
+                    onClick={() => {
+                      handleSelectImage(image.id, index);
+                      setAlbum(true);
+                    }}
+                    className="w-full object-cover rounded-[6px] h-[140px]"
+                    src={image.image}
+                    alt="foto"
+                  />
+                </div>
               ))}
             </section>
           ) : (
@@ -204,6 +227,7 @@ export default function Photo() {
           </div>
         </div>
       )}
+      <DeleteModal />
     </>
   );
 }
@@ -217,15 +241,15 @@ export const fetchUserFullName = async (id, created) => {
       return (
         <div className="w-screen  pt-[24px] backdrop-image-content flex justify-start items-center gap-[16px]">
           <img
-            className="w-[56px] h-[56px] rounded-full object-cover"
-            src={user.profile_photo_url}
+            className="w-[50px] h-[50px] rounded-full object-cover"
+            src={user?.profile_photo_url}
             alt="user"
           />
           <div className="flex flex-col">
-            <h1 className="text-[#fff] text-[18px] font-[500]">
-              {user.full_name}
+            <h1 className="text-[#fff] text-[16px] font-[500]">
+              {user?.full_name}
             </h1>
-            <h2 className="text-[#fff] text-[14px] font-[500] opacity-[0.7]">
+            <h2 className="text-[#fff] text-[12px] font-[500] opacity-[0.7]">
               {created?.slice(0, 10)}
             </h2>
           </div>

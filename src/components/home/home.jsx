@@ -28,7 +28,9 @@ export default function Home({ lat, long }) {
   const { t } = useTranslation();
   const { placeId, userId, km } = useParams();
   const { pathname } = useLocation();
-  const { placeData, commentData } = useSelector((state) => state.event);
+  const { placeData, commentData, delModal, deleteModal } = useSelector(
+    (state) => state.event
+  );
   const navlink = [
     {
       id: 1,
@@ -57,7 +59,6 @@ export default function Home({ lat, long }) {
     },
   ];
   const dispatch = useDispatch();
-  const { delModal } = useSelector((state) => state.event);
   const navigate = useNavigate();
   const [statusWork, setStatusWork] = useState(true);
   const [activeTab, setActiveTab] = useState(1);
@@ -146,7 +147,7 @@ export default function Home({ lat, long }) {
       long
     );
     dispatch(SaveDistance(distance.toFixed(2)));
-  }, [delModal, placeId, lat, long]);
+  }, [delModal, deleteModal, placeId, lat, long]);
   useEffect(() => {
     setActiveComment(
       commentData.find((item) => item.user.id === +userId) ? true : false
@@ -228,7 +229,7 @@ export default function Home({ lat, long }) {
               </a>
             )}
           </section>
-          <nav className="sticky top-[-5px] z-[999] navbar w-full overflow-x-scroll whitespace-nowrap flex gap-[24px] px-[16px]">
+          <nav className="sticky top-[-5px] z-[200] navbar w-full overflow-x-scroll whitespace-nowrap flex gap-[24px] px-[16px]">
             {navlink.map((item) => (
               <button
                 key={item.id}

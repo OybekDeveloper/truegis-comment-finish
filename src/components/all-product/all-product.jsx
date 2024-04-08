@@ -250,9 +250,9 @@ export default function AllProduct() {
                 <img src={telegram} alt="" className="w-[48px] h-[48px]" />
               </a>
               <a
-                href={placeData.bot}
+                href={placeData.telegram_bot}
                 className={`${
-                  placeData.bot ? "opacity-1" : "opacity-[0.7]  "
+                  placeData.telegram_bot ? "opacity-1" : "opacity-[0.7]  "
                 } social-media`}
               >
                 <img src={bot} alt="" className="w-[38px] h-[38px]" />
@@ -669,37 +669,37 @@ function WebSvg(color) {
     </svg>
   );
 }
-function LinkSvg2(color) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
-      fill="none"
-    >
-      <g clipPath="url(#clip0_894_2062)">
-        <path
-          d="M10 3.61859H0.883789V19.1163H16.3815V10"
-          stroke={color}
-          strokeWidth="1.5"
-        />
-        <path
-          d="M8.17676 11.8233L19.1163 0.883759"
-          stroke={color}
-          strokeWidth="1.5"
-        />
-        <path
-          d="M11.8232 0.883759H19.1162V8.17676"
-          stroke={color}
-          strokeWidth="1.5"
-        />
-      </g>
-      <defs>
-        <clipPath id="clip0_894_2062">
-          <rect width="20" height="20" fill="#000" />
-        </clipPath>
-      </defs>
-    </svg>
-  );
-}
+  // function LinkSvg2(color) {
+  //   return (
+  //     <svg
+  //       xmlns="http://www.w3.org/2000/svg"
+  //       width="20"
+  //       height="20"
+  //       viewBox="0 0 20 20"
+  //       fill="none"
+  //     >
+  //       <g clipPath="url(#clip0_894_2062)">
+  //         <path
+  //           d="M10 3.61859H0.883789V19.1163H16.3815V10"
+  //           stroke={color}
+  //           strokeWidth="1.5"
+  //         />
+  //         <path
+  //           d="M8.17676 11.8233L19.1163 0.883759"
+  //           stroke={color}
+  //           strokeWidth="1.5"
+  //         />
+  //         <path
+  //           d="M11.8232 0.883759H19.1162V8.17676"
+  //           stroke={color}
+  //           strokeWidth="1.5"
+  //         />
+  //       </g>
+  //       <defs>
+  //         <clipPath id="clip0_894_2062">
+  //           <rect width="20" height="20" fill="#000" />
+  //         </clipPath>
+  //       </defs>
+  //     </svg>
+  //   );
+  // }

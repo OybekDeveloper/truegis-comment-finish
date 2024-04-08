@@ -38,5 +38,7 @@
   "all_photo_info":"Barcha rasmlar",
   "support":"Ma’lumotlarda xatolik topildimi?",
   "place_simillar":"O'xshash joylar",
-  "place_simillar_error":"O'xshash joylar mavjud emas!"
+  "place_simillar_error":"O'xshash joylar mavjud emas!",
+  "photo_h1":"Rasmni o'chirish",
+  "photo_p":"Rostdan ham bu rasmni o'chirmoqchimisiz"
 }
