@@ -78,6 +78,10 @@ p {
   color: var(--tg-theme-bg-color, white);
   background-color: var(--tg-theme-button-color, #0a84ff);
 }
+.tg-bg-color{
+  color: var(--tg-theme-text-color,black);
+  background-color: var(--tg-theme-bg-color,white);
+}
 .tg-hint-color {
   background-color: var(--tg-theme-hint-color, #d2d3d5);
   color: var(--tg-theme-bg-color, white);
