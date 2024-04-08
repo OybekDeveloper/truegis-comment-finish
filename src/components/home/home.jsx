@@ -152,13 +152,6 @@ export default function Home({ lat, long }) {
         </div>
       ) : (
         <main className="home relative ">
-          <a
-            href={`tg://openurl?url=${encodeURIComponent(
-              "https://truegis.uz/"
-            )}`}
-          >
-            Open Website
-          </a>
           <section className="px-[16px] min-h-[190px] home-back flex justify-end flex-col pb-[30px]">
             <div className="overlay">
               <div className="overlay"></div>
@@ -287,7 +280,7 @@ export default function Home({ lat, long }) {
                   </h1>
                 </button>
                 <a
-                  href={`https://t.me/share/url?url=${"https://t.me/TrueGis_bot"}&text=${"Botimizdan foydalaning!"}`}
+                  href={`https://t.me/share/url?url=${"https://t.me/TrueGis_bot/click?startapp=ref_HXoMwnug"}&text=${"Botimizdan foydalaning!"}`}
                   className="tg-button flex justify-center items-center rounded-[8px] px-[14px] h-[44px]"
                 >
                   <img src={share} alt="" />
