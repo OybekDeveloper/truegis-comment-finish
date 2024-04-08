@@ -184,12 +184,14 @@ export default function Photo() {
             <section className="grid grid-cols-2 gap-[17px] mt-[23px] px-[16px]">
               {fotos.map((image, index) => (
                 <div key={index} className="relative">
-                  <img
-                    onClick={() => handleDeleteImg(image.id)}
-                    className="absolute right-2 top-2 cursor-pointer p-1 bg-[#eee] rounded-full"
-                    src={trash}
-                    alt=""
-                  />
+                  {image.user == userId && (
+                    <img
+                      onClick={() => handleDeleteImg(image.id)}
+                      className="absolute right-2 top-2 cursor-pointer p-1 bg-[#eee] rounded-full"
+                      src={trash}
+                      alt=""
+                    />
+                  )}
                   <img
                     onClick={() => {
                       handleSelectImage(image.id, index);
