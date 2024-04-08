@@ -43,6 +43,13 @@ export default function App() {
   const [long, setLong] = useState("");
   const [lat, setLat] = useState("");
 
+  const back = () => {
+    navigate(-1);
+  };
+  tg.onEvent("backButtonClicked", function () {
+    back();
+  });
+  
   useEffect(() => {
     if (pathname !== `/${placeId}/${userId}/${km}/all-product`) {
       BackButton.show();
@@ -51,34 +58,12 @@ export default function App() {
     }
   }, [pathname]);
 
-  const back = () => {
-    navigate(-1);
-  };
-  tg.onEvent("backButtonClicked", function () {
-    back();
-  });
   useEffect(() => {
-    const locationPermission = localStorage.getItem("locationPermission");
-    if (locationPermission === "granted") {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          console.log(position.coords.latitude, position.coords.longitude);
-          setLong(position.coords.longitude);
-          setLat(position.coords.latitude);
-        });
-      }
-    } else {
-      navigator.permissions.query({ name: "geolocation" }).then((result) => {
-        if (result.state === "granted") {
-          localStorage.setItem("locationPermission", "granted");
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-              console.log(position.coords.latitude, position.coords.longitude);
-              setLong(position.coords.longitude);
-              setLat(position.coords.latitude);
-            });
-          }
-        }
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position.coords.latitude, position.coords.longitude);
+        setLong(position.coords.longitude);
+        setLat(position.coords.latitude);
       });
     }
   }, []);
