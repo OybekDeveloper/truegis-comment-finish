@@ -21,7 +21,7 @@ i18n
   .use(LanguageDetector)
   .init({
     supportedLngs: ["en", "uz", "ru"],
-    fallbackLng: "en",
+    fallbackLng: "ru",
     detection: {
       order: ["htmlTag", "cookie", "localStorage", "subdomain", "path"],
       caches: ["cookie"],
@@ -38,7 +38,6 @@ export default function App() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   let BackButton = tg.BackButton;
-  const { t } = useTranslation();
 
   const [loading, setLoading] = useState(true);
   const [long, setLong] = useState("");
