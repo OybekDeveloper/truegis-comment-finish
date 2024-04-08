@@ -77,6 +77,7 @@ export default function App() {
   }, [lat, long]);
   return (
     <>
+    <a href="https://bek-restaurant211.vercel.app/">open app</a>
       {loading ? (
         <div className="flex justify-center items-center w-full h-screen">
           <LoadingT />
