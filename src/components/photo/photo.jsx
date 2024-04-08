@@ -186,7 +186,7 @@ export default function Photo() {
                 <div key={index} className="relative">
                   <img
                     onClick={() => handleDeleteImg(image.id)}
-                    className="absolute right-2 top-2 cursor-pointer"
+                    className="absolute right-2 top-2 cursor-pointer p-1 bg-[#eee] rounded-full"
                     src={trash}
                     alt=""
                   />
