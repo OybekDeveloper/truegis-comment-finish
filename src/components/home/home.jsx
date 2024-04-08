@@ -54,6 +54,11 @@ export default function Home({ lat, long }) {
       link: `/${placeId}/${userId}/${km}/about`,
       count: null,
     },
+    {
+      id: 4,
+      title: "deliver",
+      link: `/delivery`,
+    },
   ];
   const dispatch = useDispatch();
   const navigate = useNavigate();

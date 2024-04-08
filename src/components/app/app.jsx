@@ -11,8 +11,9 @@ import i18n from "i18next";
 import { initReactI18next, useTranslation } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import HttpApi from "i18next-http-backend";
-import i18next from "i18next";
 import LoadingT from "../loading/loading";
+import { Delivery } from "../../delivery-components/delivery/delivery";
+import CategoryElements from "../../delivery-components/category-elements.jsx/category-elements";
 const tg = window.Telegram.WebApp;
 console.log(localStorage.getItem("userId"));
 i18n
@@ -49,7 +50,7 @@ export default function App() {
   tg.onEvent("backButtonClicked", function () {
     back();
   });
-  
+
   useEffect(() => {
     if (pathname !== `/${placeId}/${userId}/${km}/all-product`) {
       BackButton.show();
@@ -101,6 +102,9 @@ export default function App() {
               path={`/:placeId/:userId/:km/edit-comment`}
               element={<EditComment />}
             />
+            <Route path={`/delivery`} element={<Delivery />}>
+              <Route path="home" element={<CategoryElements />} />
+            </Route>
           </Routes>
         </div>
       )}
