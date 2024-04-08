@@ -5,23 +5,23 @@ import { DeleteModalRedux } from "../../reducer/event";
 import { useTranslation } from "react-i18next";
 import { ApiServer } from "../../ApiServer/api";
 export default function DeleteModal() {
-  const { deleteModal,deletePhotoId } = useSelector((state) => state.event);
+  const { deleteModal, deletePhotoId } = useSelector((state) => state.event);
   const dispatch = useDispatch();
   const { t } = useTranslation();
   function closeModal() {
     dispatch(DeleteModalRedux());
   }
-  const handleDelete=()=>{
+  const handleDelete = () => {
     dispatch(DeleteModalRedux());
     const fetchData = async () => {
-        try {
-          await ApiServer.delData(`/image/${deletePhotoId}/`);
-        } catch (error) {
-          console.log(error);
-        }
-      };
-      fetchData();
-  }
+      try {
+        await ApiServer.delData(`/image/${deletePhotoId}/`);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  };
 
   return (
     <>
@@ -58,9 +58,7 @@ export default function DeleteModal() {
                     {t("photo_h1")}
                   </Dialog.Title>
                   <div className="mt-2">
-                    <h1 className="text-sm opacity-[0.7]">
-                     {t("photo_p")}
-                    </h1>
+                    <h1 className="text-sm opacity-[0.7]">{t("photo_p")}</h1>
                   </div>
                   <div className="mt-4 flex justify-end">
                     <button

@@ -58,11 +58,27 @@ export default function App() {
     back();
   });
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position.coords.latitude, position.coords.longitude);
-        setLong(position.coords.longitude);
-        setLat(position.coords.latitude);
+    const locationPermission = localStorage.getItem("locationPermission");
+    if (locationPermission === "granted") {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          console.log(position.coords.latitude, position.coords.longitude);
+          setLong(position.coords.longitude);
+          setLat(position.coords.latitude);
+        });
+      }
+    } else {
+      navigator.permissions.query({ name: "geolocation" }).then((result) => {
+        if (result.state === "granted") {
+          localStorage.setItem("locationPermission", "granted");
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+              console.log(position.coords.latitude, position.coords.longitude);
+              setLong(position.coords.longitude);
+              setLat(position.coords.latitude);
+            });
+          }
+        }
       });
     }
   }, []);
