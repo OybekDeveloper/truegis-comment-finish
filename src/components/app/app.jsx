@@ -77,7 +77,6 @@ export default function App() {
   }, [lat, long]);
   return (
     <>
-    <a href="https://shifo24-admin-panel.vercel.app/">open app</a>
       {loading ? (
         <div className="flex justify-center items-center w-full h-screen">
           <LoadingT />
