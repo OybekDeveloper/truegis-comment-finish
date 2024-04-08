@@ -1,0 +1,7 @@
+.about {
+  .full-text {
+    max-height: 1000px; /* Set a high value to ensure that it accommodates large text */
+    overflow: hidden;
+    transition: max-height 0.3s ease; /* Adjust the transition duration as needed */
+  }
+}

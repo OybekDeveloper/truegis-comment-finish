@@ -4,12 +4,15 @@ import { useSelector } from "react-redux";
 import empty from "./empty.svg";
 import { useTranslation } from "react-i18next";
 import LoadingC from "../loading/loader";
+import "./about.scss";
+
 const tg = window.Telegram.WebApp;
 
 export default function About() {
   const { placeData } = useSelector((state) => state.event);
   const [aboutData, setAboutData] = useState([]);
-  const[loading,setLoading]=useState(true)
+  const [loading, setLoading] = useState(true);
+  const [fullText, setFullText] = useState(false);
   const { t } = useTranslation();
   useEffect(() => {
     function filterTrueOptions(data) {
@@ -35,50 +38,67 @@ export default function About() {
     }
     filterTrueOptions(placeData?.about?.details);
     setTimeout(() => {
-      setLoading(false)
+      setLoading(false);
     }, 500);
   }, [placeData.about]);
   return (
-    <main className="">
-      {loading?(
-        <LoadingC/>
-      ):(
-        <div>
-      {(placeData.info || aboutData.length>0) ? (
-        <>
-          <section className="relative mt-[24px] mx-[16px]">
-            <h1 className="text-justify  text-[16px] font-400 ">{placeData.info}</h1>
-          </section>
-          {aboutData.length > 0 && (
-            <>
-              <div className={`hr w-full h-[0.5px] mb-[32px]`}></div>
-              <section className="px-[16px]">
-                <div className="w-full mt-[24px]">
-                  {aboutData.map((item, idx) => (
-                    <button
-                      key={idx}
-                      className="mr-[6px] mt-[12px] inline-flex gap-[8px]  px-[10px] py-[6px]  justify-center items-center"
-                    >
-                      {CheskSvg(
-                        tg.themeParams.button_color
-                          ? tg.themeParams.button_color
-                          : "#0A84FF"
-                      )}
-                      <p className="text-[14px] font-[500] gap-[8px]">{item}</p>
-                    </button>
-                  ))}
-                </div>
-              </section>
-            </>
-          )}
-        </>
+    <main className="about">
+      {loading ? (
+        <LoadingC />
       ) : (
-        <div className="w-full flex flex-col justify-center items-center mt-[20px] gap-[16px]">
-          <img src={empty} alt="" />
-          <p className="text-[14px] font-[400]">{t("empty_place")}</p>
+        <div>
+          {placeData.info || aboutData.length > 0 ? (
+            <>
+              <section className="relative mt-[24px] mx-[16px]">
+                <h1 className="text-justify text-[16px] font-400">
+                  {fullText ? (
+                    <span className="full-text">{placeData.info}</span>
+                  ) : (
+                    <>
+                      {placeData.info.slice(0, 140)}...{" "}
+                      <span
+                        onClick={() => setFullText(true)}
+                        className="font-[500] tg-button-text cursor-pointer"
+                      >
+                        Batafsil o'qish
+                      </span>
+                    </>
+                  )}
+                </h1>
+              </section>
+
+              {aboutData.length > 0 && (
+                <>
+                  <div className={`hr w-full h-[0.5px] mb-[32px]`}></div>
+                  <section className="px-[16px]">
+                    <div className="w-full mt-[24px]">
+                      {aboutData.map((item, idx) => (
+                        <button
+                          key={idx}
+                          className="mr-[6px] mt-[12px] inline-flex gap-[8px]  px-[10px] py-[6px]  justify-center items-center"
+                        >
+                          {CheskSvg(
+                            tg.themeParams.button_color
+                              ? tg.themeParams.button_color
+                              : "#0A84FF"
+                          )}
+                          <p className="text-[14px] font-[500] gap-[8px]">
+                            {item}
+                          </p>
+                        </button>
+                      ))}
+                    </div>
+                  </section>
+                </>
+              )}
+            </>
+          ) : (
+            <div className="w-full flex flex-col justify-center items-center mt-[20px] gap-[16px]">
+              <img src={empty} alt="" />
+              <p className="text-[14px] font-[400]">{t("empty_place")}</p>
+            </div>
+          )}
         </div>
-      )}
-    </div>
       )}
     </main>
   );

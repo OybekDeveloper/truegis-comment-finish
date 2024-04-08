@@ -152,6 +152,13 @@ export default function Home({ lat, long }) {
         </div>
       ) : (
         <main className="home relative ">
+          <a
+            href={`tg://openurl?url=${encodeURIComponent(
+              "https://truegis.uz/"
+            )}`}
+          >
+            Open Website
+          </a>
           <section className="px-[16px] min-h-[190px] home-back flex justify-end flex-col pb-[30px]">
             <div className="overlay">
               <div className="overlay"></div>
