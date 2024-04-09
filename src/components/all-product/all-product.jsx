@@ -194,7 +194,7 @@ export default function AllProduct() {
           <section
             onClick={() =>
               window.open(
-                `https://3.redirect.appmetrica.yandex.com/route?start-lat=55.73400123907955&start-lon=37.588533418821726&end-lat=55.76776211471192&end-lon=37.60714921124336&tariffClass=econom&ref=yoursiteru&appmetrica_tracking_id=1178268795219780156`
+                `https://3.redirect.appmetrica.yandex.com/route?start-lat=${lat}&start-lon=${long}&end-lat=${placeData.latitude}&end-lon=${placeData.longitude}&tariffClass=econom&ref=yoursiteru&appmetrica_tracking_id=1178268795219780156`
               )
             }
             className="w-full flex justify-between mb-[20px] px-[16px]"
