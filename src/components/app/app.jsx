@@ -83,7 +83,7 @@ export default function App() {
           <LoadingT />
         </div>
       ) : (
-        <div className="app max-w-[400px] mx-auto">
+        <div id="back-effect" className="app max-w-[400px] mx-auto">
           <Routes>
             <Route
               path="/:placeId/:userId/:km"

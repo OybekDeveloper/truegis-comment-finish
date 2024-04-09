@@ -8,6 +8,7 @@ import {
   star,
   telegram,
   twitter,
+  yandex,
 } from "../home/img";
 import "./main.scss";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +17,7 @@ import MapAppSelector from "./map";
 import { t } from "i18next";
 import LoadingC from "../loading/loader";
 import PlaceSearch from "./place-search";
+import { ApiServer } from "../../ApiServer/api";
 // import { View, Button, Linking, Platform } from "react-native";
 
 const tg = window.Telegram.WebApp;
@@ -24,10 +26,10 @@ export default function AllProduct() {
   const placeId = localStorage.getItem("placeId");
   const userId = localStorage.getItem("userId");
   const km = localStorage.getItem("km");
-  const lat=localStorage.getItem('lat')
-  const long =localStorage.getItem("long")
+  const lat = localStorage.getItem("lat");
+  const long = localStorage.getItem("long");
   const dispatch = useDispatch();
-  const { delModal, placeData, commentData } = useSelector(
+  const { delModal, placeData } = useSelector(
     (state) => state.event
   );
   const [menuActive, setMenuActive] = useState(false);
@@ -35,7 +37,8 @@ export default function AllProduct() {
   const [aboutData, setAboutData] = useState([]);
   const [statusWork, setStatusWork] = useState(true);
   const [imageLength, setImageLength] = useState(0);
-  const [distance,setDistance]=useState(0)
+  const [distance, setDistance] = useState(0);
+  const [yandex1, setYandex1] = useState("");
   const [loading, setLoading] = useState(true);
   console.log(lat, long, "alll");
   function degreesToRadians(degrees) {
@@ -121,7 +124,6 @@ export default function AllProduct() {
     }
   }, [placeData.about]);
 
-  
   useEffect(() => {
     workData();
     setTimeout(() => {
@@ -139,10 +141,24 @@ export default function AllProduct() {
       lat,
       long
     );
-    setDistance(distance.toFixed(2))
+    setDistance(distance.toFixed(2));
+    if ((lat, long, placeData)) {
+      const fetchYandex = async () => {
+        try {
+          const response = await fetch(
+            `https://taxi-routeinfo.taxi.yandex.net/taxi_info?rll=${long},${lat}~${placeData.longitude},${placeData.latitude}&clid=ak231124&apikey=SjFZnMpqqiBMsjOthnPlbZVOGvrTJkFAdArwsnr&class=business&req=yellowcarnumber`
+          );
+          const res = await response.json();
+          setYandex1(res);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      fetchYandex();
+    }
   }, [placeData]);
 
-  console.log(placeData);
+  console.log(yandex1);
   return (
     <>
       {loading ? (
@@ -172,16 +188,22 @@ export default function AllProduct() {
             </div>
           </section>
           <div className="hr w-full h-[0.5px] mb-[32px]"></div>
-          {/* <section className="w-full flex justify-between mb-[20px] px-[16px]">
-        <div className="flex justify-start items-center gap-[12px] tg-button-text">
-          <img src={yandex} alt="yandex" />
-          <h1 className="text-[15px] font-[500]">12,000 so’m</h1>
-        </div>
-        {LinkSvg2(
-          tg.themeParams.text_color ? tg.themeParams.text_color : "#1C93E3"
-        )}
-      </section>
-      <div className="hr w-full h-[0.5px] mb-[32px]"></div> */}
+          {/* Yandex price title */}
+          <a
+            href={`https://3.redirect.appmetrica.yandex.com/route?start-lat=${lat}&start-lon=${long}&end-lat=${placeData.latitude}&end-lon=${placeData.longitude}&tariffClass=econom&ref=4117033&appmetrica_tracking_id=1178268795219780156`}
+            className="w-full flex justify-between mb-[20px] px-[16px]"
+          >
+            <div className="flex justify-start items-center gap-[12px] tg-button-text">
+              <img src={yandex} alt="yandex" />
+              <h1 className="text-[15px] font-[500]">
+                {yandex1?.options[0]?.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} so'm
+              </h1>
+            </div>
+            {LinkSvg2(
+              tg.themeParams.text_color ? tg.themeParams.text_color : "#1C93E3"
+            )}
+          </a>
+          <div className="hr w-full h-[0.5px] mb-[32px]"></div>
           {placeData.phone && placeData.website && (
             <>
               <section
@@ -669,37 +691,37 @@ function WebSvg(color) {
     </svg>
   );
 }
-  // function LinkSvg2(color) {
-  //   return (
-  //     <svg
-  //       xmlns="http://www.w3.org/2000/svg"
-  //       width="20"
-  //       height="20"
-  //       viewBox="0 0 20 20"
-  //       fill="none"
-  //     >
-  //       <g clipPath="url(#clip0_894_2062)">
-  //         <path
-  //           d="M10 3.61859H0.883789V19.1163H16.3815V10"
-  //           stroke={color}
-  //           strokeWidth="1.5"
-  //         />
-  //         <path
-  //           d="M8.17676 11.8233L19.1163 0.883759"
-  //           stroke={color}
-  //           strokeWidth="1.5"
-  //         />
-  //         <path
-  //           d="M11.8232 0.883759H19.1162V8.17676"
-  //           stroke={color}
-  //           strokeWidth="1.5"
-  //         />
-  //       </g>
-  //       <defs>
-  //         <clipPath id="clip0_894_2062">
-  //           <rect width="20" height="20" fill="#000" />
-  //         </clipPath>
-  //       </defs>
-  //     </svg>
-  //   );
-  // }
+function LinkSvg2(color) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+    >
+      <g clipPath="url(#clip0_894_2062)">
+        <path
+          d="M10 3.61859H0.883789V19.1163H16.3815V10"
+          stroke={color}
+          strokeWidth="1.5"
+        />
+        <path
+          d="M8.17676 11.8233L19.1163 0.883759"
+          stroke={color}
+          strokeWidth="1.5"
+        />
+        <path
+          d="M11.8232 0.883759H19.1162V8.17676"
+          stroke={color}
+          strokeWidth="1.5"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_894_2062">
+          <rect width="20" height="20" fill="#000" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+}

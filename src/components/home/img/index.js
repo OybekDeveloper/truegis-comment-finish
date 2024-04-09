@@ -18,7 +18,9 @@ import bot from './bot.svg'
 import share from './share.svg'
 import arrowRight from './arrow-right.svg'
 import star from './star.svg'
+import yandex  from './1200x630wa 1 (1).png'
 export {
+  yandex,
   star,
   starte,
   startf,

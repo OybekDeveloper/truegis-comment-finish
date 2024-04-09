@@ -1,6 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import event from "./event";
+import { combineReducers } from "redux";
+import eventReducer from "./event";
+import deliveryReducer from "./delivery";
+
+const rootReducer = combineReducers({
+  event: eventReducer,
+  delivery: deliveryReducer,
+});
 
 export const store = configureStore({
-    reducer:{event}
-})
+  reducer: rootReducer,
+});
