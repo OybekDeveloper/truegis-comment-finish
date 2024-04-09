@@ -146,10 +146,10 @@ export default function AllProduct() {
       const fetchYandex = async () => {
         try {
           const response = await fetch(
-            `https://3.redirect.appmetrica.yandex.com/route?start-lat=55.73400123907955&start-lon=37.588533418821726&end-lat=55.76776211471192&end-lon=37.60714921124336&tariffClass=econom&ref=yoursiteru&appmetrica_tracking_id=1178268795219780156`
+            `https://taxi-routeinfo.taxi.yandex.net/taxi_info?rll=${long},${lat}~${placeData.longitude},${placeData.latitude}&clid=ak231124&apikey=SjFZnMpqqiBMsjOthnPlbZVOGvrTJkFAdArwsnr&class=business&req=yellowcarnumber`
           );
           const res = await response.json();
-          setYandex1(res);
+          setYandex1(res?.options[0]?.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         } catch (error) {
           console.log(error);
         }
@@ -190,13 +190,13 @@ export default function AllProduct() {
           <div className="hr w-full h-[0.5px] mb-[32px]"></div>
           {/* Yandex price title */}
           <a
-            href={`https://3.redirect.appmetrica.yandex.com/route?start-lat=${lat}&start-lon=${long}&end-lat=${placeData.latitude}&end-lon=${placeData.longitude}&tariffClass=econom&ref=4117033&appmetrica_tracking_id=1178268795219780156`}
+            href={`https://3.redirect.appmetrica.yandex.com/route?start-lat=55.73400123907955&start-lon=37.588533418821726&end-lat=55.76776211471192&end-lon=37.60714921124336&tariffClass=econom&ref=yoursiteru&appmetrica_tracking_id=1178268795219780156`}
             className="w-full flex justify-between mb-[20px] px-[16px]"
           >
             <div className="flex justify-start items-center gap-[12px] tg-button-text">
               <img src={yandex} alt="yandex" />
               <h1 className="text-[15px] font-[500]">
-                {yandex1?.options[0]?.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} so'm
+                {yandex1} so'm
               </h1>
             </div>
             {LinkSvg2(
