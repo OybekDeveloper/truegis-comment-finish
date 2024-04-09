@@ -2,7 +2,6 @@ import React from "react";
 import { back, eng, rus, uzb } from "../images";
 import { OpenLangMenu } from "../../reducer/delivery";
 import { useDispatch } from "react-redux";
-
 const lang = [
   {
     id: 1,

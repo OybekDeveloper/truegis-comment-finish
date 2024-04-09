@@ -146,7 +146,7 @@ export default function AllProduct() {
       const fetchYandex = async () => {
         try {
           const response = await fetch(
-            `https://taxi-routeinfo.taxi.yandex.net/taxi_info?rll=${long},${lat}~${placeData.longitude},${placeData.latitude}&clid=ak231124&apikey=SjFZnMpqqiBMsjOthnPlbZVOGvrTJkFAdArwsnr&class=business&req=yellowcarnumber`
+            `https://3.redirect.appmetrica.yandex.com/route?start-lat=55.73400123907955&start-lon=37.588533418821726&end-lat=55.76776211471192&end-lon=37.60714921124336&tariffClass=econom&ref=yoursiteru&appmetrica_tracking_id=1178268795219780156`
           );
           const res = await response.json();
           setYandex1(res);

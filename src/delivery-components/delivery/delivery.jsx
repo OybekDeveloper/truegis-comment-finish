@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import "./delivery.scss";
 import {
@@ -17,6 +17,7 @@ import {
 import { OpenDeliveryMenu, OpenLangMenu } from "../../reducer/delivery";
 import DeliveryLang from "../delivery-lang/delivery-lang";
 import SearchComponent from "../search-component/search-component";
+import { foods } from "../foods-image/foodsData";
 
 const menuitem = [
   {
@@ -50,16 +51,16 @@ export const Delivery = () => {
   const userId = localStorage.getItem("userId");
   const tg = window.Telegram.WebApp;
   const navigate = useNavigate();
-  const { openMenu,openLang } = useSelector((state) => state.delivery);
-  const dispatch = useDispatch()
+  const { openMenu, openLang } = useSelector((state) => state.delivery);
+  const dispatch = useDispatch();
 
-  const handelOpenMenu=()=>{
-    dispatch(OpenDeliveryMenu())
-  }
+  const handelOpenMenu = () => {
+    dispatch(OpenDeliveryMenu());
+  };
 
-  const handleOpenLang=()=>{
-    dispatch(OpenLangMenu())
-  }
+  const handleOpenLang = () => {
+    dispatch(OpenLangMenu());
+  };
 
   const back = () => {
     navigate(`/${placeId}/${userId}/12`);
@@ -67,49 +68,18 @@ export const Delivery = () => {
   tg.onEvent("backButtonClicked", function () {
     back();
   });
-  const category_link = [
-    {
-      id: 1,
-      name: "Burger",
-      img: burger,
-    },
-    {
-      id: 2,
-      name: "Burger",
-      img: burger,
-    },
-    {
-      id: 3,
-      name: "Burger",
-      img: burger,
-    },
-    {
-      id: 4,
-      name: "Burger",
-      img: burger,
-    },
-    {
-      id: 5,
-      name: "Burger",
-      img: burger,
-    },
-    {
-      id: 6,
-      name: "Burger",
-      img: burger,
-    },
-  ];
-    useEffect(() => {
-      const body = document.body;
-      const blur = document.querySelector("#back-effect");
-      if (openMenu || openLang) {
-        body.classList.add("no-scroll");
-        blur.classList.add("back-effect");
-      } else {
-        body.classList.remove("no-scroll");
-        blur.classList.remove("back-effect");
-      }
-    }, [openMenu,openLang]);
+
+  useEffect(() => {
+    const body = document.body;
+    const blur = document.querySelector("#back-effect");
+    if (openMenu || openLang) {
+      body.classList.add("no-scroll");
+      blur.classList.add("back-effect");
+    } else {
+      body.classList.remove("no-scroll");
+      blur.classList.remove("back-effect");
+    }
+  }, [openMenu, openLang]);
 
   useEffect(() => {
     navigate("/delivery/home");
@@ -118,7 +88,10 @@ export const Delivery = () => {
   return (
     <div className={`px-[16px] delivery bg-white relative mb-[20px]`}>
       <section className="flex justify-between items-center w-full pt-[16px] pb-[24px]">
-        <div onClick={handelOpenMenu} className="cursor-pointer w-[48px] h-[48px] rounded-full flex justify-center items-center bg-[#f2f4f7] border-[1px] border-solid text[#475467] text-[12px] font-[600]">
+        <div
+          onClick={handelOpenMenu}
+          className="cursor-pointer w-[48px] h-[48px] rounded-full flex justify-center items-center bg-[#f2f4f7] border-[1px] border-solid text[#475467] text-[12px] font-[600]"
+        >
           OR
         </div>
         <div className="cursor-pointer flex justify-center items-center gap-2">
@@ -128,7 +101,12 @@ export const Delivery = () => {
             Yetkazish manzili qo’shish
           </h1>
         </div>
-        <img onClick={handleOpenLang} className="cursor-pointer" src={web} alt="" />
+        <img
+          onClick={handleOpenLang}
+          className="cursor-pointer"
+          src={web}
+          alt=""
+        />
       </section>
       <section className="overflow-x-scroll whitespace-nowrap w-full image-slide">
         {[1, 2, 3, 4, 5].map((item, idx) => (
@@ -141,23 +119,23 @@ export const Delivery = () => {
           </div>
         ))}
       </section>
-        <div className="w-full h-[70px]"></div>
-      <SearchComponent/>
+      <div className="w-full h-[70px]"></div>
+      <SearchComponent />
       <section className="sticky top-0 bg-[#fff] overflow-x-scroll whitespace-nowrap w-full image-slide mt-[24px]">
-        {category_link?.map((item, idx) => (
+        {foods?.map((item, idx) => (
           <div
             key={idx}
-            className="inline-flex flex-col gap-[8px] mr-[24px] cursor-pointer"
+            className="inline-flex flex-col gap-[8px] mr-[24px] cursor-pointer w-[44px]"
           >
             <img
               className={`${
                 idx === 0 ? "border-[#2E90FA]" : "border-[#EAECF0]"
               } w-[48px] h-[48px] border-[3px] border-solid  rounded-full`}
-              src={item.img}
+              src={item.url}
               alt=""
             />
-            <h1 className="text-[#475467] text-[14px] font-[400]">
-              {item.name}
+            <h1 className="text-[#475467] text-[14px] font-[400] whitespace-normal">
+              {item.title}
             </h1>
           </div>
         ))}
@@ -170,7 +148,10 @@ export const Delivery = () => {
         transition={{ duration: 0.5 }}
         className="menu fixed top-0 left-0 w-[80%] h-screen bg-white p-[16px] z-20"
       >
-        <div onClick={handelOpenMenu} className="w-full h-[48px] items-center flex justify-end cursor-pointer">
+        <div
+          onClick={handelOpenMenu}
+          className="w-full h-[48px] items-center flex justify-end cursor-pointer"
+        >
           <img className="w-[20px] h-[20px]" src={close} alt="close" />
         </div>
         <div className="flex justify-start gap-[10px] items-center text-[18px] font-[500] text-[#000]">
@@ -207,11 +188,11 @@ export const Delivery = () => {
         transition={{ duration: 0.5 }}
         className="menu fixed top-0 left-0 w-[100%] h-screen bg-white p-[16px] z-20"
       >
-        <DeliveryLang/>
+        <DeliveryLang />
       </motion.section>
-      {(openMenu) && (
-      <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-40 z-10"></div>
-    )}
+      {openMenu && (
+        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-40 z-10"></div>
+      )}
     </div>
   );
 };
