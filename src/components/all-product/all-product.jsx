@@ -29,9 +29,7 @@ export default function AllProduct() {
   const lat = localStorage.getItem("lat");
   const long = localStorage.getItem("long");
   const dispatch = useDispatch();
-  const { delModal, placeData } = useSelector(
-    (state) => state.event
-  );
+  const { delModal, placeData } = useSelector((state) => state.event);
   const [menuActive, setMenuActive] = useState(false);
   const [tableActive, setTableActive] = useState(false);
   const [aboutData, setAboutData] = useState([]);
@@ -149,7 +147,11 @@ export default function AllProduct() {
             `https://taxi-routeinfo.taxi.yandex.net/taxi_info?rll=${long},${lat}~${placeData.longitude},${placeData.latitude}&clid=ak231124&apikey=SjFZnMpqqiBMsjOthnPlbZVOGvrTJkFAdArwsnr&class=business&req=yellowcarnumber`
           );
           const res = await response.json();
-          setYandex1(res?.options[0]?.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+          setYandex1(
+            res?.options[0]?.price
+              .toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+          );
         } catch (error) {
           console.log(error);
         }
@@ -189,20 +191,22 @@ export default function AllProduct() {
           </section>
           <div className="hr w-full h-[0.5px] mb-[32px]"></div>
           {/* Yandex price title */}
-          <a
-            href={`https://3.redirect.appmetrica.yandex.com/route?start-lat=55.73400123907955&start-lon=37.588533418821726&end-lat=55.76776211471192&end-lon=37.60714921124336&tariffClass=econom&ref=yoursiteru&appmetrica_tracking_id=1178268795219780156`}
+          <section
+            onClick={() =>
+              window.open(
+                `https://3.redirect.appmetrica.yandex.com/route?start-lat=55.73400123907955&start-lon=37.588533418821726&end-lat=55.76776211471192&end-lon=37.60714921124336&tariffClass=econom&ref=yoursiteru&appmetrica_tracking_id=1178268795219780156`
+              )
+            }
             className="w-full flex justify-between mb-[20px] px-[16px]"
           >
             <div className="flex justify-start items-center gap-[12px] tg-button-text">
               <img src={yandex} alt="yandex" />
-              <h1 className="text-[15px] font-[500]">
-                {yandex1} so'm
-              </h1>
+              <h1 className="text-[15px] font-[500]">{yandex1} so'm</h1>
             </div>
             {LinkSvg2(
               tg.themeParams.text_color ? tg.themeParams.text_color : "#1C93E3"
             )}
-          </a>
+          </section>
           <div className="hr w-full h-[0.5px] mb-[32px]"></div>
           {placeData.phone && placeData.website && (
             <>
