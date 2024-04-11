@@ -32,7 +32,7 @@ const DeliveryLang = () => {
     dispatch(OpenLangMenu());
   };
   return (
-    <main className="w-full px-[16px] pt-[17px] max-w-[400px] mx-auto">
+    <main className="w-full px-[16px] pt-[17px] max-w-[400px] mx-auto bg-[#FFF]">
       <section className="flex items-center justify-between">
         <img
           className="cursor-pointer"
@@ -40,7 +40,7 @@ const DeliveryLang = () => {
           src={back}
           alt=""
         />
-        <h1 className="text-[20px] font-[500] texxt-[#000]">Tilni tanlash</h1>
+        <h1 className="text-[20px] font-[500] text-[#000]">Tilni tanlash</h1>
         <div></div>
       </section>
       <section className=" mt-[24px] flex flex-col gap-[20px]">

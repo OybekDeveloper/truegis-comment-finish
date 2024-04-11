@@ -62,7 +62,7 @@ const SearchComponent = () => {
       className={`absolute bg-white w-full flex justify-start items-start flex-col pt-[24px] mb-[24px] px-[16px]`}
     >
       {isExpanded && (
-        <section className="w-full flex items-center justify-between mb-[24px]">
+        <section className="w-full flex items-center justify-between py-[17px] shadow-shadow-xs">
           <img
             onClick={handleClose}
             className="cursor-pointer"
@@ -73,7 +73,7 @@ const SearchComponent = () => {
           <div></div>
         </section>
       )}
-      <div className="flex justify-start items-center w-full relative">
+      <div className="flex justify-start items-center w-full relative mt-[16px]">
         <img className="absolute left-[14px] " src={search} alt="search" />
         <input
           className="outline-none pr-[14px] pl-[44px] py-[10px] w-full text-[16px] font-[400] text-ellipsis bg-[#F2F4F7] rounded-[12px]"

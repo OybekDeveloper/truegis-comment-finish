@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useNavigate,useLocation } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import "./delivery.scss";
@@ -60,9 +60,9 @@ const Delivery = () => {
     (state) => state.delivery
   );
   const dispatch = useDispatch();
-  const {pathname} = useLocation()
+  const { pathname } = useLocation();
   const [exit, setExit] = useState(false);
-  const [ref, isClickedOutside]=useClickOutside()
+  const [ref, isClickedOutside] = useClickOutside();
 
   const handelOpenMenu = () => {
     dispatch(OpenDeliveryMenu());
@@ -103,24 +103,23 @@ const Delivery = () => {
     }
   }, [openMenu, openLang]);
 
- useEffect(()=>{
-    dispatch(OpenDeliveryMenu(false))
- },[pathname])
+  useEffect(() => {
+    dispatch(OpenDeliveryMenu(false));
+  }, [pathname]);
 
- useEffect(()=>{
-  if(isClickedOutside) dispatch(OpenDeliveryMenu(false));
- },[isClickedOutside])
+  useEffect(() => {
+    if (isClickedOutside) dispatch(OpenDeliveryMenu(false));
+  }, [isClickedOutside]);
 
   useEffect(() => {
     navigate("/delivery/home");
   }, []);
 
   return (
-    <div 
-    className={`px-[16px] delivery bg-white relative mb-[20px]`}>
+    <div className={`px-[16px] delivery bg-white relative mb-[20px]`}>
       {pathname === "/delivery/home" && (
         <>
-          <section className="flex justify-between items-center w-full pt-[16px] pb-[24px]">
+          <section className="shadow-shadow-xs flex justify-between items-center w-full py-[17px]">
             <div
               onClick={handelOpenMenu}
               className="cursor-pointer w-[48px] h-[48px] rounded-full flex justify-center items-center bg-[#f2f4f7] border-[1px] border-solid text[#475467] text-[12px] font-[600]"
@@ -141,7 +140,7 @@ const Delivery = () => {
               alt=""
             />
           </section>
-          <section className="overflow-x-scroll whitespace-nowrap w-full image-slide">
+          <section className="overflow-x-scroll whitespace-nowrap w-full image-slide mt-[16px]">
             {[1, 2, 3, 4, 5].map((item, idx) => (
               <div key={idx} className="inline-flex mr-2">
                 <img
@@ -154,7 +153,7 @@ const Delivery = () => {
           </section>
           <div className="w-full h-[70px]"></div>
           <SearchComponent />
-          <section className="sticky top-0 bg-[#fff] overflow-x-scroll whitespace-nowrap w-full image-slide mt-[24px]">
+          <section className="sticky top-[-3px] bg-[#fff] overflow-x-scroll whitespace-nowrap w-full image-slide mt-[24px] pt-[5px]">
             {foods?.map((item, idx) => (
               <div
                 onClick={() => handleActiveCtg(item)}
@@ -230,7 +229,10 @@ const Delivery = () => {
         <DeliveryLang />
       </motion.section>
       {openMenu && (
-        <div ref={ref} className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-40 z-10"></div>
+        <div
+          ref={ref}
+          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-40 z-10"
+        ></div>
       )}
     </div>
   );
