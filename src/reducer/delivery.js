@@ -4,7 +4,7 @@ export const initialState = {
   openMenu: false,
   openLang: false,
   selectCategory: false,
-  selectCategoryId: "",
+  selectCategoryItem: {},
   activeCatgory:foods[0],
   totalPrice:"",
   items:[]
@@ -28,7 +28,7 @@ export const deliverySlice = createSlice({
     },
     SelectCategoryModal: (state, action) => {
       state.selectCategory = !state.selectCategory;
-      state.selectCategoryId = action.payload;
+      state.selectCategoryItem = action.payload;
     },
     SelectCategoryActive:(state,action)=>{
       state.activeCatgory=action.payload;

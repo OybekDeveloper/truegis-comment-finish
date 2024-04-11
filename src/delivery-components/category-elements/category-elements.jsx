@@ -16,13 +16,15 @@ const CategoryElements = () => {
         {activeCatgory.props.map((item, idx) => (
           <div key={idx} className="flex flex-col gap-[8px] cursor-pointer">
             <img
-              onClick={() => handleShow(item.id)}
+              onClick={() => handleShow(item)}
               className="rounded-[12px] w-[156px] h-[150px] object-cover"
               src={item.url}
               alt=""
             />
             <h1 className="text-[14px] font-[500] text-[#475467]">
-              {item.title}
+              {item.title.length > 20
+                ? item.title.slice(0, 20) + "..."
+                : item.title}
             </h1>
             <div className="flex justify-center items-center px-[16px] py-[8px] rounded-[12px] bg-[#F2F4F7] cursor-pointer text-[#2E90FA] text-[14px] font-[500]">
               {item.price}

@@ -56,7 +56,7 @@ const Delivery = () => {
   const userId = localStorage.getItem("userId");
   const tg = window.Telegram.WebApp;
   const navigate = useNavigate();
-  const { openMenu, openLang, activeCatgory ,selectCategory } = useSelector(
+  const { openMenu, openLang, activeCatgory, selectCategory } = useSelector(
     (state) => state.delivery
   );
   const dispatch = useDispatch();
@@ -74,7 +74,6 @@ const Delivery = () => {
 
   const handleActiveCtg = (data) => {
     dispatch(SelectCategoryActive(data));
-
   };
 
   const handleClickMenu = (url) => {
@@ -83,16 +82,12 @@ const Delivery = () => {
     } else {
       navigate(url);
     }
-    dispatch(OpenDeliveryMenu(false))
+    dispatch(OpenDeliveryMenu(false));
   };
 
-  const handleAddItem=()=>{
-    
-  }
+  const handleAddItem = () => {};
 
-  const handleMinusItem=()=>{
-
-  }
+  const handleMinusItem = () => {};
 
   const back = () => {
     navigate(`/${placeId}/${userId}/12`);
@@ -111,9 +106,7 @@ const Delivery = () => {
       body.classList.remove("no-scroll");
       blur.classList.remove("back-effect");
     }
-  }, [openMenu, openLang,selectCategory]);
-
-
+  }, [openMenu, openLang, selectCategory]);
 
   // useEffect(() => {
   //   if (isClickedOutside) dispatch(OpenDeliveryMenu(false));
@@ -178,7 +171,9 @@ const Delivery = () => {
                   alt=""
                 />
                 <h1 className="text-[#475467] text-[14px] font-[400] whitespace-normal">
-                  {item.title.slice(0, 9)}...
+                  {item.title.length > 10
+                    ? item.title.slice(0, 10) + "..."
+                    : item.title}
                 </h1>
               </div>
             ))}
@@ -189,7 +184,7 @@ const Delivery = () => {
       <motion.section
         initial={{ opacity: 0, x: "-100%" }}
         animate={{ opacity: 1, x: openMenu ? 0 : "-100%" }}
-        exit={{ opacity: 0, x:'-100%' }}
+        exit={{ opacity: 0, x: "-100%" }}
         transition={{ duration: 0.5 }}
         className="fixed top-0 left-0 w-[80%] h-screen bg-[#fff] p-[16px] z-20"
       >

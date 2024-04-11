@@ -4,7 +4,7 @@ import { SelectCategoryModal } from "../../reducer/delivery";
 import { close, minus, plus } from "../images";
 import { motion } from "framer-motion";
 export default function CategoryDialog() {
-  const { selectCategory, selectCategoryId } = useSelector(
+  const { selectCategory, selectCategoryItem } = useSelector(
     (state) => state.delivery
   );
   const dispatch = useDispatch();
@@ -12,6 +12,7 @@ export default function CategoryDialog() {
     dispatch(SelectCategoryModal());
   }
 
+  console.log(selectCategoryItem);
   return (
     <div className="">
       <motion.div
@@ -36,14 +37,14 @@ export default function CategoryDialog() {
             <section className="w-full mt-[25px]">
               <img
                 className="w-full h-[150px] object-cover rounded-[12px]"
-                src="https://s3-alpha-sig.figma.com/img/0881/6f20/4fc2956e035299dfef8a5b7425404501?Expires=1713744000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Uzfl617lqepLXSTG5fzbSki8F838tV2k7yT7TfPA5nayTxexPfmNCpyFJKFzYc3CuiAzRx-m7sIZ41Zf8i1qQFFg4P9unEKZe7otKqWvXff2w-BbVwGrZbwhp435QXATa6q2uuNbysQ58YQW3SdmsNHRbQ7jjvff2Xqo8RLuKY~Y2gmWeUmVsrGRVKgzU91ylxGxqFM80i~ugheEegUi60SJW4bTag1rx8AyyF02MNouEQmdbtMI6mMIcXGMtWdwGkYPR80r-lV9QqD8cSwcWMVswRTsb-f9GA8MA3dVeydv4u55U0p-8mbXz9k91Ypu2gpZWOyhvFpxfK-PQDETHQ__"
+                src={selectCategoryItem?.url}
                 alt=""
               />
               <h1 className="text-[20px] font-[500] text-[#000] mt-[22px]">
-                Yashil karam sho’rva
+                {selectCategoryItem?.title}
               </h1>
               <h2 className="text-[20px] font-[600] text-[#2E90FA] mt-[8px]">
-                34,000 so’m
+                {selectCategoryItem?.price}
               </h2>
               <p className="text-[16px] font-[400] mt-[12px] text-[#475467]">
                 Bu yashil karom (karam) va boshqa sabzavotlar bilan
@@ -53,13 +54,22 @@ export default function CategoryDialog() {
                 immunitetni oshirish uchun juda yaxshi tanlovdir.
               </p>
               <div className="grid grid-cols-3 gap-[12px] mt-[18px]">
-                <div className="col-span-1 flex justify-between items-center bg-[#F2F4F7] py-[10px] rounded-[12px] px-[6px]">
-                  <img src={minus} alt="" />
-                  <h1 className="text-[16px] font-[600] text-[#2E90FA]">3</h1>
-                  <img src={plus} alt="" />
-                </div>
-                <div className="col-span-2 bg-[#2E90FA] rounded-[12px] py-[10px] text-center text-[18px] font-[500] text-[#fff]">
-                  34,000 so’m
+                {selectCategoryItem?.quantity > 0 && (
+                  <div className="col-span-1 flex justify-between items-center bg-[#F2F4F7] py-[10px] rounded-[12px] px-[6px]">
+                    <img src={minus} alt="" />
+                    <h1 className="text-[16px] font-[600] text-[#2E90FA]">3</h1>
+                    <img src={plus} alt="" />
+                  </div>
+                )}
+
+                <div
+                  className={`${
+                    selectCategoryItem?.quantity > 0
+                      ? "col-span-2"
+                      : "col-span-3"
+                  } bg-[#2E90FA] cursor-pointer rounded-[12px] py-[10px] text-center text-[18px] font-[500] text-[#fff]`}
+                >
+                  {selectCategoryItem?.price}
                 </div>
               </div>
             </section>
