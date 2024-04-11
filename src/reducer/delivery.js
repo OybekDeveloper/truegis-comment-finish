@@ -6,6 +6,8 @@ export const initialState = {
   selectCategory: false,
   selectCategoryId: "",
   activeCatgory:foods[0],
+  totalPrice:"",
+  items:[]
 };
 
 export const deliverySlice = createSlice({
@@ -30,6 +32,12 @@ export const deliverySlice = createSlice({
     },
     SelectCategoryActive:(state,action)=>{
       state.activeCatgory=action.payload;
+
+    },
+    AddProductItem:(state,action)=>{
+
+    },
+    MinusProductItem:(state,action)=>{
 
     }
   },

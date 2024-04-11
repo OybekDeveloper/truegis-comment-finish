@@ -56,7 +56,7 @@ const Delivery = () => {
   const userId = localStorage.getItem("userId");
   const tg = window.Telegram.WebApp;
   const navigate = useNavigate();
-  const { openMenu, openLang, activeCatgory } = useSelector(
+  const { openMenu, openLang, activeCatgory ,selectCategory } = useSelector(
     (state) => state.delivery
   );
   const dispatch = useDispatch();
@@ -74,6 +74,7 @@ const Delivery = () => {
 
   const handleActiveCtg = (data) => {
     dispatch(SelectCategoryActive(data));
+
   };
 
   const handleClickMenu = (url) => {
@@ -82,7 +83,16 @@ const Delivery = () => {
     } else {
       navigate(url);
     }
+    dispatch(OpenDeliveryMenu(false))
   };
+
+  const handleAddItem=()=>{
+    
+  }
+
+  const handleMinusItem=()=>{
+
+  }
 
   const back = () => {
     navigate(`/${placeId}/${userId}/12`);
@@ -94,22 +104,20 @@ const Delivery = () => {
   useEffect(() => {
     const body = document.body;
     const blur = document.querySelector("#back-effect");
-    if (openMenu || openLang) {
+    if (openMenu || openLang || selectCategory) {
       body.classList.add("no-scroll");
       blur.classList.add("back-effect");
     } else {
       body.classList.remove("no-scroll");
       blur.classList.remove("back-effect");
     }
-  }, [openMenu, openLang]);
+  }, [openMenu, openLang,selectCategory]);
 
-  useEffect(() => {
-    dispatch(OpenDeliveryMenu(false));
-  }, [pathname]);
 
-  useEffect(() => {
-    if (isClickedOutside) dispatch(OpenDeliveryMenu(false));
-  }, [isClickedOutside]);
+
+  // useEffect(() => {
+  //   if (isClickedOutside) dispatch(OpenDeliveryMenu(false));
+  // }, [isClickedOutside]);
 
   useEffect(() => {
     navigate("/delivery/home");
@@ -122,7 +130,7 @@ const Delivery = () => {
           <section className="shadow-shadow-xs flex justify-between items-center w-full py-[17px]">
             <div
               onClick={handelOpenMenu}
-              className="cursor-pointer w-[48px] h-[48px] rounded-full flex justify-center items-center bg-[#f2f4f7] border-[1px] border-solid text[#475467] text-[12px] font-[600]"
+              className="cursor-pointer w-[48px] h-[48px] rounded-full flex justify-center items-center bg-[#f2f4f7] text-[#475467] border-[1px] border-solid text[#475467] text-[12px] font-[600]"
             >
               OR
             </div>
@@ -181,7 +189,7 @@ const Delivery = () => {
       <motion.section
         initial={{ opacity: 0, x: "-100%" }}
         animate={{ opacity: 1, x: openMenu ? 0 : "-100%" }}
-        exit={{ opacity: 0, x: 0 }}
+        exit={{ opacity: 0, x:'-100%' }}
         transition={{ duration: 0.5 }}
         className="fixed top-0 left-0 w-[80%] h-screen bg-[#fff] p-[16px] z-20"
       >
@@ -228,7 +236,7 @@ const Delivery = () => {
       >
         <DeliveryLang />
       </motion.section>
-      {openMenu && (
+      {(openMenu || openLang) && (
         <div
           ref={ref}
           className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-40 z-10"

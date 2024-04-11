@@ -9,7 +9,7 @@ const OrderHisotry = () => {
 
   return (
     <div>
-      <section className="bg-[#fff] shadow-shadow-xs w-full flex items-center justify-between mb-[24px] py-[17px]">
+      <section className="min-h-screen bg-[#fff] shadow-shadow-xs w-full flex items-center justify-between mb-[24px] py-[17px]">
         <img
           onClick={handleClose}
           className="cursor-pointer"

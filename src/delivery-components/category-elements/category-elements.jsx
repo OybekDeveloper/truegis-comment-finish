@@ -14,12 +14,9 @@ const CategoryElements = () => {
     <Suspense fallback={<LoadingC />}>
       <main className="grid grid-cols-2 gap-x-[16px] gap-y-[32px] mt-[32px]">
         {activeCatgory.props.map((item, idx) => (
-          <div
-            onClick={() => handleShow(item.id)}
-            key={idx}
-            className="flex flex-col gap-[8px] cursor-pointer"
-          >
+          <div key={idx} className="flex flex-col gap-[8px] cursor-pointer">
             <img
+              onClick={() => handleShow(item.id)}
               className="rounded-[12px] w-[156px] h-[150px] object-cover"
               src={item.url}
               alt=""

@@ -32,8 +32,8 @@ const DeliveryLang = () => {
     dispatch(OpenLangMenu());
   };
   return (
-    <main className="w-full px-[16px] max-w-[400px] mx-auto bg-[#FFF]">
-      <section className="flex items-center justify-between py-[17px] shadow-shadow-xs">
+    <main className="w-full max-w-[400px] mx-auto bg-[#FFF] h-screen">
+      <section className="flex items-center justify-between py-[17px] shadow-shadow-xs w-full">
         <img
           className="cursor-pointer"
           onClick={handleOpenLang}
