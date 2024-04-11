@@ -224,7 +224,7 @@ const Delivery = () => {
         animate={{ opacity: 1, x: openLang ? 0 : "100%" }}
         exit={{ opacity: 0, x: 0 }}
         transition={{ duration: 0.5 }}
-        className="menu fixed top-0 left-0 w-[100%] h-screen bg-[#fff] p-[16px] z-20"
+        className="menu fixed top-0 left-0 w-[100%] h-screen bg-[#fff] px-[16px] z-20"
       >
         <DeliveryLang />
       </motion.section>

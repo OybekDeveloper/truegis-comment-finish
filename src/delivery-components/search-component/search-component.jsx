@@ -59,7 +59,7 @@ const SearchComponent = () => {
       variants={variants}
       animate={isExpanded ? "expand" : "exit"}
       initial={"exit"}
-      className={`absolute bg-white w-full flex justify-start items-start flex-col pt-[24px] mb-[24px] px-[16px]`}
+      className={`absolute bg-white w-full flex justify-start items-start flex-col mb-[24px] px-[16px]`}
     >
       {isExpanded && (
         <section className="w-full flex items-center justify-between py-[17px] shadow-shadow-xs">
