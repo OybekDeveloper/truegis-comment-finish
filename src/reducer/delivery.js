@@ -5,9 +5,10 @@ export const initialState = {
   openLang: false,
   selectCategory: false,
   selectCategoryItem: {},
-  activeCatgory:foods[0],
-  totalPrice:"",
-  items:[]
+  activeCatgory: foods[0],
+  totalPrice: "",
+  items: [],
+  foods: foods,
 };
 
 export const deliverySlice = createSlice({
@@ -30,19 +31,91 @@ export const deliverySlice = createSlice({
       state.selectCategory = !state.selectCategory;
       state.selectCategoryItem = action.payload;
     },
-    SelectCategoryActive:(state,action)=>{
-      state.activeCatgory=action.payload;
-
+    SelectCategoryActive: (state, action) => {
+      state.activeCatgory = action.payload;
     },
-    AddProductItem:(state,action)=>{
+    AddProductItem: (state, action) => {
+      if (action.payload) {
+        const [foodId, categoryId] = action.payload;
 
+        // Find the category object by categoryId
+        const categoryIndex = state.foods.findIndex(
+          (food) => food.food_id === categoryId
+        );
+
+        if (categoryIndex > -1) {
+          const category = state.foods[categoryIndex];
+          const findItemIndex = category.props.findIndex(
+            (item) => item.id === foodId
+          );
+
+          if (findItemIndex !== -1) {
+            // If item exists, increment its quantity
+            const updatedFoods = state.foods.map((food, index) => {
+              if (index === categoryIndex) {
+                const updatedProps = food.props.map((item, itemIndex) => {
+                  if (itemIndex === findItemIndex) {
+                    return {
+                      ...item,
+                      quantity: item.quantity + 1,
+                    };
+                  }
+                  return item;
+                });
+
+                return {
+                  ...food,
+                  props: updatedProps,
+                };
+              }
+              return food;
+            });
+
+            return {
+              ...state,
+              foods: updatedFoods,
+            };
+          } else {
+            // If item doesn't exist, add it with quantity 1
+            const newItem = {
+              id: foodId,
+              quantity: 1,
+            };
+
+            const updatedProps = [...category.props, newItem];
+
+            const updatedFoods = state.foods.map((food, index) => {
+              if (index === categoryIndex) {
+                return {
+                  ...food,
+                  props: updatedProps,
+                };
+              }
+              return food;
+            });
+
+            return {
+              ...state,
+              foods: updatedFoods,
+            };
+          }
+        }
+      }
+
+      // Return the current state if action payload is invalid or no changes are made
+      return state;
     },
-    MinusProductItem:(state,action)=>{
 
-    }
+    MinusProductItem: (state, action) => {},
   },
 });
 
-export const {SelectCategoryActive, OpenDeliveryMenu, OpenLangMenu, SelectCategoryModal } =
-  deliverySlice.actions;
+export const {
+  SelectCategoryActive,
+  OpenDeliveryMenu,
+  OpenLangMenu,
+  SelectCategoryModal,
+  AddProductItem,
+  MinusProductItem,
+} = deliverySlice.actions;
 export default deliverySlice.reducer;

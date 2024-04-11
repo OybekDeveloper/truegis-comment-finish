@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import "./delivery.scss";
 import {
   basket,
-  burger,
   close,
   down,
   exit,
@@ -21,7 +20,6 @@ import {
 } from "../../reducer/delivery";
 import DeliveryLang from "../delivery-lang/delivery-lang";
 import SearchComponent from "../search-component/search-component";
-import { foods } from "../foods-image/foodsData";
 import { useClickOutside } from "react-click-outside-hook";
 
 const menuitem = [
@@ -56,7 +54,7 @@ const Delivery = () => {
   const userId = localStorage.getItem("userId");
   const tg = window.Telegram.WebApp;
   const navigate = useNavigate();
-  const { openMenu, openLang, activeCatgory, selectCategory } = useSelector(
+  const { openMenu, openLang, activeCatgory, selectCategory ,foods} = useSelector(
     (state) => state.delivery
   );
   const dispatch = useDispatch();
@@ -117,7 +115,7 @@ const Delivery = () => {
   }, []);
 
   return (
-    <div className={`px-[16px] delivery bg-white relative mb-[20px]`}>
+    <div className={`px-[16px] delivery bg-white relative`}>
       {pathname === "/delivery/home" && (
         <>
           <section className="shadow-shadow-xs flex justify-between items-center w-full py-[17px]">
@@ -237,6 +235,18 @@ const Delivery = () => {
           className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-40 z-10"
         ></div>
       )}
+      <motion.div
+        initial={{ opacity: 0, y: "100%" }}
+        animate={{ opacity: 1, y: true ? 0 : "100%" }}
+        exit={{ opacity: 0, y: "100%" }}
+        transition={{ duration: 0.5 }}
+        className="w-full fixed bottom-[-10px] left-0 p-[16px] z-20 max-w-[400px]"
+      >
+        <button className="bg-[#2E90FA] w-full rounded-[8px] flex justify-between items-center p-[8px]">
+          <h1 className="text-[#fff] text-[18px] font-[400]">3 ta mahsulot</h1>
+          <p className="text-[#fff] text-[18px] font-[500]">78,000 so’m</p>
+        </button>
+      </motion.div>
     </div>
   );
 };
