@@ -117,7 +117,7 @@ const {
 } = Ichimliklar;
 export const foods = [
   {
-    id: 1,
+    food_id: 1,
     title: "Birinchi taomlar",
     link: "birinchi-taomlar",
     url:chuchvara,
@@ -197,7 +197,7 @@ export const foods = [
     ],
   },
   {
-    id: 2,
+    food_id: 2,
     title: "Shashlik",
     link: "shashlik",
     url:shashlik10,
@@ -319,7 +319,7 @@ export const foods = [
     ],
   },
   {
-    id: 3,
+    food_id: 3,
     title: "Salatlar",
     link: "salatlar",
     url:bahorsalat,
@@ -561,7 +561,7 @@ export const foods = [
     ],
   },
   {
-    id: 4,
+    food_id: 4,
     title: "Samarqand Osh",
     link: "samarqand-osh",
     url:samarqandosh7,
@@ -665,7 +665,7 @@ export const foods = [
     ],
   },
   {
-    id: 5,
+    food_id: 5,
     title: "Milliy taomlar",
     link: "milliy-taomlar",
     url:chaxoxbili,
@@ -733,7 +733,7 @@ export const foods = [
     ],
   },
   {
-    id: 6,
+    food_id: 6,
     title: "Yevropa taomlari",
     link: "yevropa-taomlari",
     url:balonezapastasi,
@@ -915,7 +915,7 @@ export const foods = [
     ],
   },
   {
-    id: 7,
+    food_id: 7,
     title: "Ichimliklar",
     link: "ichimliklar",
     url:suv,

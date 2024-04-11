@@ -8,12 +8,11 @@ import About from "../about/about";
 import AddComment from "../comment/add-comment";
 import EditComment from "../comment/edit-comment";
 import i18n from "i18next";
-import { initReactI18next, useTranslation } from "react-i18next";
+import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import HttpApi from "i18next-http-backend";
 import LoadingT from "../loading/loading";
-import { Delivery } from "../../delivery-components/delivery/delivery";
-import CategoryElements from "../../delivery-components/category-elements.jsx/category-elements";
+import { Delivery,CategoryElements, Basket, PersonalInfo, OrderHistory} from "../../delivery-components";
 const tg = window.Telegram.WebApp;
 console.log(localStorage.getItem("userId"));
 i18n
@@ -104,6 +103,9 @@ export default function App() {
             />
             <Route path={`/delivery`} element={<Delivery />}>
               <Route path="home" element={<CategoryElements />} />
+              <Route path="basket" element={<Basket />} />
+              <Route path="personal-info" element={<PersonalInfo />} />
+              <Route path="order-history" element={<OrderHistory />} />
             </Route>
           </Routes>
         </div>

@@ -10,11 +10,11 @@ import personal from "./personal.svg";
 import history from "./history.svg";
 import basket from "./basket.svg";
 import exit from "./exit.svg";
-import back from './back.svg'
-import uzb from './uzbekistán.svg'
-import eng from './united states.svg'
-import rus from './russian.svg'
-
+import back from "./back.svg";
+import uzb from "./uzbekistán.svg";
+import eng from "./united states.svg";
+import rus from "./russian.svg";
+import trash from "./trash1.svg";
 export {
   web,
   down,
@@ -31,5 +31,6 @@ export {
   back,
   eng,
   uzb,
-  rus
+  rus,
+  trash,
 };

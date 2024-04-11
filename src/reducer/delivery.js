@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { foods } from "../delivery-components/foods-image/foodsData";
 export const initialState = {
   openMenu: false,
   openLang: false,
   selectCategory: false,
   selectCategoryId: "",
+  activeCatgory:foods[0],
 };
 
 export const deliverySlice = createSlice({
@@ -26,9 +28,13 @@ export const deliverySlice = createSlice({
       state.selectCategory = !state.selectCategory;
       state.selectCategoryId = action.payload;
     },
+    SelectCategoryActive:(state,action)=>{
+      state.activeCatgory=action.payload;
+
+    }
   },
 });
 
-export const { OpenDeliveryMenu, OpenLangMenu, SelectCategoryModal } =
+export const {SelectCategoryActive, OpenDeliveryMenu, OpenLangMenu, SelectCategoryModal } =
   deliverySlice.actions;
 export default deliverySlice.reducer;
