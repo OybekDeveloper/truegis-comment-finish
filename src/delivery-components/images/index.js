@@ -15,6 +15,13 @@ import uzb from "./uzbekistán.svg";
 import eng from "./united states.svg";
 import rus from "./russian.svg";
 import trash from "./trash1.svg";
+import home from "./home.svg";
+import rightarrow from "./right-arrov.svg";
+import money from "./money.svg";
+import card from "./card.svg";
+import success from "./success1.svg";
+import deleteicon from "./delete-icon.svg";
+import exitdoor from './exit-door.svg'
 export {
   web,
   down,
@@ -33,4 +40,11 @@ export {
   uzb,
   rus,
   trash,
+  home,
+  rightarrow,
+  money,
+  card,
+  success,
+  deleteicon,
+  exitdoor
 };

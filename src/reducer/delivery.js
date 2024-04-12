@@ -9,6 +9,9 @@ export const initialState = {
   totalPrice: "",
   items: [],
   foods: foods,
+  sendOrder: false,
+  deleteFood: false,
+  exitUser:false,
 };
 
 export const deliverySlice = createSlice({
@@ -33,7 +36,7 @@ export const deliverySlice = createSlice({
     },
     SelectCategoryActive: (state, action) => {
       state.activeCatgory = action.payload;
-      state.selectCategory=false;
+      state.selectCategory = false;
     },
     AddProductItem: (state, action) => {
       if (action.payload) {
@@ -108,6 +111,15 @@ export const deliverySlice = createSlice({
     },
 
     MinusProductItem: (state, action) => {},
+    SendOrderItem: (state, action) => {
+        state.sendOrder = action.payload;
+    },
+    DeleteFoodItem: (state, action) => {
+      state.deleteFood = action.payload;
+    },
+    ExitUserModal:(state,action) => {
+      state.exitUser=action.payload
+    }
   },
 });
 
@@ -118,5 +130,8 @@ export const {
   SelectCategoryModal,
   AddProductItem,
   MinusProductItem,
+  SendOrderItem,
+  DeleteFoodItem,
+  ExitUserModal
 } = deliverySlice.actions;
 export default deliverySlice.reducer;

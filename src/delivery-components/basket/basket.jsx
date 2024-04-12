@@ -2,11 +2,19 @@ import React from "react";
 import { back, minus, plus, trash } from "../images";
 import { useNavigate } from "react-router-dom";
 import { foods } from "../foods-image/foodsData";
+import { motion } from "framer-motion";
+import SuccussModal from "../billing-info/success-modal";
+import { DeleteFoodItem } from "../../reducer/delivery";
+import { useDispatch } from "react-redux";
+import DeleteItems from "./delete-items";
 const Basket = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const handleClose = () => {
     navigate(-1);
+  };
+  const handleClearBasket = () => {
+    dispatch(DeleteFoodItem(true));
   };
   return (
     <main>
@@ -18,7 +26,7 @@ const Basket = () => {
           alt=""
         />
         <h1 className="text-[20px] font-[500] texxt-[#000]">Savat</h1>
-        <img src={trash} alt="" />
+        <img className="cursor-pointer" onClick={handleClearBasket} src={trash} alt="" />
       </section>
       <section className="flex flex-col gap-[24px]">
         {foods[0].props.map((item, idx) => (
@@ -46,6 +54,23 @@ const Basket = () => {
           </div>
         ))}
       </section>
+      <motion.div
+        initial={{ opacity: 0, y: "100%" }}
+        animate={{ opacity: 1, y: true ? 0 : "100%" }}
+        exit={{ opacity: 0, y: "100%" }}
+        transition={{ duration: 0.5 }}
+        className="w-full mx-auto flex justify-center fixed bottom-[-10px] p-[16px] z-10 left-0 bg-white"
+      >
+        <button
+          onClick={() => navigate("/delivery/order-type")}
+          className="bg-[#2E90FA] w-full rounded-[8px] flex justify-between items-center py-[8px] px-[16px]"
+        >
+          <h1 className="text-[#fff] text-[18px] font-[400]">3 ta mahsulot</h1>
+          <p className="text-[#fff] text-[18px] font-[500]">78,000 so’m</p>
+        </button>
+      </motion.div>
+      <SuccussModal />
+      <DeleteItems />
     </main>
   );
 };
