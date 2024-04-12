@@ -32,7 +32,7 @@ const PersonalInfo = () => {
             Familiya va ismingiz
           </label>
           <input
-            className="px-[14px] py-[10px] border-[1px] border-solid border-[#D0D5DD] rounded-[8px] w-full"
+            className="text-[#344054] text-[18px] font-[500] px-[14px] py-[10px] border-[1px] border-solid border-[#D0D5DD] rounded-[8px] w-full"
             type="text"
             placeholder=""
             value={"John Doe"}

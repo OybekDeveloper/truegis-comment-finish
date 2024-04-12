@@ -12,6 +12,13 @@ export default function CategoryDialog() {
     dispatch(SelectCategoryModal());
   }
 
+  function formatPrice(price) {
+    // Formatni "20,300" yoki "1,000" shaklida olish
+    const formattedPrice = new Intl.NumberFormat("en-US").format(price);
+  
+    return formattedPrice;
+  }
+
   console.log(selectCategoryItem);
   return (
     <div className="">
@@ -44,7 +51,7 @@ export default function CategoryDialog() {
                 {selectCategoryItem?.title}
               </h1>
               <h2 className="text-[20px] font-[600] text-[#2E90FA] mt-[8px]">
-                {selectCategoryItem?.price}
+                {formatPrice(selectCategoryItem?.price)} so'm
               </h2>
               <p className="text-[16px] font-[400] mt-[12px] text-[#475467]">
                 Bu yashil karom (karam) va boshqa sabzavotlar bilan
@@ -69,7 +76,7 @@ export default function CategoryDialog() {
                       : "col-span-3"
                   } bg-[#2E90FA] cursor-pointer rounded-[12px] py-[10px] text-center text-[18px] font-[500] text-[#fff]`}
                 >
-                  {selectCategoryItem?.price}
+                  {formatPrice(selectCategoryItem?.price)} so'm
                 </div>
               </div>
             </section>

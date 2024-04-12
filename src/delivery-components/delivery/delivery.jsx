@@ -240,7 +240,7 @@ const Delivery = () => {
         animate={{ opacity: 1, y: true ? 0 : "100%" }}
         exit={{ opacity: 0, y: "100%" }}
         transition={{ duration: 0.5 }}
-        className="w-full fixed bottom-[-10px] left-0 p-[16px] z-20 max-w-[400px]"
+        className="w-full fixed bottom-[-10px] left-0 p-[16px] z-10 max-w-[400px]"
       >
         <button className="bg-[#2E90FA] w-full rounded-[8px] flex justify-between items-center p-[8px]">
           <h1 className="text-[#fff] text-[18px] font-[400]">3 ta mahsulot</h1>

@@ -13,8 +13,16 @@ const CategoryItem = ({ item, categoryId }) => {
   const handleAddItem = (id, categoryId) => {
     dispatch(AddProductItem([id, categoryId]));
   };
+
+  function formatPrice(price) {
+    // Formatni "20,300" yoki "1,000" shaklida olish
+    const formattedPrice = new Intl.NumberFormat("en-US").format(price);
+  
+    return formattedPrice;
+  }
+
   return (
-    <div className="flex flex-col gap-[8px] cursor-pointer">
+    <div className="flex flex-col gap-[8px] cursor-pointer mb-[60px]">
       <img
         onClick={() => handleShow(item)}
         className="rounded-[12px] w-full h-[150px] object-cover"
@@ -42,7 +50,7 @@ const CategoryItem = ({ item, categoryId }) => {
           onClick={() => handleAddItem(item.id, categoryId)}
           className="flex justify-center items-center px-[16px] py-[8px] rounded-[12px] bg-[#F2F4F7] cursor-pointer text-[#2E90FA] text-[14px] font-[500]"
         >
-          {item.price}
+          {formatPrice(item.price)} so'm
         </div>
       )}
     </div>
