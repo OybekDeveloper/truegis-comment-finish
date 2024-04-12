@@ -33,6 +33,7 @@ export const deliverySlice = createSlice({
     },
     SelectCategoryActive: (state, action) => {
       state.activeCatgory = action.payload;
+      state.selectCategory=false;
     },
     AddProductItem: (state, action) => {
       if (action.payload) {

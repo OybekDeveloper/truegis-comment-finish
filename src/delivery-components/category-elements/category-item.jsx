@@ -17,29 +17,31 @@ const CategoryItem = ({ item, categoryId }) => {
   function formatPrice(price) {
     // Formatni "20,300" yoki "1,000" shaklida olish
     const formattedPrice = new Intl.NumberFormat("en-US").format(price);
-  
+
     return formattedPrice;
   }
 
   return (
-    <div className="flex flex-col gap-[8px] cursor-pointer mb-[60px]">
+    <div className="flex flex-col gap-[8px] cursor-pointer">
       <img
         onClick={() => handleShow(item)}
         className="rounded-[12px] w-full h-[150px] object-cover"
-        src={item.url}
+        src={item?.url}
         alt=""
       />
       <h1 className="text-[14px] font-[500] text-[#475467]">
-        {item.title.length > 20 ? item.title.slice(0, 20) + "..." : item.title}
+        {item?.title.length > 20
+          ? item?.title.slice(0, 20) + "..."
+          : item?.title}
       </h1>
-      {item.quantity > 0 ? (
+      {item?.quantity > 0 ? (
         <div className="flex justify-between items-center px-[16px] py-[8px] rounded-[12px] bg-[#F2F4F7] cursor-pointer">
           <img className="w-[20px] h-[20px] " src={minus} alt="" />
           <h1 className="text-[18px] font-[500] text-[#2E90FA]">
             {item.quantity}
           </h1>
           <img
-            onClick={() => handleAddItem(item.id, categoryId)}
+            onClick={() => handleAddItem(item?.id, categoryId)}
             className="w-[20px] h-[20px] "
             src={plus}
             alt=""
@@ -47,10 +49,10 @@ const CategoryItem = ({ item, categoryId }) => {
         </div>
       ) : (
         <div
-          onClick={() => handleAddItem(item.id, categoryId)}
+          onClick={() => handleAddItem(item?.id, categoryId)}
           className="flex justify-center items-center px-[16px] py-[8px] rounded-[12px] bg-[#F2F4F7] cursor-pointer text-[#2E90FA] text-[14px] font-[500]"
         >
-          {formatPrice(item.price)} so'm
+          {formatPrice(item?.price)} so'm
         </div>
       )}
     </div>

@@ -13,13 +13,10 @@ export default function CategoryDialog() {
   }
 
   function formatPrice(price) {
-    // Formatni "20,300" yoki "1,000" shaklida olish
     const formattedPrice = new Intl.NumberFormat("en-US").format(price);
-  
     return formattedPrice;
   }
 
-  console.log(selectCategoryItem);
   return (
     <div className="">
       <motion.div

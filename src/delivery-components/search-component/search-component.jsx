@@ -3,7 +3,9 @@ import { back, search } from "../images";
 import { motion } from "framer-motion";
 import { foods } from "../foods-image/foodsData";
 import LoadingC from "../loading/loader";
-
+import { SelectCategoryActive } from "../../reducer/delivery";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const variants = {
   expand: {
     height: "100vh",
@@ -31,17 +33,26 @@ const variants = {
 };
 
 const SearchComponent = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [isExpanded, setIsExpanded] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const expandedContainer = () => {
     setIsExpanded(true);
   };
 
-  const handleClose=()=>{
-    setSearchQuery('');
-    setIsExpanded(false)
-  }
+  const handleClose = () => {
+    setSearchQuery("");
+    setIsExpanded(false);
+  };
 
+  const handleActiveCtg = (data) => {
+    const body = document.body;
+    body.classList.remove("no-scroll");
+    dispatch(SelectCategoryActive(data));
+    navigate("/delivery/search-category");
+  };
   useEffect(() => {
     const body = document.body;
     const blur = document.querySelector("#back-effect");
@@ -81,7 +92,7 @@ const SearchComponent = () => {
           placeholder="Mahsulot izlash"
           onFocus={expandedContainer}
           value={searchQuery}
-          onChange={(e)=>setSearchQuery(e.target.value)}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
       </div>
       {isExpanded &&
@@ -123,15 +134,20 @@ const SearchComponent = () => {
             <div className="grid grid-cols-4 gap-x-[30px] gap-y-[24px] mt-[20px]">
               {foods.map((item, idx) => (
                 <div
+                  onClick={() => handleActiveCtg(item)}
                   key={idx}
-                  className="flex flex-col items-center justify-start cursor-pointer"
+                  className="flex flex-col items-center justify-start cursor-pointer gap-[8px] whitespace-nowrap"
                 >
                   <img
                     className="w-[48px] h-[48px] rounded-full object-cover "
                     src={item.url}
                     alt=""
                   />
-                  <h1>{item.title.slice(0, 10)}</h1>
+                  <h1 className="font-[500] text-[14px] text-[#475467]">
+                    {item.title.length > 8
+                      ? item.title.slice(0, 8)+"..."
+                      : item.title}
+                  </h1>
                 </div>
               ))}
             </div>
