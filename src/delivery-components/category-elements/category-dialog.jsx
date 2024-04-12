@@ -23,10 +23,10 @@ export default function CategoryDialog() {
         initial={{ y: "100%" }}
         animate={{ y: selectCategory ? "0" : "100%" }}
         transition={{ duration: "0.7" }}
-        className="fixed inset-0 overflow-y-auto z-[100] "
+        className="fixed inset-0 overflow-y-auto z-[100]"
       >
         <div className="flex min-h-full items-center justify-center p-4 text-center">
-          <div className="bg-[#fff] absolute bottom-0 w-full max-w-md transform overflow-hidden min-h-[50%] rounded-t-2xl tg-bg-color p-6 text-left align-middle shadow-xl transition-all z-[999]">
+          <div className="bg-[#fff] absolute bottom-0 w-full max-w-md transform overflow-hidden min-h-[50%] rounded-t-2xl p-6 text-left align-middle shadow-xl transition-all z-[999]">
             <section className="w-full">
               <div className="w-full flex justify-center items-center relative">
                 <div className="bg-[#d9d9d9]  w-[23px] h-[4px] rounded-[2px]"></div>
