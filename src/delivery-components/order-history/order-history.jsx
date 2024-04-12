@@ -1,11 +1,19 @@
 import React from "react";
 import { back } from "../images";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 const OrderHisotry = () => {
   const navigate = useNavigate();
   const handleClose = () => {
-    navigate(-1);
+    navigate('/delivery/home');
   };
+
+  const handleShowDelivered=() => {  
+    navigate(`/delivery/delivered/12`)
+  }
+  const handleShowBeDelivered=()=>{
+    navigate(`/delivery/be-delivered/12`)
+
+  }
 
   return (
     <div className="min-h-screen">
@@ -23,7 +31,7 @@ const OrderHisotry = () => {
       </section>
       <section className="flex w-full flex-col mt-[24px] gap-[32px]">
         {[1, 2, 3, 4].map((item, idx) => (
-          <div className="flex justify-between items-center">
+          <div onClick={handleShowBeDelivered} className="flex justify-between items-center cursor-pointer">
             <div>
               <h1 className="text-[18px] font-[500] text-[#344054]">
                 3x Samarqand oshi
@@ -31,6 +39,23 @@ const OrderHisotry = () => {
               <p className="text-[#2E90FA] font-[400] text-[16px]">
                 Yetkazilmoqda{" "}
               </p>
+            </div>
+            <h1 className="text-[#2E90FA] text-[18px] font-[500]">
+              222,000 so’m
+            </h1>
+          </div>
+        ))}
+        {[1, 2, ].map((item, idx) => (
+          <div onClick={handleShowDelivered} className="flex justify-between items-center cursor-pointer">
+            <div>
+              <h1 className="text-[18px] font-[500] text-[#344054]">
+                3x Samarqand oshi
+              </h1>
+              <div>
+                <h1 className="text-[16px] font-[400] text-[#17B26A]">
+                Yetkazildi <span className="text-[#667085]">3 Aprel 2024</span>
+                </h1>
+              </div>
             </div>
             <h1 className="text-[#2E90FA] text-[18px] font-[500]">
               222,000 so’m

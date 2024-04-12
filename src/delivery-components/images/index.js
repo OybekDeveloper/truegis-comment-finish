@@ -22,6 +22,9 @@ import card from "./card.svg";
 import success from "./success1.svg";
 import deleteicon from "./delete-icon.svg";
 import exitdoor from './exit-door.svg'
+import date from './date.svg'
+import location from "./location.svg";
+import time from "./time.svg";
 export {
   web,
   down,
@@ -46,5 +49,8 @@ export {
   card,
   success,
   deleteicon,
-  exitdoor
+  exitdoor,
+  date,
+  location,
+  time
 };

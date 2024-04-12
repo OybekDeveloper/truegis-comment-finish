@@ -79,7 +79,7 @@ const OrderType = () => {
         className="w-full mx-auto flex justify-center fixed bottom-[-10px] p-[16px] z-10 left-0 bg-white"
       >
         <button
-          onClick={() => navigate("/delivery/billing-info")}
+          onClick={() => navigate("/delivery/billing-info-away")}
           className="bg-[#2E90FA] w-full flex justify-center items-center rounded-[8px] py-[8px] px-[16px]"
         >
           <h1 className="text-[#fff] text-[18px] font-[400]">Davom etish</h1>

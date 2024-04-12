@@ -112,7 +112,7 @@ const Delivery = () => {
   // }, [isClickedOutside]);
 
   useEffect(() => {
-    // navigate("/delivery/home");
+    navigate("/delivery/home");
   }, []);
 
   return (
@@ -244,12 +244,12 @@ const Delivery = () => {
       >
         <DeliveryLang />
       </motion.section>
-      {(openMenu || openLang) && (
-        <div
-          ref={ref}
-          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-40 z-10"
-        ></div>
-      )}
+        {(openMenu || openLang) && (
+          <div
+            ref={ref}
+            className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-40 z-10"
+          ></div>
+        )}
       <ExitUser/>
     </div>
   );

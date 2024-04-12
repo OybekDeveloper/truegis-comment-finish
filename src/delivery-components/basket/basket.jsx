@@ -11,7 +11,7 @@ const Basket = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClose = () => {
-    navigate(-1);
+    navigate("/delivery/home");
   };
   const handleClearBasket = () => {
     dispatch(DeleteFoodItem(true));

@@ -12,7 +12,19 @@ import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import HttpApi from "i18next-http-backend";
 import LoadingT from "../loading/loading";
-import { Delivery,CategoryElements, Basket, PersonalInfo, OrderHistory, SearchCategory, OrderType, BillingInfo} from "../../delivery-components";
+import {
+  Delivery,
+  CategoryElements,
+  Basket,
+  PersonalInfo,
+  OrderHistory,
+  SearchCategory,
+  OrderType,
+  Delivered,
+  BeDelivered,
+  BillingInfoDeliver,
+} from "../../delivery-components";
+import BillingInfoAway from "../../delivery-components/billing-info/billing-info-away";
 const tg = window.Telegram.WebApp;
 console.log(localStorage.getItem("userId"));
 i18n
@@ -106,9 +118,15 @@ export default function App() {
               <Route path="basket" element={<Basket />} />
               <Route path="personal-info" element={<PersonalInfo />} />
               <Route path="order-history" element={<OrderHistory />} />
+              <Route path="delivered/:id" element={<Delivered />} />
+              <Route path="be-delivered/:id" element={<BeDelivered />} />
               <Route path="search-category" element={<SearchCategory />} />
               <Route path="order-type" element={<OrderType />} />
-              <Route path="billing-info" element={<BillingInfo />} />
+              <Route
+                path="billing-info-deliver"
+                element={<BillingInfoDeliver />}
+              />
+              <Route path="billing-info-away" element={<BillingInfoAway />} />
             </Route>
           </Routes>
         </div>

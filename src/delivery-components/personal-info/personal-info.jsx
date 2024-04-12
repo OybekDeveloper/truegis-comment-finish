@@ -7,7 +7,7 @@ const PersonalInfo = () => {
   const navigate = useNavigate();
 
   const handleClose = () => {
-    navigate(-1);
+    navigate('/delivery/home');
   };
   return (
     <main className="h-screen">
