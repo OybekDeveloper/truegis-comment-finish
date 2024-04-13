@@ -41,6 +41,7 @@ export default function About() {
       setLoading(false);
     }, 500);
   }, [placeData.about]);
+  console.log(placeData)
   return (
     <main className="about">
       {loading ? (
@@ -50,7 +51,8 @@ export default function About() {
           {placeData.info || aboutData.length > 0 ? (
             <>
               <section className="relative mt-[24px] mx-[16px]">
-                <h1 className="text-justify text-[16px] font-400">
+              <div dangerouslySetInnerHTML={{ __html: placeData.info }} />
+                {/* <h1 className="text-justify text-[16px] font-400">
                   {fullText ? (
                     <span className="full-text">{placeData.info}</span>
                   ) : (
@@ -64,7 +66,7 @@ export default function About() {
                       </span>
                     </>
                   )}
-                </h1>
+                </h1> */}
               </section>
 
               {aboutData.length > 0 && (

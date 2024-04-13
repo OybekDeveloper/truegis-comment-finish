@@ -2,7 +2,11 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { DeleteFoodItem, SendOrderItem } from "../../reducer/delivery";
+import {
+  ClearBasket,
+  DeleteFoodItem,
+  SendOrderItem,
+} from "../../reducer/delivery";
 import { close, deleteicon, success } from "../images";
 export default function DeleteItems() {
   const { deleteFood } = useSelector((state) => state.delivery);
@@ -12,6 +16,11 @@ export default function DeleteItems() {
     dispatch(DeleteFoodItem(false));
   }
   const handleEnd = () => {
+    dispatch(DeleteFoodItem(false));
+  };
+
+  const handleClear = () => {
+    dispatch(ClearBasket());
     dispatch(DeleteFoodItem(false));
   };
   return (
@@ -59,8 +68,15 @@ export default function DeleteItems() {
                       Savatni tozalash{" "}
                     </h1>
                     <div className="flex flex-col items-center justify-center gap-[12px]">
-                      <button className="text-[18px] text-[#fff] w-full px-[14px] py-[10px] rounded-[8px] bg-[#D92D20]">Tozalash </button>
-                      <button className="text-[18px] text-[#000] w-full px-[14px] py-[10px] rounded-[8px] border-[1px] border-solid border-[#D0D5DD]">Bekor qilish </button>
+                      <button
+                        onClick={handleClear}
+                        className="text-[18px] text-[#fff] w-full px-[14px] py-[10px] rounded-[8px] bg-[#D92D20]"
+                      >
+                        Tozalash{" "}
+                      </button>
+                      <button className="text-[18px] text-[#000] w-full px-[14px] py-[10px] rounded-[8px] border-[1px] border-solid border-[#D0D5DD]">
+                        Bekor qilish{" "}
+                      </button>
                     </div>
                   </div>
                 </Dialog.Panel>

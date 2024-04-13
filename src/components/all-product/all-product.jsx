@@ -200,7 +200,7 @@ export default function AllProduct() {
             className="w-full flex justify-between mb-[20px] px-[16px]"
           >
             <div className="flex justify-start items-center gap-[12px] tg-button-text">
-              <img src={yandex} alt="yandex" />
+              <img className="w-[28px] h-[28px]" src={yandex} alt="yandex" />
               <h1 className="text-[15px] font-[500]">{yandex1} so'm</h1>
             </div>
             {LinkSvg2(
@@ -208,7 +208,7 @@ export default function AllProduct() {
             )}
           </section>
           <div className="hr w-full h-[0.5px] mb-[32px]"></div>
-          {placeData.phone && placeData.website && (
+          {(placeData.phone || placeData.website) && (
             <>
               <section
                 className={`flex flex-col justify-start items-start gap-[20px] mt-[24px] px-[16px]`}

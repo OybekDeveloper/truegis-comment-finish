@@ -31,7 +31,7 @@ const OrderHisotry = () => {
       </section>
       <section className="flex w-full flex-col mt-[24px] gap-[32px]">
         {[1, 2, 3, 4].map((item, idx) => (
-          <div onClick={handleShowBeDelivered} className="flex justify-between items-center cursor-pointer">
+          <div key={idx} onClick={handleShowBeDelivered} className="flex justify-between items-center cursor-pointer">
             <div>
               <h1 className="text-[18px] font-[500] text-[#344054]">
                 3x Samarqand oshi
@@ -45,8 +45,8 @@ const OrderHisotry = () => {
             </h1>
           </div>
         ))}
-        {[1, 2, ].map((item, idx) => (
-          <div onClick={handleShowDelivered} className="flex justify-between items-center cursor-pointer">
+        {[1, 2 ].map((item, idx) => (
+          <div key={idx} onClick={handleShowDelivered} className="flex justify-between items-center cursor-pointer">
             <div>
               <h1 className="text-[18px] font-[500] text-[#344054]">
                 3x Samarqand oshi

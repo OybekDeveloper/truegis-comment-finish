@@ -6,7 +6,10 @@ import CategoryDialog from "./category-dialog";
 import LoadingC from "../loading/loader";
 import CategoryItem from "./category-item";
 const CategoryElements = () => {
-  const { activeCatgory } = useSelector((state) => state.delivery);
+  const { activeCatgory,items,totalPrice } = useSelector((state) => state.delivery);
+
+  console.log(items)
+  console.log(totalPrice)
   return (
     <Suspense fallback={<LoadingC />}>
       <main className="grid grid-cols-2 gap-x-[16px] gap-y-[32px] mt-[32px]  mb-[60px]">

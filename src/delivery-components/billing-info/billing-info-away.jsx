@@ -5,8 +5,9 @@ import checkback from "./Subtract.svg";
 import { motion } from "framer-motion";
 import "./billing-info.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { SendOrderItem } from "../../reducer/delivery";
+import { OpenAwayDate, OpenDeliveryMenu, SendOrderItem } from "../../reducer/delivery";
 import SuccussModal from "./success-modal";
+import DateModal from "./date-modal";
 const BillingInfoAway = () => {
   const navigate = useNavigate();
   const { sendOrder } = useSelector((state) => state.delivery);
@@ -14,6 +15,7 @@ const BillingInfoAway = () => {
 
   const [activeDate, setActiveDate] = useState(false);
   const [activeMap, setActiveMap] = useState(false);
+
 
   const handleClose = () => {
     navigate(-1);
@@ -23,6 +25,10 @@ const BillingInfoAway = () => {
     dispatch(SendOrderItem(true));
     navigate("/delivery/basket");
   };
+
+  const handleOpenDate=(bool)=>{
+    dispatch(OpenAwayDate(bool))
+  }
 
   return (
     <div className="flex flex-col mb-[60px]">
@@ -42,7 +48,7 @@ const BillingInfoAway = () => {
         <h1 className="text-[20px] font-[500] text-[#182230]">Olib ketish</h1>
         <article className="flex justify-between items-start">
           <div className="w-full flex items-start justify-start gap-[8px]">
-            <img src={location} alt="" />
+            <img className="w-[20px] h-[20px]" src={location} alt="" />
             <p className="text-[14px] font-[400] text-[#475467]">
               Filialni tanlash
             </p>
@@ -54,9 +60,11 @@ const BillingInfoAway = () => {
             <img src={rightarrow} alt="" />
           </div>
         </article>
-        <article className="flex justify-between items-start">
+        <article
+          onClick={()=>handleOpenDate(true)}
+        className="flex justify-between items-start cursor-pointer">
           <div className="w-full flex items-start justify-start gap-[8px]">
-            <img src={time} alt="" />
+            <img className="w-[20px] h-[20px]" src={time} alt="" />
             <p className="text-[14px] font-[400] text-[#475467]">
               Olib ketish vaqti
             </p>
@@ -154,7 +162,7 @@ const BillingInfoAway = () => {
       </motion.div>
       <motion.div
         initial={{ opacity: 0, y: "100%" }}
-        animate={{ opacity: 1, y: true ? 0 : "100%" }}
+        animate={{ opacity: 1, y: false ? 0 : "100%" }}
         exit={{ opacity: 0, y: "100%" }}
         transition={{ duration: 0.5 }}
         className="w-full mx-auto flex flex-col justify-center items-center fixed bottom-[-10px] p-[16px] z-[12] left-0 bg-white rounded-t-[16px]"
@@ -184,9 +192,10 @@ const BillingInfoAway = () => {
           </button>
         </div>
       </motion.div>
-      {true && (
+      {false && (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-40 z-10"></div>
       )}
+      <DateModal/>
     </div>
   );
 };

@@ -18,50 +18,53 @@ import {
   OpenDeliveryMenu,
   OpenLangMenu,
   SelectCategoryActive,
+  openPersonalModal,
 } from "../../reducer/delivery";
 import DeliveryLang from "../delivery-lang/delivery-lang";
 import SearchComponent from "../search-component/search-component";
 import { useClickOutside } from "react-click-outside-hook";
 import ExitUser from "./exit-modal";
-
-const menuitem = [
-  {
-    id: 1,
-    title: "Shaxsiy ma’lumotlarim",
-    url: "/delivery/personal-info",
-    icon: personal,
-  },
-  {
-    id: 2,
-    title: "Buyurtmalar tarixi",
-    url: "/delivery/order-history",
-    icon: history,
-  },
-  {
-    id: 3,
-    title: "Savat",
-    url: "/delivery/basket",
-    icon: basket,
-  },
-  {
-    id: 4,
-    title: "Chiqish",
-    url: "",
-    icon: exit,
-  },
-];
+import PersonalModal from "./personal-modal";
 
 const Delivery = () => {
   const placeId = localStorage.getItem("placeId");
   const userId = localStorage.getItem("userId");
   const tg = window.Telegram.WebApp;
   const navigate = useNavigate();
-  const { openMenu, openLang, activeCatgory, selectCategory, foods } =
+  const { openMenu, openLang, activeCatgory, selectCategory, foods, items,totalPrice } =
     useSelector((state) => state.delivery);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const [exit, setExit] = useState(false);
+  const [registter, setRegister] = useState(false);
   const [ref, isClickedOutside] = useClickOutside();
+
+  console.log(foods);
+  const menuitem = [
+    {
+      id: 1,
+      title: "Shaxsiy ma’lumotlarim",
+      url: registter ? "/delivery/personal-info" : "login",
+      icon: personal,
+    },
+    {
+      id: 2,
+      title: "Buyurtmalar tarixi",
+      url: "/delivery/order-history",
+      icon: history,
+    },
+    {
+      id: 3,
+      title: "Savat",
+      url: "/delivery/basket",
+      icon: basket,
+    },
+    {
+      id: 4,
+      title: "Chiqish",
+      url: "",
+      icon: exit,
+    },
+  ];
 
   const handelOpenMenu = () => {
     dispatch(OpenDeliveryMenu());
@@ -77,16 +80,15 @@ const Delivery = () => {
 
   const handleClickMenu = (url) => {
     if (url === "") {
-      dispatch(ExitUserModal(true))
+      dispatch(ExitUserModal(true));
+    }
+    if (url === "login") {
+      dispatch(openPersonalModal(true));
     } else {
       navigate(url);
     }
     dispatch(OpenDeliveryMenu(false));
   };
-
-  const handleAddItem = () => {};
-
-  const handleMinusItem = () => {};
 
   const back = () => {
     navigate(`/${placeId}/${userId}/12`);
@@ -107,14 +109,9 @@ const Delivery = () => {
     }
   }, [openMenu, openLang, selectCategory]);
 
-  // useEffect(() => {
-  //   if (isClickedOutside) dispatch(OpenDeliveryMenu(false));
-  // }, [isClickedOutside]);
-
   useEffect(() => {
-    navigate("/delivery/home");
+    // navigate("/delivery/home");
   }, []);
-
   return (
     <div className={`px-[16px] delivery bg-white relative`}>
       {pathname === "/delivery/home" && (
@@ -153,7 +150,7 @@ const Delivery = () => {
           </section>
           <div className="w-full h-[70px]"></div>
           <SearchComponent />
-          <section className="sticky top-[-3px] bg-[#fff] overflow-x-scroll whitespace-nowrap w-full image-slide mt-[24px] pt-[5px]">
+          <section className="sticky top-[-3px] bg-[#fff] overflow-x-scroll whitespace-nowrap w-full image-slide mt-[24px] pt-[5px] pb-[5px]">
             {foods?.map((item, idx) => (
               <div
                 onClick={() => handleActiveCtg(item)}
@@ -179,16 +176,19 @@ const Delivery = () => {
           </section>
           <motion.div
             initial={{ opacity: 0, y: "100%" }}
-            animate={{ opacity: 1, y: true ? 0 : "100%" }}
+            animate={{ opacity: 1, y: items.length>0 ? 0 : "100%" }}
             exit={{ opacity: 0, y: "100%" }}
             transition={{ duration: 0.5 }}
             className="w-full mx-auto flex justify-center fixed bottom-[-10px] p-[16px] z-10 left-0 bg-white"
           >
-            <button onClick={()=>navigate('/delivery/basket')} className="bg-[#2E90FA] w-full rounded-[8px] flex justify-between items-center py-[8px] px-[16px]">
+            <button
+              onClick={() => navigate("/delivery/basket")}
+              className="bg-[#2E90FA] w-full rounded-[8px] flex justify-between items-center py-[8px] px-[16px]"
+            >
               <h1 className="text-[#fff] text-[18px] font-[400]">
-                3 ta mahsulot
+                {items && items.length} ta mahsulot
               </h1>
-              <p className="text-[#fff] text-[18px] font-[500]">78,000 so’m</p>
+              <p className="text-[#fff] text-[18px] font-[500]">{formatPrice(totalPrice)} so’m</p>
             </button>
           </motion.div>
         </>
@@ -244,15 +244,22 @@ const Delivery = () => {
       >
         <DeliveryLang />
       </motion.section>
-        {(openMenu || openLang) && (
-          <div
-            ref={ref}
-            className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-40 z-10"
-          ></div>
-        )}
-      <ExitUser/>
+      {(openMenu || openLang) && (
+        <div
+          ref={ref}
+          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-40 z-10"
+        ></div>
+      )}
+      <ExitUser />
+      <PersonalModal />
     </div>
   );
 };
 
 export default Delivery;
+function formatPrice(price) {
+  // Formatni "20,300" yoki "1,000" shaklida olish
+  const formattedPrice = new Intl.NumberFormat("en-US").format(price);
+
+  return formattedPrice;
+}
