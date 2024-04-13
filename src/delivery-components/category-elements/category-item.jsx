@@ -32,7 +32,7 @@ const CategoryItem = ({ item, categoryId }) => {
   return (
     <div className="flex flex-col gap-[8px] cursor-pointer">
       <img
-        onClick={() => handleShow(item.food_id)}
+        onClick={() => handleShow(item,categoryId)}
         className="rounded-[12px] w-full h-[150px] object-cover"
         src={item?.url}
         alt=""

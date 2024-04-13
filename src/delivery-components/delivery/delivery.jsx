@@ -17,6 +17,7 @@ import {
   ExitUserModal,
   OpenDeliveryMenu,
   OpenLangMenu,
+  SaveOrderItem,
   SelectCategoryActive,
   openPersonalModal,
 } from "../../reducer/delivery";
@@ -38,7 +39,6 @@ const Delivery = () => {
   const [registter, setRegister] = useState(false);
   const [ref, isClickedOutside] = useClickOutside();
 
-  console.log(foods);
   const menuitem = [
     {
       id: 1,
@@ -61,7 +61,7 @@ const Delivery = () => {
     {
       id: 4,
       title: "Chiqish",
-      url: "",
+      url: "exit",
       icon: exit,
     },
   ];
@@ -79,10 +79,9 @@ const Delivery = () => {
   };
 
   const handleClickMenu = (url) => {
-    if (url === "") {
+    if (url === "exit") {
       dispatch(ExitUserModal(true));
-    }
-    if (url === "login") {
+    }else if (url === "login") {
       dispatch(openPersonalModal(true));
     } else {
       navigate(url);
@@ -108,6 +107,10 @@ const Delivery = () => {
       blur.classList.remove("back-effect");
     }
   }, [openMenu, openLang, selectCategory]);
+
+  useEffect(()=>{
+    dispatch(SaveOrderItem())
+  },[foods])
 
   useEffect(() => {
     // navigate("/delivery/home");
@@ -150,23 +153,23 @@ const Delivery = () => {
           </section>
           <div className="w-full h-[70px]"></div>
           <SearchComponent />
-          <section className="sticky top-[-3px] bg-[#fff] overflow-x-scroll whitespace-nowrap w-full image-slide mt-[24px] pt-[5px] pb-[5px]">
+          <section className="sticky top-[-3px] bg-[#fff] overflow-x-scroll whitespace-nowrap w-full image-slide mt-[20px] pt-[5px] pb-[5px]">
             {foods?.map((item, idx) => (
               <div
                 onClick={() => handleActiveCtg(item)}
                 key={idx}
-                className="inline-flex flex-col gap-[8px] mr-[24px] cursor-pointer"
+                className="w-[70px] inline-flex flex-col gap-[8px] mr-[24px] cursor-pointer"
               >
                 <img
                   className={`${
-                    item.food_id === activeCatgory.food_id
+                    item?.food_id === activeCatgory?.food_id
                       ? "border-[#2E90FA]"
                       : "border-[#EAECF0]"
                   } w-[48px] h-[48px] border-[3px] border-solid  rounded-full object-cover`}
                   src={item.url}
                   alt=""
                 />
-                <h1 className="text-[#475467] text-[14px] font-[400] whitespace-normal">
+                <h1 className="text-[#475467] text-[14px] font-[400]">
                   {item.title.length > 10
                     ? item.title.slice(0, 10) + "..."
                     : item.title}
@@ -176,7 +179,7 @@ const Delivery = () => {
           </section>
           <motion.div
             initial={{ opacity: 0, y: "100%" }}
-            animate={{ opacity: 1, y: items.length>0 ? 0 : "100%" }}
+            animate={{ opacity: 1, y: items.length>0  ? 0 : "100%" }}
             exit={{ opacity: 0, y: "100%" }}
             transition={{ duration: 0.5 }}
             className="w-full mx-auto flex justify-center fixed bottom-[-10px] p-[16px] z-10 left-0 bg-white"

@@ -32,6 +32,13 @@ const Basket = () => {
     dispatch(MinusProductItem([id, categoryId]));
   };
 
+  function formatPrice(price) {
+    // Formatni "20,300" yoki "1,000" shaklida olish
+    const formattedPrice = new Intl.NumberFormat("en-US").format(price);
+
+    return formattedPrice;
+  }
+
   console.log(items);
   return (
     <main>
@@ -64,7 +71,7 @@ const Basket = () => {
                   {item.title}
                 </h1>
                 <p className="text-[16px] font-[500] text-[#2E90FA]">
-                  26,000 so’m
+                  {formatPrice(item.price*item.quantity)} so'm
                 </p>
               </div>
             </div>
@@ -75,7 +82,7 @@ const Basket = () => {
                   src={minus}
                   alt=""
                 />
-                <h1 className="text-[20px] font-[500] text-[#475467]">1</h1>
+                <h1 className="text-[20px] font-[500] text-[#475467]">{item.quantity}</h1>
                 <img
                   onClick={() => handleAddItem(item.id, item.categoryId)}
                   src={plus}
@@ -94,7 +101,7 @@ const Basket = () => {
         className="w-full mx-auto flex justify-center fixed bottom-[-10px] p-[16px] z-10 left-0 bg-white"
       >
         <button
-          onClick={() => navigate("/delivery/basket")}
+          onClick={() => navigate("/delivery/order-type")}
           className="bg-[#2E90FA] w-full rounded-[8px] flex justify-between items-center py-[8px] px-[16px]"
         >
           <h1 className="text-[#fff] text-[18px] font-[400]">
@@ -112,10 +119,3 @@ const Basket = () => {
 };
 
 export default Basket;
-
-function formatPrice(price) {
-  // Formatni "20,300" yoki "1,000" shaklida olish
-  const formattedPrice = new Intl.NumberFormat("en-US").format(price);
-
-  return formattedPrice;
-}

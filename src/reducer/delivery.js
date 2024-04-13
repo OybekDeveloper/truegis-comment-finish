@@ -63,7 +63,6 @@ export const deliverySlice = createSlice({
                     ...item,
                     quantity: item.quantity + 1,
                   };
-                  state.items.push({ ...newProps, categoryId: categoryId });
                   calculateTotalPrice(state);
                   return newProps;
                 }
@@ -86,8 +85,6 @@ export const deliverySlice = createSlice({
             id: foodId,
             quantity: 1,
           };
-          state.items.push(newItem); // Add the new item to the items state
-
           const updatedFoods = state.foods.map((food, index) => {
             if (index === categoryIndex) {
               state.activeCatgory = {
@@ -126,14 +123,6 @@ export const deliverySlice = createSlice({
                     ...item,
                     quantity: item.quantity - 1,
                   };
-                  if (updatedItem.quantity === 0) {
-                    // Remove the item from the items state
-                    state.items = state.items.filter(
-                      (item) =>
-                        !(item.id === foodId && item.categoryId === categoryId)
-                    );
-                    calculateTotalPrice(state);
-                  }
                   return updatedItem;
                 }
                 return item;
@@ -170,15 +159,37 @@ export const deliverySlice = createSlice({
     openPersonalModal: (state, action) => {
       state.openPersonal = action.payload;
     },
-    ClearBasket:(state, action) => {
+    ClearBasket: (state, action) => {
       state.items = [];
       state.totalPrice = 0;
-      state.foods=foods
-    }
+      state.foods = foods;
+      state.activeCatgory = foods.find((c) => c.food_id === action.payload);
+      console.log(foods);
+    },
+    SaveOrderItem: (state, action) => {
+      state.items = [];
+      state.foods.forEach((category) => {
+        category.props.forEach((item) => {
+          if (item.quantity > 0) {
+            state.items.push({
+              id: item.id,
+              quantity: item.quantity,
+              categoryId: category.food_id,
+              price:item.price,
+              url:item.url,
+              title:item.title
+            });
+          }
+        });
+      });
+      calculateTotalPrice(state)
+      return state;
+    },
   },
 });
 
 export const {
+  SaveOrderItem,
   SelectCategoryActive,
   OpenDeliveryMenu,
   OpenLangMenu,
@@ -190,7 +201,7 @@ export const {
   ExitUserModal,
   OpenAwayDate,
   openPersonalModal,
-  ClearBasket
+  ClearBasket,
 } = deliverySlice.actions;
 export default deliverySlice.reducer;
 

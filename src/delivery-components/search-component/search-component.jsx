@@ -6,6 +6,7 @@ import LoadingC from "../loading/loader";
 import { SelectCategoryActive } from "../../reducer/delivery";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 const variants = {
   expand: {
     height: "100vh",
@@ -16,18 +17,18 @@ const variants = {
     transition: {
       damping: 22,
       stiffness: 70,
-      top: { duration: 0.5 }, // Add custom transition for the top property
+      top: { duration: 0.5 },
     },
   },
   exit: {
     left: 0,
-    top: "240px",
+    top: "250px",
     height: "70px",
     zIndex: "10",
     transition: {
       damping: 22,
       stiffness: 40,
-      top: { duration: 0.5 }, // Add custom transition for the top property
+      top: { duration: 0.5 },
     },
   },
 };
@@ -38,8 +39,9 @@ const SearchComponent = () => {
 
   const [isExpanded, setIsExpanded] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+
   const expandedContainer = () => {
-    setIsExpanded(true);
+      setIsExpanded(true);
   };
 
   const handleClose = () => {
@@ -48,20 +50,16 @@ const SearchComponent = () => {
   };
 
   const handleActiveCtg = (data) => {
-    const body = document.body;
-    body.classList.remove("no-scroll");
     dispatch(SelectCategoryActive(data));
     navigate("/delivery/search-category");
   };
+
   useEffect(() => {
     const body = document.body;
-    const blur = document.querySelector("#back-effect");
     if (isExpanded) {
       body.classList.add("no-scroll");
-      blur.classList.add("back-effect");
     } else {
       body.classList.remove("no-scroll");
-      blur.classList.remove("back-effect");
     }
   }, [isExpanded]);
 
@@ -70,7 +68,7 @@ const SearchComponent = () => {
       variants={variants}
       animate={isExpanded ? "expand" : "exit"}
       initial={"exit"}
-      className={`absolute bg-white w-full flex justify-start items-start flex-col mb-[24px] px-[16px]`}
+      className={`${isExpanded?"fixed":"absolute"} bg-white w-full flex justify-start items-start flex-col mb-[24px] px-[16px]`}
     >
       {isExpanded && (
         <section className="w-full flex items-center justify-between py-[17px] shadow-shadow-xs">
@@ -80,7 +78,7 @@ const SearchComponent = () => {
             src={back}
             alt=""
           />
-          <h1 className="text-[20px] font-[500] texxt-[#000]">Ovqat izlash</h1>
+          <h1 className="text-[20px] font-[500] text-[#000]">Ovqat izlash</h1>
           <div></div>
         </section>
       )}
@@ -101,7 +99,6 @@ const SearchComponent = () => {
             <main className="grid grid-cols-2 gap-x-[16px] gap-y-[32px] mt-[32px]">
               {foods[1].props.map((item, idx) => (
                 <div
-                  // onClick={() => handleShow(item.id)}
                   key={idx}
                   className="flex flex-col gap-[8px] cursor-pointer"
                 >
@@ -116,14 +113,8 @@ const SearchComponent = () => {
                   <div className="flex justify-center items-center px-[16px] py-[8px] rounded-[12px] bg-[#F2F4F7] cursor-pointer text-[#2E90FA] text-[14px] font-[500]">
                     {item.price}
                   </div>
-                  {/* <div className="flex justify-between items-center px-[16px] py-[8px] rounded-[12px] bg-[#F2F4F7] cursor-pointer">
-                <img className="w-[20px] h-[20px] " src={minus} alt="" />
-                <h1 className="text-[18px] font-[500] text-[#2E90FA]">2</h1>
-                <img className="w-[20px] h-[20px] " src={plus} alt="" />
-              </div> */}
                 </div>
               ))}
-              {/* <CategoryDialog /> */}
             </main>
           </Suspense>
         ) : (
@@ -145,7 +136,7 @@ const SearchComponent = () => {
                   />
                   <h1 className="font-[500] text-[14px] text-[#475467]">
                     {item.title.length > 8
-                      ? item.title.slice(0, 8)+"..."
+                      ? item.title.slice(0, 8) + "..."
                       : item.title}
                   </h1>
                 </div>

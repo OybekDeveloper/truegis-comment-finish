@@ -1,12 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { SelectCategoryModal } from "../../reducer/delivery";
+import {
+  AddProductItem,
+  MinusProductItem,
+  SelectCategoryModal,
+} from "../../reducer/delivery";
 import { close, minus, plus } from "../images";
 import { motion } from "framer-motion";
-export default function CategoryDialog() {
-  const { selectCategory, selectCategoryItem } = useSelector(
+import { useEffect, useState } from "react";
+export default function CategoryDialog({ categoryId}) {
+  const { selectCategory, selectCategoryItem,foods ,activeCatgory} = useSelector(
     (state) => state.delivery
   );
+  const [selectFood,setSelectFood]=useState()
   const dispatch = useDispatch();
   function closeModal() {
     dispatch(SelectCategoryModal());
@@ -17,6 +23,19 @@ export default function CategoryDialog() {
     return formattedPrice;
   }
 
+  const handleAddItem = (id, categoryId) => {
+    dispatch(AddProductItem([id, categoryId]));
+  };
+
+  const handleDecrementItem = (id, categoryId) => {
+    dispatch(MinusProductItem([id, categoryId]));
+  };
+  useEffect(()=>{
+    if(activeCatgory && selectCategory){
+      setSelectFood(foods[categoryId-1]?.props.find(c=>c.id===selectCategoryItem.id))
+    }
+  },[foods,selectCategory])
+  console.log(selectFood);
   return (
     <div className="">
       <motion.div
@@ -27,23 +46,21 @@ export default function CategoryDialog() {
       >
         <div className="flex min-h-full items-center justify-center p-4 text-center">
           <div className="bg-[#fff] absolute bottom-0 w-full max-w-md transform overflow-hidden min-h-[50%] rounded-t-2xl p-6 text-left align-middle shadow-xl transition-all z-[999]">
-            <section className="w-full">
-              <div className="w-full flex justify-center items-center relative">
-                <div className="bg-[#d9d9d9]  w-[23px] h-[4px] rounded-[2px]"></div>
-                <img
-                  onClick={closeModal}
-                  className=" cursor-pointer absolute top-0 right-0"
-                  src={close}
-                  alt=""
-                />
-              </div>
-            </section>
-            <section className="w-full mt-[25px]">
+            <img
+              className="w-full h-[220px] object-cover rounded-t-[12px] absolute left-0 top-0"
+              src={selectCategoryItem?.url}
+              alt=""
+            />
+            <div className="absolute top-[12px] rounded-full p-[6px] right-[12px] z-10 bg-white">
               <img
-                className="w-full h-[150px] object-cover rounded-[12px]"
-                src={selectCategoryItem?.url}
+                onClick={closeModal}
+                className=" cursor-pointer"
+                src={close}
                 alt=""
               />
+            </div>
+            <div className="w-full h-[180px]"></div>
+            <section className="w-full mt-[25px]">
               <h1 className="text-[20px] font-[500] text-[#000] mt-[22px]">
                 {selectCategoryItem?.title}
               </h1>
@@ -58,17 +75,32 @@ export default function CategoryDialog() {
                 immunitetni oshirish uchun juda yaxshi tanlovdir.
               </p>
               <div className="grid grid-cols-3 gap-[12px] mt-[18px]">
-                {selectCategoryItem?.quantity > 0 && (
+                {selectFood?.quantity > 0 && (
                   <div className="col-span-1 flex justify-between items-center bg-[#F2F4F7] py-[10px] rounded-[12px] px-[6px]">
-                    <img src={minus} alt="" />
-                    <h1 className="text-[16px] font-[600] text-[#2E90FA]">3</h1>
-                    <img src={plus} alt="" />
+                    <img
+                      onClick={() =>
+                        handleDecrementItem(selectCategoryItem.id, categoryId)
+                      }
+                      src={minus}
+                      alt=""
+                    />
+                    <h1 className="text-[16px] font-[600] text-[#2E90FA]">{selectFood.quantity}</h1>
+                    <img
+                      onClick={() =>
+                        handleAddItem(selectCategoryItem.id, categoryId)
+                      }
+                      src={plus}
+                      alt=""
+                    />
                   </div>
                 )}
 
                 <div
+                  onClick={() =>
+                    handleAddItem(selectCategoryItem.id, categoryId)
+                  }
                   className={`${
-                    selectCategoryItem?.quantity > 0
+                    selectFood?.quantity > 0
                       ? "col-span-2"
                       : "col-span-3"
                   } bg-[#2E90FA] cursor-pointer rounded-[12px] py-[10px] text-center text-[18px] font-[500] text-[#fff]`}

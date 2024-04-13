@@ -9,7 +9,7 @@ import {
 } from "../../reducer/delivery";
 import { close, deleteicon, success } from "../images";
 export default function DeleteItems() {
-  const { deleteFood } = useSelector((state) => state.delivery);
+  const { deleteFood,activeCatgory } = useSelector((state) => state.delivery);
   const dispatch = useDispatch();
   const { t } = useTranslation();
   function closeModal() {
@@ -20,7 +20,7 @@ export default function DeleteItems() {
   };
 
   const handleClear = () => {
-    dispatch(ClearBasket());
+    dispatch(ClearBasket(activeCatgory?.food_id));
     dispatch(DeleteFoodItem(false));
   };
   return (
