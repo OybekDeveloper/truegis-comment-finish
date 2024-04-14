@@ -113,7 +113,7 @@ const Delivery = () => {
   },[foods])
 
   useEffect(() => {
-    // navigate("/delivery/home");
+    navigate("/delivery/home");
   }, []);
   return (
     <div className={`px-[16px] delivery bg-white relative`}>

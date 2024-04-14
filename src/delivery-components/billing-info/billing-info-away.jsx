@@ -5,7 +5,11 @@ import checkback from "./Subtract.svg";
 import { motion } from "framer-motion";
 import "./billing-info.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { OpenAwayDate, OpenDeliveryMenu, SendOrderItem } from "../../reducer/delivery";
+import {
+  OpenAwayDate,
+  OpenDeliveryMenu,
+  SendOrderItem,
+} from "../../reducer/delivery";
 import SuccussModal from "./success-modal";
 import DateModal from "./date-modal";
 const BillingInfoAway = () => {
@@ -16,7 +20,6 @@ const BillingInfoAway = () => {
   const [activeDate, setActiveDate] = useState(false);
   const [activeMap, setActiveMap] = useState(false);
 
-
   const handleClose = () => {
     navigate(-1);
   };
@@ -26,9 +29,9 @@ const BillingInfoAway = () => {
     navigate("/delivery/basket");
   };
 
-  const handleOpenDate=(bool)=>{
-    dispatch(OpenAwayDate(bool))
-  }
+  const handleOpenDate = (bool) => {
+    dispatch(OpenAwayDate(bool));
+  };
 
   return (
     <div className="flex flex-col mb-[60px]">
@@ -61,8 +64,9 @@ const BillingInfoAway = () => {
           </div>
         </article>
         <article
-          onClick={()=>handleOpenDate(true)}
-        className="flex justify-between items-start cursor-pointer">
+          onClick={() => handleOpenDate(true)}
+          className="flex justify-between items-start cursor-pointer"
+        >
           <div className="w-full flex items-start justify-start gap-[8px]">
             <img className="w-[20px] h-[20px]" src={time} alt="" />
             <p className="text-[14px] font-[400] text-[#475467]">
@@ -169,7 +173,9 @@ const BillingInfoAway = () => {
       >
         <div className="w-[23px] h-[4px] bg-[#d9d9d9] rounded-[2px]"></div>
         <div className="mt-[25px] flex flex-col gap-[12px]">
-          <h1 className="text-[#344054] text-[16px] text-[400]">Olib ketish vaqtini tanlang</h1>
+          <h1 className="text-[#344054] text-[16px] text-[400]">
+            Olib ketish vaqtini tanlang
+          </h1>
           <div className="grid grid-cols-3 gap-[17px]">
             <input
               className="col-span-2 border-[1px] border-[#EAECF0] border-solid rounded-[8px] outline-none text-[#344054] text-[14px] font-[400] px-[14px] py-[10px] "
@@ -195,7 +201,7 @@ const BillingInfoAway = () => {
       {false && (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-40 z-10"></div>
       )}
-      <DateModal/>
+      <DateModal />
     </div>
   );
 };
