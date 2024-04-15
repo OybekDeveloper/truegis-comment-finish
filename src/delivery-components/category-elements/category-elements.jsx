@@ -23,6 +23,7 @@ const CategoryElements = () => {
         ))}
         <CategoryDialog categoryId={activeCatgory?.food_id} />
       </main>
+      
     </Suspense>
   );
 };
