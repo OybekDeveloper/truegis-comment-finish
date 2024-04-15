@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { foods } from "../foods-image/foodsData";
 import LoadingC from "../loading/loader";
 import { SelectCategoryActive } from "../../reducer/delivery";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const variants = {
@@ -12,7 +12,7 @@ const variants = {
     height: "100vh",
     left: 0,
     top: 0,
-    zIndex: "1000",
+    zIndex: "20",
     backgroundColor: "white",
     transition: {
       damping: 22,
@@ -36,12 +36,12 @@ const variants = {
 const SearchComponent = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { items } = useSelector((state) => state.delivery);
   const [isExpanded, setIsExpanded] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   const expandedContainer = () => {
-      setIsExpanded(true);
+    setIsExpanded(true);
   };
 
   const handleClose = () => {
@@ -50,6 +50,8 @@ const SearchComponent = () => {
   };
 
   const handleActiveCtg = (data) => {
+    const body = document.body;
+    body.classList.remove("no-scroll");
     dispatch(SelectCategoryActive(data));
     navigate("/delivery/search-category");
   };
@@ -68,7 +70,9 @@ const SearchComponent = () => {
       variants={variants}
       animate={isExpanded ? "expand" : "exit"}
       initial={"exit"}
-      className={`${isExpanded?"fixed":"absolute"} bg-white w-full flex justify-start items-start flex-col mb-[24px] px-[16px]`}
+      className={`${
+        isExpanded ? "fixed" : "absolute"
+      } bg-white w-full flex justify-start items-start flex-col px-[16px]`}
     >
       {isExpanded && (
         <section className="w-full flex items-center justify-between py-[17px] shadow-shadow-xs">
@@ -96,14 +100,18 @@ const SearchComponent = () => {
       {isExpanded &&
         (searchQuery ? (
           <Suspense fallback={<LoadingC />}>
-            <main className="grid grid-cols-2 gap-x-[16px] gap-y-[32px] mt-[32px]">
+            <main
+              className={`grid grid-cols-2 gap-x-[16px] gap-y-[32px] mt-[32px] overflow-y-scroll image-slide ${
+                items.length > 0 ? "pb-[70px]" : "pb-[24px]"
+              }`}
+            >
               {foods[1].props.map((item, idx) => (
                 <div
                   key={idx}
                   className="flex flex-col gap-[8px] cursor-pointer"
                 >
                   <img
-                    className="rounded-[12px] w-[156px] h-[150px] object-cover"
+                    className="rounded-[12px] w-full h-[150px] object-cover"
                     src={item.url}
                     alt=""
                   />
@@ -118,7 +126,7 @@ const SearchComponent = () => {
             </main>
           </Suspense>
         ) : (
-          <section className="mt-[20px] w-full">
+          <section className="mt-[20px] w-full ">
             <h1 className="text-[18px] font-[500] text-[#182230]">
               Kategoriya
             </h1>

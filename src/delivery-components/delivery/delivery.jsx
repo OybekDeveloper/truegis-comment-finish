@@ -182,7 +182,7 @@ const Delivery = () => {
             animate={{ opacity: 1, y: items.length>0  ? 0 : "100%" }}
             exit={{ opacity: 0, y: "100%" }}
             transition={{ duration: 0.5 }}
-            className="w-full mx-auto flex justify-center fixed bottom-[-10px] p-[16px] z-10 left-0 bg-white"
+            className="w-full mx-auto flex justify-center fixed bottom-[-10px] p-[16px] z-30 left-0 bg-white"
           >
             <button
               onClick={() => navigate("/delivery/basket")}
@@ -202,7 +202,7 @@ const Delivery = () => {
         animate={{ opacity: 1, x: openMenu ? 0 : "-100%" }}
         exit={{ opacity: 0, x: "-100%" }}
         transition={{ duration: 0.5 }}
-        className="fixed top-0 left-0 w-[80%] h-screen bg-[#fff] p-[16px] z-20"
+        className="fixed top-0 left-0 w-[80%] h-screen bg-[#fff] p-[16px] z-50"
       >
         <div
           onClick={handelOpenMenu}
@@ -247,10 +247,10 @@ const Delivery = () => {
       >
         <DeliveryLang />
       </motion.section>
-      {(openMenu || openLang) && (
+      {(openMenu) && (
         <div
           ref={ref}
-          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-40 z-10"
+          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-40 z-40"
         ></div>
       )}
       <ExitUser />
