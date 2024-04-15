@@ -43,7 +43,7 @@ const CategoryItem = ({ item, categoryId }) => {
           : item?.title}
       </h1>
       {item?.quantity > 0 ? (
-        <div className="flex justify-between items-center px-[16px] py-[8px] rounded-[12px] bg-[#F2F4F7] cursor-pointer">
+        <div className="h-[43px] flex justify-between items-center px-[16px] py-[8px] rounded-[12px] bg-[#F2F4F7] cursor-pointer">
           <img
             onClick={() => handleDecrementItem(item?.id, categoryId)}
             className="w-[20px] h-[20px] "
@@ -63,7 +63,7 @@ const CategoryItem = ({ item, categoryId }) => {
       ) : (
         <div
           onClick={() => handleAddItem(item?.id, categoryId)}
-          className="flex justify-center items-center px-[16px] py-[8px] rounded-[12px] bg-[#F2F4F7] cursor-pointer text-[#2E90FA] text-[14px] font-[500]"
+          className="h-[43px] flex justify-center items-center px-[16px] py-[8px] rounded-[12px] bg-[#F2F4F7] cursor-pointer text-[#2E90FA] text-[14px] font-[500]"
         >
           {formatPrice(item?.price)} so'm
         </div>

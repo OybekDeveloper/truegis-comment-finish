@@ -1,7 +1,6 @@
 import React from "react";
 import { back, trash } from "../images";
 import { useNavigate } from "react-router-dom";
-import { foods } from "../foods-image/foodsData";
 import { motion } from "framer-motion";
 import SuccussModal from "../billing-info/success-modal";
 import {
@@ -13,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import DeleteItems from "./delete-items";
 import plus from "./plus.svg";
 import minus from "./minus.svg";
+import emptyfood from "./no-food.png";
 const Basket = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -41,7 +41,7 @@ const Basket = () => {
 
   console.log(items);
   return (
-    <main>
+    <main className="min-h-screen bg-[#fff]">
       <section className="bg-[#fff] shadow-shadow-xs w-full flex items-center justify-between mb-[24px] py-[17px]">
         <img
           onClick={handleClose}
@@ -58,40 +58,51 @@ const Basket = () => {
         />
       </section>
       <section className="flex flex-col gap-[24px]">
-        {items.map((item, idx) => (
-          <div className="grid grid-cols-3" key={idx}>
-            <div className="col-span-2 flex items-center justify-start gap-[16px]">
-              <img
-                className="w-[70px] h-[70px] object-cover rounded-[12px]"
-                src={item.url}
-                alt="dasf"
-              />
-              <div className="flex flex-col justify-start items-start">
-                <h1 className="text-[18px] text-[#344054] font-[500]">
-                  {item.title}
-                </h1>
-                <p className="text-[16px] font-[500] text-[#2E90FA]">
-                  {formatPrice(item.price*item.quantity)} so'm
-                </p>
+        {items.length > 0 ? (
+          items.map((item, idx) => (
+            <div className="grid grid-cols-3" key={idx}>
+              <div className="col-span-2 flex items-center justify-start gap-[16px]">
+                <img
+                  className="w-[70px] h-[70px] object-cover rounded-[12px]"
+                  src={item.url}
+                  alt="dasf"
+                />
+                <div className="flex flex-col justify-start items-start">
+                  <h1 className="text-[18px] text-[#344054] font-[500]">
+                    {item.title}
+                  </h1>
+                  <p className="text-[16px] font-[500] text-[#2E90FA]">
+                    {formatPrice(item.price * item.quantity)} so'm
+                  </p>
+                </div>
+              </div>
+              <div className="col-span-1 flex justify-end items-center">
+                <div className="flex justify-center items-center py-[4px] px-[12px] gap-[16px] border-[1px] border-solid border-[#EAECF0] rounded-[8px]">
+                  <img
+                    onClick={() =>
+                      handleDecrementItem(item.id, item.categoryId)
+                    }
+                    src={minus}
+                    alt=""
+                  />
+                  <h1 className="text-[20px] font-[500] text-[#475467]">
+                    {item.quantity}
+                  </h1>
+                  <img
+                    onClick={() => handleAddItem(item.id, item.categoryId)}
+                    src={plus}
+                    alt=""
+                  />
+                </div>
               </div>
             </div>
-            <div className="col-span-1 flex justify-end items-center">
-              <div className="flex justify-center items-center py-[4px] px-[12px] gap-[16px] border-[1px] border-solid border-[#EAECF0] rounded-[8px]">
-                <img
-                  onClick={() => handleDecrementItem(item.id, item.categoryId)}
-                  src={minus}
-                  alt=""
-                />
-                <h1 className="text-[20px] font-[500] text-[#475467]">{item.quantity}</h1>
-                <img
-                  onClick={() => handleAddItem(item.id, item.categoryId)}
-                  src={plus}
-                  alt=""
-                />
-              </div>
-            </div>
+          ))
+        ) : (
+          <div className="flex flex-col  justify-center items-center gap-3">
+            <img className="w-[100px]" src={emptyfood} alt="" />
+            <h1 className="text-[18px] font-[500] text-black">Tanlangan ovqatlar mavjud emas!</h1>
           </div>
-        ))}
+        )}
       </section>
       <motion.div
         initial={{ opacity: 0, y: "100%" }}

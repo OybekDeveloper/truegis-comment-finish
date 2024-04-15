@@ -74,7 +74,7 @@ export default function PersonalModal() {
                 leaveTo="opacity-0 scale-95"
               >
                 {sendSms ? (
-                  <Dialog.Panel className="bg-[#fff] w-full max-w-md transform overflow-hidden rounded-2xl tg-bg-color p-6 text-left align-middle shadow-xl transition-all z-[999] flex flex-col gap-[20px]">
+                  <Dialog.Panel className="bg-[#fff] w-full max-w-md transform overflow-hidden rounded-2xl  p-6 text-left align-middle shadow-xl transition-all z-[999] flex flex-col gap-[20px]">
                     <Dialog.Title
                       as="div"
                       className="relative flex-col text-lg font-medium leading-6 flex justify-start items-start"
@@ -124,7 +124,7 @@ export default function PersonalModal() {
                     </button>
                   </Dialog.Panel>
                 ) : (
-                  <Dialog.Panel className="bg-[#fff] w-full max-w-md transform overflow-hidden rounded-2xl tg-bg-color p-6 text-left align-middle shadow-xl transition-all z-[999] flex flex-col gap-[20px]">
+                  <Dialog.Panel className="bg-[#fff] w-full max-w-md transform overflow-hidden rounded-2xl  p-6 text-left align-middle shadow-xl transition-all z-[999] flex flex-col gap-[20px]">
                     <Dialog.Title
                       as="div"
                       className="relative flex-col text-lg font-medium leading-6 flex justify-start items-start"

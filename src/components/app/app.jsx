@@ -25,6 +25,8 @@ import {
   BillingInfoDeliver,
 } from "../../delivery-components";
 import BillingInfoAway from "../../delivery-components/billing-info/billing-info-away";
+import YandexMap from "../map/map";
+import YMapsTest from "../map/map";
 const tg = window.Telegram.WebApp;
 console.log(localStorage.getItem("userId"));
 i18n
@@ -42,6 +44,7 @@ i18n
       loadPath: "/assets/{{lng}}/translation.json",
     },
   });
+  
 export default function App() {
   const placeId = localStorage.getItem("placeId");
   const userId = localStorage.getItem("userId");
@@ -128,6 +131,7 @@ export default function App() {
               />
               <Route path="billing-info-away" element={<BillingInfoAway />} />
             </Route>
+            <Route path={"/map"} element={<YMapsTest />} />
           </Routes>
         </div>
       )}

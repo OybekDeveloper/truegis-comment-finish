@@ -1,19 +1,19 @@
 import React from "react";
 import { back } from "../images";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import emptyorder from "./empty-order.png";
 const OrderHisotry = () => {
   const navigate = useNavigate();
   const handleClose = () => {
-    navigate('/delivery/home');
+    navigate("/delivery/home");
   };
 
-  const handleShowDelivered=() => {  
-    navigate(`/delivery/delivered/12`)
-  }
-  const handleShowBeDelivered=()=>{
-    navigate(`/delivery/be-delivered/12`)
-
-  }
+  const handleShowDelivered = () => {
+    navigate(`/delivery/delivered/12`);
+  };
+  const handleShowBeDelivered = () => {
+    navigate(`/delivery/be-delivered/12`);
+  };
 
   return (
     <div className="min-h-screen">
@@ -30,7 +30,11 @@ const OrderHisotry = () => {
         <div></div>
       </section>
       <section className="flex w-full flex-col mt-[24px] gap-[32px]">
-        {[1, 2, 3, 4].map((item, idx) => (
+        <div className="flex flex-col justify-center items-center gap-3"> 
+          <img className="w-[100px]" src={emptyorder} alt="" />
+          <h1 className="text-[18px] font-[500] text-black">Buyurtmalar mavjud emas!</h1>
+        </div>
+        {/* {[1, 2, 3, 4].map((item, idx) => (
           <div key={idx} onClick={handleShowBeDelivered} className="flex justify-between items-center cursor-pointer">
             <div>
               <h1 className="text-[18px] font-[500] text-[#344054]">
@@ -61,7 +65,7 @@ const OrderHisotry = () => {
               222,000 so’m
             </h1>
           </div>
-        ))}
+        ))} */}
       </section>
     </div>
   );

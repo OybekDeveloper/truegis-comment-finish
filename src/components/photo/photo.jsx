@@ -29,6 +29,7 @@ export default function Photo() {
   const [fotos, setFotos] = useState([]);
   const [album, setAlbum] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [currentSlide, setCurrentSlide] = useState(0);
   const fileInputRef = useRef(null);
 
   const handleFileInputClick = () => {
@@ -76,10 +77,9 @@ export default function Photo() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
     nextArrow: null,
     prevArrow: null,
+    afterChange: (index) => setCurrentSlide(index),
   };
 
   const handleSelectImage = async (id, idx) => {
@@ -136,9 +136,10 @@ export default function Photo() {
                   <div onClick={handleClose} className="cursor-pointer ">
                     <img src={arrowL} alt="" />
                   </div>
-                  <h1 className="text-[#fff] ">
-                    {activeImageCount}/{allImageCount}
+                  <h1 className="text-[#fff]">
+                    {currentSlide + 1}/{fotos.length}
                   </h1>
+
                   <div></div>
                 </div>
                 {fotos.length > 1 ? (
