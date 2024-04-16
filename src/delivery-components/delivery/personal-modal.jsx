@@ -30,14 +30,14 @@ export default function PersonalModal() {
   };
   const renderButton = (buttonProps) => {
     return (
-      <button {...buttonProps} className="mt-[10px]">
+      <button {...buttonProps} className="mt-[10px] text-[16px] font-[400] text-[#475467]">
         {buttonProps.remainingTime !== 0
           ? `00:${
               buttonProps.remainingTime.toString().length > 1
                 ? buttonProps.remainingTime
                 : `0${buttonProps.remainingTime}`
             } dan so'ng qayta yuborish`
-          : "Kod kelmadimi? Qaytadan yuborish"}
+          : "Kod kelmadimi?<span className='text-[#2E90FA]'>  Qaytadan yuborish</span>"}
       </button>
     );
   };
@@ -140,7 +140,7 @@ export default function PersonalModal() {
                       </p>
                     </Dialog.Title>
                     <div className="flex flex-col justify-start items-start gap-[6px]">
-                      <label htmlFor="text">Telefon raqami</label>
+                      <label className={"text-[14px] font-[500] text-[#344054]"} htmlFor="text">Telefon raqami</label>
                       <input
                         className="w-full border-[1px] border-[#EAECF0] border-solid rounded-[8px] outline-none text-[#344054] text-[14px] font-[400] px-[14px] py-[10px] "
                         type="text"
