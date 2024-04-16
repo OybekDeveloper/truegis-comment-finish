@@ -225,8 +225,8 @@ export default function Home({ lat, long }) {
             )}
           </section>
           <nav className="sticky top-[-5px] z-[200] navbar w-full overflow-x-scroll whitespace-nowrap flex gap-[24px] px-[16px]">
-            {placeData.id===128078?(
-                navlink.map((item) => (
+            {placeData.id === 128078
+              ? navlink.map((item) => (
                   <button
                     key={item.id}
                     onClick={() => {
@@ -237,7 +237,9 @@ export default function Home({ lat, long }) {
                   >
                     <div className="flex items-center gap-[4px] h-[30px]">
                       <span
-                        className={`${pathname === item.link && "tg-button-text"}`}
+                        className={`${
+                          pathname === item.link && "tg-button-text"
+                        }`}
                       >
                         {item.title}
                       </span>
@@ -255,7 +257,7 @@ export default function Home({ lat, long }) {
                         </div>
                       )}
                     </div>
-    
+
                     {pathname === item.link && (
                       <motion.div
                         layoutId="active-pill"
@@ -264,47 +266,47 @@ export default function Home({ lat, long }) {
                     )}
                   </button>
                 ))
-            ):(
-              navlink.slice(0,4).map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => {
-                    navigate(item.link);
-                    setActiveTab(item.id);
-                  }}
-                  className="font-[500] h-[50px] relative text-[15px]"
-                >
-                  <div className="flex items-center gap-[4px] h-[30px]">
-                    <span
-                      className={`${pathname === item.link && "tg-button-text"}`}
-                    >
-                      {item.title}
-                    </span>
-                    {item.count && (
-                      <div
+              : navlink.slice(0, 4).map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      navigate(item.link);
+                      setActiveTab(item.id);
+                    }}
+                    className="font-[500] h-[50px] relative text-[15px]"
+                  >
+                    <div className="flex items-center gap-[4px] h-[30px]">
+                      <span
                         className={`${
-                          pathname === item.link
-                            ? "tg-theme-color"
-                            : "tg-hint-color"
-                        } rounded-full w-[20px] h-[20px] flex justify-center items-center`}
+                          pathname === item.link && "tg-button-text"
+                        }`}
                       >
-                        <h1 className="text-[12px] font-[600]  mt-[0.5px]">
-                          {item.count}
-                        </h1>
-                      </div>
+                        {item.title}
+                      </span>
+                      {item.count && (
+                        <div
+                          className={`${
+                            pathname === item.link
+                              ? "tg-theme-color"
+                              : "tg-hint-color"
+                          } rounded-full w-[20px] h-[20px] flex justify-center items-center`}
+                        >
+                          <h1 className="text-[12px] font-[600]  mt-[0.5px]">
+                            {item.count}
+                          </h1>
+                        </div>
+                      )}
+                    </div>
+
+                    {pathname === item.link && (
+                      <motion.div
+                        layoutId="active-pill"
+                        className="absolute mt-[5px] h-[3px] w-full tg-button rounded-t-[5px]"
+                      />
                     )}
-                  </div>
-  
-                  {pathname === item.link && (
-                    <motion.div
-                      layoutId="active-pill"
-                      className="absolute mt-[5px] h-[3px] w-full tg-button rounded-t-[5px]"
-                    />
-                  )}
-                </button>
-              ))
-            )}
-          
+                  </button>
+                ))}
+
             {/* <div className="hr z-[-10] absolute bottom-[-16px] w-full h-[1px]  mb-[24px]"></div> */}
           </nav>
           <Outlet />
