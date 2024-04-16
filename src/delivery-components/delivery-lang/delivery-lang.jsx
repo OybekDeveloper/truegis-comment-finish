@@ -84,7 +84,7 @@ const DeliveryLang = () => {
                 // defaultChecked={item.check}
                 checked={item.check}
                 name="language"
-                className="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded-full"
+                className="w-6 h-6 text-blue-600 bg-blue-100 border-blue-300 rounded-full"
               />
             </div>
           </div>
