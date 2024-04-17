@@ -95,7 +95,7 @@ export default function App() {
           <LoadingT />
         </div>
       ) : (
-        <div id="back-effect" className="app max-w-[400px] mx-auto">
+        <div id="back-effect" className="app mx-auto">
           <Routes>
             <Route
               path="/:placeId/:userId/:km"
@@ -114,6 +114,7 @@ export default function App() {
               path={`/:placeId/:userId/:km/edit-comment`}
               element={<EditComment />}
             />
+
             <Route path={`/delivery`} element={<Delivery />}>
               <Route path="home" element={<CategoryElements />} />
               <Route path="basket" element={<Basket />} />

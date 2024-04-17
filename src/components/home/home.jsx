@@ -156,7 +156,7 @@ export default function Home({ lat, long }) {
           <LoadingC />
         </div>
       ) : (
-        <main className="home relative ">
+        <main className="home relative max-w-[400px] mx-auto ">
           <section className="px-[16px] min-h-[190px] home-back flex justify-end flex-col pb-[30px]">
             <div className="overlay">
               <div className="overlay"></div>

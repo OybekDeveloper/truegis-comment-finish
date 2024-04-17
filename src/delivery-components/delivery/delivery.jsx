@@ -32,8 +32,15 @@ const Delivery = () => {
   const userId = localStorage.getItem("userId");
   const tg = window.Telegram.WebApp;
   const navigate = useNavigate();
-  const { openMenu, openLang, activeCatgory, selectCategory, foods, items,totalPrice } =
-    useSelector((state) => state.delivery);
+  const {
+    openMenu,
+    openLang,
+    activeCatgory,
+    selectCategory,
+    foods,
+    items,
+    totalPrice,
+  } = useSelector((state) => state.delivery);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const [registter, setRegister] = useState(false);
@@ -81,7 +88,7 @@ const Delivery = () => {
   const handleClickMenu = (url) => {
     if (url === "exit") {
       dispatch(ExitUserModal(true));
-    }else if (url === "login") {
+    } else if (url === "login") {
       dispatch(openPersonalModal(true));
     } else {
       navigate(url);
@@ -108,18 +115,18 @@ const Delivery = () => {
     }
   }, [openMenu, openLang, selectCategory]);
 
-  useEffect(()=>{
-    dispatch(SaveOrderItem())
-  },[foods])
+  useEffect(() => {
+    dispatch(SaveOrderItem());
+  }, [foods]);
 
   useEffect(() => {
     navigate("/delivery/home");
   }, []);
   return (
-    <div className={`px-[16px] delivery bg-white relative`}>
+    <div className={`delivery bg-white relative`}>
       {pathname === "/delivery/home" && (
         <>
-          <section className="shadow-shadow-xs flex justify-between items-center w-full py-[17px]">
+          <section className="px-[16px] shadow-shadow-xs flex justify-between items-center w-full py-[17px]">
             <div
               onClick={handelOpenMenu}
               className="cursor-pointer w-[48px] h-[48px] rounded-full flex justify-center items-center bg-[#f2f4f7] text-[#475467] border-[1px] border-solid text[#475467] text-[12px] font-[600]"
@@ -142,7 +149,7 @@ const Delivery = () => {
           </section>
           <section className="overflow-x-scroll whitespace-nowrap w-full image-slide mt-[16px]">
             {[1, 2, 3, 4, 5].map((item, idx) => (
-              <div key={idx} className="inline-flex mr-2">
+              <div key={idx} className="inline-flex ml-[16px]">
                 <img
                   className=" w-[300px] h-[140px] object-cover rounded-[12px]"
                   alt="img"
@@ -158,7 +165,7 @@ const Delivery = () => {
               <div
                 onClick={() => handleActiveCtg(item)}
                 key={idx}
-                className="w-[70px] inline-flex flex-col gap-[8px] mr-[24px] cursor-pointer"
+                className="w-[70px] inline-flex flex-col gap-[8px] ml-[16px] cursor-pointer"
               >
                 <img
                   className={`${
@@ -179,7 +186,7 @@ const Delivery = () => {
           </section>
           <motion.div
             initial={{ opacity: 0, y: "100%" }}
-            animate={{ opacity: 1, y: items.length>0  ? 0 : "100%" }}
+            animate={{ opacity: 1, y: items.length > 0 ? 0 : "100%" }}
             exit={{ opacity: 0, y: "100%" }}
             transition={{ duration: 0.5 }}
             className="w-full mx-auto flex justify-center fixed bottom-[-10px] p-[16px] z-30 left-0 bg-white"
@@ -191,12 +198,16 @@ const Delivery = () => {
               <h1 className="text-[#fff] text-[18px] font-[400]">
                 {items && items.length} ta mahsulot
               </h1>
-              <p className="text-[#fff] text-[18px] font-[500]">{formatPrice(totalPrice)} so’m</p>
+              <p className="text-[#fff] text-[18px] font-[500]">
+                {formatPrice(totalPrice)} so’m
+              </p>
             </button>
           </motion.div>
         </>
       )}
-      <Outlet />
+      <div className="px-[16px]">
+        <Outlet />
+      </div>
       <motion.section
         initial={{ opacity: 0, x: "-100%" }}
         animate={{ opacity: 1, x: openMenu ? 0 : "-100%" }}
@@ -243,11 +254,11 @@ const Delivery = () => {
         animate={{ opacity: 1, x: openLang ? 0 : "100%" }}
         exit={{ opacity: 0, x: 0 }}
         transition={{ duration: 0.5 }}
-        className="menu fixed top-0 left-0 w-full h-screen bg-[#fff] px-[16px] z-20"
+        className="fixed top-0 left-0 w-full h-screen bg-[#fff] px-[16px] z-20"
       >
         <DeliveryLang />
       </motion.section>
-      {(openMenu) && (
+      {openMenu && (
         <div
           ref={ref}
           className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-40 z-40"
