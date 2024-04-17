@@ -19,6 +19,7 @@ import { nosave, save, share } from "./img";
 import { TurnedInOutlined } from "@mui/icons-material";
 import LoadingC from "../loading/loader";
 import SaveModal from "./save-modal";
+const tg = window.Telegram.WebApp;
 
 const backgroundImage =
   "https://s3-alpha-sig.figma.com/img/808e/7de1/0a383ce94c24b18e47af0e9ba369a18a?Expires=1711929600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=e7AE~1fTZ-cKSH-WZLl2-g9yhVsxw2rJ9qJ2UKefHAOZY7zlW89xrlkRsImEkHEpfT-NbJeMcmF8UOdemF1ZcKZ8pRYxqVXXTemn~8p8t33cVhaNCNt-owytQK4HRstvl2T7czB8Uz2ftE-2~XPFq3mqssd1E~DJ6zJFjmrRZAc8Aj~zpqEKSGWDut85W3WDy4YEr4KhHvbYk46g4mhrPl51d-gbgN-YbVSQXf7A5eVRYQQzFlf9bq5tIZttyyTLn9xbSDL2xeTsLI~AWyh-L84eXCGkG9-oVcYfLgeedzw9oa9Bk4xv45eGvhjGYLaflIBwXwzBq4TXwqefY87HuQ__";
@@ -139,14 +140,13 @@ export default function Home({ lat, long }) {
     const findSavePlace = async () => {
       try {
         const res = await ApiServer.getData(`/userplace/${userId}/`);
-        setFindSave();
-        const find=res.places.find(place =>place==placeId)
-        if(find) setFindSave(true);
+        const find = res.places.find((place) => place == placeId);
+        if (find) setFindSave(true);
       } catch (error) {
         console.log(error);
       }
     };
-    findSavePlace()
+    findSavePlace();
   }, []);
 
   useEffect(() => {
@@ -371,21 +371,33 @@ export default function Home({ lat, long }) {
                     onClick={handleNoSavePlace}
                     className="cursor-pointer flex justify-center items-center rounded-[8px] px-[14px] h-[44px] bg-[#F0F0F0]"
                   >
-                    <img src={nosave} alt="" />
+                    {NoSave(
+                      tg.themeParams.button_color
+                        ? tg.themeParams.button_color
+                        : "#0A84FF"
+                    )}
                   </button>
                 ) : (
                   <button
                     onClick={handleSavePlace}
                     className="cursor-pointer flex justify-center items-center rounded-[8px] px-[14px] h-[44px] bg-[#F0F0F0]"
                   >
-                    <img src={save} alt="" />
+                    {Save(
+                      tg.themeParams.button_color
+                        ? tg.themeParams.button_color
+                        : "#0A84FF"
+                    )}
                   </button>
                 )}
                 <a
                   href={`https://t.me/share/url?url=${"https://t.me/TrueGis_bot"}&text=${"Botimizdan foydalaning!"}`}
                   className="flex justify-center items-center rounded-[8px] px-[14px] h-[44px] bg-[#F0F0F0]"
                 >
-                  <img src={share} alt="" />
+                  {Share(
+                    tg.themeParams.button_color
+                      ? tg.themeParams.button_color
+                      : "#0A84FF"
+                  )}
                 </a>
               </div>
             </div>
@@ -424,6 +436,56 @@ function OpenClose(color) {
       fill="none"
     >
       <circle cx="4" cy="4" r="4" fill={color} />
+    </svg>
+  );
+}
+function Share(color) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="26"
+      height="26"
+      viewBox="0 0 26 26"
+      fill="none"
+    >
+      <path
+        d="M13.0821 8.98766V9.98766H14.0821V8.98766H13.0821ZM4.20361 18.8642H3.20361C3.20361 19.2404 3.41475 19.5848 3.75003 19.7554C4.08531 19.9261 4.48799 19.8941 4.79214 19.6727L4.20361 18.8642ZM13.0821 15.576H14.0821V14.576H13.0821V15.576ZM13.0821 19.9445H12.0821C12.0821 20.3405 12.3159 20.6992 12.6782 20.8592C13.0405 21.0192 13.463 20.9503 13.7558 20.6835L13.0821 19.9445ZM20.8703 12.8457L21.5439 13.5847C21.7465 13.4001 21.8644 13.1405 21.8701 12.8665C21.8758 12.5925 21.7688 12.3282 21.5741 12.1353L20.8703 12.8457ZM13.0821 5.12964L13.7859 4.41925C13.4992 4.13518 13.0698 4.05133 12.6973 4.20665C12.3248 4.36198 12.0821 4.72602 12.0821 5.12964H13.0821ZM13.0821 7.98766C11.4405 7.98766 8.9952 8.99761 6.9882 10.7687C4.93941 12.5767 3.20361 15.3015 3.20361 18.8642H5.20361C5.20361 16.0072 6.58308 13.7937 8.31155 12.2683C10.0818 10.7061 12.0758 9.98766 13.0821 9.98766V7.98766ZM4.79214 19.6727C5.48582 19.1677 6.76827 18.383 8.29368 17.7279C9.82742 17.0693 11.5283 16.576 13.0821 16.576V14.576C11.1469 14.576 9.16133 15.1787 7.50452 15.8902C5.83937 16.6053 4.42711 17.4646 3.61509 18.0557L4.79214 19.6727ZM12.0821 15.576V19.9445H14.0821V15.576H12.0821ZM21.5741 12.1353L13.7859 4.41925L12.3783 5.84003L20.1665 13.5561L21.5741 12.1353ZM12.0821 5.12964V8.98766H14.0821V5.12964H12.0821ZM20.1966 12.1066L12.4085 19.2054L13.7558 20.6835L21.5439 13.5847L20.1966 12.1066Z"
+        fill={color}
+      />
+    </svg>
+  );
+}
+function Save(color) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="26"
+      height="26"
+      viewBox="0 0 26 26"
+      fill="none"
+    >
+      <path
+        d="M18.7771 4.20367C20.4518 4.20367 20.8705 5.55551 20.8705 6.23143V21.2056C20.8705 22.1415 20.0653 21.8295 18.7771 21.2056L14.2682 19.1778C14.2682 19.1778 13.8904 19.0219 13.4631 19.0219C13.0358 19.0219 12.6579 19.1778 12.6579 19.1778L8.14906 21.2056C6.86082 21.8295 6.05566 22.1415 6.05566 21.2056V6.23143C6.05566 4.60922 7.45126 4.20367 8.14906 4.20367H18.7771Z"
+        stroke={color}
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}
+function NoSave(color) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="26"
+      height="26"
+      viewBox="0 0 26 26"
+      fill="none"
+    >
+      <path
+        d="M16.8705 8.20367V15.9623L15.9089 15.5298L15.8521 15.5043L15.7945 15.4805L14.2682 19.1778C15.7945 15.4805 15.7938 15.4802 15.7931 15.4799L15.7916 15.4793L15.7887 15.4781L15.7826 15.4756L15.77 15.4705L15.7424 15.4594C15.7231 15.4517 15.7017 15.4433 15.6784 15.4344C15.6319 15.4167 15.5772 15.3965 15.515 15.3749C15.3919 15.3322 15.2329 15.2814 15.0458 15.2321C14.6953 15.1396 14.1337 15.0219 13.4631 15.0219C12.7924 15.0219 12.2308 15.1396 11.8803 15.2321C11.6932 15.2814 11.5343 15.3322 11.4112 15.3749C11.349 15.3965 11.2942 15.4167 11.2477 15.4344C11.2244 15.4433 11.203 15.4517 11.1837 15.4594L11.1562 15.4705L11.1435 15.4756L11.1375 15.4781L11.1345 15.4793L11.133 15.4799C11.1323 15.4802 11.1316 15.4805 12.6579 19.1778L11.1316 15.4805L11.0741 15.5043L11.0173 15.5298L10.0557 15.9623V8.20367H16.8705Z"
+        stroke={color}
+        strokeWidth="8"
+      />
     </svg>
   );
 }
