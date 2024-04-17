@@ -155,7 +155,7 @@ export default function Home({ lat, long }) {
     };
     findSavePlace();
     console.log(placeID);
-  }, [placeData, placeID]);
+  }, [placeID]);
 
   useEffect(() => {
     localStorage.setItem("placeId", placeId);

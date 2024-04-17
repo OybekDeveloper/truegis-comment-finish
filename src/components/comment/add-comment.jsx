@@ -43,12 +43,12 @@ export default function AddComment() {
     const files = e.target.files;
     if (!files || !placeData) return;
     const fd = new FormData();
-    for(let i=0;i<files.length;i++){
+    for (let i = 0; i < files.length; i++) {
       fd.append(`image`, files[i]);
       fd.append("place", placeId);
       fd.append("user", userId);
     }
-   
+
     axios
       .post("https://admin13.uz/api/image/", fd, {
         headers: {
@@ -80,7 +80,7 @@ export default function AddComment() {
     }
   };
   useEffect(() => {
-    setFotos(placeData.images?placeData.images:[]);
+    setFotos(placeData.images ? placeData.images : []);
   }, [placeData]);
   return (
     <main className="comment">

@@ -164,9 +164,9 @@ export default function AllProduct() {
   console.log(yandex1);
   return (
     <>
-      {loading ? (
+      {/* {loading ? (
         <LoadingC />
-      ) : (
+      ) : ( */}
         <main className="all-product">
           <section className="flex flex-col justify-start items-start gap-[16px] my-[24px] px-[16px]">
             <h1 className="text-[15px] font-[500]">{t("adress")}</h1>
@@ -561,7 +561,7 @@ export default function AllProduct() {
             <p>{t("support")}</p>
           </a>
         </main>
-      )}
+      {/* )} */}
     </>
   );
 }

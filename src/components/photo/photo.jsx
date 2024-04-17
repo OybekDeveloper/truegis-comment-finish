@@ -14,7 +14,6 @@ import {
   GetPlaceData,
 } from "../../reducer/event";
 import LoadingC from "../loading/loader";
-import DeleteModal from "./delete-modal";
 import trash from "./trash.svg";
 
 export default function Photo() {
@@ -24,16 +23,24 @@ export default function Photo() {
   const { placeData, deleteModal } = useSelector((state) => state.event);
   const { t } = useTranslation();
   const [selectPhoto, setSelectPhoto] = useState([]);
-  const [activeImageCount, setActiveImageCount] = useState(1);
-  const [allImageCount, setAllImageCount] = useState(1);
+  const [, setAllImageCount] = useState(1);
   const [fotos, setFotos] = useState([]);
   const [album, setAlbum] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const fileInputRef = useRef(null);
 
   const handleFileInputClick = () => {
     fileInputRef.current.click();
+  };
+  const fetchDatas = async () => {
+    try {
+      const place = await ApiServer.getData(`/place/${placeId}/`);
+      dispatch(GetPlaceData(place))
+      setFotos(place.images);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleFileUploaded = (e) => {
@@ -83,7 +90,6 @@ export default function Photo() {
   };
 
   const handleSelectImage = async (id, idx) => {
-    setActiveImageCount(idx + 1);
     setAlbum(true);
     if (fotos.length > 0) {
       const selectedImage = fotos.find((image) => image.id === id);
@@ -92,7 +98,6 @@ export default function Photo() {
       await fetchUserFullName(selectedImage.user); // Fetch user full name for the selected image
     } else {
       setSelectPhoto(fotos);
-      setActiveImageCount(1);
     }
   };
 
@@ -100,7 +105,15 @@ export default function Photo() {
     setAlbum(false);
   };
   const handleDeleteImg = (id) => {
-    dispatch(DeleteModalRedux(id));
+    const fetchData = async () => {
+      try {
+        await ApiServer.delData(`/image/${id}/`);
+        fetchDatas();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
   };
 
   useEffect(() => {
@@ -110,19 +123,8 @@ export default function Photo() {
   }, [selectPhoto]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const place = await ApiServer.getData(`/place/${placeId}/`);
-        setFotos(place.images);
-        setTimeout(() => {
-          setLoading(false);
-        }, 500);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, [placeData.images, deleteModal]);
+    fetchDatas();
+  }, [placeData.images]);
   return (
     <>
       {loading ? (
@@ -230,7 +232,6 @@ export default function Photo() {
           </div>
         </div>
       )}
-      <DeleteModal />
     </>
   );
 }

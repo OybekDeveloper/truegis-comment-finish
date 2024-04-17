@@ -44,9 +44,9 @@ export default function About() {
   console.log(placeData)
   return (
     <main className="about">
-      {loading ? (
+      {/* {loading ? (
         <LoadingC />
-      ) : (
+      ) : ( */}
         <div>
           {placeData.info || aboutData.length > 0 ? (
             <>
@@ -101,7 +101,7 @@ export default function About() {
             </div>
           )}
         </div>
-      )}
+      {/* )} */}
     </main>
   );
 }

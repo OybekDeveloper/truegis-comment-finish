@@ -46,16 +46,12 @@ export default function Comment() {
   const open = () => {
     setMenuActive(true);
   };
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
-  }, [commentData]);
+  
   return (
     <>
-      {loading ? (
+      {/* {loading ? (
         <LoadingC />
-      ) : (
+      ) : ( */}
         <main className={`${menuActive && ""} comment  mb-[70px] mt-[24px]`}>
           <section className="w-full flex justify-between px-[16px]">
             <div className="w-1/2 flex flex-col gap-2">
@@ -216,7 +212,7 @@ export default function Comment() {
             <Modal modalOpen={menuActive} handleClose={close} />
           )}
         </main>
-      )}
+      {/* )} */}
     </>
   );
 }
