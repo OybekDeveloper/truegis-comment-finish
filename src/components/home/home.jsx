@@ -380,22 +380,24 @@ export default function Home({ lat, long }) {
                     onClick={handleNoSavePlace}
                     className="cursor-pointer flex justify-center items-center rounded-[8px] px-[14px] h-[44px] bg-[#F0F0F0]"
                   >
-                    {NoSave(
+                    <img src={nosave} alt="" />
+                    {/* {NoSave(
                       tg.themeParams.button_color
                         ? tg.themeParams.button_color
                         : "#0A84FF"
-                    )}
+                    )} */}
                   </button>
                 ) : (
                   <button
                     onClick={handleSavePlace}
                     className="cursor-pointer flex justify-center items-center rounded-[8px] px-[14px] h-[44px] bg-[#F0F0F0]"
                   >
-                    {Save(
+                    <img src={save} alt=""/>
+                    {/* {Save(
                       tg.themeParams.button_color
                         ? tg.themeParams.button_color
                         : "#0A84FF"
-                    )}
+                    )} */}
                   </button>
                 )}
                 <a
