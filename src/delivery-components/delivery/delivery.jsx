@@ -165,7 +165,7 @@ const Delivery = () => {
                     item?.food_id === activeCatgory?.food_id
                       ? "border-[#2E90FA]"
                       : "border-[#EAECF0]"
-                  } w-[48px] h-[48px] border-[3px] border-solid  rounded-full object-cover`}
+                  } w-[64px] h-[64px] border-[3px] border-solid  rounded-full object-cover`}
                   src={item.url}
                   alt=""
                 />

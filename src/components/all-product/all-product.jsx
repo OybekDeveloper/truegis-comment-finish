@@ -9,6 +9,7 @@ import {
   telegram,
   twitter,
   yandex,
+  youtube,
 } from "../home/img";
 import "./main.scss";
 import { useNavigate } from "react-router-dom";
@@ -260,14 +261,6 @@ export default function AllProduct() {
             <h1 className="font-[500] text-[15px]">{t("social_info")}</h1>
             <div className="flex flex-row gap-[20px] pt-[20px]">
               <a
-                href={placeData.instagram}
-                className={`${
-                  placeData.instagram ? "opacity-1" : "opacity-[0.7]  "
-                } social-media`}
-              >
-                <img src={instagram} alt="" className="w-[48px] h-[48px]" />
-              </a>
-              <a
                 href={placeData.telegram}
                 className={`${
                   placeData.telegram ? "opacity-1" : "opacity-[0.7] "
@@ -284,12 +277,20 @@ export default function AllProduct() {
                 <img src={bot} alt="" className="w-[38px] h-[38px]" />
               </a>
               <a
-                href={placeData.twitter}
+                href={placeData.instagram}
                 className={`${
-                  placeData.twitter ? "opacity-1" : "opacity-[0.7] "
+                  placeData.instagram ? "opacity-1" : "opacity-[0.7]  "
                 } social-media`}
               >
-                <img src={twitter} alt="" className="w-[30px] h-[30px]" />
+                <img src={instagram} alt="" className="w-[48px] h-[48px]" />
+              </a>
+              <a
+                href={placeData.youtube}
+                className={`${
+                  placeData.youtube ? "opacity-1" : "opacity-[0.7] "
+                } social-media`}
+              >
+                <img src={youtube} alt="" className="w-[28px] h-[28px]" />
               </a>
               <a
                 href={placeData.facebook}

@@ -14,7 +14,7 @@ import {
 } from "../../reducer/event";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
-import { share } from "./img";
+import { nosave, save, share } from "./img";
 import { TurnedInOutlined } from "@mui/icons-material";
 import LoadingC from "../loading/loader";
 
@@ -66,7 +66,7 @@ export default function Home({ lat, long }) {
   const [activeTab, setActiveTab] = useState(1);
   const [activeComment, setActiveComment] = useState(false);
   const [loading, setLoading] = useState(TurnedInOutlined);
-
+  const [isSave,setIsSave] = useState(false);
   const workStatus = () => {
     const hours = new Date().getHours();
     const start = placeData?.work_start_time?.split(":")[0];
@@ -313,7 +313,7 @@ export default function Home({ lat, long }) {
           <div className={`mb-[70px]`}></div>
           {!(pathname === `/${placeId}/${userId}/${km}/photo`) && (
             <div className="max-w-[400px] mx-auto fixed bottom-0 w-full flex justify-around  items-center add-button py-[10px]">
-              <div className="flex justify-between  items-center w-full mx-[16px] ">
+              <div className="flex justify-between gap-[16px]  items-center w-full mx-[16px] ">
                 <button
                   onClick={() => {
                     !activeComment &&
@@ -328,9 +328,15 @@ export default function Home({ lat, long }) {
                     {t("add_comment_btn")}
                   </h1>
                 </button>
+                <button
+                onClick={()=>setIsSave(!isSave)}
+                  className="cursor-pointer flex justify-center items-center rounded-[8px] px-[14px] h-[44px] bg-[#F0F0F0]"
+                >
+                  <img src={isSave?save:nosave} alt="" />
+                </button>
                 <a
-                  href={`https://t.me/share/url?url=${"https://t.me/TrueGis_bot/click?startapp=ref_HXoMwnug"}&text=${"Botimizdan foydalaning!"}`}
-                  className="tg-button flex justify-center items-center rounded-[8px] px-[14px] h-[44px]"
+                  href={`https://t.me/share/url?url=${"https://t.me/TrueGis_bot"}&text=${"Botimizdan foydalaning!"}`}
+                  className="flex justify-center items-center rounded-[8px] px-[14px] h-[44px] bg-[#F0F0F0]"
                 >
                   <img src={share} alt="" />
                 </a>
