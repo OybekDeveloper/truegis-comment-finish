@@ -60,6 +60,7 @@ export default function Photo() {
         },
       })
       .then((res) => {
+        setLoading(false)
         const fetchData = async () => {
           try {
             const place = await ApiServer.getData(`/place/${placeId}/`);

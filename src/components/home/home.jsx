@@ -379,6 +379,7 @@ export default function Home({ lat, long }) {
                     onClick={handleNoSavePlace}
                     className="cursor-pointer flex justify-center items-center rounded-[8px] px-[14px] h-[44px] bg-[#F0F0F0]"
                   >
+                    {/* <img src={nosave} alt="" /> */}
                     {NoSave(
                       tg.themeParams.button_color
                         ? tg.themeParams.button_color
@@ -390,6 +391,7 @@ export default function Home({ lat, long }) {
                     onClick={handleSavePlace}
                     className="cursor-pointer flex justify-center items-center rounded-[8px] px-[14px] h-[44px] bg-[#F0F0F0]"
                   >
+                    {/* <img src={save} alt="" /> */}
                     {Save(
                       tg.themeParams.button_color
                         ? tg.themeParams.button_color
@@ -467,33 +469,25 @@ function Save(color) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="26"
-      height="26"
-      viewBox="0 0 26 26"
-      fill="none"
+      width="24"
+      height="24"
+      fill={color}
+      viewBox="0 0 256 256"
     >
-      <path
-        d="M18.7771 4.20367C20.4518 4.20367 20.8705 5.55551 20.8705 6.23143V21.2056C20.8705 22.1415 20.0653 21.8295 18.7771 21.2056L14.2682 19.1778C14.2682 19.1778 13.8904 19.0219 13.4631 19.0219C13.0358 19.0219 12.6579 19.1778 12.6579 19.1778L8.14906 21.2056C6.86082 21.8295 6.05566 22.1415 6.05566 21.2056V6.23143C6.05566 4.60922 7.45126 4.20367 8.14906 4.20367H18.7771Z"
-        stroke={color}
-        strokeWidth="2"
-      />
+      <path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Zm0,177.57-51.77-32.35a8,8,0,0,0-8.48,0L72,209.57V48H184Z"></path>
     </svg>
   );
 }
 function NoSave(color) {
   return (
     <svg
-      width="26"
-      height="26"
-      viewBox="0 0 26 26"
-      fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill={color}
+      viewBox="0 0 256 256"
     >
-      <path
-        d="M16.8705 8.20367V15.9623L15.9089 15.5298L15.8521 15.5043L15.7945 15.4805L14.2682 19.1778C15.7945 15.4805 15.7938 15.4802 15.7931 15.4799L15.7916 15.4793L15.7887 15.4781L15.7826 15.4756L15.77 15.4705L15.7424 15.4594C15.7231 15.4517 15.7017 15.4433 15.6784 15.4344C15.6319 15.4167 15.5772 15.3965 15.515 15.3749C15.3919 15.3322 15.2329 15.2814 15.0458 15.2321C14.6953 15.1396 14.1337 15.0219 13.4631 15.0219C12.7924 15.0219 12.2308 15.1396 11.8803 15.2321C11.6932 15.2814 11.5343 15.3322 11.4112 15.3749C11.349 15.3965 11.2942 15.4167 11.2477 15.4344C11.2244 15.4433 11.203 15.4517 11.1837 15.4594L11.1562 15.4705L11.1435 15.4756L11.1375 15.4781L11.1345 15.4793L11.133 15.4799C11.1323 15.4802 11.1316 15.4805 12.6579 19.1778L11.1316 15.4805L11.0741 15.5043L11.0173 15.5298L10.0557 15.9623V8.20367H16.8705Z"
-        stroke={color}
-        strokeWidth="8"
-      />
+      <path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Z"></path>
     </svg>
   );
 }
