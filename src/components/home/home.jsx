@@ -70,6 +70,8 @@ export default function Home({ lat, long }) {
   const [activeComment, setActiveComment] = useState(false);
   const [loading, setLoading] = useState(TurnedInOutlined);
   const [findSave, setFindSave] = useState(false);
+  const placeID = localStorage.getItem("placeId");
+
   const workStatus = () => {
     const hours = new Date().getHours();
     const start = placeData?.work_start_time?.split(":")[0];
@@ -108,7 +110,7 @@ export default function Home({ lat, long }) {
     dispatch(SavePlaceModal());
     const fetchData = async () => {
       try {
-        await ApiServer.postData(`/userplace/create/${userId}/${placeId}/`);
+        await ApiServer.postData(`/userplace/create/${userId}/${placeID}/`);
         setFindSave(true);
       } catch (error) {
         console.log(error);
@@ -119,7 +121,7 @@ export default function Home({ lat, long }) {
   const handleNoSavePlace = () => {
     const fetchData = async () => {
       try {
-        await ApiServer.delData(`/userplace/delete/${userId}/${placeId}/`);
+        await ApiServer.delData(`/userplace/delete/${userId}/${placeID}/`);
         setFindSave(false);
       } catch (error) {
         console.log(error);
@@ -140,14 +142,20 @@ export default function Home({ lat, long }) {
     const findSavePlace = async () => {
       try {
         const res = await ApiServer.getData(`/userplace/${userId}/`);
-        const find = res.places.find((place) => place == placeId);
-        if (find) setFindSave(true);
+        const find = res.places.find((place) => place == placeID);
+        console.log(res, find);
+        if (find) {
+          setFindSave(true);
+        } else {
+          setFindSave(false);
+        }
       } catch (error) {
         console.log(error);
       }
     };
     findSavePlace();
-  }, []);
+    console.log(placeID)
+  }, [placeData, placeID]);
 
   useEffect(() => {
     localStorage.setItem("placeId", placeId);
