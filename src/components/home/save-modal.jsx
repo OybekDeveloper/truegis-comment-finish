@@ -2,24 +2,21 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import {
-  DeleteFoodItem,
-  ExitUserModal,
-} from "../../reducer/delivery";
-import { close,  exitdoor } from "../images";
+import { DeleteFoodItem, ExitUserModal } from "../../reducer/delivery";
+import { SavePlaceModal } from "../../reducer/event";
 export default function SaveModal() {
-  const { exitUser } = useSelector((state) => state.delivery);
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const { isSave } = useSelector((state) => state.event);
   function closeModal() {
-    dispatch(ExitUserModal(false));
+    dispatch(SavePlaceModal(false));
   }
   const handleEnd = () => {
     dispatch(DeleteFoodItem(false));
   };
   return (
     <>
-      <Transition appear show={exitUser} as={Fragment}>
+      <Transition appear show={isSave} as={Fragment}>
         <Dialog as="div" className="relative z-[999]" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
@@ -49,24 +46,20 @@ export default function SaveModal() {
                     as="h3"
                     className="relative text-lg font-medium leading-6 flex justify-center items-center"
                   >
-                    <img
-                      onClick={closeModal}
-                      className="cursor-pointer absolute right-0 top-0 z-10"
-                      src={close}
-                      alt=""
-                    />
-                    <img src={exitdoor} alt="" />
+                    <div className="flex gap-[10px] flex-col w-full pb-[20px]">
+                      <h1 className="text-[14px] font-[500] hr w-full text-center py-[9px] rounded-[4px] opacity-[0.5]">📍Lokatsiyani yuborish</h1>
+                      <h1 className="text-[14px] font-[500] hr w-full text-center py-[9px] rounded-[4px]">❤️ Sevimlilar</h1>
+                      <h1 className="text-[14px] font-[500] hr w-full text-center py-[9px] rounded-[4px] opacity-[0.5]">🔙 Ortga</h1>
+                    </div>
                   </Dialog.Title>
-                  <div className="w-full flex justify-center flex-col gap-[12px] mt-[1">
-                    <h1 className="text-center text-[#101828] text-[18px] font-[500]">
-                      Profildan chiqishni xohlaysizmi?
+                  <div className="w-full flex justify-center flex-col gap-[12px] mt-[24px]">
+                    <h1 className="text-center text-[#101828] text-[18px] font-[400]">
+                      Saqlagan joylaringizni <strong>❤️ Sevimlilar </strong>
+                      bo’limidan topishingiz mumkin
                     </h1>
-                    <div className="flex flex-col items-center justify-center gap-[12px]">
-                      <button className="text-[18px] text-[#fff] w-full px-[14px] py-[10px] rounded-[8px] bg-[#D92D20]">
-                        Chiqish{" "}
-                      </button>
-                      <button onClick={closeModal} className="text-[18px] text-[#000] w-full px-[14px] py-[10px] rounded-[8px] border-[1px] border-solid border-[#D0D5DD]">
-                        Bekor qilish
+                    <div className="w-full flex justify-end tg-button-text">
+                      <button onClick={closeModal} className="text-[18px]">
+                        OK
                       </button>
                     </div>
                   </div>

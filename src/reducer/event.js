@@ -14,7 +14,8 @@ export const initialState = {
   long: "",
   distance:"",
   deleteModal:false,
-  deletePhotoId:""
+  deletePhotoId:"",
+  isSave:false
 };
 
 export const eventSlice = createSlice({
@@ -58,6 +59,9 @@ export const eventSlice = createSlice({
     DeleteModalRedux:(state,action)=>{
       state.deleteModal=!state.deleteModal
       state.deletePhotoId=action.payload
+    },
+    SavePlaceModal:(state)=>{
+      state.isSave=!state.isSave
     }
   },
 });
@@ -73,5 +77,6 @@ export const {
   DeleteComment,
   EditCommentModal,
   Loading,
+  SavePlaceModal
 } = eventSlice.actions;
 export default eventSlice.reducer;

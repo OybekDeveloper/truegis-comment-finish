@@ -11,12 +11,14 @@ import {
   GetPlaceData,
   SaveDistance,
   SavePathData,
+  SavePlaceModal,
 } from "../../reducer/event";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 import { nosave, save, share } from "./img";
 import { TurnedInOutlined } from "@mui/icons-material";
 import LoadingC from "../loading/loader";
+import SaveModal from "./save-modal";
 
 const backgroundImage =
   "https://s3-alpha-sig.figma.com/img/808e/7de1/0a383ce94c24b18e47af0e9ba369a18a?Expires=1711929600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=e7AE~1fTZ-cKSH-WZLl2-g9yhVsxw2rJ9qJ2UKefHAOZY7zlW89xrlkRsImEkHEpfT-NbJeMcmF8UOdemF1ZcKZ8pRYxqVXXTemn~8p8t33cVhaNCNt-owytQK4HRstvl2T7czB8Uz2ftE-2~XPFq3mqssd1E~DJ6zJFjmrRZAc8Aj~zpqEKSGWDut85W3WDy4YEr4KhHvbYk46g4mhrPl51d-gbgN-YbVSQXf7A5eVRYQQzFlf9bq5tIZttyyTLn9xbSDL2xeTsLI~AWyh-L84eXCGkG9-oVcYfLgeedzw9oa9Bk4xv45eGvhjGYLaflIBwXwzBq4TXwqefY87HuQ__";
@@ -25,7 +27,7 @@ export default function Home({ lat, long }) {
   const { t } = useTranslation();
   const { placeId, userId, km } = useParams();
   const { pathname } = useLocation();
-  const { placeData, commentData, delModal, deleteModal } = useSelector(
+  const { placeData, commentData, delModal, deleteModal, isSave } = useSelector(
     (state) => state.event
   );
   const navlink = [
@@ -66,7 +68,7 @@ export default function Home({ lat, long }) {
   const [activeTab, setActiveTab] = useState(1);
   const [activeComment, setActiveComment] = useState(false);
   const [loading, setLoading] = useState(TurnedInOutlined);
-  const [isSave,setIsSave] = useState(false);
+  const [findSave, setFindSave] = useState(false);
   const workStatus = () => {
     const hours = new Date().getHours();
     const start = placeData?.work_start_time?.split(":")[0];
@@ -101,6 +103,30 @@ export default function Home({ lat, long }) {
     const distance = earthRadiusKm * c;
     return distance;
   }
+  const handleSavePlace = () => {
+    dispatch(SavePlaceModal());
+    const fetchData = async () => {
+      try {
+        await ApiServer.postData(`/userplace/create/${userId}/${placeId}/`);
+        setFindSave(true);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  };
+  const handleNoSavePlace = () => {
+    const fetchData = async () => {
+      try {
+        await ApiServer.delData(`/userplace/delete/${userId}/${placeId}/`);
+        setFindSave(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  };
+
   useEffect(() => {
     dispatch(SavePathData([placeId, userId, km]));
     if (pathname === `/${placeId}/${userId}/${km}/comment`) {
@@ -109,6 +135,18 @@ export default function Home({ lat, long }) {
       navigate(`/${placeId}/${userId}/${km}/all-product`);
     }
     workStatus();
+
+    const findSavePlace = async () => {
+      try {
+        const res = await ApiServer.getData(`/userplace/${userId}/`);
+        setFindSave();
+        const find=res.places.find(place =>place==placeId)
+        if(find) setFindSave(true);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    findSavePlace()
   }, []);
 
   useEffect(() => {
@@ -328,12 +366,21 @@ export default function Home({ lat, long }) {
                     {t("add_comment_btn")}
                   </h1>
                 </button>
-                <button
-                onClick={()=>setIsSave(!isSave)}
-                  className="cursor-pointer flex justify-center items-center rounded-[8px] px-[14px] h-[44px] bg-[#F0F0F0]"
-                >
-                  <img src={isSave?save:nosave} alt="" />
-                </button>
+                {findSave ? (
+                  <button
+                    onClick={handleNoSavePlace}
+                    className="cursor-pointer flex justify-center items-center rounded-[8px] px-[14px] h-[44px] bg-[#F0F0F0]"
+                  >
+                    <img src={nosave} alt="" />
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleSavePlace}
+                    className="cursor-pointer flex justify-center items-center rounded-[8px] px-[14px] h-[44px] bg-[#F0F0F0]"
+                  >
+                    <img src={save} alt="" />
+                  </button>
+                )}
                 <a
                   href={`https://t.me/share/url?url=${"https://t.me/TrueGis_bot"}&text=${"Botimizdan foydalaning!"}`}
                   className="flex justify-center items-center rounded-[8px] px-[14px] h-[44px] bg-[#F0F0F0]"
@@ -345,6 +392,7 @@ export default function Home({ lat, long }) {
           )}
         </main>
       )}
+      <SaveModal />
     </>
   );
 }
