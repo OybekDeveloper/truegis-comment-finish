@@ -110,6 +110,7 @@ export default function Home({ lat, long }) {
     dispatch(SavePlaceModal());
     const fetchData = async () => {
       try {
+        
         await ApiServer.postData(`/userplace/create/${userId}/${placeID}/`);
         setFindSave(true);
       } catch (error) {
