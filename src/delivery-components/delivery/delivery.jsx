@@ -160,7 +160,7 @@ const Delivery = () => {
           </section>
           <div className="w-full h-[70px]"></div>
           <SearchComponent />
-          <section className="sticky top-0 py-[16px] bg-[#fff] overflow-x-scroll whitespace-nowrap w-full image-slide mt-[20px]">
+          <section className="sticky top-0 py-[10px] bg-[#fff] overflow-x-scroll whitespace-nowrap w-full image-slide mt-[20px]">
             {foods?.map((item, idx) => (
               <div
                 onClick={() => handleActiveCtg(item)}
