@@ -165,8 +165,14 @@ export default function Home({ lat, long }) {
         const place = await ApiServer.getData(`/place/${placeId}/`);
         const comment = await ApiServer.getData(`/comments/${placeId}/list`);
         const res = await ApiServer.getData(`/users/${userId}/`);
-        i18next.changeLanguage(res.lang);
-        localStorage.setItem('lang',res.lang)
+        if(res.lang=="eng"){
+          localStorage.setItem('lang',"en")
+          i18next.changeLanguage("en");
+        }else{
+          localStorage.setItem('lang',res.lang)
+          i18next.changeLanguage(res.lang);
+        }
+        
         dispatch(GetPlaceData(place));
         dispatch(GetCommentData(comment));
       } catch (error) {
