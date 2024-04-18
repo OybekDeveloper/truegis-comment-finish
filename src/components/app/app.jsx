@@ -90,7 +90,7 @@ export default function App() {
   }, [lat, long]);
   return (
     <>
-      {/* {loading ? (
+      {loading ? (
         <div className="flex justify-center items-center w-full h-screen">
           <LoadingT />
         </div>
@@ -132,7 +132,7 @@ export default function App() {
             </Route>
           </Routes>
         </div>
-      )} */}
+      )}
     </>
   );
 }
