@@ -151,7 +151,7 @@ export default function Photo() {
                       <div key={index}>
                         <div className="z-[9999] h-[90vh] flex justify-center items-center">
                           <img
-                            className="w-full max-h-[380px] object-cover"
+                            className="w-full max-h-[380px] object-contain"
                             src={photo.image}
                             alt={`slide-${index}`}
                           />
@@ -171,7 +171,7 @@ export default function Photo() {
                     <img
                       src={selectPhoto[0].image}
                       alt="fofot"
-                      className="w-screen object-cover"
+                      className="w-full max-h-[380px] object-contain"
                     />
                     <div className="absolute text-white bottom-[28px] z-10 ml-[40px]">
                       <UserFullNameComponent

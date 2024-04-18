@@ -25,6 +25,8 @@ import {
   BillingInfoDeliver,
 } from "../../delivery-components";
 import BillingInfoAway from "../../delivery-components/billing-info/billing-info-away";
+import Action from "../discount/discount";
+import Discount from "../discount/discount";
 const tg = window.Telegram.WebApp;
 console.log(localStorage.getItem("userId"));
 i18n
@@ -104,7 +106,8 @@ export default function App() {
               <Route path={"all-product"} element={<AllProduct />} />
               <Route path={"photo"} element={<Photo />} />
               <Route path={"comment"} element={<Comment />} />
-              <Route path={"about"} element={<About />} />
+              {/* <Route path={"about"} element={<About />} /> */}
+              <Route path={"discount"} element={<Discount />} />
             </Route>
             <Route
               path={`/:placeId/:userId/:km/add-comment`}

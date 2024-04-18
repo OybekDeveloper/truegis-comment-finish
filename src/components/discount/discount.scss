@@ -1,0 +1,41 @@
+.slider {
+  width: 90%;
+  height: 300px;
+  object-fit: contain;
+}
+
+/* discount.scss */
+
+/* Adjust the styling for the next and previous buttons */
+.slick-next,
+.slick-prev {
+  width: 32px!important;
+  height: 32px!important;;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+/* Adjust the positioning of the next button */
+.slick-next {
+  right: 0; /* Adjust as needed */
+}
+
+/* Adjust the positioning of the previous button */
+.slick-prev {
+  left: 0; /* Adjust as needed */
+}
+.tg-time-discount{
+    color: var(--tg-theme-button-color, #0a84ff);
+}
+.tg-time-discount-back{
+    width: 100%;
+    position: absolute;
+    top: 0;
+    height: 30px;
+    opacity: 0.1;
+    border-radius: 16px;
+    border: 1px  var(--tg-theme-button-color, #0a84ff);
+    background-color: var(--tg-theme-button-color,#0a84ff);
+}

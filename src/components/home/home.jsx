@@ -53,8 +53,8 @@ export default function Home({ lat, long }) {
     },
     {
       id: 4,
-      title: t("li_4"),
-      link: `/${placeId}/${userId}/${km}/about`,
+      title: t("li_5"),
+      link: `/${placeId}/${userId}/${km}/discount`,
       count: null,
     },
     {
