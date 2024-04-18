@@ -6,7 +6,7 @@ import { SelectCategoryActive } from "../../reducer/delivery";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CategoryItem from "../category-elements/category-item";
-
+import close from "./close.svg";
 const variants = {
   expand: {
     height: "100vh",
@@ -36,10 +36,10 @@ const variants = {
 const SearchComponent = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { items,foods } = useSelector((state) => state.delivery);
+  const { items, foods } = useSelector((state) => state.delivery);
   const [isExpanded, setIsExpanded] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [newFood, setNewFood] = useState([])
+  const [newFood, setNewFood] = useState([]);
 
   const expandedContainer = () => {
     setIsExpanded(true);
@@ -64,13 +64,13 @@ const SearchComponent = () => {
     } else {
       body.classList.remove("no-scroll");
     }
-  
+
     // Flatten the nested structure of foods into a single array
     const flattenedFoods = foods.reduce((accumulator, category) => {
       accumulator.push(...category.props);
       return accumulator;
     }, []);
-  
+
     // Filter the flattened array based on the searchQuery
     if (searchQuery) {
       const filteredFoods = flattenedFoods.filter((food) =>
@@ -81,7 +81,7 @@ const SearchComponent = () => {
       setNewFood(flattenedFoods);
     }
   }, [isExpanded, searchQuery, foods]);
-  console.log(newFood)
+  console.log(newFood);
   return (
     <motion.section
       variants={variants}
@@ -106,13 +106,21 @@ const SearchComponent = () => {
       <div className="flex justify-start items-center w-full relative mt-[16px]">
         <img className="absolute left-[14px] " src={search} alt="search" />
         <input
-          className="outline-none pr-[14px] pl-[44px] py-[10px] w-full text-[16px] font-[400] text-ellipsis bg-[#F2F4F7] rounded-[12px]"
+          className="text-[#344054] outline-none pr-[14px] pl-[44px] py-[10px] w-full text-[16px] font-[400] text-ellipsis bg-[#F2F4F7] rounded-[12px]"
           type="text"
           placeholder="Mahsulot izlash"
           onFocus={expandedContainer}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
+        {searchQuery && (
+          <img
+            onClick={() => setSearchQuery("")}
+            className="absolute right-[12px] p-[4px] rounded-full bg-[#D0D5DD] cursor-pointer"
+            src={close}
+            alt=""
+          />
+        )}
       </div>
       {isExpanded &&
         (searchQuery ? (
@@ -122,13 +130,20 @@ const SearchComponent = () => {
                 items.length > 0 ? "pb-[70px]" : "pb-[24px]"
               }`}
             >
-              {newFood.map((item, idx) => (
-                 <CategoryItem
-                 key={idx}
-                 item={item}
-                 categoryId={item.categoryId}
-               />
-              ))}
+              {newFood.length > 0 ? (
+                <>
+                <h1 className="text-[18px] font-[500] text-[#344054] col-span-2">{newFood.length} ta mahsulot topildi</h1>
+                  {newFood.map((item, idx) => (
+                    <CategoryItem
+                      key={idx}
+                      item={item}
+                      categoryId={item.categoryId}
+                    />
+                  ))}
+                </>
+              ) : (
+              <h1 className="text-[18px] font-[500] text-[#344054] col-span-2">Qidirilgan ma'lumotlar mavjud emas!</h1>
+              )}
             </main>
           </Suspense>
         ) : (
