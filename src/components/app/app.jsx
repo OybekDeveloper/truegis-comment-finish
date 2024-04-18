@@ -71,6 +71,12 @@ export default function App() {
     } else {
       BackButton.hide();
     }
+    const body = document.body;
+    if (pathname===`/${placeId}/${userId}/${km}/discount`){
+      body.classList.add("no-scroll");
+    } else {
+      body.classList.remove("no-scroll");
+    }
   }, [pathname]);
 
   useEffect(() => {

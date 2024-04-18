@@ -71,6 +71,7 @@ export default function Home({ lat, long }) {
   const [loading, setLoading] = useState(TurnedInOutlined);
   const [findSave, setFindSave] = useState(false);
   const placeID = localStorage.getItem("placeId");
+  
 
   const workStatus = () => {
     const hours = new Date().getHours();
@@ -167,6 +168,7 @@ export default function Home({ lat, long }) {
         const comment = await ApiServer.getData(`/comments/${placeId}/list`);
         const res = await ApiServer.getData(`/users/${userId}/`);
         i18next.changeLanguage(res.lang);
+        localStorage.setItem('lang',res.lang)
         dispatch(GetPlaceData(place));
         dispatch(GetCommentData(comment));
       } catch (error) {
@@ -414,7 +416,7 @@ export default function Home({ lat, long }) {
           )}
         </main>
       )}
-      {/* <SaveModal /> */}
+      <SaveModal />
     </>
   );
 }

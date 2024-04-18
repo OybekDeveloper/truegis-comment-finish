@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Slider from "react-slick";
 import "./discount.scss";
 import next from "./chevron-left (1).svg";
 import prev from "./chevron-left.svg";
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 const Discount = () => {
   const settings = {
     dots: true,
@@ -13,8 +15,10 @@ const Discount = () => {
     nextArrow: <img className="slick-next" src={next} alt="Next" />, // Changed class name for styling
     prevArrow: <img className="slick-prev" src={prev} alt="Previous" />, // Changed class name for styling
   };
+
+
   return (
-    <main className="px-[16px] mt-[24px]">
+    <main className="px-[16px] mt-[24px] discount-blur">
       <section className="px-[16px]">
         <Slider {...settings}>
           <div className="flex justify-center">
@@ -52,8 +56,8 @@ const Discount = () => {
         <div>
           <h1 className="text-[16px] font-[400]">Aksiya va muddati</h1>
           <div className="relative flex items-center mt-[8px]">
-            <div className="tg-time-discount-back py-[4px]"></div>
-            <p className="tg-time-discount px-[14px] mt-[2px] font-[500]"> 
+            <div className="w-full tg-time-discount-back py-[8px]"></div>
+            <p className="w-full tg-time-discount px-[14px] mt-[4px] font-[500]"> 
               15.04.2024 dan - 30.04.2024 gacha
             </p>
           </div>
