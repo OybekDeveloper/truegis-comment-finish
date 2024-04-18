@@ -31,7 +31,9 @@ const OrderHisotry = () => {
       </section>
       <section className="flex w-full flex-col mt-[24px] gap-[32px]">
         <div className="relative flex flex-col justify-center items-center gap-3">
-          <img className="" src={emptyorder} alt="" />
+          <div className="min-h-[425.5]">
+            <img className="" src={emptyorder} alt="" />
+          </div>
           <div className="flex justify-center items-center flex-col absolute bottom-[32px]">
             <h1 className="text-[20px] font-[500] text-[#000]">
               Buyurtmalar tarixi bo’sh

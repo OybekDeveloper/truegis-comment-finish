@@ -56,7 +56,11 @@ const Basket = () => {
           alt=""
         />
       </section>
-      <section className={`${items.length>0 && "mb-[70px]"} flex flex-col gap-[24px]`}>
+      <section
+        className={`${
+          items.length > 0 && "mb-[70px]"
+        } flex flex-col gap-[24px]`}
+      >
         {items.length > 0 ? (
           items.map((item, idx) => (
             <div className="grid grid-cols-3" key={idx}>
@@ -98,7 +102,9 @@ const Basket = () => {
           ))
         ) : (
           <div className="relative flex flex-col  justify-center items-center gap-3">
-            <img className="" src={emptyfood} alt="" />
+            <div className="min-h-[424.5px]">
+              <img className="" src={emptyfood} alt="" />
+            </div>
             <div className="flex justify-center items-center flex-col absolute bottom-[32px]">
               <h1 className="text-[20px] font-[500] text-[#000]">
                 Savat bo’sh
