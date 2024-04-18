@@ -28,7 +28,6 @@ import BillingInfoAway from "../../delivery-components/billing-info/billing-info
 import Action from "../discount/discount";
 import Discount from "../discount/discount";
 const tg = window.Telegram.WebApp;
-console.log(localStorage.getItem("userId"));
 i18n
   .use(initReactI18next)
   .use(HttpApi)
@@ -72,17 +71,16 @@ export default function App() {
       BackButton.hide();
     }
     const body = document.body;
-    if (pathname===`/${placeId}/${userId}/${km}/discount`){
+    if (pathname.split("/")[4]==`discount`){
       body.classList.add("no-scroll");
     } else {
       body.classList.remove("no-scroll");
     }
-  }, [pathname]);
+  }, [pathname,placeId]);
 
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position.coords.latitude, position.coords.longitude);
         setLong(position.coords.longitude);
         setLat(position.coords.latitude);
       });

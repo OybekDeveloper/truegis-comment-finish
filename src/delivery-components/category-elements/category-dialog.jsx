@@ -35,7 +35,6 @@ export default function CategoryDialog({ categoryId}) {
       setSelectFood(foods[categoryId-1]?.props.find(c=>c.id===selectCategoryItem.id))
     }
   },[foods,selectCategory])
-  console.log(selectFood);
   return (
     <div className="">
       <motion.div

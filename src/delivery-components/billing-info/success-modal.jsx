@@ -11,7 +11,6 @@ export default function SuccussModal() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   function closeModal() {
-    console.log(sendOrder);
     dispatch(SendOrderItem(false));
   }
   const handleEnd = () => {

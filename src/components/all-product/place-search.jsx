@@ -20,7 +20,6 @@ const PlaceSearch = () => {
         );
         setLoading(false);
         setPlace(res);
-        console.log(res);
       } catch (error) {
         console.log(error);
       } finally {

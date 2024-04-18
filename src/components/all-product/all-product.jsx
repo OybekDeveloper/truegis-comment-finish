@@ -39,7 +39,6 @@ export default function AllProduct() {
   const [distance, setDistance] = useState(0);
   const [yandex1, setYandex1] = useState("");
   const [loading, setLoading] = useState(true);
-  console.log(lat, long, "alll");
   function degreesToRadians(degrees) {
     return (degrees * Math.PI) / 180;
   }
@@ -161,7 +160,6 @@ export default function AllProduct() {
     }
   }, [placeData]);
 
-  console.log(yandex1);
   return (
     <>
       {/* {loading ? (

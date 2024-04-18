@@ -144,7 +144,6 @@ export default function Home({ lat, long }) {
       try {
         const res = await ApiServer.getData(`/userplace/${userId}/`);
         const find = res.places.find((place) => place == placeID);
-        console.log(res, find);
         if (find) {
           setFindSave(true);
         } else {
@@ -155,7 +154,6 @@ export default function Home({ lat, long }) {
       }
     };
     findSavePlace();
-    console.log(placeID);
   }, [placeID]);
 
   useEffect(() => {

@@ -39,7 +39,6 @@ const Basket = () => {
     return formattedPrice;
   }
 
-  console.log(items);
   return (
     <main className="min-h-screen bg-[#fff]">
       <section className="bg-[#fff] shadow-shadow-xs w-full flex items-center justify-between mb-[24px] py-[17px]">

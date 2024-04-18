@@ -17,7 +17,6 @@ const BillingInfoDeliver = () => {
     dispatch(SendOrderItem(true));
     navigate("/delivery/basket");
   };
-  console.log(items)
 
   return (
     <div className="flex flex-col mb-[60px]">
