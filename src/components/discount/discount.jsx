@@ -14,33 +14,33 @@ const Discount = () => {
     prevArrow: <img className="slick-prev" src={prev} alt="Previous" />, // Changed class name for styling
   };
   return (
-    <main className="px-[16px] mt-[24px] rounded-[8px]">
+    <main className="px-[16px] mt-[24px]">
       <section className="px-[16px]">
         <Slider {...settings}>
           <div className="flex justify-center">
             <img
-              className="slider mx-auto "
+              className="slider mx-auto rounded-[8px]"
               src="https://s3-alpha-sig.figma.com/img/0d62/990b/6ff93121d24fcb090f305520081f66a9?Expires=1714348800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Oet1nlVflvI9UPeLuu3NzNEk3UmGVIWHlqNF6jlp0CZTwu79zOfDyfm5FIM7zdSSl7f-2O7EA7W5fuk05SHgHAVkw1Sd5oLT-ifq21iKAC9aNufiUii1DiI2js7FLbzANgO7xe08dZzZsCBbXimgdvVmoOl1KOh8XJg7pID6NWRFEJ~H-4eoqRiMzCfXgyUR05iSOMn7wgIqiXlD5hZNE3Hq3DlPN8JT4DjQ0s6fGOQMWfT2EvtLCG0TTj4YonHHcoFATluQxYYFPNeJWW6jG1UKb73bRA6~vJxmUGUIOf5ohJvOb7nRQHFqPvU75mtwwGDwA34ZgqIwt78JqW9-3Q__"
               alt="sadfaf"
             />
           </div>
           <div className="flex justify-center ">
             <img
-              className="slider mx-auto "
+              className="slider mx-auto rounded-[8px]"
               src="https://cdn.mediapark.uz/imgs/19e6894b-89c0-4a58-954d-c980725161a4_Artboard1-1300.webp"
               alt="sadfaf"
             />
           </div>
           <div className="flex justify-center ">
             <img
-              className="slider mx-auto "
+              className="slider mx-auto rounded-[8px]"
               src="https://www.apple.com/v/macbook-pro-14-and-16/e/images/meta/macbook-pro-14-and-16_overview__fz0lron5xyuu_og.png"
               alt="sadfaf"
             />
           </div>
           <div className="flex justify-center ">
             <img
-              className="slider mx-auto "
+              className="slider mx-auto rounded-[8px]"
               src="https://www.apple.com/v/macbook-pro-14-and-16/e/images/meta/macbook-pro-14-and-16_overview__fz0lron5xyuu_og.png"
               alt="sadfaf"
             />
