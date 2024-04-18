@@ -49,7 +49,7 @@ export default function SuccussModal() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="bg-[#fff] w-full max-w-md transform overflow-hidden rounded-2xl tg-bg-color p-6 text-left align-middle shadow-xl transition-all z-[999]">
+                <Dialog.Panel className="bg-[#fff] w-full max-w-md transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all z-[999]">
                   <Dialog.Title
                     as="h3"
                     className="relative text-lg font-medium leading-6 flex justify-center items-center"
@@ -72,7 +72,7 @@ export default function SuccussModal() {
                     </p>
                     <button
                       onClick={handleEnd}
-                      className="shadow-shadow-xs border-[1px] py-[10px] px-[14px] rounded-[8px] mt-[12px]"
+                      className=" text-[18px] font-[500] text-[#344054]  shadow-shadow-xs border-[1px] py-[10px] px-[14px] rounded-[8px] mt-[12px]"
                     >
                       Asosiy sahifaga qaytish
                     </button>

@@ -42,7 +42,7 @@ const BillingInfoAway = () => {
           src={back}
           alt=""
         />
-        <h1 className="text-[20px] font-[500] texxt-[#000]">
+        <h1 className="text-[20px] font-[500] text-[#000]">
           To’lov ma’lumotlari
         </h1>
         <div></div>

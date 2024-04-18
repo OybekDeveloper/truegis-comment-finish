@@ -80,7 +80,7 @@ export default function PersonalModal() {
                       className="relative flex-col text-lg font-medium leading-6 flex justify-start items-start"
                     >
                       <div className="flex justify-end w-full">
-                        sdafsdf
+                        
                         <img onClick={closeModal} src={close} alt="" />
                       </div>
                       <h1 className="text-[18px] font-[500] text-[#344054]">

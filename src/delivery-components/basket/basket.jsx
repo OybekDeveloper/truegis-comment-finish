@@ -49,7 +49,7 @@ const Basket = () => {
           src={back}
           alt=""
         />
-        <h1 className="text-[20px] font-[500] texxt-[#000]">Savat</h1>
+        <h1 className="text-[20px] font-[500] text-[#000]">Savat</h1>
         <img
           className="cursor-pointer"
           onClick={handleClearBasket}

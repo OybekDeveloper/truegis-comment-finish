@@ -48,15 +48,15 @@ const OrderType = () => {
   };
 
   return (
-    <div>
-      <section className="bg-[#fff] shadow-shadow-xs w-full flex items-center justify-between mb-[24px] py-[17px]">
+    <div className="h-screen">
+      <section className="bg-[#fff] shadow-shadow-xs w-full flex items-center justify-between mb-[24px] py-[17px] ">
         <img
           onClick={handleClose}
           className="cursor-pointer"
           src={back}
           alt=""
         />
-        <h1 className="text-[20px] font-[500] texxt-[#000]">Buyurtma turi</h1>
+        <h1 className="text-[20px] font-[500] text-[#000]">Buyurtma turi</h1>
         <div></div>
       </section>
       <section className=" mt-[24px] flex flex-col gap-[20px]">
