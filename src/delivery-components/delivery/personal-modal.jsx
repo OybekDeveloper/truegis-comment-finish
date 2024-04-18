@@ -37,7 +37,11 @@ export default function PersonalModal() {
                 ? buttonProps.remainingTime
                 : `0${buttonProps.remainingTime}`
             } dan so'ng qayta yuborish`
-          : "Kod kelmadimi?<span className='text-[#2E90FA]'>  Qaytadan yuborish</span>"}
+          : (
+            <h1>
+              Kod kelmadimi? <span className='text-[#2E90FA]'>Qaytadan yuborish</span>
+            </h1>
+          )}
       </button>
     );
   };
