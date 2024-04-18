@@ -73,7 +73,7 @@ export default function SaveModal() {
                     </div>
                   </Dialog.Title>
                   <div className="px-[16px] py-[20px] w-full flex justify-center flex-col gap-[12px]">
-                    <h1 className="text-start opacity-[0.8] text-[18px] font-[400]">
+                    <h1 className="text-start text-[#555] text-[18px] font-[400]">
                       {t("like_title")}
                     </h1>
                     <div className="w-full flex justify-end tg-button-text">
