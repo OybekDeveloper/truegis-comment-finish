@@ -14,8 +14,8 @@ const Discount = () => {
     prevArrow: <img className="slick-prev" src={prev} alt="Previous" />, // Changed class name for styling
   };
   return (
-    <main className="px-[16px]">
-      <section className="">
+    <main className="px-[16px] mt-[24px] rounded-[8px]">
+      <section className="px-[16px]">
         <Slider {...settings}>
           <div className="flex justify-center">
             <img
