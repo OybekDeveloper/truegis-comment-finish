@@ -96,7 +96,7 @@ export default function Photo() {
       const selectedImage = fotos.find((image) => image.id === id);
       const remainingImages = fotos.filter((image) => image.id !== id);
       setSelectPhoto([selectedImage, ...remainingImages]);
-      await fetchUserFullName(selectedImage.user); // Fetch user full name for the selected image
+      // await fetchUserFullName(selectedImage.user); // Fetch user full name for the selected image
     } else {
       setSelectPhoto(fotos);
     }
@@ -156,12 +156,12 @@ export default function Photo() {
                             alt={`slide-${index}`}
                           />
                         </div>
-                        <div className="absolute text-white bottom-0 z-10 ml-[40px]">
+                        {/* <div className="absolute text-white bottom-0 z-10 ml-[40px]">
                           <UserFullNameComponent
                             userId={photo.user}
                             created={photo.created}
                           />
-                        </div>
+                        </div> */}
                       </div>
                     ))}
                   </Slider>
@@ -174,10 +174,10 @@ export default function Photo() {
                       className="w-screen object-cover"
                     />
                     <div className="absolute text-white bottom-[28px] z-10 ml-[40px]">
-                      <UserFullNameComponent
+                      {/* <UserFullNameComponent
                         userId={selectPhoto[0].user}
                         created={selectPhoto[0].created}
-                      />
+                      /> */}
                     </div>
                   </div>
                 )}
@@ -239,44 +239,44 @@ export default function Photo() {
 
 const userId = localStorage.getItem("userId");
 
-export const fetchUserFullName = async (id, created) => {
-  if (userId) {
-    try {
-      const user = await ApiServer.getData(`/users/${id}/`);
-      return (
-        <div className="w-screen  pt-[24px] backdrop-image-content flex justify-start items-center gap-[16px]">
-          <img
-            className="w-[50px] h-[50px] rounded-full object-cover"
-            src={user?.profile_photo_url}
-            alt="user"
-          />
-          <div className="flex flex-col">
-            <h1 className="text-[#fff] text-[16px] font-[500]">
-              {user?.full_name}
-            </h1>
-            <h2 className="text-[#fff] text-[12px] font-[500] opacity-[0.7]">
-              {created?.slice(0, 10)}
-            </h2>
-          </div>
-        </div>
-      );
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
-  }
-};
+// export const fetchUserFullName = async (id, created) => {
+//   if (userId) {
+//     try {
+//       const user = await ApiServer.getData(`/users/${id}/`);
+//       return (
+//         <div className="w-screen  pt-[24px] backdrop-image-content flex justify-start items-center gap-[16px]">
+//           <img
+//             className="w-[50px] h-[50px] rounded-full object-cover"
+//             src={user?.profile_photo_url}
+//             alt="user"
+//           />
+//           <div className="flex flex-col">
+//             <h1 className="text-[#fff] text-[16px] font-[500]">
+//               {user?.full_name}
+//             </h1>
+//             <h2 className="text-[#fff] text-[12px] font-[500] opacity-[0.7]">
+//               {created?.slice(0, 10)}
+//             </h2>
+//           </div>
+//         </div>
+//       );
+//     } catch (error) {
+//       console.log(error);
+//       return null;
+//     }
+//   }
+// };
 
-const UserFullNameComponent = ({ userId, created }) => {
-  const [userFullName, setUserFullName] = useState(null);
+// const UserFullNameComponent = ({ userId, created }) => {
+//   const [userFullName, setUserFullName] = useState(null);
 
-  useEffect(() => {
-    const getUserFullName = async () => {
-      const fullName = await fetchUserFullName(userId, created);
-      setUserFullName(fullName);
-    };
-    getUserFullName();
-  }, [userId]);
+//   useEffect(() => {
+//     const getUserFullName = async () => {
+//       const fullName = await fetchUserFullName(userId, created);
+//       setUserFullName(fullName);
+//     };
+//     getUserFullName();
+//   }, [userId]);
 
-  return userFullName;
-};
+//   return userFullName;
+// };
