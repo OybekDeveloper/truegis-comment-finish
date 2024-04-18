@@ -57,7 +57,7 @@ const Basket = () => {
           alt=""
         />
       </section>
-      <section className="flex flex-col gap-[24px]">
+      <section className={`${items.length>0 && "mb-[70px]"} flex flex-col gap-[24px]`}>
         {items.length > 0 ? (
           items.map((item, idx) => (
             <div className="grid grid-cols-3" key={idx}>
@@ -98,9 +98,16 @@ const Basket = () => {
             </div>
           ))
         ) : (
-          <div className="flex flex-col  justify-center items-center gap-3">
-            <img className="w-[100px]" src={emptyfood} alt="" />
-            <h1 className="text-[18px] font-[500] text-black">Tanlangan ovqatlar mavjud emas!</h1>
+          <div className="relative flex flex-col  justify-center items-center gap-3">
+            <img className="" src={emptyfood} alt="" />
+            <div className="flex justify-center items-center flex-col absolute bottom-[32px]">
+              <h1 className="text-[20px] font-[500] text-[#000]">
+                Savat bo’sh
+              </h1>
+              <p className="text-[16px] font-[400] text-[#667085]">
+                Siz savatga hech narsa qo’shmagansiz
+              </p>
+            </div>
           </div>
         )}
       </section>

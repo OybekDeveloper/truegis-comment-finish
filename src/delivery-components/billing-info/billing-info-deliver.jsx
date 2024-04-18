@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { back, card, home, money, rightarrow } from "../images";
-import checkback from "./Subtract.svg";
 import { motion } from "framer-motion";
 import "./billing-info.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { SendOrderItem } from "../../reducer/delivery";
-import SuccussModal from "./success-modal";
 const BillingInfoDeliver = () => {
   const navigate = useNavigate();
-  const { sendOrder } = useSelector((state) => state.delivery);
+  const { items,totalPrice } = useSelector((state) => state.delivery);
   const dispatch = useDispatch();
   const handleClose = () => {
     navigate(-1);
@@ -17,8 +15,9 @@ const BillingInfoDeliver = () => {
 
   const handleSubmitOrder = () => {
     dispatch(SendOrderItem(true));
-    navigate('/delivery/basket');
+    navigate("/delivery/basket");
   };
+  console.log(items)
 
   return (
     <div className="flex flex-col mb-[60px]">
@@ -126,65 +125,23 @@ const BillingInfoDeliver = () => {
         <h1 className="text-[20px] font-[500] text-[#182230]">
           Buyurtma ma’lumotlari
         </h1>
-        <div className="flex justify-between items-center">
-          <div className="flex justify-start items-center gap-[8px]">
-            <h1 className="text-[14px] font-[400] text-[#2E90FA]">3X</h1>
-            <p className="text-#[667085] text-[14px] font-[400]">
-              Samarqand oshi
-            </p>
-          </div>
-          <h1 className="text-[14px] font-[500] text-[#2E90FA]">
-            162,000 so’m
-          </h1>
-        </div>
-        <div className="flex justify-between items-center">
-          <div className="flex justify-start items-center gap-[8px]">
-            <h1 className="text-[14px] font-[400] text-[#2E90FA]">3X</h1>
-            <p className="text-#[667085] text-[14px] font-[400]">
-              Samarqand oshi
-            </p>
-          </div>
-          <h1 className="text-[14px] font-[500] text-[#2E90FA]">
-            162,000 so’m
-          </h1>
-        </div>
-        <div className="flex justify-between items-center">
-          <div className="flex justify-start items-center gap-[8px]">
-            <h1 className="text-[14px] font-[400] text-[#2E90FA]">3X</h1>
-            <p className="text-#[667085] text-[14px] font-[400]">
-              Samarqand oshi
-            </p>
-          </div>
-          <h1 className="text-[14px] font-[500] text-[#2E90FA]">
-            162,000 so’m
-          </h1>
-        </div>
-        <div className="flex justify-between items-center">
-          <div className="flex justify-start items-center gap-[8px]">
-            <h1 className="text-[14px] font-[400] text-[#2E90FA]">3X</h1>
-            <p className="text-#[667085] text-[14px] font-[400]">
-              Samarqand oshi
-            </p>
-          </div>
-          <h1 className="text-[14px] font-[500] text-[#2E90FA]">
-            162,000 so’m
-          </h1>
-        </div>
-        <div className="flex justify-between items-center">
-          <div className="flex justify-start items-center gap-[8px]">
-            <h1 className="text-[14px] font-[400] text-[#2E90FA]">3X</h1>
-            <p className="text-#[667085] text-[14px] font-[400]">
-              Samarqand oshi
-            </p>
-          </div>
-          <h1 className="text-[14px] font-[500] text-[#2E90FA]">
-            162,000 so’m
-          </h1>
-        </div>
+      {items.map((item,idx)=>(
+         <div  key={idx} className="flex justify-between items-center">
+         <div className="flex justify-start items-center gap-[8px]">
+           <h1 className="text-[14px] font-[400] text-[#2E90FA]">{item.quantity}X</h1>
+           <p className="text-#[667085] text-[14px] font-[400]">
+             {item.title}
+           </p>
+         </div>
+         <h1 className="text-[14px] font-[500] text-[#2E90FA]">
+          {formatPrice(item.quantity*item.price)} so’m
+         </h1>
+       </div>
+      ))}
         <div className="flex justify-between items-center">
           <h1 className="text-[#667085] text-[14px] font-[400]">Jami summa:</h1>
           <h2 className="text-[16px] font-[500] text-[#2E90FA]">
-            285,000 so’m
+            {formatPrice(totalPrice)} so’m
           </h2>
         </div>
       </section>
@@ -209,3 +166,10 @@ const BillingInfoDeliver = () => {
 };
 
 export default BillingInfoDeliver;
+
+function formatPrice(price) {
+  // Formatni "20,300" yoki "1,000" shaklida olish
+  const formattedPrice = new Intl.NumberFormat("en-US").format(price);
+
+  return formattedPrice;
+}

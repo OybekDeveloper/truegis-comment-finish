@@ -1,7 +1,7 @@
 import React from "react";
 import { back } from "../images";
 import { useNavigate } from "react-router-dom";
-import emptyorder from "./empty-order.png";
+import emptyorder from "./no-order.png";
 const OrderHisotry = () => {
   const navigate = useNavigate();
   const handleClose = () => {
@@ -30,9 +30,16 @@ const OrderHisotry = () => {
         <div></div>
       </section>
       <section className="flex w-full flex-col mt-[24px] gap-[32px]">
-        <div className="flex flex-col justify-center items-center gap-3"> 
-          <img className="w-[100px]" src={emptyorder} alt="" />
-          <h1 className="text-[18px] font-[500] text-black">Buyurtmalar mavjud emas!</h1>
+        <div className="relative flex flex-col justify-center items-center gap-3">
+          <img className="" src={emptyorder} alt="" />
+          <div className="flex justify-center items-center flex-col absolute bottom-[32px]">
+            <h1 className="text-[20px] font-[500] text-[#000]">
+              Buyurtmalar tarixi bo’sh
+            </h1>
+            <p className="text-[16px] font-[400] text-[#667085]">
+              Siz hech narsa buyurtma bermagansiz
+            </p>
+          </div>
         </div>
         {/* {[1, 2, 3, 4].map((item, idx) => (
           <div key={idx} onClick={handleShowBeDelivered} className="flex justify-between items-center cursor-pointer">

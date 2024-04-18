@@ -1,11 +1,11 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { back, search } from "../images";
 import { motion } from "framer-motion";
-import { foods } from "../foods-image/foodsData";
 import LoadingC from "../loading/loader";
 import { SelectCategoryActive } from "../../reducer/delivery";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import CategoryItem from "../category-elements/category-item";
 
 const variants = {
   expand: {
@@ -36,9 +36,10 @@ const variants = {
 const SearchComponent = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { items } = useSelector((state) => state.delivery);
+  const { items,foods } = useSelector((state) => state.delivery);
   const [isExpanded, setIsExpanded] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [newFood, setNewFood] = useState([])
 
   const expandedContainer = () => {
     setIsExpanded(true);
@@ -63,8 +64,24 @@ const SearchComponent = () => {
     } else {
       body.classList.remove("no-scroll");
     }
-  }, [isExpanded]);
-
+  
+    // Flatten the nested structure of foods into a single array
+    const flattenedFoods = foods.reduce((accumulator, category) => {
+      accumulator.push(...category.props);
+      return accumulator;
+    }, []);
+  
+    // Filter the flattened array based on the searchQuery
+    if (searchQuery) {
+      const filteredFoods = flattenedFoods.filter((food) =>
+        food.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setNewFood(filteredFoods);
+    } else {
+      setNewFood(flattenedFoods);
+    }
+  }, [isExpanded, searchQuery, foods]);
+  console.log(newFood)
   return (
     <motion.section
       variants={variants}
@@ -105,23 +122,12 @@ const SearchComponent = () => {
                 items.length > 0 ? "pb-[70px]" : "pb-[24px]"
               }`}
             >
-              {foods[1].props.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-col gap-[8px] cursor-pointer"
-                >
-                  <img
-                    className="rounded-[12px] w-full h-[150px] object-cover"
-                    src={item.url}
-                    alt=""
-                  />
-                  <h1 className="text-[14px] font-[500] text-[#475467]">
-                    {item.title}
-                  </h1>
-                  <div className="flex justify-center items-center px-[16px] py-[8px] rounded-[12px] bg-[#F2F4F7] cursor-pointer text-[#2E90FA] text-[14px] font-[500]">
-                    {item.price}
-                  </div>
-                </div>
+              {newFood.map((item, idx) => (
+                 <CategoryItem
+                 key={idx}
+                 item={item}
+                 categoryId={item.categoryId}
+               />
               ))}
             </main>
           </Suspense>

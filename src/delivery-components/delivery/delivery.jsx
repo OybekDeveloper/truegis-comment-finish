@@ -85,6 +85,12 @@ const Delivery = () => {
     dispatch(SelectCategoryActive(data));
   };
 
+  const handelShowProduct = () => {
+    navigate("/delivery/basket");
+    const body = document.body;
+    body.classList.remove("no-scroll");
+  };
+
   const handleClickMenu = (url) => {
     if (url === "exit") {
       dispatch(ExitUserModal(true));
@@ -192,7 +198,7 @@ const Delivery = () => {
             className="w-full mx-auto flex justify-center fixed bottom-[-10px] p-[16px] z-30 left-0 bg-white"
           >
             <button
-              onClick={() => navigate("/delivery/basket")}
+              onClick={handelShowProduct}
               className="bg-[#2E90FA] w-full rounded-[8px] flex justify-between items-center py-[8px] px-[16px]"
             >
               <h1 className="text-[#fff] text-[18px] font-[400]">
