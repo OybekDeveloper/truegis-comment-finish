@@ -80,22 +80,26 @@ const Basket = () => {
                 </div>
               </div>
               <div className="col-span-1 flex justify-end items-center">
-                <div className="flex justify-center items-center py-[4px] px-[12px] gap-[16px] border-[1px] border-solid border-[#EAECF0] rounded-[8px]">
-                  <img
+                <div className="min-w-[108px] flex justify-center items-center py-[4px] px-[12px] gap-[16px] border-[1px] border-solid border-[#EAECF0] rounded-[8px]">
+                 <div className="min-w-[20px] min-h-[20px]">
+                 <img
                     onClick={() =>
                       handleDecrementItem(item.id, item.categoryId)
                     }
                     src={minus}
                     alt=""
                   />
+                 </div>
                   <h1 className="text-[20px] font-[500] text-[#475467]">
                     {item.quantity}
                   </h1>
+                  <div className="min-w-[20px] min-h-[20px]">
                   <img
                     onClick={() => handleAddItem(item.id, item.categoryId)}
                     src={plus}
                     alt=""
                   />
+                  </div>
                 </div>
               </div>
             </div>
