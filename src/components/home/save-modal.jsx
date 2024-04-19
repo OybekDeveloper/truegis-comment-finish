@@ -58,7 +58,7 @@ export default function SaveModal() {
                           src={like_uz}
                           alt=""
                         />
-                        <div className="absolute top-[180px]">
+                        <div className="absolute bottom-[30px]">
                           <div className=" px-[30px] z-30  py-[20px] w-full flex justify-center flex-col gap-[12px]">
                             <h1 className="text-start text-[#DFDFDF] text-[18px] font-[400]">
                               {t("like_title")}
@@ -81,7 +81,7 @@ export default function SaveModal() {
                             src={like_en}
                             alt=""
                           />
-                          <div className="absolute top-[180px]">
+                          <div className="absolute bottom-[30px]">
                             <div className=" px-[30px] z-30  py-[20px] w-full flex justify-center flex-col gap-[12px]">
                               <h1 className="text-start text-[#DFDFDF] text-[18px] font-[400]">
                                 {t("like_title")}
@@ -104,7 +104,7 @@ export default function SaveModal() {
                           src={like_ru}
                           alt=""
                         />
-                        <div className="absolute top-[180px]">
+                        <div className="absolute bottom-[30px]">
                           <div className=" px-[30px] z-30  py-[20px] w-full flex justify-center flex-col gap-[12px]">
                             <h1 className="text-start text-[#DFDFDF] text-[18px] font-[400]">
                               {t("like_title")}
