@@ -45,43 +45,84 @@ export default function SaveModal() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="bg-[#fff] w-full max-w-md transform overflow-hidden rounded-2xl  text-left align-middle shadow-xl transition-all z-[999]">
+                <Dialog.Panel className="bg-transparent w-full max-w-md transform overflow-hidden rounded-2xl  text-left align-middle shadow-xl transition-all z-[999]">
                   <Dialog.Title
                     as="h3"
                     className="relative text-lg font-medium leading-6 flex justify-center items-center"
                   >
                     <div className="w-full">
                       {lang === "uz" ? (
+                        <div className="relative min-h-[309.58px]">
                         <img
-                          className="w-full object-cover"
+                          className="w-full h-full object-cover"
                           src={like_uz}
                           alt=""
                         />
+                        <div className="absolute top-[180px]">
+                          <div className=" px-[30px] z-30  py-[20px] w-full flex justify-center flex-col gap-[12px]">
+                            <h1 className="text-start text-[#DFDFDF] text-[18px] font-[400]">
+                              {t("like_title")}
+                            </h1>
+                            <div className="w-full flex justify-end tg-button-text">
+                              <button
+                                onClick={closeModal}
+                                className="text-[18px]"
+                              >
+                                OK
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       ) : lang === "en" ? (
-                        <img
-                          className="w-full object-cover"
-                          src={like_en}
-                          alt=""
-                        />
+                        <div className="relative min-h-[309.58px]">
+                          <img
+                            className="w-full h-full object-cover"
+                            src={like_en}
+                            alt=""
+                          />
+                          <div className="absolute top-[180px]">
+                            <div className=" px-[30px] z-30  py-[20px] w-full flex justify-center flex-col gap-[12px]">
+                              <h1 className="text-start text-[#DFDFDF] text-[18px] font-[400]">
+                                {t("like_title")}
+                              </h1>
+                              <div className="w-full flex justify-end tg-button-text">
+                                <button
+                                  onClick={closeModal}
+                                  className="text-[18px]"
+                                >
+                                  OK
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       ) : (
+                        <div className="relative min-h-[309.58px]">
                         <img
-                          className="w-full object-cover"
+                          className="w-full h-full object-cover"
                           src={like_ru}
                           alt=""
                         />
+                        <div className="absolute top-[180px]">
+                          <div className=" px-[30px] z-30  py-[20px] w-full flex justify-center flex-col gap-[12px]">
+                            <h1 className="text-start text-[#DFDFDF] text-[18px] font-[400]">
+                              {t("like_title")}
+                            </h1>
+                            <div className="w-full flex justify-end tg-button-text">
+                              <button
+                                onClick={closeModal}
+                                className="text-[18px]"
+                              >
+                                OK
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       )}
                     </div>
                   </Dialog.Title>
-                  <div className="px-[16px] py-[20px] w-full flex justify-center flex-col gap-[12px]">
-                    <h1 className="text-start text-[#555] text-[18px] font-[400]">
-                      {t("like_title")}
-                    </h1>
-                    <div className="w-full flex justify-end tg-button-text">
-                      <button onClick={closeModal} className="text-[18px]">
-                        OK
-                      </button>
-                    </div>
-                  </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>

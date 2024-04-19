@@ -68,8 +68,7 @@ export default function SuccussModal() {
                       src={close}
                       alt=""
                     />
-                             <Lottie options={options} height={50} width={50} />
-
+                    <Lottie options={options} height={50} width={50} />
                   </Dialog.Title>
                   <div className="w-full flex justify-center flex-col gap-[12px]">
                     <h1 className="text-center text-[#101828] text-[18px] font-[500]">
