@@ -23,7 +23,7 @@ const Basket = () => {
     loop: true,
     autoplay: true,
     animationData: animationData,
-};
+  };
 
   const handleClose = () => {
     navigate("/delivery/home");
@@ -64,7 +64,6 @@ const Basket = () => {
           alt=""
         />
       </section>
-      <Lottie options={options} height={400}/>
       <section
         className={`${
           items.length > 0 && "mb-[70px]"
@@ -90,43 +89,45 @@ const Basket = () => {
               </div>
               <div className="col-span-1 flex justify-end items-center">
                 <div className="min-w-[108px] flex justify-center items-center py-[4px] px-[12px] gap-[16px] border-[1px] border-solid border-[#EAECF0] rounded-[8px]">
-                 <div className="min-w-[20px] min-h-[20px]">
-                 <img
-                    onClick={() =>
-                      handleDecrementItem(item.id, item.categoryId)
-                    }
-                    src={minus}
-                    alt=""
-                  />
-                 </div>
+                  <div className="min-w-[20px] min-h-[20px]">
+                    <img
+                      onClick={() =>
+                        handleDecrementItem(item.id, item.categoryId)
+                      }
+                      src={minus}
+                      alt=""
+                    />
+                  </div>
                   <h1 className="text-[20px] font-[500] text-[#475467]">
                     {item.quantity}
                   </h1>
                   <div className="min-w-[20px] min-h-[20px]">
-                  <img
-                    onClick={() => handleAddItem(item.id, item.categoryId)}
-                    src={plus}
-                    alt=""
-                  />
+                    <img
+                      onClick={() => handleAddItem(item.id, item.categoryId)}
+                      src={plus}
+                      alt=""
+                    />
                   </div>
                 </div>
               </div>
             </div>
           ))
         ) : (
-          <div className="relative flex flex-col  justify-center items-center gap-3">
-            <div className="min-h-[424.5px]">
-              <img className="" src={emptyfood} alt="" />
-            </div>
-            <div className="flex justify-center items-center flex-col absolute bottom-[32px]">
-              <h1 className="text-[20px] font-[500] text-[#000]">
-                Savat bo’sh
-              </h1>
-              <p className="text-[16px] font-[400] text-[#667085]">
-                Siz savatga hech narsa qo’shmagansiz
-              </p>
-            </div>
-          </div>
+          <Lottie options={options} height={400} />
+
+          // <div className="relative flex flex-col  justify-center items-center gap-3">
+          //   <div className="min-h-[424.5px]">
+          //     <img className="" src={emptyfood} alt="" />
+          //   </div>
+          //   <div className="flex justify-center items-center flex-col absolute bottom-[32px]">
+          //     <h1 className="text-[20px] font-[500] text-[#000]">
+          //       Savat bo’sh
+          //     </h1>
+          //     <p className="text-[16px] font-[400] text-[#667085]">
+          //       Siz savatga hech narsa qo’shmagansiz
+          //     </p>
+          //   </div>
+          // </div>
         )}
       </section>
       <motion.div
