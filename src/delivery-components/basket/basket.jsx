@@ -19,11 +19,11 @@ const Basket = () => {
   const dispatch = useDispatch();
   const { items, totalPrice } = useSelector((state) => state.delivery);
   const animationData = require("./cat.json");
-  const options = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-  };
+    const options = {
+      loop: true,
+      autoplay: true,
+      animationData: animationData,
+    };
 
   const handleClose = () => {
     navigate("/delivery/home");

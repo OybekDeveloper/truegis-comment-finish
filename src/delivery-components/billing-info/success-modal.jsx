@@ -5,11 +5,20 @@ import { useTranslation } from "react-i18next";
 import { SendOrderItem } from "../../reducer/delivery";
 import { close, success } from "../images";
 import { useNavigate } from "react-router-dom";
+import Lottie from "react-lottie";
+
 export default function SuccussModal() {
   const { sendOrder } = useSelector((state) => state.delivery);
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const animationData = require("./done.json");
+  const options = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+  };
   function closeModal() {
     dispatch(SendOrderItem(false));
   }
@@ -59,7 +68,8 @@ export default function SuccussModal() {
                       src={close}
                       alt=""
                     />
-                    <img src={success} alt="" />
+                             <Lottie options={options} height={50} width={50} />
+
                   </Dialog.Title>
                   <div className="w-full flex justify-center flex-col gap-[12px]">
                     <h1 className="text-center text-[#101828] text-[18px] font-[500]">
