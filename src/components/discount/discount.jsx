@@ -4,6 +4,7 @@ import "./discount.scss";
 import next from "./chevron-left (1).svg";
 import prev from "./chevron-left.svg";
 import { useTranslation } from "react-i18next";
+import Lottie from "react-lottie";
 
 const Discount = () => {
   const settings = {
@@ -15,12 +16,24 @@ const Discount = () => {
     nextArrow: <img className="slick-next" src={next} alt="Next" />,
     prevArrow: <img className="slick-prev" src={prev} alt="Previous" />,
   };
+  const animationData = require("./cat.json");
+  const options = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+  };
 
-  const {t}=useTranslation()
+  const { t } = useTranslation();
   return (
     <div className="relative">
-      <h1 className="absolute text-center w-full top-[10px] text-[18px] font-[500]">{t("discount_new")}</h1>
-      <main className="px-[16px] mt-[24px] discount-blur relative">
+      <main className="h-[400px] mt-[24px]">
+        <Lottie options={options} height={200} />
+        <h1 className="text-center w-full top-[10px] text-[18px] font-[500]">
+          {t("discount_new")}
+        </h1>
+      </main>
+
+      {/* <main className="px-[16px] mt-[24px] discount-blur relative">
         <div className="h-screen absolute top-0 w-full z-10"></div>
         <section className="px-[16px]">
           <Slider {...settings}>
@@ -90,7 +103,7 @@ const Discount = () => {
             <li>Displey turi - SUPER AMOLED</li>
           </ul>
         </article>
-      </main>
+      </main> */}
     </div>
   );
 };
