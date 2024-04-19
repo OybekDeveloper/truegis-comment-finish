@@ -13,10 +13,18 @@ import DeleteItems from "./delete-items";
 import plus from "./plus.svg";
 import minus from "./minus.svg";
 import emptyfood from "./no-food.png";
+import Lottie from "react-lottie";
 const Basket = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { items, totalPrice } = useSelector((state) => state.delivery);
+  const animationData = require("./cat.json");
+  const options = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+};
+
   const handleClose = () => {
     navigate("/delivery/home");
   };
@@ -56,6 +64,7 @@ const Basket = () => {
           alt=""
         />
       </section>
+      <Lottie options={options} height={400}/>
       <section
         className={`${
           items.length > 0 && "mb-[70px]"
