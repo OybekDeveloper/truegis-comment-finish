@@ -15,6 +15,7 @@ import {
 } from "../../reducer/event";
 import LoadingC from "../loading/loader";
 import trash from "./trash.svg";
+import Lottie from "react-lottie";
 
 export default function Photo() {
   const placeId = localStorage.getItem("placeId");
@@ -30,13 +31,20 @@ export default function Photo() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const fileInputRef = useRef(null);
 
+  const animationData = require("./empty.json");
+  const options = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+  };
+
   const handleFileInputClick = () => {
     fileInputRef.current.click();
   };
   const fetchDatas = async () => {
     try {
       const place = await ApiServer.getData(`/place/${placeId}/`);
-      dispatch(GetPlaceData(place))
+      dispatch(GetPlaceData(place));
       setFotos(place.images);
     } catch (error) {
       console.log(error);
@@ -60,7 +68,7 @@ export default function Photo() {
         },
       })
       .then((res) => {
-        setLoading(false)
+        setLoading(false);
         const fetchData = async () => {
           try {
             const place = await ApiServer.getData(`/place/${placeId}/`);
@@ -210,7 +218,7 @@ export default function Photo() {
             </section>
           ) : (
             <div className="flex justify-center items-center w-full h-full gap-[16px] flex-col mt-[80px]">
-              <img src={empty} alt="" />
+              <Lottie options={options} height={200} />
               <h1 className="font-[400] text-[14px]">{t("empty_photo")}</h1>
             </div>
           )}

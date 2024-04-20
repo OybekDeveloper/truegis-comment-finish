@@ -26,7 +26,7 @@ const Discount = () => {
   const { t } = useTranslation();
   return (
     <div className="relative">
-      <main className="h-[400px] mt-[24px]">
+      <main className="h-[400px] mt-[24px] w-[90%] mx-auto">
         <Lottie options={options} height={200} />
         <h1 className="text-center w-full top-[10px] text-[18px] font-[500]">
           {t("discount_new")}
