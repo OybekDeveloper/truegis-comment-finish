@@ -26,7 +26,7 @@
   --c:no-repeat linear-gradient(var(--tg-theme-button-color,#000) 0 0);
   background: var(--c),var(--c),var(--tg-theme-bg-color,#fff);
   background-size: 60% 100%;
-  animation: l16 2s infinite;
+  animation: l16 2.5s infinite;
 }
 @keyframes l16 {
   0%   {background-position:-150% 0,-150% 0}
