@@ -4,13 +4,14 @@ import Lottie from "react-lottie";
 import { ApiServer } from "../../ApiServer/api";
 import { useDispatch, useSelector } from "react-redux";
 import "./discount.css";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
 
-const tg = window.Telegram.WebApp;
+import { NavLink, Outlet, useLocation } from "react-router-dom";
+
 const Discount = () => {
+  const placeId = localStorage.getItem("placeId");
+  const userId = localStorage.getItem("userId");
+  const km = localStorage.getItem("km");
+  const { pathname } = useLocation();
   const { discount } = useSelector((state) => state.event);
   const animationData = require("./cat.json");
   const options = {
@@ -18,94 +19,45 @@ const Discount = () => {
     autoplay: true,
     animationData: animationData,
   };
-console.log(discount)
+
+  const handleActive = (id) => {};
+
+  
+
+  console.log(discount);
   const { t } = useTranslation();
   return (
     <div className="relative">
       {discount.length > 0 ? (
-      discount.map((item, idx) => (
-          <main key={idx} className="mt-[24px] relative">
-            <section className="">
-              <Swiper
-                pagination={{
-                  clickable: true, 
-                }}
-                modules={[Pagination]}
-                className="mySwiper"
-              >
-                <SwiperSlide>
-                  <img
-                  className=""
-                    src="https://s3-alpha-sig.figma.com/img/bb0d/0546/67ab9a3169848e51f776f222301ee68e?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=KrCddP8KHjKY7586GVGibxhKsCb8RBF5PXLfz5q1Qi-Hm-jKstx~Cobu9Ghv-ygY~2BoCNzcI2~jpWwaVL-ejMwVblyZqdCMXkYuVkGaQKd1m9esKiH8biZVkVIlVMKUlrMkVzOWFHeh~zbY-rDCZ2rQHEerpUgShNTOOWRA7tt3AnrMZItm~lROKdiO6BN8gurqnRYKgv1NqTBgOOeZiNnusWx1FS8MGTgtwswzJiw373ve4lPll0IYA9RzgUHHcwlyZK5cUNdCSZ2HivY8HmnjUUusMsAd7TY225~10R7pw2ExjSjewDP~a7MEWtLOpvmWrM7qD1HM7t872URlAA__"
-                    alt="dfasdf"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="https://s3-alpha-sig.figma.com/img/bb0d/0546/67ab9a3169848e51f776f222301ee68e?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=KrCddP8KHjKY7586GVGibxhKsCb8RBF5PXLfz5q1Qi-Hm-jKstx~Cobu9Ghv-ygY~2BoCNzcI2~jpWwaVL-ejMwVblyZqdCMXkYuVkGaQKd1m9esKiH8biZVkVIlVMKUlrMkVzOWFHeh~zbY-rDCZ2rQHEerpUgShNTOOWRA7tt3AnrMZItm~lROKdiO6BN8gurqnRYKgv1NqTBgOOeZiNnusWx1FS8MGTgtwswzJiw373ve4lPll0IYA9RzgUHHcwlyZK5cUNdCSZ2HivY8HmnjUUusMsAd7TY225~10R7pw2ExjSjewDP~a7MEWtLOpvmWrM7qD1HM7t872URlAA__"
-                    alt="dfasdf"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="https://s3-alpha-sig.figma.com/img/bb0d/0546/67ab9a3169848e51f776f222301ee68e?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=KrCddP8KHjKY7586GVGibxhKsCb8RBF5PXLfz5q1Qi-Hm-jKstx~Cobu9Ghv-ygY~2BoCNzcI2~jpWwaVL-ejMwVblyZqdCMXkYuVkGaQKd1m9esKiH8biZVkVIlVMKUlrMkVzOWFHeh~zbY-rDCZ2rQHEerpUgShNTOOWRA7tt3AnrMZItm~lROKdiO6BN8gurqnRYKgv1NqTBgOOeZiNnusWx1FS8MGTgtwswzJiw373ve4lPll0IYA9RzgUHHcwlyZK5cUNdCSZ2HivY8HmnjUUusMsAd7TY225~10R7pw2ExjSjewDP~a7MEWtLOpvmWrM7qD1HM7t872URlAA__"
-                    alt="dfasdf"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="https://s3-alpha-sig.figma.com/img/bb0d/0546/67ab9a3169848e51f776f222301ee68e?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=KrCddP8KHjKY7586GVGibxhKsCb8RBF5PXLfz5q1Qi-Hm-jKstx~Cobu9Ghv-ygY~2BoCNzcI2~jpWwaVL-ejMwVblyZqdCMXkYuVkGaQKd1m9esKiH8biZVkVIlVMKUlrMkVzOWFHeh~zbY-rDCZ2rQHEerpUgShNTOOWRA7tt3AnrMZItm~lROKdiO6BN8gurqnRYKgv1NqTBgOOeZiNnusWx1FS8MGTgtwswzJiw373ve4lPll0IYA9RzgUHHcwlyZK5cUNdCSZ2HivY8HmnjUUusMsAd7TY225~10R7pw2ExjSjewDP~a7MEWtLOpvmWrM7qD1HM7t872URlAA__"
-                    alt="dfasdf"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="https://s3-alpha-sig.figma.com/img/bb0d/0546/67ab9a3169848e51f776f222301ee68e?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=KrCddP8KHjKY7586GVGibxhKsCb8RBF5PXLfz5q1Qi-Hm-jKstx~Cobu9Ghv-ygY~2BoCNzcI2~jpWwaVL-ejMwVblyZqdCMXkYuVkGaQKd1m9esKiH8biZVkVIlVMKUlrMkVzOWFHeh~zbY-rDCZ2rQHEerpUgShNTOOWRA7tt3AnrMZItm~lROKdiO6BN8gurqnRYKgv1NqTBgOOeZiNnusWx1FS8MGTgtwswzJiw373ve4lPll0IYA9RzgUHHcwlyZK5cUNdCSZ2HivY8HmnjUUusMsAd7TY225~10R7pw2ExjSjewDP~a7MEWtLOpvmWrM7qD1HM7t872URlAA__"
-                    alt="dfasdf"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="https://s3-alpha-sig.figma.com/img/bb0d/0546/67ab9a3169848e51f776f222301ee68e?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=KrCddP8KHjKY7586GVGibxhKsCb8RBF5PXLfz5q1Qi-Hm-jKstx~Cobu9Ghv-ygY~2BoCNzcI2~jpWwaVL-ejMwVblyZqdCMXkYuVkGaQKd1m9esKiH8biZVkVIlVMKUlrMkVzOWFHeh~zbY-rDCZ2rQHEerpUgShNTOOWRA7tt3AnrMZItm~lROKdiO6BN8gurqnRYKgv1NqTBgOOeZiNnusWx1FS8MGTgtwswzJiw373ve4lPll0IYA9RzgUHHcwlyZK5cUNdCSZ2HivY8HmnjUUusMsAd7TY225~10R7pw2ExjSjewDP~a7MEWtLOpvmWrM7qD1HM7t872URlAA__"
-                    alt="dfasdf"
-                  />
-                </SwiperSlide>
-              </Swiper>
-            </section>
-            <section className="mt-[40px] flex flex-col gap-[16px] px-[16px]">
-              <h1 className="text-[24px] font-[500]">{item.name}</h1>
-              <div>
-                <h1 className="text-[16px] font-[400]">Aksiya va muddati</h1>
-                <div className="relative flex items-center mt-[8px]">
-                  <p className="tg-time-discount px-[14px] py-[4px] mt-[4px] font-[500]">
-                    {item.start_date} dan - {item.end_date} gacha
-                  </p>
-                </div>
-              </div>
-              <div>
-                <h1 className="text-[16px] font-[400]">Narxi</h1>
-                <div className="flex justify-start gap-[16px] items-end mt-[8px]">
-                  <h1 className="text-[24px] font-[500]">3,149,000 so’m</h1>
-                  <p className="line-through text-[16px] font-[500] opacity-[0.7]">
-                    5,000,000 so’m
-                  </p>
-                </div>
-              </div>
-            </section>
-            <article className="mt-[32px] p-[16px] rounded-[12px]">
-              <h1 className="text-[18px] font-[500] ">
-                Mahsulot haqida qisqacha ma’lumot
-              </h1>
-              <ul className="text-[16px] font-[400] list-disc px-[16px] mt-[12px] opacity-[0.7]">
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: item.discription,
-                  }}
-                />
-              </ul>
-            </article>
-          </main>
-        ))
+        <>
+          <section
+            className={
+              pathname === `/${placeId}/${userId}/${km}/discount` &&
+              " grid grid-cols-2 gap-[17px] px-[16px]"
+            }
+          >
+            {discount.map(
+              (item, idx) =>
+                pathname !==
+                  `/${placeId}/${userId}/${km}/discount/${item.id}` && (
+                  <NavLink
+                    to={`/${placeId}/${userId}/${km}/discount/${item.id}`}
+                    onClick={() => handleActive(item.id)}
+                    key={idx}
+                    className="cursor-pointer flex flex-col justify-start gap-[12px]"
+                  >
+                    <img
+                      className="h-[128px] object-cover rounded-[8px]"
+                      src={item.media[0].media}
+                      alt=""
+                    />
+                    <h1 className="text-[16px] font-[500]">{item.name}</h1>
+                  </NavLink>
+                )
+            )}
+            <Outlet />
+          </section>
+        </>
       ) : (
         <main className="h-[400px] mt-[24px] w-[90%] mx-auto">
           <Lottie options={options} height={200} />

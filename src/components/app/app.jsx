@@ -27,6 +27,7 @@ import {
 import BillingInfoAway from "../../delivery-components/billing-info/billing-info-away";
 import Action from "../discount/discount";
 import Discount from "../discount/discount";
+import DiscountItem from "../discount/discount-item";
 const tg = window.Telegram.WebApp;
 i18n
   .use(initReactI18next)
@@ -105,7 +106,12 @@ export default function App() {
               <Route path={"photo"} element={<Photo />} />
               <Route path={"comment"} element={<Comment />} />
               {/* <Route path={"about"} element={<About />} /> */}
-              <Route path={"discount"} element={<Discount />} />
+              <Route path={"discount"} element={<Discount />} >
+                <Route
+                  path={":id"}
+                  element={<DiscountItem />}
+                />
+              </Route>
             </Route>
             <Route
               path={`/:placeId/:userId/:km/add-comment`}

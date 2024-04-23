@@ -73,7 +73,7 @@ export default function Home({ lat, long }) {
   const [loading, setLoading] = useState(TurnedInOutlined);
   const [findSave, setFindSave] = useState(false);
   const placeID = localStorage.getItem("placeId");
-
+  const percent = localStorage.getItem("percent");
   const workStatus = () => {
     const hours = new Date().getHours();
     const start = placeData?.work_start_time?.split(":")[0];
@@ -168,7 +168,7 @@ export default function Home({ lat, long }) {
         const res = await ApiServer.getData(`/users/${userId}/`);
         const discount = await ApiServer.getData(`/product/list/${placeId}/`);
         dispatch(GetDiscountData(discount));
-        dispatch(GetPlaceImage(place.images))
+        dispatch(GetPlaceImage(place.images));
         if (res.lang == "eng") {
           localStorage.setItem("lang", "en");
           i18next.changeLanguage("en");
@@ -205,6 +205,12 @@ export default function Home({ lat, long }) {
     );
     workStatus();
   }, [commentData]);
+  useEffect(()=>{
+    if(pathname===`/${placeId}/${userId}/${km}/discount`){
+      localStorage.removeItem("percent")
+    }
+  },[pathname])
+  console.log(percent)
   return (
     <>
       {loading ? (
@@ -213,6 +219,7 @@ export default function Home({ lat, long }) {
         </div>
       ) : (
         <main className="home relative max-w-[400px] mx-auto ">
+
           <section className="px-[16px] min-h-[190px] home-back flex justify-end flex-col pb-[30px]">
             <div className="overlay">
               <div className="overlay"></div>
@@ -269,6 +276,7 @@ export default function Home({ lat, long }) {
                   {t("home_comment")}
                 </p>
               </div>
+
               {/* <div className="flex justify-between items-center mt-[50px]">
               <div className="flex items-center gap-[8px]">
                 <img src={line} alt="" />
