@@ -20,12 +20,11 @@
 
   /* HTML: <div class="loader"></div> */
 .line-loader {
+  margin-top: 10px;
   height: 2px;
-  background-color: var(--tg-theme-bg-color,white);
-
   width: 100%;
-  --c:no-repeat linear-gradient(var(--tg-theme-bg-color) 0 0);
-  background: var(--tg-theme-bg-color);
+  --c:no-repeat linear-gradient(var(--tg-theme-bg-color,#000) 0 0);
+  background: var(--c),var(--c),var(--tg-theme-button-color,#fff);
   background-size: 60% 100%;
   animation: l16 1.4s infinite;
 }
