@@ -71,7 +71,6 @@ export default function Home({ lat, long }) {
   const [loading, setLoading] = useState(TurnedInOutlined);
   const [findSave, setFindSave] = useState(false);
   const placeID = localStorage.getItem("placeId");
-  
 
   const workStatus = () => {
     const hours = new Date().getHours();
@@ -165,14 +164,14 @@ export default function Home({ lat, long }) {
         const place = await ApiServer.getData(`/place/${placeId}/`);
         const comment = await ApiServer.getData(`/comments/${placeId}/list`);
         const res = await ApiServer.getData(`/users/${userId}/`);
-        if(res.lang=="eng"){
-          localStorage.setItem('lang',"en")
+        if (res.lang == "eng") {
+          localStorage.setItem("lang", "en");
           i18next.changeLanguage("en");
-        }else{
-          localStorage.setItem('lang',res.lang)
+        } else {
+          localStorage.setItem("lang", res.lang);
           i18next.changeLanguage(res.lang);
         }
-        
+
         dispatch(GetPlaceData(place));
         dispatch(GetCommentData(comment));
       } catch (error) {
@@ -215,7 +214,11 @@ export default function Home({ lat, long }) {
               <img
                 className="img-back object-cover w-[400px] min-h-[200px]  z-[-10]"
                 src={
-                  placeData.photo_url ? placeData.photo_url : backgroundImage
+                  placeData.image
+                    ? placeData.image
+                    : placeData.photo_url
+                    ? placeData.photo_url
+                    : backgroundImage
                 }
                 alt=""
               />

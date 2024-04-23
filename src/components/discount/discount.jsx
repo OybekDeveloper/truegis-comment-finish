@@ -26,15 +26,14 @@ const Discount = () => {
   const { t } = useTranslation();
   return (
     <div className="relative">
-      <main className="h-[400px] mt-[24px] w-[90%] mx-auto">
+      {/* <main className="h-[400px] mt-[24px] w-[90%] mx-auto">
         <Lottie options={options} height={200} />
         <h1 className="text-center w-full top-[10px] text-[18px] font-[500]">
           {t("discount_new")}
         </h1>
-      </main>
+      </main> */}
 
-      {/* <main className="px-[16px] mt-[24px] discount-blur relative">
-        <div className="h-screen absolute top-0 w-full z-10"></div>
+      <main className="px-[16px] mt-[24px] relative">
         <section className="px-[16px]">
           <Slider {...settings}>
             <div className="flex justify-center">
@@ -103,7 +102,7 @@ const Discount = () => {
             <li>Displey turi - SUPER AMOLED</li>
           </ul>
         </article>
-      </main> */}
+      </main>
     </div>
   );
 };

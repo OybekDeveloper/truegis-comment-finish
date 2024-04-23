@@ -159,6 +159,7 @@ export default function AllProduct() {
       fetchYandex();
     }
   }, [placeData]);
+  console.log(placeData)
 
   return (
     <>
