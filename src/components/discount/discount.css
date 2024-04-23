@@ -16,8 +16,22 @@
   bottom: 0;
   right: 0;
   background-color:var(--tg-theme-button-color, #0a84ff);
+  opacity: 0.1;
+  border-radius: 16px;
+  border:2px solid var(--tg-theme-button-color, #0a84ff)
+}
+.tg-time-discount::after {
+  content: "";
+  position: absolute;
+  width: 280px;
+  padding: 8px;
+  top: 4px;
+  left: 0;
+  bottom: 0;
+  right: 0;
   opacity: 0.2;
   border-radius: 16px;
+  border:2px solid var(--tg-theme-button-color, #0a84ff)
 }
 .swiper {
   width: 100%;

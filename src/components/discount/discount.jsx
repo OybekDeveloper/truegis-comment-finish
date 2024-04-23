@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Lottie from "react-lottie";
 import { ApiServer } from "../../ApiServer/api";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./discount.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
@@ -12,31 +12,18 @@ import "swiper/css/pagination";
 const tg = window.Telegram.WebApp;
 const Discount = () => {
   const { discount } = useSelector((state) => state.event);
-  const placeId = localStorage.getItem("placeId");
   const animationData = require("./cat.json");
   const options = {
     loop: true,
     autoplay: true,
     animationData: animationData,
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await ApiServer.getData(`/product/media/${3}/`);
-        console.log(res);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
-
+console.log(discount)
   const { t } = useTranslation();
   return (
     <div className="relative">
       {discount.length > 0 ? (
-        [1, 2, 3].map((item, idx) => (
+      discount.map((item, idx) => (
           <main key={idx} className="mt-[24px] relative">
             <section className="">
               <Swiper
@@ -96,14 +83,13 @@ const Discount = () => {
                 <h1 className="text-[16px] font-[400]">Aksiya va muddati</h1>
                 <div className="relative flex items-center mt-[8px]">
                   <p className="tg-time-discount px-[14px] py-[4px] mt-[4px] font-[500]">
-                  15.04.2024 dan - 30.04.2024 gacha
-                    {/* {item.start_date} dan - {item.end_date} gacha */}
+                    {item.start_date} dan - {item.end_date} gacha
                   </p>
                 </div>
               </div>
               <div>
                 <h1 className="text-[16px] font-[400]">Narxi</h1>
-                <div className="flex justify-between items-center mt-[8px]">
+                <div className="flex justify-start gap-[16px] items-end mt-[8px]">
                   <h1 className="text-[24px] font-[500]">3,149,000 so’m</h1>
                   <p className="line-through text-[16px] font-[500] opacity-[0.7]">
                     5,000,000 so’m
