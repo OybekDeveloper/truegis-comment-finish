@@ -12,6 +12,7 @@ import {
   DeleteModalRedux,
   GetCommentData,
   GetPlaceData,
+  GetPlaceImage,
 } from "../../reducer/event";
 import LoadingC from "../loading/loader";
 import trash from "./trash.svg";
@@ -22,13 +23,12 @@ export default function Photo() {
   const placeId = localStorage.getItem("placeId");
   const userId = localStorage.getItem("userId");
   const dispatch = useDispatch();
-  const { placeData, deleteModal } = useSelector((state) => state.event);
+  const { placeData, placeDataImage } = useSelector((state) => state.event);
   const { t } = useTranslation();
   const [selectPhoto, setSelectPhoto] = useState([]);
   const [, setAllImageCount] = useState(1);
-  const [fotos, setFotos] = useState([]);
   const [album, setAlbum] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const fileInputRef = useRef(null);
 
@@ -46,7 +46,7 @@ export default function Photo() {
     try {
       const place = await ApiServer.getData(`/place/${placeId}/`);
       dispatch(GetPlaceData(place));
-      setFotos(place.images);
+      dispatch(GetPlaceImage(place.images))
     } catch (error) {
       console.log(error);
     }
@@ -70,21 +70,7 @@ export default function Photo() {
       })
       .then((res) => {
         setLoading(false);
-        const fetchData = async () => {
-          try {
-            const place = await ApiServer.getData(`/place/${placeId}/`);
-            const comment = await ApiServer.getData(
-              `/comments/${placeId}/list`
-            );
-            dispatch(GetPlaceData(place));
-            dispatch(GetCommentData(comment));
-            setFotos(placeData.images);
-            setLoading(false);
-          } catch (error) {
-            console.log(error);
-          }
-        };
-        fetchData();
+        fetchDatas(); // Simplified this part
       })
       .catch((err) => console.log(err));
   };
@@ -101,13 +87,13 @@ export default function Photo() {
 
   const handleSelectImage = async (id, idx) => {
     setAlbum(true);
-    if (fotos.length > 0) {
-      const selectedImage = fotos.find((image) => image.id === id);
-      const remainingImages = fotos.filter((image) => image.id !== id);
-      setSelectPhoto([selectedImage, ...remainingImages]);
+    if (placeDataImage.length > 0) {
+      const selectedImage = placeDataImage.find((image) => image.id === id);
+      const remainingImages = placeDataImage.filter((image) => image.id !== id);
+      dispatch(GetPlaceImage([selectedImage, ...remainingImages]));
       await fetchUserFullName(selectedImage.user); // Fetch user full name for the selected image
     } else {
-      setSelectPhoto(fotos);
+      dispatch(GetPlaceImage(placeDataImage));
     }
   };
 
@@ -115,15 +101,11 @@ export default function Photo() {
     setAlbum(false);
   };
   const handleDeleteImg = (id) => {
-    const fetchData = async () => {
-      try {
-        await ApiServer.delData(`/image/${id}/`);
-        fetchDatas();
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
+    setLoading(true);
+    ApiServer.delData(`/image/${id}/`)
+      .then(() => fetchDatas())
+      .catch((error) => console.log(error))
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {
@@ -149,12 +131,12 @@ export default function Photo() {
                     <img src={arrowL} alt="" />
                   </div>
                   <h1 className="text-[#fff]">
-                    {currentSlide + 1}/{fotos.length}
+                    {currentSlide + 1}/{placeDataImage.length}
                   </h1>
 
                   <div></div>
                 </div>
-                {fotos.length > 1 ? (
+                {placeDataImage.length > 1 ? (
                   <Slider {...settings} className="overflow-hidden">
                     {selectPhoto.map((photo, index) => (
                       <div key={index}>
@@ -193,9 +175,9 @@ export default function Photo() {
               </div>
             </section>
           )}
-          {fotos.length > 0 ? (
+          {placeDataImage.length > 0 ? (
             <section className="grid grid-cols-2 gap-[17px] mt-[23px] px-[16px]">
-              {fotos.map((image, index) => (
+              {placeDataImage.map((image, index) => (
                 <div key={index} className="relative">
                   {image.user == userId && (
                     <img
@@ -246,9 +228,8 @@ export default function Photo() {
   );
 }
 
-const userId = localStorage.getItem("userId");
-
 export const fetchUserFullName = async (id, created) => {
+  const userId = localStorage.getItem("userId");
   if (userId) {
     try {
       const user = await ApiServer.getData(`/users/${id}/`);
@@ -274,6 +255,7 @@ export const fetchUserFullName = async (id, created) => {
       return null;
     }
   }
+  return null;
 };
 
 const UserFullNameComponent = ({ userId, created }) => {

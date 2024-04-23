@@ -8,7 +8,9 @@ import { ApiServer } from "../../ApiServer/api";
 import { useDispatch, useSelector } from "react-redux";
 import {
   GetCommentData,
+  GetDiscountData,
   GetPlaceData,
+  GetPlaceImage,
   SaveDistance,
   SavePathData,
   SavePlaceModal,
@@ -164,6 +166,9 @@ export default function Home({ lat, long }) {
         const place = await ApiServer.getData(`/place/${placeId}/`);
         const comment = await ApiServer.getData(`/comments/${placeId}/list`);
         const res = await ApiServer.getData(`/users/${userId}/`);
+        const discount = await ApiServer.getData(`/product/list/${placeId}/`);
+        dispatch(GetDiscountData(discount));
+        dispatch(GetPlaceImage(place.images))
         if (res.lang == "eng") {
           localStorage.setItem("lang", "en");
           i18next.changeLanguage("en");

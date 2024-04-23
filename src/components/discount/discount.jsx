@@ -7,8 +7,11 @@ import { useTranslation } from "react-i18next";
 import Lottie from "react-lottie";
 import "./discount.css";
 import { ApiServer } from "../../ApiServer/api";
+import LineLoader from "../loading/line-loader";
+import { useSelector } from "react-redux";
 const tg = window.Telegram.WebApp;
 const Discount = () => {
+  const { discount } = useSelector((state) => state.event);
   const placeId = localStorage.getItem("placeId");
   const settings = {
     dots: true,
@@ -30,14 +33,11 @@ const Discount = () => {
     animationData: animationData,
   };
 
-  const [discount, setDiscount] = useState([]);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await ApiServer.getData(`/product/list/${placeId}/`);
         console.log(res);
-        setDiscount(res);
       } catch (error) {
         console.log(error);
       }
@@ -50,7 +50,7 @@ const Discount = () => {
     <div className="relative">
       {discount.length > 0 ? (
         [1, 2, 3].map((item, idx) => (
-          <main className="px-[16px] mt-[24px] relative">
+          <main key={idx} className="px-[16px] mt-[24px] relative">
             <section className="px-[16px]">
               <Slider {...settings}>
                 <div className="flex justify-center">

@@ -15,18 +15,26 @@ export const initialState = {
   distance:"",
   deleteModal:false,
   deletePhotoId:"",
-  isSave:false
+  isSave:false,
+  discount:[],
+  placeDataImage:[]
 };
 
 export const eventSlice = createSlice({
   name: "event",
   initialState,
   reducers: {
+    GetDiscountData:(state,action)=>{
+      state.discount = action.payload
+    },
     GetPlaceData: (state, action) => {
       state.placeData = action.payload;
     },
     GetCommentData: (state, action) => {
       state.commentData = action.payload;
+    },
+    GetPlaceImage:(state,action)=>{
+    state.placeDataImage= action.payload;
     },
     ActiveModal: (state, action) => {
       state.delModal = action.payload;
@@ -67,7 +75,9 @@ export const eventSlice = createSlice({
 });
 
 export const {
+  GetPlaceImage,
   DeleteModalRedux,
+  GetDiscountData,
   SaveDistance,
   SaveLocation,
   SavePathData,
