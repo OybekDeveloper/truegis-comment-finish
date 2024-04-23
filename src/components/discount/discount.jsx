@@ -4,7 +4,6 @@ import Lottie from "react-lottie";
 import { ApiServer } from "../../ApiServer/api";
 import { useSelector } from "react-redux";
 import "./discount.scss";
-import "./discount.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
@@ -96,7 +95,7 @@ const Discount = () => {
               <div>
                 <h1 className="text-[16px] font-[400]">Aksiya va muddati</h1>
                 <div className="relative flex items-center mt-[8px]">
-                  <p className="w-full tg-time-discount px-[14px] mt-[4px] font-[500]">
+                  <p className=" w-full tg-time-discount px-[14px] mt-[4px] font-[500]">
                     {item.start_date} dan - {item.end_date} gacha
                   </p>
                 </div>

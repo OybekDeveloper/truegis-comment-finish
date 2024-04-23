@@ -86,7 +86,7 @@ p {
   background-color: var(--tg-theme-hint-color, #d2d3d5);
   color: var(--tg-theme-bg-color, white);
 }
-.hr {
+.hr { 
   background-color: var(--tg-theme-hint-color, #eaecf0);
 }
 h2 {
