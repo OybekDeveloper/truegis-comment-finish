@@ -16,6 +16,7 @@ import {
 import LoadingC from "../loading/loader";
 import trash from "./trash.svg";
 import Lottie from "react-lottie";
+import LineLoader from "../loading/line-loader";
 
 export default function Photo() {
   const placeId = localStorage.getItem("placeId");
@@ -27,7 +28,7 @@ export default function Photo() {
   const [, setAllImageCount] = useState(1);
   const [fotos, setFotos] = useState([]);
   const [album, setAlbum] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [currentSlide, setCurrentSlide] = useState(0);
   const fileInputRef = useRef(null);
 
@@ -137,7 +138,7 @@ export default function Photo() {
   return (
     <>
       {loading ? (
-        <LoadingC />
+        <LineLoader />
       ) : (
         <div className="relative">
           {selectPhoto.length > 0 && album && (

@@ -110,8 +110,7 @@ const Discount = () => {
               <ul className="text-[16px] font-[400] list-disc px-[16px] mt-[12px] opacity-[0.7]">
                 <div
                   dangerouslySetInnerHTML={{
-                    __html:
-                      '<p><strong>SALOM</strong></p>\r\n\r\n<h2 style="font-style:italic"><strong>Lore Ipsum</strong>&nbsp;s<u>hunchaki matbaa </u></h2>\r\n\r\n<hr />\r\n<div style="background:#eeeeee; border:1px solid #cccccc; padding:5px 10px">matn.&nbsp;Lore Ipsum 1500-yillardan beri sanoatning standart qo&#39;g&#39;irchoq matni bo&#39;lib kelgan, o&#39;shanda noma&#39;lum printer turdagi oshxonani olib, uni namunaviy kitob qilish uchun shifrlangan.&nbsp;U nafaqat besh asrdan, balki elektron matn terishga sakrashdan ham omon qoldi va mohiyatan o&#39;zgarishsiz qoldi.&nbsp;Bu 1960-yillarda chiqarilishi bilan ommalashgan Letraset o&#39;z ichiga olgan varaqlar Lorem Ipsum parchalar va yaqinda ish stoli nashriyot dasturlari bilan Aldus PageMaker shu jumladan versiyalari Lorem Ipsum.</div>',
+                    __html: item.discription,
                   }}
                 />
               </ul>

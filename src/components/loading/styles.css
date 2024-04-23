@@ -17,3 +17,20 @@
       transform: rotate(360deg);
     }
   } 
+
+  /* HTML: <div class="loader"></div> */
+.line-loader {
+  height: 2px;
+  background-color: var(--tg-theme-bg-color,white);
+
+  width: 100%;
+  --c:no-repeat linear-gradient(var(--tg-theme-bg-color) 0 0);
+  background: var(--tg-theme-bg-color);
+  background-size: 60% 100%;
+  animation: l16 1.4s infinite;
+}
+@keyframes l16 {
+  0%   {background-position:-150% 0,-150% 0}
+  66%  {background-position: 250% 0,-150% 0}
+  100% {background-position: 250% 0, 250% 0}
+}
