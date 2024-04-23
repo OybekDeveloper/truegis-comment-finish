@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import Lottie from "react-lottie";
 import { ApiServer } from "../../ApiServer/api";
 import { useSelector } from "react-redux";
-import "./discount.scss";
+import "./discount.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
@@ -45,7 +45,6 @@ const Discount = () => {
                 '--swiper-pagination-color':  tg.themeParams.button_color,
               }}
                 slidesPerView={"auto"}
-                spaceBetween={30}
                 pagination={{
                   dynamicBullets: true,
                 }}
@@ -54,6 +53,7 @@ const Discount = () => {
               >
                 <SwiperSlide>
                   <img
+                  className=""
                     src="https://s3-alpha-sig.figma.com/img/bb0d/0546/67ab9a3169848e51f776f222301ee68e?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=KrCddP8KHjKY7586GVGibxhKsCb8RBF5PXLfz5q1Qi-Hm-jKstx~Cobu9Ghv-ygY~2BoCNzcI2~jpWwaVL-ejMwVblyZqdCMXkYuVkGaQKd1m9esKiH8biZVkVIlVMKUlrMkVzOWFHeh~zbY-rDCZ2rQHEerpUgShNTOOWRA7tt3AnrMZItm~lROKdiO6BN8gurqnRYKgv1NqTBgOOeZiNnusWx1FS8MGTgtwswzJiw373ve4lPll0IYA9RzgUHHcwlyZK5cUNdCSZ2HivY8HmnjUUusMsAd7TY225~10R7pw2ExjSjewDP~a7MEWtLOpvmWrM7qD1HM7t872URlAA__"
                     alt="dfasdf"
                   />
@@ -90,13 +90,14 @@ const Discount = () => {
                 </SwiperSlide>
               </Swiper>
             </section>
-            <section className="mt-[40px] flex flex-col gap-[16px]">
+            <section className="mt-[40px] flex flex-col gap-[16px] px-[16px]">
               <h1 className="text-[24px] font-[500]">{item.name}</h1>
               <div>
                 <h1 className="text-[16px] font-[400]">Aksiya va muddati</h1>
                 <div className="relative flex items-center mt-[8px]">
-                  <p className=" w-full tg-time-discount px-[14px] mt-[4px] font-[500]">
-                    {item.start_date} dan - {item.end_date} gacha
+                  <p className="tg-time-discount px-[14px] py-[4px] mt-[4px] font-[500]">
+                  15.04.2024 dan - 30.04.2024 gacha
+                    {/* {item.start_date} dan - {item.end_date} gacha */}
                   </p>
                 </div>
               </div>
@@ -110,7 +111,7 @@ const Discount = () => {
                 </div>
               </div>
             </section>
-            <article className="mt-[32px] border-[1px] border-solid border-[#EAECF0] p-[16px] rounded-[12px]">
+            <article className="mt-[32px] p-[16px] rounded-[12px]">
               <h1 className="text-[18px] font-[500] ">
                 Mahsulot haqida qisqacha ma’lumot
               </h1>

@@ -1,8 +1,46 @@
 :root {
-  --Blue-500: #2970ff;
+  --color-highlight: #fb0000;
 }
 
 .tg-time-discount {
-  color: var(--tg-theme-button-color);
-  background-color: var(--Blue-500), #2970ff;
+  color: var(--tg-theme-button-color, #0a84ff);
+  background-color: rgba(var(--tg-theme-button-color, #0a84ff), 0.5);
+}
+.tg-time-discount::before {
+  content: "";
+  position: absolute;
+  width: 280px;
+  padding: 8px;
+  top: 4px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color:var(--tg-theme-button-color, #0a84ff);
+  opacity: 0.2;
+  border-radius: 16px;
+}
+.swiper {
+  width: 100%;
+  height: 270px;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: var(--tg-theme-bg-color, #fff);
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 12px;
+
+  height:90%;
+  object-fit: cover;
 }
