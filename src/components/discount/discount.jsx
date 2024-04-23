@@ -49,7 +49,7 @@ const Discount = () => {
   return (
     <div className="relative">
       {discount.length > 0 ? (
-        [1,2,3].map((item, idx) => (
+        [1, 2, 3].map((item, idx) => (
           <main className="px-[16px] mt-[24px] relative">
             <section className="px-[16px]">
               <Slider {...settings}>
@@ -84,14 +84,12 @@ const Discount = () => {
               </Slider>
             </section>
             <section className="mt-[40px] flex flex-col gap-[16px]">
-              <h1 className="text-[24px] font-[500]">
-               {item.name}
-              </h1>
+              <h1 className="text-[24px] font-[500]">{item.name}</h1>
               <div>
                 <h1 className="text-[16px] font-[400]">Aksiya va muddati</h1>
                 <div className="relative flex items-center mt-[8px]">
                   <p className="w-full tg-time-discount px-[14px] mt-[4px] font-[500]">
-                   {item.start_date} dan - {item.end_date} gacha
+                    {item.start_date} dan - {item.end_date} gacha
                   </p>
                 </div>
               </div>
@@ -110,14 +108,12 @@ const Discount = () => {
                 Mahsulot haqida qisqacha ma’lumot
               </h1>
               <ul className="text-[16px] font-[400] list-disc px-[16px] mt-[12px] opacity-[0.7]">
-                <li>
-                  Barcha IMEI lar rasmiy ro'yxatdan o'tgan va ro'yxatga olish
-                  faollashuvi 30 kun ichida amalga oshiriladi. Ishlab
-                  chiqaruvchi o'z mahsulotlariga 12 oylik kafolat beradi.
-                </li>
-                <li>Piksel zichligi (ppi) - 390</li>
-                <li>Ekranning tanaga nisbati - 84.9</li>
-                <li>Displey turi - SUPER AMOLED</li>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      '<p><strong>SALOM</strong></p>\r\n\r\n<h2 style="font-style:italic"><strong>Lore Ipsum</strong>&nbsp;s<u>hunchaki matbaa </u></h2>\r\n\r\n<hr />\r\n<div style="background:#eeeeee; border:1px solid #cccccc; padding:5px 10px">matn.&nbsp;Lore Ipsum 1500-yillardan beri sanoatning standart qo&#39;g&#39;irchoq matni bo&#39;lib kelgan, o&#39;shanda noma&#39;lum printer turdagi oshxonani olib, uni namunaviy kitob qilish uchun shifrlangan.&nbsp;U nafaqat besh asrdan, balki elektron matn terishga sakrashdan ham omon qoldi va mohiyatan o&#39;zgarishsiz qoldi.&nbsp;Bu 1960-yillarda chiqarilishi bilan ommalashgan Letraset o&#39;z ichiga olgan varaqlar Lorem Ipsum parchalar va yaqinda ish stoli nashriyot dasturlari bilan Aldus PageMaker shu jumladan versiyalari Lorem Ipsum.</div>',
+                  }}
+                />
               </ul>
             </article>
           </main>
