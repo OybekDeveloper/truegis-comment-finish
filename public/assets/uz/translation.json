@@ -43,5 +43,12 @@
   "photo_h1":"Rasmni o'chirish",
   "photo_p":"Rostdan ham bu rasmni o'chirmoqchimisiz",
   "like_title": "Saqlagan joylaringizni ❤️Sevimlilar bo'limidan topishingiz mumkin",
-  "discount_new":"Telegram botimizga Aksiyalar bo'limi qo'shiladi, tez orada ishga tushiriladi."
+  "discount_new":"Telegram botimizga Aksiyalar bo'limi qo'shiladi, tez orada ishga tushiriladi.",
+  "discount_percent":"chegirma",
+  "discount_time":"Aksiya va muddati",
+  "discount_price":"Narxi",
+  "discount_info":"Mahsulot haqida qisqacha ma’lumot",
+  "price_type":"so’m",
+  "from":"dan",
+  "to":"gacha"
 }
