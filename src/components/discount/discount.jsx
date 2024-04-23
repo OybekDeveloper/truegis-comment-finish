@@ -27,13 +27,8 @@ console.log(discount)
           <main key={idx} className="mt-[24px] relative">
             <section className="">
               <Swiper
-               style={{
-                '--swiper-navigation-color':  tg.themeParams.button_color,
-                '--swiper-pagination-color':  tg.themeParams.button_color,
-              }}
-                slidesPerView={"auto"}
                 pagination={{
-                  dynamicBullets: true,
+                  clickable: true, 
                 }}
                 modules={[Pagination]}
                 className="mySwiper"
