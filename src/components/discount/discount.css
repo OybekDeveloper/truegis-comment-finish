@@ -1,0 +1,8 @@
+:root {
+  --Blue-500: #2970ff;
+}
+
+.tg-time-discount {
+  color: var(--tg-theme-button-color);
+  background-color: lighter(var(--Blue-500), 20%);
+}

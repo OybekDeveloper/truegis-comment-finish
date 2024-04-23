@@ -26,19 +26,3 @@
 .slick-prev {
   left: 0; /* Adjust as needed */
 }
-.tg-time-discount{
-    color: var(--tg-theme-button-color, #0a84ff);
-}
-.tg-time-discount-back{
-    position: absolute;
-    top: 0;
-    height: 30px;
-    opacity: 0.1;
-    border-radius: 16px;
-    border: 1px  var(--tg-theme-button-color, #0a84ff);
-    background-color: var(--tg-theme-button-color,#0a84ff);
-}
-.discount-blur{
-    filter: blur(4px);
-    overflow: hidden;
-}

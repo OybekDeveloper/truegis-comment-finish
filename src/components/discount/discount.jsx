@@ -5,7 +5,8 @@ import next from "./chevron-left (1).svg";
 import prev from "./chevron-left.svg";
 import { useTranslation } from "react-i18next";
 import Lottie from "react-lottie";
-
+import "./discount.css";
+const tg = window.Telegram.WebApp;
 const Discount = () => {
   const settings = {
     dots: true,
@@ -13,8 +14,12 @@ const Discount = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    nextArrow: <img className="slick-next" src={next} alt="Next" />,
-    prevArrow: <img className="slick-prev" src={prev} alt="Previous" />,
+    nextArrow: SlideRigth(
+      tg.themeParams.button_color ? tg.themeParams.text_color : "#000"
+    ),
+    prevArrow: SlideLeft(
+      tg.themeParams.button_color ? tg.themeParams.text_color : "#000"
+    ),
   };
   const animationData = require("./cat.json");
   const options = {
@@ -71,7 +76,6 @@ const Discount = () => {
           <div>
             <h1 className="text-[16px] font-[400]">Aksiya va muddati</h1>
             <div className="relative flex items-center mt-[8px]">
-              <div className="w-full tg-time-discount-back py-[8px]"></div>
               <p className="w-full tg-time-discount px-[14px] mt-[4px] font-[500]">
                 15.04.2024 dan - 30.04.2024 gacha
               </p>
@@ -108,3 +112,41 @@ const Discount = () => {
 };
 
 export default Discount;
+function SlideLeft(color) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+    >
+      <path
+        d="M20 24L12 16L20 8"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+function SlideRigth(color) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+      fill="none"
+    >
+      <path
+        d="M12 8L20 16L12 24"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
