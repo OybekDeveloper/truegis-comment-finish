@@ -8,6 +8,7 @@ import axios from "axios";
 import { ApiServer } from "../../ApiServer/api";
 import addphoto from "./add-photo.svg";
 import arrowL from "./arrow-left.svg";
+import baseUrl from './user_9073292.png'
 import {
   DeleteModalRedux,
   GetCommentData,
@@ -243,8 +244,8 @@ export const fetchUserFullName = async (id, created) => {
       return (
         <div className="w-screen  pt-[24px] backdrop-image-content flex justify-start items-center gap-[16px]">
           <img
-            className="w-[50px] h-[50px] rounded-full object-cover"
-            src={user?.profile_photo_url}
+            className="w-[50px] bg-white p-1  h-[50px] rounded-full object-cover"
+            src={user.profile_photo_url?user.profile_photo_url:baseUrl}
             alt="user"
           />
           <div className="flex flex-col">
