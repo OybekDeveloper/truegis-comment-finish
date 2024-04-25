@@ -14,7 +14,7 @@ export const DiscountItemBlur = ({ src }) => {
     }, [src]);
 
     return (
-        <div className='mr-[20px] mx-auto rounded-[8px] w-full h-[230px] overflow-hidden'>
+        <div className='mx-auto rounded-[8px] w-[90%] h-[230px] overflow-hidden'>
             <div
                 style={{
                     display: imgLoading ? 'none' : 'block',
@@ -24,7 +24,7 @@ export const DiscountItemBlur = ({ src }) => {
             >
                 <Blurhash
                     hash='LEHV6nWB2yk8pyo0adR*.7kCMdnj'
-                    width={"100%"}
+                    width={"90%"}
                     height={230}
                     resolutionX={32}
                     resolutionY={32}
@@ -33,7 +33,7 @@ export const DiscountItemBlur = ({ src }) => {
             </div>
             <img
                 style={{ display: imgLoading ? 'block' : 'none' }}
-                className=" inline-flex rounded-[8px] w-full   object-cover"
+                className=" inline-flex rounded-[8px] w-[90%]   object-cover"
                 src={src ? src : baseUrl}
                 alt={'img'}
             />

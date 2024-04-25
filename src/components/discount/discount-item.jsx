@@ -53,7 +53,7 @@ const DiscountItem = () => {
                   <div>
                     {item.media.split(".")[item.media.split(".").length - 1] ===
                     "mp4" ? (
-                      <div className="w-[100%] h-[230px]">
+                      <div className="w-[90%] h-[230px]">
                         <video
                           className="w-[90%] h-[230px] mx-auto rounded-[12px]"
                           controls
