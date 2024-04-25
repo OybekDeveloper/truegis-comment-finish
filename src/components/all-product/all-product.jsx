@@ -38,6 +38,7 @@ export default function AllProduct() {
   const [imageLength, setImageLength] = useState(0);
   const [distance, setDistance] = useState(0);
   const [yandex1, setYandex1] = useState("");
+  const [yandexTime, setYandex1Time] = useState({});
   const [loading, setLoading] = useState(true);
   function degreesToRadians(degrees) {
     return (degrees * Math.PI) / 180;
@@ -64,9 +65,9 @@ export default function AllProduct() {
     const hours = new Date().getHours();
     const start = placeData?.work_start_time?.split(":")[0];
     const end = placeData?.work_end_time?.split(":")[0];
-    if (hours > start && hours < end) {
+    if (hours >= +start && hours <= +end) {
       setStatusWork(true);
-    } else if (start === end) {
+    } else if (+start === +end) {
       setStatusWork(true);
     } else {
       setStatusWork(false);
@@ -146,7 +147,9 @@ export default function AllProduct() {
           const response = await fetch(
             `https://taxi-routeinfo.taxi.yandex.net/taxi_info?rll=${long},${lat}~${placeData.longitude},${placeData.latitude}&clid=ak231124&apikey=SjFZnMpqqiBMsjOthnPlbZVOGvrTJkFAdArwsnr&class=business&req=yellowcarnumber`
           );
+
           const res = await response.json();
+          setYandex1Time(res.time_text);
           setYandex1(
             res?.options[0]?.price
               .toString()
@@ -159,407 +162,393 @@ export default function AllProduct() {
       fetchYandex();
     }
   }, [placeData]);
-  console.log(placeData)
 
   return (
     <>
       {/* {loading ? (
         <LoadingC />
       ) : ( */}
-        <main className="all-product">
-          <section className="flex flex-col justify-start items-start gap-[16px] my-[24px] px-[16px]">
-            <h1 className="text-[15px] font-[500]">{t("adress")}</h1>
-            <div className="flex  gap-[12px] justify-between w-full">
-              <div className="flex justify-start items-center gap-[12px]">
-                {LocationSvg(
-                  tg.themeParams.button_color
-                    ? tg.themeParams.button_color
-                    : "#1C93E3"
+      <main className="all-product">
+        <section className="cursor-pointer flex flex-col justify-start items-start gap-[16px] my-[24px] px-[16px]">
+          <h1 className="text-[15px] font-[500]">{t("adress")}</h1>
+          <div className="flex  gap-[12px] justify-between w-full">
+            <div className="flex justify-start items-center gap-[12px]">
+              {LocationSvg(
+                tg.themeParams.button_color
+                  ? tg.themeParams.button_color
+                  : "#1C93E3"
+              )}
+              <MapAppSelector
+                latitude={placeData?.latitude}
+                longitude={placeData?.longitude}
+                text={placeData.street ? placeData.street : "Manzilni ko'rish"}
+              />
+            </div>
+            <div className="w-[70px]">
+              <p className=" text-end w-full text-[13px] font-[500]">{`${distance} km`}</p>
+            </div>
+          </div>
+        </section>
+        <div className="hr w-full h-[0.5px] mb-[32px]"></div>
+        {/* Yandex price title */}
+        <section
+          onClick={() =>
+            window.open(
+              `https://3.redirect.appmetrica.yandex.com/route?start-lat=${lat}&start-lon=${long}&end-lat=${placeData.latitude}&end-lon=${placeData.longitude}&tariffClass=econom&ref=yoursiteru&appmetrica_tracking_id=1178268795219780156`
+            )
+          }
+          className="cursor-pointer w-full flex justify-between mb-[20px] px-[16px]"
+        >
+          <div className="flex justify-start items-center gap-[12px] tg-button-text">
+            <img className="w-[28px] h-[28px]" src={yandex} alt="yandex" />
+            <h1 className="text-[15px] font-[500]">{yandex1} so'm</h1>
+          </div>
+          {LinkSvg2(
+            tg.themeParams.text_color ? tg.themeParams.text_color : "#1C93E3"
+          )}
+        </section>
+        <div className="hr w-full h-[0.5px] mb-[32px]"></div>
+        {(placeData.phone || placeData.website) && (
+          <>
+            <section
+              className={`flex flex-col justify-start items-start gap-[20px] mt-[24px] px-[16px]`}
+            >
+              <h1 className="font-[500] text-[15px] ">{t("contact_info")}</h1>
+              <div className="flex flex-col gap-[25px] w-full">
+                {placeData.phone && (
+                  <div className="flex justify-start items-center gap-[12px]">
+                    {PhoneSVG(
+                      tg.themeParams.button_color
+                        ? tg.themeParams.button_color
+                        : "#1C93E3"
+                    )}
+                    <h1
+                      className="text-[15px] font-[500] tg-button-text"
+                      onClick={() => window.open(`tel:${placeData.phone}`)}
+                    >
+                      {placeData.phone}
+                    </h1>
+                  </div>
                 )}
-                <MapAppSelector
-                  latitude={placeData?.latitude}
-                  longitude={placeData?.longitude}
-                  text={
-                    placeData.street ? placeData.street : "Manzilni ko'rish"
-                  }
-                />
-              </div>
-              <div className="w-[70px]">
-                <p className=" text-end w-full text-[13px] font-[500]">{`${distance} km`}</p>
-              </div>
-            </div>
-          </section>
-          <div className="hr w-full h-[0.5px] mb-[32px]"></div>
-          {/* Yandex price title */}
-          <section
-            onClick={() =>
-              window.open(
-                `https://3.redirect.appmetrica.yandex.com/route?start-lat=${lat}&start-lon=${long}&end-lat=${placeData.latitude}&end-lon=${placeData.longitude}&tariffClass=econom&ref=yoursiteru&appmetrica_tracking_id=1178268795219780156`
-              )
-            }
-            className="w-full flex justify-between mb-[20px] px-[16px]"
-          >
-            <div className="flex justify-start items-center gap-[12px] tg-button-text">
-              <img className="w-[28px] h-[28px]" src={yandex} alt="yandex" />
-              <h1 className="text-[15px] font-[500]">{yandex1} so'm</h1>
-            </div>
-            {LinkSvg2(
-              tg.themeParams.text_color ? tg.themeParams.text_color : "#1C93E3"
-            )}
-          </section>
-          <div className="hr w-full h-[0.5px] mb-[32px]"></div>
-          {(placeData.phone || placeData.website) && (
-            <>
-              <section
-                className={`flex flex-col justify-start items-start gap-[20px] mt-[24px] px-[16px]`}
-              >
-                <h1 className="font-[500] text-[15px] ">{t("contact_info")}</h1>
-                <div className="flex flex-col gap-[25px] w-full">
-                  {placeData.phone && (
-                    <div className="flex justify-start items-center gap-[12px]">
-                      {PhoneSVG(
-                        tg.themeParams.button_color
-                          ? tg.themeParams.button_color
-                          : "#1C93E3"
-                      )}
-                      <h1
-                        className="text-[15px] font-[500] tg-button-text"
-                        onClick={() => window.open(`tel:${placeData.phone}`)}
-                      >
-                        {placeData.phone}
-                      </h1>
-                    </div>
-                  )}
-                  {placeData.website && (
-                    <a href={placeData.website} className="w-full">
-                      <div className="flex justify-between w-full items-center gap-[12px]">
-                        <div className="flex justify-start items-center gap-[16px]">
-                          {LinkSvg(
-                            tg.themeParams.button_color
-                              ? tg.themeParams.button_color
-                              : "#1C93E3"
-                          )}
-                          <h1 className="text-[15px] font-[500] tg-button-text">
-                            {placeData.website.slice(8, 24)}
-                          </h1>
-                        </div>
-                        {WebSvg(
+                {placeData.website && (
+                  <a href={placeData.website} className="w-full">
+                    <div className="flex justify-between w-full items-center gap-[12px]">
+                      <div className="flex justify-start items-center gap-[16px]">
+                        {LinkSvg(
                           tg.themeParams.button_color
                             ? tg.themeParams.button_color
                             : "#1C93E3"
                         )}
+                        <h1 className="text-[15px] font-[500] tg-button-text">
+                          {placeData.website.slice(8, 24)}
+                        </h1>
                       </div>
-                    </a>
-                  )}
-                </div>
-              </section>
-              <div className={`hr w-full h-[0.5px] mt-[24px] mb-[32px]`}></div>
-            </>
-          )}
-          <section className="w-full flex flex-col justify-start px-[16px]">
-            <h1 className="font-[500] text-[15px]">{t("social_info")}</h1>
-            <div className="flex flex-row gap-[20px] pt-[20px]">
-              <a
-                href={placeData.telegram}
-                className={`${
-                  placeData.telegram ? "opacity-1" : "opacity-[0.7] "
-                } social-media`}
-              >
-                <img src={telegram} alt="" className="w-[48px] h-[48px]" />
-              </a>
-              <a
-                href={placeData.telegram_bot}
-                className={`${
-                  placeData.telegram_bot ? "opacity-1" : "opacity-[0.7]  "
-                } social-media`}
-              >
-                <img src={bot} alt="" className="w-[38px] h-[38px]" />
-              </a>
-              <a
-                href={placeData.instagram}
-                className={`${
-                  placeData.instagram ? "opacity-1" : "opacity-[0.7]  "
-                } social-media`}
-              >
-                <img src={instagram} alt="" className="w-[48px] h-[48px]" />
-              </a>
-              <a
-                href={placeData.youtube}
-                className={`${
-                  placeData.youtube ? "opacity-1" : "opacity-[0.7] "
-                } social-media`}
-              >
-                <img src={youtube} alt="" className="w-[28px] h-[28px]" />
-              </a>
-              <a
-                href={placeData.facebook}
-                className={`${
-                  placeData.facebook ? "opacity-1" : "opacity-[0.7]  "
-                } social-media`}
-              >
-                <img src={facebook} alt="" className="w-[16px] h-[48px]" />
-              </a>
-            </div>
-          </section>
-          <div className="hr w-full h-[0.5px] mt-[24px] mb-[32px]"></div>
-          <section>
-            {placeData.work_days &&
-              placeData.work_end_time &&
-              placeData.work_start_time && (
-                <>
-                  <div className="relative flex justify-start items-start gap-[16px] mt-[24px] px-[16px]">
-                    <div className="w-full flex flex-col gap-[12px]">
-                      <article className="flex justify-between items-center w-full">
-                        {placeData?.work_end_time &&
-                          placeData.work_end_time && (
-                            <div className="flex flex-col gap-[8px]">
-                              <h1
-                                className={`${
-                                  statusWork ? "text-[#4ECC5E]" : "text-red-500"
-                                } text-[13px] font-[500]`}
-                              >
-                                {statusWork
-                                  ? `${t("status_true")}`
-                                  : `${t("status_false")}`}
-                              </h1>
-                              <p className="text-[15px] font-[400] ">
-                                {t("work_time")}
-                              </p>
-                            </div>
-                          )}
-                        <div
-                          onClick={() => setTableActive(!tableActive)}
-                          className="cursor-pointer flex  items-center gap-[8px]"
-                        >
-                          {placeData.work_start_time ==
-                          placeData.work_end_time ? (
-                            <p className="text-[15px] font-[400] ">
-                              24 {t("home_time")}
-                            </p>
-                          ) : (
-                            <>
-                              <p className="text-[15px] font-[400] ">
-                                {placeData?.work_end_time.split(":")[0] +
-                                  ":" +
-                                  placeData?.work_end_time.split(":")[1]}{" "}
-                                {t("open_close_info")}
-                              </p>
-                            </>
-                          )}
-
-                          {TableDown(
-                            tg.themeParams.button_color
-                              ? tg.themeParams.button_color
-                              : "#0A84FF"
-                          )}
-                        </div>
-                      </article>
-                    </div>
-                  </div>
-                  <div
-                    className={`table_content ${
-                      tableActive ? "transition-height active mb-[24px]" : ""
-                    } mt-[32px] flex flex-col gap-[16px] px-[16px]`}
-                  >
-                    <div className="flex justify-between items-center">
-                      <h1 className="text-[15px] font-[500] ">{t("monday")}</h1>
-                      <p
-                        className={`text-[15px] font-[500] tg-button-text opacity-[0.7]`}
-                      >
-                        {placeData?.work_days?.find((c) => +c == 1) ? (
-                          workData()
-                        ) : (
-                          <span className="text-[#F04438] font-[500] text-[15px]">
-                            Close
-                          </span>
-                        )}
-                      </p>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <h1 className="text-[15px] font-[500] ">
-                        {t("tuesday")}
-                      </h1>
-                      <p
-                        className={`text-[15px] font-[500] tg-button-text opacity-[0.7]`}
-                      >
-                        {placeData?.work_days?.find((c) => +c == 2) ? (
-                          workData()
-                        ) : (
-                          <span className="text-[#F04438] font-[500] text-[15px]">
-                            Close
-                          </span>
-                        )}
-                      </p>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <h1 className="text-[15px] font-[500] ">
-                        {t("wednesday")}
-                      </h1>
-                      <p
-                        className={`text-[15px] font-[500] tg-button-text opacity-[0.7]`}
-                      >
-                        {placeData?.work_days?.find((c) => +c == 3) ? (
-                          workData()
-                        ) : (
-                          <span className="text-[#F04438] font-[500] text-[15px]">
-                            Close
-                          </span>
-                        )}
-                      </p>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <h1 className="text-[15px] font-[500] ">
-                        {t("thursday")}
-                      </h1>
-                      <p
-                        className={`text-[15px] font-[500] tg-button-text opacity-[0.7]`}
-                      >
-                        {placeData?.work_days?.find((c) => +c == 4) ? (
-                          workData()
-                        ) : (
-                          <span className="text-[#F04438] font-[500] text-[15px]">
-                            Close
-                          </span>
-                        )}
-                      </p>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <h1 className="text-[15px] font-[500] ">{t("friday")}</h1>
-                      <p
-                        className={`text-[15px] font-[500] tg-button-text opacity-[0.7]`}
-                      >
-                        {placeData?.work_days?.find((c) => +c == 5) ? (
-                          workData()
-                        ) : (
-                          <span className="text-[#F04438] font-[500] text-[15px]">
-                            Close
-                          </span>
-                        )}
-                      </p>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <h1 className="text-[15px] font-[500] ">
-                        {t("saturday")}
-                      </h1>
-                      <p
-                        className={`text-[15px] font-[500] tg-button-text opacity-[0.7]`}
-                      >
-                        {placeData?.work_days?.find((c) => +c == 6) ? (
-                          workData()
-                        ) : (
-                          <span className="text-[#F04438] font-[500] text-[15px]">
-                            Close
-                          </span>
-                        )}
-                      </p>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <h1 className="text-[15px] font-[500]  ">
-                        {t("sunday")}
-                      </h1>
-                      <p
-                        className={`text-[15px] font-[500] tg-button-text opacity-[0.7]`}
-                      >
-                        {placeData?.work_days?.find((c) => +c == 0) ? (
-                          workData()
-                        ) : (
-                          <span className="text-[#F04438] font-[500] text-[15px]">
-                            Close
-                          </span>
-                        )}
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    className={`hr w-full h-[0.5px] mt-[24px] mb-[32px]`}
-                  ></div>
-                </>
-              )}
-          </section>
-          {aboutData.length > 0 && (
-            <>
-              <section className="px-[16px] mb-[32px]">
-                <div className="flex justify-start items-start gap-[16px] mt-[24px]">
-                  <div className="flex flex-col gap-[12px] w-full">
-                    <div
-                      onClick={() =>
-                        navigate(`/${placeId}/${userId}/${km}/about`)
-                      }
-                      className="cursor-pointer w-full flex justify-between items-center"
-                    >
-                      <h1 className="text-[15px] font-[500]">{t("li_4")}</h1>
-                      {RightArrow(
+                      {WebSvg(
                         tg.themeParams.button_color
                           ? tg.themeParams.button_color
-                          : "#0A84FF"
+                          : "#1C93E3"
                       )}
                     </div>
-                    <div className="w-full">
-                      {aboutData.map((item, idx) => (
-                        <button
-                          key={idx}
-                          className="mr-[6px] mt-[12px] inline-flex gap-[8px]  px-[10px] py-[6px]  justify-center items-center"
-                        >
-                          {CheskSvg(
-                            tg.themeParams.button_color
-                              ? tg.themeParams.button_color
-                              : "#0A84FF"
-                          )}
-                          <p className="text-[14px] font-[500] gap-[8px]">
-                            {item}
+                  </a>
+                )}
+              </div>
+            </section>
+            <div className={`hr w-full h-[0.5px] mt-[24px] mb-[32px]`}></div>
+          </>
+        )}
+        <section className="w-full flex flex-col justify-start px-[16px]">
+          <h1 className="font-[500] text-[15px]">{t("social_info")}</h1>
+          <div className="flex flex-row gap-[20px] pt-[20px]">
+            <a
+              href={placeData.telegram}
+              className={`${
+                placeData.telegram ? "opacity-1" : "opacity-[0.7] "
+              } social-media`}
+            >
+              <img src={telegram} alt="" className="w-[48px] h-[48px]" />
+            </a>
+            <a
+              href={placeData.telegram_bot}
+              className={`${
+                placeData.telegram_bot ? "opacity-1" : "opacity-[0.7]  "
+              } social-media`}
+            >
+              <img src={bot} alt="" className="w-[38px] h-[38px]" />
+            </a>
+            <a
+              href={placeData.instagram}
+              className={`${
+                placeData.instagram ? "opacity-1" : "opacity-[0.7]  "
+              } social-media`}
+            >
+              <img src={instagram} alt="" className="w-[48px] h-[48px]" />
+            </a>
+            <a
+              href={placeData.youtube}
+              className={`${
+                placeData.youtube ? "opacity-1" : "opacity-[0.7] "
+              } social-media`}
+            >
+              <img src={youtube} alt="" className="w-[28px] h-[28px]" />
+            </a>
+            <a
+              href={placeData.facebook}
+              className={`${
+                placeData.facebook ? "opacity-1" : "opacity-[0.7]  "
+              } social-media`}
+            >
+              <img src={facebook} alt="" className="w-[16px] h-[48px]" />
+            </a>
+          </div>
+        </section>
+        <div className="hr w-full h-[0.5px] mt-[24px] mb-[32px]"></div>
+        <section>
+          {placeData.work_days &&
+            placeData.work_end_time &&
+            placeData.work_start_time && (
+              <>
+                <div className="relative flex justify-start items-start gap-[16px] mt-[24px] px-[16px]">
+                  <div className="w-full flex flex-col gap-[12px]">
+                    <article className="flex justify-between items-center w-full">
+                      {placeData?.work_end_time && placeData.work_end_time && (
+                        <div className="flex flex-col gap-[8px]">
+                          <h1
+                            className={`${
+                              statusWork ? "text-[#4ECC5E]" : "text-red-500"
+                            } text-[13px] font-[500]`}
+                          >
+                            {statusWork
+                              ? `${t("status_true")}`
+                              : `${t("status_false")}`}
+                          </h1>
+                          <p className="text-[15px] font-[400] ">
+                            {t("work_time")}
                           </p>
-                        </button>
-                      ))}
-                    </div>
+                        </div>
+                      )}
+                      <div
+                        onClick={() => setTableActive(!tableActive)}
+                        className="cursor-pointer flex  items-center gap-[8px]"
+                      >
+                        {placeData.work_start_time ==
+                        placeData.work_end_time ? (
+                          <p className="text-[15px] font-[400] ">
+                            24 {t("home_time")}
+                          </p>
+                        ) : (
+                          <>
+                            <p className="text-[15px] font-[400] ">
+                              {placeData?.work_end_time.split(":")[0] +
+                                ":" +
+                                placeData?.work_end_time.split(":")[1]}{" "}
+                              {t("open_close_info")}
+                            </p>
+                          </>
+                        )}
+
+                        {TableDown(
+                          tg.themeParams.button_color
+                            ? tg.themeParams.button_color
+                            : "#0A84FF"
+                        )}
+                      </div>
+                    </article>
                   </div>
                 </div>
-              </section>
-              <div className={`hr w-full h-[0.5px] mt-[24px] mb-[32px]`}></div>
-            </>
-          )}
-          {imageLength > 0 && (
-            <>
-              <section
-                className={`overflow-x-scroll whitespace-nowrap photo-slide px-[16px]`}
-              >
-                {placeData.images.slice(0, 3).map((item, idx) => (
-                  <img
-                    key={idx}
-                    className="inline-flex w-[90px] h-[100px] object-cover mr-[8px] rounded-[4px] "
-                    src={item.image}
-                    alt="dsfa"
-                  />
-                ))}
-                {imageLength > 0 && (
+                <div
+                  className={`table_content ${
+                    tableActive ? "transition-height active mb-[24px]" : ""
+                  } mt-[32px] flex flex-col gap-[16px] px-[16px]`}
+                >
+                  <div className="flex justify-between items-center">
+                    <h1 className="text-[15px] font-[500] ">{t("monday")}</h1>
+                    <p
+                      className={`text-[15px] font-[500] tg-button-text opacity-[0.7]`}
+                    >
+                      {placeData?.work_days?.find((c) => +c == 1) ? (
+                        workData()
+                      ) : (
+                        <span className="text-[#F04438] font-[500] text-[15px]">
+                          Close
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <h1 className="text-[15px] font-[500] ">{t("tuesday")}</h1>
+                    <p
+                      className={`text-[15px] font-[500] tg-button-text opacity-[0.7]`}
+                    >
+                      {placeData?.work_days?.find((c) => +c == 2) ? (
+                        workData()
+                      ) : (
+                        <span className="text-[#F04438] font-[500] text-[15px]">
+                          Close
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <h1 className="text-[15px] font-[500] ">
+                      {t("wednesday")}
+                    </h1>
+                    <p
+                      className={`text-[15px] font-[500] tg-button-text opacity-[0.7]`}
+                    >
+                      {placeData?.work_days?.find((c) => +c == 3) ? (
+                        workData()
+                      ) : (
+                        <span className="text-[#F04438] font-[500] text-[15px]">
+                          Close
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <h1 className="text-[15px] font-[500] ">{t("thursday")}</h1>
+                    <p
+                      className={`text-[15px] font-[500] tg-button-text opacity-[0.7]`}
+                    >
+                      {placeData?.work_days?.find((c) => +c == 4) ? (
+                        workData()
+                      ) : (
+                        <span className="text-[#F04438] font-[500] text-[15px]">
+                          Close
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <h1 className="text-[15px] font-[500] ">{t("friday")}</h1>
+                    <p
+                      className={`text-[15px] font-[500] tg-button-text opacity-[0.7]`}
+                    >
+                      {placeData?.work_days?.find((c) => +c == 5) ? (
+                        workData()
+                      ) : (
+                        <span className="text-[#F04438] font-[500] text-[15px]">
+                          Close
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <h1 className="text-[15px] font-[500] ">{t("saturday")}</h1>
+                    <p
+                      className={`text-[15px] font-[500] tg-button-text opacity-[0.7]`}
+                    >
+                      {placeData?.work_days?.find((c) => +c == 6) ? (
+                        workData()
+                      ) : (
+                        <span className="text-[#F04438] font-[500] text-[15px]">
+                          Close
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <h1 className="text-[15px] font-[500]  ">{t("sunday")}</h1>
+                    <p
+                      className={`text-[15px] font-[500] tg-button-text opacity-[0.7]`}
+                    >
+                      {placeData?.work_days?.find((c) => +c == 0) ? (
+                        workData()
+                      ) : (
+                        <span className="text-[#F04438] font-[500] text-[15px]">
+                          Close
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                </div>
+                <div
+                  className={`hr w-full h-[0.5px] mt-[24px] mb-[32px]`}
+                ></div>
+              </>
+            )}
+        </section>
+        {aboutData.length > 0 && (
+          <>
+            <section className="px-[16px] mb-[32px]">
+              <div className="flex justify-start items-start gap-[16px] mt-[24px]">
+                <div className="flex flex-col gap-[12px] w-full">
                   <div
                     onClick={() =>
-                      navigate(`/${placeId}/${userId}/${km}/photo`)
+                      navigate(`/${placeId}/${userId}/${km}/about`)
                     }
-                    className="inline-flex flex-col justify-center items-center opacity-[0.7] tg-button w-[90px] h-[100px] rounded-[4px] cursor-pointer"
+                    className="cursor-pointer w-full flex justify-between items-center"
                   >
-                    <img className="" src={arrowRight} alt="add" />
-                    <h1 className="text-[12px] font-[400] text-[#fff]">
-                      {t("all_photo_info")}
-                    </h1>
+                    <h1 className="text-[15px] font-[500]">{t("li_4")}</h1>
+                    {RightArrow(
+                      tg.themeParams.button_color
+                        ? tg.themeParams.button_color
+                        : "#0A84FF"
+                    )}
                   </div>
-                )}
-              </section>
-              <div className={`hr w-full h-[0.5px] mb-[32px] mt-[24px]`}></div>
-            </>
-          )}
-          <section>
-            <PlaceSearch placeData={placeData} />
+                  <div className="w-full">
+                    {aboutData.map((item, idx) => (
+                      <button
+                        key={idx}
+                        className="mr-[6px] mt-[12px] inline-flex gap-[8px]  px-[10px] py-[6px]  justify-center items-center"
+                      >
+                        {CheskSvg(
+                          tg.themeParams.button_color
+                            ? tg.themeParams.button_color
+                            : "#0A84FF"
+                        )}
+                        <p className="text-[14px] font-[500] gap-[8px]">
+                          {item}
+                        </p>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+            <div className={`hr w-full h-[0.5px] mt-[24px] mb-[32px]`}></div>
+          </>
+        )}
+        {imageLength > 0 && (
+          <>
+            <section
+              className={`overflow-x-scroll whitespace-nowrap photo-slide px-[16px]`}
+            >
+              {placeData.images.slice(0, 3).map((item, idx) => (
+                <img
+                  key={idx}
+                  className="inline-flex w-[90px] h-[100px] object-cover mr-[8px] rounded-[4px] "
+                  src={item.image}
+                  alt="dsfa"
+                />
+              ))}
+              {imageLength > 0 && (
+                <div
+                  onClick={() => navigate(`/${placeId}/${userId}/${km}/photo`)}
+                  className="inline-flex flex-col justify-center items-center opacity-[0.7] tg-button w-[90px] h-[100px] rounded-[4px] cursor-pointer"
+                >
+                  <img className="" src={arrowRight} alt="add" />
+                  <h1 className="text-[12px] font-[400] text-[#fff]">
+                    {t("all_photo_info")}
+                  </h1>
+                </div>
+              )}
+            </section>
             <div className={`hr w-full h-[0.5px] mb-[32px] mt-[24px]`}></div>
-          </section>
-          {/* xabar qoldirish qismi  */}
-          <a
-            href="https://t.me/TrueGisSupport_bot"
-            className="mx-[16px] border-[1px] border-solid border-[#EEE] flex items-center justify-start gap-[12px] px-[12px] py-[10px] rounded-[8px]"
-          >
-            <img src={info} alt="" />
-            <p>{t("support")}</p>
-          </a>
-        </main>
+          </>
+        )}
+        <section>
+          <PlaceSearch placeData={placeData} />
+          <div className={`hr w-full h-[0.5px] mb-[32px] mt-[24px]`}></div>
+        </section>
+        {/* xabar qoldirish qismi  */}
+        <a
+          href="https://t.me/TrueGisSupport_bot"
+          className="mx-[16px] border-[1px] border-solid border-[#EEE] flex items-center justify-start gap-[12px] px-[12px] py-[10px] rounded-[8px]"
+        >
+          <img src={info} alt="" />
+          <p>{t("support")}</p>
+        </a>
+      </main>
       {/* )} */}
     </>
   );

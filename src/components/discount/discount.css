@@ -15,10 +15,10 @@
   left: 0;
   bottom: 0;
   right: 0;
-  background-color:var(--tg-theme-button-color, #0a84ff);
+  background-color: var(--tg-theme-button-color, #0a84ff);
   opacity: 0.1;
   border-radius: 16px;
-  border:2px solid var(--tg-theme-button-color, #0a84ff)
+  border: 2px solid var(--tg-theme-button-color, #0a84ff);
 }
 .tg-time-discount::after {
   content: "";
@@ -31,7 +31,7 @@
   right: 0;
   opacity: 0.2;
   border-radius: 16px;
-  border:2px solid var(--tg-theme-button-color, #0a84ff)
+  border: 2px solid var(--tg-theme-button-color, #0a84ff);
 }
 .swiper {
   width: 100%;
@@ -51,10 +51,9 @@
 
 .swiper-slide img {
   display: block;
-  width: 90%;
   margin: 0 auto;
   border-radius: 12px;
-object-fit: cover;
-  height:230px;
+  object-fit: cover;
+  height: 230px;
   object-fit: cover;
 }

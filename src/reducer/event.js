@@ -12,20 +12,31 @@ export const initialState = {
   saveKm: "",
   lat: "",
   long: "",
-  distance:"",
-  deleteModal:false,
-  deletePhotoId:"",
-  isSave:false,
-  discount:[],
-  placeDataImage:[]
+  distance: "",
+  deleteModal: false,
+  deletePhotoId: "",
+  isSave: false,
+  discount: [],
+  placeDataImage: [],
+  percent: "",
 };
 
 export const eventSlice = createSlice({
   name: "event",
   initialState,
   reducers: {
-    GetDiscountData:(state,action)=>{
-      state.discount = action.payload
+    GetDiscountData: (state, action) => {
+      const dis = action.payload;
+      state.discount = dis;
+      let maxPer = 0;
+      dis.map((item) => {
+        if (item.percent > maxPer) {
+          return (maxPer = item.percent);
+        } else {
+          return maxPer;
+        }
+      });
+      state.percent = maxPer;
     },
     GetPlaceData: (state, action) => {
       state.placeData = action.payload;
@@ -33,8 +44,8 @@ export const eventSlice = createSlice({
     GetCommentData: (state, action) => {
       state.commentData = action.payload;
     },
-    GetPlaceImage:(state,action)=>{
-    state.placeDataImage= action.payload;
+    GetPlaceImage: (state, action) => {
+      state.placeDataImage = action.payload;
     },
     ActiveModal: (state, action) => {
       state.delModal = action.payload;
@@ -61,16 +72,16 @@ export const eventSlice = createSlice({
       //   state.long = action.payload[1];
       // }
     },
-    SaveDistance:(state,action)=>{
-      state.distance=action.payload
+    SaveDistance: (state, action) => {
+      state.distance = action.payload;
     },
-    DeleteModalRedux:(state,action)=>{
-      state.deleteModal=!state.deleteModal
-      state.deletePhotoId=action.payload
+    DeleteModalRedux: (state, action) => {
+      state.deleteModal = !state.deleteModal;
+      state.deletePhotoId = action.payload;
     },
-    SavePlaceModal:(state)=>{
-      state.isSave=!state.isSave
-    }
+    SavePlaceModal: (state) => {
+      state.isSave = !state.isSave;
+    },
   },
 });
 
@@ -87,6 +98,6 @@ export const {
   DeleteComment,
   EditCommentModal,
   Loading,
-  SavePlaceModal
+  SavePlaceModal,
 } = eventSlice.actions;
 export default eventSlice.reducer;

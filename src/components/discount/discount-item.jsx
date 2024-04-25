@@ -6,11 +6,12 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { useTranslation } from "react-i18next";
+import { DiscountItemBlur } from "../../image-blur/discount-item-blur";
 const tg = window.Telegram.WebApp;
 
 const DiscountItem = () => {
   const { id } = useParams();
-  const {t}=useTranslation()
+  const { t } = useTranslation();
   const { discount } = useSelector((state) => state.event);
   const [selectDic, setSelectDic] = useState({ media: [] });
 
@@ -20,14 +21,13 @@ const DiscountItem = () => {
 
     return formattedPrice;
   }
+  console.log(selectDic)
 
   useEffect(() => {
     const select = discount.find((item) => +item.id === +id);
-    console.log(select);
     localStorage.setItem("percent", select.percent);
     setSelectDic(select);
   }, []);
-  console.log(selectDic);
   return (
     <>
       <article className="absolute top-[12px]  left-[30px] z-[10] rounded-[6px] text-[#F04438] px-[8px] py-[4px] bg-[#dbdbdb]">
@@ -36,6 +36,11 @@ const DiscountItem = () => {
       <main className="mt-[24px] relative">
         <section className="">
           <Swiper
+            style={{
+              "--swiper-pagination-color": tg.themeParams.button_color
+                ? tg.themeParams.button_color
+                : "#1C93E3",
+            }}
             pagination={{
               clickable: true,
             }}
@@ -43,13 +48,26 @@ const DiscountItem = () => {
             className="mySwiper"
           >
             {selectDic.media.map((item, idx) => (
-              <>
+              <div key={idx}>
                 <SwiperSlide key={idx}>
                   <div>
-                    <img className="" src={item.media} alt="dfasdf" />
+                    {item.media.split(".")[item.media.split(".").length - 1] ===
+                    "mp4" ? (
+                      <div className="w-[100%] h-[230px]">
+                        <video
+                          className="w-[90%] h-[230px] mx-auto rounded-[12px]"
+                          controls
+                          poster={selectDic.media[0].media}
+                        >
+                          <source src={item.media} type="video/mp4" />
+                        </video>
+                      </div>
+                    ) : (
+                      <DiscountItemBlur className="" src={item.media} alt="dfasdf" />
+                    )}
                   </div>
                 </SwiperSlide>
-              </>
+              </div>
             ))}
           </Swiper>
         </section>
@@ -59,7 +77,8 @@ const DiscountItem = () => {
             <h1 className="text-[16px] font-[400]">{t("discount_time")}</h1>
             <div className="relative flex items-center mt-[8px]">
               <p className="tg-time-discount px-[14px] py-[4px] mt-[4px] font-[500]">
-                {selectDic.start_date} {t("from")} - {selectDic.end_date} {t("to")}
+                {selectDic.start_date} {t("from")} - {selectDic.end_date}{" "}
+                {t("to")}
               </p>
             </div>
           </div>
@@ -76,13 +95,11 @@ const DiscountItem = () => {
           </div>
         </section>
         <article className="mt-[32px] p-[16px] rounded-[12px]">
-          <h1 className="text-[18px] font-[500] ">
-           {t("discount_info")}
-          </h1>
+          <h1 className="text-[18px] font-[500] ">{t("discount_info")}</h1>
           <ul className="text-[16px] font-[400] list-disc px-[16px] mt-[12px] opacity-[0.7]">
             <div
               dangerouslySetInnerHTML={{
-                __html: selectDic.discription,
+                __html: selectDic.description,
               }}
             />
           </ul>

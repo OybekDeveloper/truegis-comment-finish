@@ -18,6 +18,7 @@ import LoadingC from "../loading/loader";
 import trash from "./trash.svg";
 import Lottie from "react-lottie";
 import LineLoader from "../loading/line-loader";
+import { ProductImg } from "../../image-blur/img-product";
 
 export default function Photo() {
   const placeId = localStorage.getItem("placeId");
@@ -90,10 +91,10 @@ export default function Photo() {
     if (placeDataImage.length > 0) {
       const selectedImage = placeDataImage.find((image) => image.id === id);
       const remainingImages = placeDataImage.filter((image) => image.id !== id);
-      dispatch(GetPlaceImage([selectedImage, ...remainingImages]));
+      setSelectPhoto([selectedImage, ...remainingImages])
       await fetchUserFullName(selectedImage.user); // Fetch user full name for the selected image
     } else {
-      dispatch(GetPlaceImage(placeDataImage));
+      setSelectPhoto(placeDataImage)
     }
   };
 
@@ -157,13 +158,15 @@ export default function Photo() {
                     ))}
                   </Slider>
                 ) : (
-                  <div className="z-[9999] h-[90vh] flex justify-center items-center">
+                  <div className="z-[9999] h-[90vh] w-full flex justify-center items-center">
                     {}
-                    <img
+                   <div className="w-full max-h-[380px]">
+                   <img
                       src={selectPhoto[0].image}
                       alt="fofot"
-                      className="w-full max-h-[380px] object-contain"
+                      className=" object-contain"
                     />
+                   </div>
                     <div className="absolute text-white bottom-[28px] z-10 ml-[40px]">
                       <UserFullNameComponent
                         userId={selectPhoto[0].user}
@@ -182,17 +185,17 @@ export default function Photo() {
                   {image.user == userId && (
                     <img
                       onClick={() => handleDeleteImg(image.id)}
-                      className="absolute right-2 top-2 cursor-pointer p-1 bg-[#eee] rounded-full"
+                      className="absolute right-2 top-2 cursor-pointer p-1 bg-[#eee] rounded-full z-10"
                       src={trash}
                       alt=""
                     />
                   )}
-                  <img
+                  <ProductImg
                     onClick={() => {
                       handleSelectImage(image.id, index);
                       setAlbum(true);
                     }}
-                    className="w-full object-cover rounded-[6px] h-[140px]"
+                    className="w-full"
                     src={image.image}
                     alt="foto"
                   />

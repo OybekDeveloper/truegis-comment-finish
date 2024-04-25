@@ -30,9 +30,8 @@ export default function Home({ lat, long }) {
   const { t } = useTranslation();
   const { placeId, userId, km } = useParams();
   const { pathname } = useLocation();
-  const { placeData, commentData, delModal, deleteModal, isSave } = useSelector(
-    (state) => state.event
-  );
+  const { placeData, percent, commentData, delModal, deleteModal, isSave } =
+    useSelector((state) => state.event);
   const navlink = [
     {
       id: 1,
@@ -73,20 +72,18 @@ export default function Home({ lat, long }) {
   const [loading, setLoading] = useState(TurnedInOutlined);
   const [findSave, setFindSave] = useState(false);
   const placeID = localStorage.getItem("placeId");
-  const percent = localStorage.getItem("percent");
   const workStatus = () => {
     const hours = new Date().getHours();
     const start = placeData?.work_start_time?.split(":")[0];
     const end = placeData?.work_end_time?.split(":")[0];
-    if (hours > start && hours < end) {
+    if (hours >= +start && hours <= +end) {
       setStatusWork(true);
-    } else if (start == end) {
+    } else if (+start === +end) {
       setStatusWork(true);
     } else {
       setStatusWork(false);
     }
   };
-
   function degreesToRadians(degrees) {
     return (degrees * Math.PI) / 180;
   }
@@ -205,12 +202,11 @@ export default function Home({ lat, long }) {
     );
     workStatus();
   }, [commentData]);
-  useEffect(()=>{
-    if(pathname===`/${placeId}/${userId}/${km}/discount`){
-      localStorage.removeItem("percent")
+  useEffect(() => {
+    if (pathname === `/${placeId}/${userId}/${km}/discount`) {
+      localStorage.removeItem("percent");
     }
-  },[pathname])
-  console.log(percent)
+  }, [pathname]);
   return (
     <>
       {loading ? (
@@ -219,7 +215,11 @@ export default function Home({ lat, long }) {
         </div>
       ) : (
         <main className="home relative max-w-[400px] mx-auto ">
-
+          {percent > 0 && (
+            <article className="absolute top-[12px]  left-[30px] z-[10] rounded-[6px] text-[#F04438] px-[8px] py-[4px] bg-[#dbdbdb]">
+              {percent}% {t("to")} {t("discount_percent")}
+            </article>
+          )}
           <section className="px-[16px] min-h-[190px] home-back flex justify-end flex-col pb-[30px]">
             <div className="overlay">
               <div className="overlay"></div>

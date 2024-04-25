@@ -13,7 +13,6 @@ const SearchCategory = () => {
   const handleClose = () => {
     navigate(-1);
   };
-  console.log(activeCatgory);
   return (
     <div className="min-h-screen bg-[#fff]">
       <section className="sticky top-0 bg-[#fff] shadow-shadow-xs w-full flex items-center justify-between mb-[24px] py-[17px]">

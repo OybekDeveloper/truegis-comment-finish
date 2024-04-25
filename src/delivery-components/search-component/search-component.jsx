@@ -81,7 +81,6 @@ const SearchComponent = () => {
       setNewFood(flattenedFoods);
     }
   }, [isExpanded, searchQuery, foods]);
-  console.log(newFood);
   return (
     <motion.section
       variants={variants}

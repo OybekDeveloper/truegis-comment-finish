@@ -164,7 +164,6 @@ export const deliverySlice = createSlice({
       state.totalPrice = 0;
       state.foods = foods;
       state.activeCatgory = foods.find((c) => c.food_id === action.payload);
-      console.log(foods);
     },
     SaveOrderItem: (state, action) => {
       state.items = [];
@@ -175,14 +174,14 @@ export const deliverySlice = createSlice({
               id: item.id,
               quantity: item.quantity,
               categoryId: category.food_id,
-              price:item.price,
-              url:item.url,
-              title:item.title
+              price: item.price,
+              url: item.url,
+              title: item.title,
             });
           }
         });
       });
-      calculateTotalPrice(state)
+      calculateTotalPrice(state);
       return state;
     },
   },
