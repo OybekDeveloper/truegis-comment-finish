@@ -33,7 +33,7 @@ export const DiscountItemBlur = ({ src }) => {
             </div>
             <img
                 style={{ display: imgLoading ? 'block' : 'none' }}
-                className=" inline-flex rounded-[8px]  object-cover"
+                className=" inline-flex rounded-[8px] w-full   object-cover"
                 src={src ? src : baseUrl}
                 alt={'img'}
             />
