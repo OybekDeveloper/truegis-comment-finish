@@ -71,7 +71,7 @@ export default function Photo() {
       })
       .then((res) => {
         setLoading(false);
-        fetchDatas(); // Simplified this part
+        fetchDatas(); 
       })
       .catch((err) => console.log(err));
   };
@@ -117,7 +117,7 @@ export default function Photo() {
 
   useEffect(() => {
     fetchDatas();
-  }, [placeData.images]);
+  }, []);
   return (
     <>
       {loading ? (
@@ -185,7 +185,7 @@ export default function Photo() {
                   {image.user == userId && (
                     <img
                       onClick={() => handleDeleteImg(image.id)}
-                      className="absolute right-2 top-2 cursor-pointer p-1 bg-[#eee] rounded-full z-10"
+                      className="absolute right-2 top-2 cursor-pointer p-1 bg-[#eee] rounded-full "
                       src={trash}
                       alt=""
                     />
@@ -266,8 +266,10 @@ const UserFullNameComponent = ({ userId, created }) => {
 
   useEffect(() => {
     const getUserFullName = async () => {
-      const fullName = await fetchUserFullName(userId, created);
-      setUserFullName(fullName);
+      if (!userFullName) {
+        const fullName = await fetchUserFullName(userId, created);
+        setUserFullName(fullName);
+      }
     };
     getUserFullName();
   }, [userId]);

@@ -55,7 +55,7 @@ const DiscountItem = () => {
                     "mp4" ? (
                       <div className="w-[100%] h-[230px]">
                         <video
-                          className="w-[95%] h-[230px] mx-auto rounded-[12px]"
+                          className="w-[90%] h-[230px] mx-auto rounded-[12px]"
                           controls
                           poster={selectDic.media[0].media}
                         >

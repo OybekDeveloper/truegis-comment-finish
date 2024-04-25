@@ -23,17 +23,17 @@ const Discount = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  // useEffect(() => {
-  //   if (discount.length == 1) {
-  //     navigate(`/${placeId}/${userId}/${km}/discount/${discount[0]?.id}`);
-  //   }
-  // }, [discount]);
+  useEffect(() => {
+    if (discount.length == 1) {
+      navigate(`/${placeId}/${userId}/${km}/discount/${discount[0]?.id}`);
+    }
+  }, [discount]);
 
   return (
     <div className="relative">
       {discount.length > 0 ? (
         <>
-          {discount && (
+          {discount > 0 && (
             <section
               className={`${
                 pathname === `/${placeId}/${userId}/${km}/discount` &&

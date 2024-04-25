@@ -24,7 +24,7 @@ export const DiscountItemBlur = ({ src }) => {
             >
                 <Blurhash
                     hash='LEHV6nWB2yk8pyo0adR*.7kCMdnj'
-                    width={"95%"}
+                    width={"100%"}
                     height={230}
                     resolutionX={32}
                     resolutionY={32}

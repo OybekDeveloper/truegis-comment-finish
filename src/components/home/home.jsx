@@ -30,13 +30,21 @@ export default function Home({ lat, long }) {
   const { t } = useTranslation();
   const { placeId, userId, km } = useParams();
   const { pathname } = useLocation();
-  const { placeData, percent, commentData, delModal, deleteModal, isSave } =
-    useSelector((state) => state.event);
+  const {
+    placeData,
+    percent,
+    discount,
+    commentData,
+    delModal,
+    deleteModal,
+    isSave,
+  } = useSelector((state) => state.event);
   const navlink = [
     {
       id: 1,
       title: t("li_1"),
       link: `/${placeId}/${userId}/${km}/all-product`,
+      active: "all-product",
       count: null,
     },
 
@@ -44,19 +52,22 @@ export default function Home({ lat, long }) {
       id: 2,
       title: t("li_2"),
       link: `/${placeId}/${userId}/${km}/photo`,
+      active: "photo",
       count: placeData?.images?.length ? placeData.images.length : null,
     },
     {
       id: 3,
       title: t("li_3"),
       link: `/${placeId}/${userId}/${km}/comment`,
+      active: "comment",
       count: commentData?.length ? commentData.length : null,
     },
     {
       id: 4,
       title: t("li_5"),
       link: `/${placeId}/${userId}/${km}/discount`,
-      count: null,
+      active: "discount",
+      count: discount.length > 0 ? discount.length : null,
     },
     {
       id: 5,
@@ -306,7 +317,7 @@ export default function Home({ lat, long }) {
                     <div className="flex items-center gap-[4px] h-[30px]">
                       <span
                         className={`${
-                          pathname === item.link && "tg-button-text"
+                          pathname.split("/")[4] === item.active && "tg-button-text"
                         }`}
                       >
                         {item.title}
@@ -314,7 +325,7 @@ export default function Home({ lat, long }) {
                       {item.count && (
                         <div
                           className={`${
-                            pathname === item.link
+                            pathname.split("/")[4] === item.active
                               ? "tg-theme-color"
                               : "tg-hint-color"
                           } rounded-full w-[20px] h-[20px] flex justify-center items-center`}
@@ -326,7 +337,7 @@ export default function Home({ lat, long }) {
                       )}
                     </div>
 
-                    {pathname === item.link && (
+                    {pathname.split("/")[4] === item.active && (
                       <motion.div
                         layoutId="active-pill"
                         className="absolute mt-[5px] h-[3px] w-full tg-button rounded-t-[5px]"
@@ -346,7 +357,7 @@ export default function Home({ lat, long }) {
                     <div className="flex items-center gap-[4px] h-[30px]">
                       <span
                         className={`${
-                          pathname === item.link && "tg-button-text"
+                          pathname.split("/")[4] === item.active && "tg-button-text"
                         }`}
                       >
                         {item.title}
@@ -354,7 +365,7 @@ export default function Home({ lat, long }) {
                       {item.count && (
                         <div
                           className={`${
-                            pathname === item.link
+                            pathname.split("/")[4] === item.active
                               ? "tg-theme-color"
                               : "tg-hint-color"
                           } rounded-full w-[20px] h-[20px] flex justify-center items-center`}
@@ -366,7 +377,7 @@ export default function Home({ lat, long }) {
                       )}
                     </div>
 
-                    {pathname === item.link && (
+                    {pathname.split("/")[4] === item.active && (
                       <motion.div
                         layoutId="active-pill"
                         className="absolute mt-[5px] h-[3px] w-full tg-button rounded-t-[5px]"
