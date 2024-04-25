@@ -21,7 +21,6 @@ const DiscountItem = () => {
 
     return formattedPrice;
   }
-  console.log(selectDic)
 
   useEffect(() => {
     const select = discount.find((item) => +item.id === +id);
@@ -51,19 +50,26 @@ const DiscountItem = () => {
               <div key={idx}>
                 <SwiperSlide key={idx}>
                   <div className="mx-auto">
-                    {item.media.split(".")[item.media.split(".").length - 1] ===
-                    "mp4" ? (
+                    {item.media.split(".").includes("mp4")? (
                       <div className="w-[100%] h-[230px]">
                         <video
-                          className="w-[90%] h-[230px] mx-auto rounded-[12px]"
+                          className="w-[90%] h-[230px]  mx-auto rounded-[12px] z-10"
                           controls
-                          poster={selectDic.media[0].media}
+                          poster={
+                            selectDic.media[0].media.split(".").includes('mp4')
+                              ? (selectDic.media[1].media && selectDic.media[2].media)
+                              : selectDic.media[0].media
+                          }
                         >
                           <source src={item.media} type="video/mp4" />
                         </video>
                       </div>
                     ) : (
-                      <DiscountItemBlur className="" src={item.media} alt="dfasdf" />
+                      <DiscountItemBlur
+                        className=""
+                        src={item.media}
+                        alt="dfasdf"
+                      />
                     )}
                   </div>
                 </SwiperSlide>
@@ -96,7 +102,7 @@ const DiscountItem = () => {
         </section>
         <article className="mt-[32px] p-[16px] rounded-[12px]">
           <h1 className="text-[18px] font-[500] ">{t("discount_info")}</h1>
-          <ul className="text-[16px] font-[400] list-disc px-[16px] mt-[12px] opacity-[0.7]">
+          <ul className="discription-text text-[16px] text-justify font-[400] list-disc px-[16px] mt-[12px] opacity-[0.7]">
             <div
               dangerouslySetInnerHTML={{
                 __html: selectDic.description,

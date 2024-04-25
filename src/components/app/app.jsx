@@ -59,7 +59,7 @@ export default function App() {
   const [lat, setLat] = useState("");
 
   const back = () => {
-    navigate(-1);
+    window.history.back();
   };
   tg.onEvent("backButtonClicked", function () {
     back();

@@ -23,7 +23,7 @@ export const DiscountItemBlur = ({ src }) => {
                 className='imgMenu'
             >
                 <Blurhash
-                    hash='LEHV6nWB2yk8pyo0adR*.7kCMdnj'
+                    hash='LiIq+HMxIqIp?wRks:s.%1xuj[R*'
                     width={"100%"}
                     height={230}
                     resolutionX={32}

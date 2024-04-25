@@ -142,9 +142,14 @@ export default function Home({ lat, long }) {
 
   useEffect(() => {
     dispatch(SavePathData([placeId, userId, km]));
-    if (pathname === `/${placeId}/${userId}/${km}/comment`) {
-      navigate(`/${placeId}/${userId}/${km}/comment`);
-    } else {
+    // if (pathname === `/${placeId}/${userId}/${km}/comment`) {
+    //   navigate(`/${placeId}/${userId}/${km}/comment`);
+    // } else if (pathname === `/${placeId}/${userId}/${km}/discount`) {
+    //   navigate(`/${placeId}/${userId}/${km}/discount`);
+    // } else {
+    //   navigate(`/${placeId}/${userId}/${km}/all-product`);
+    // }
+    if (pathname === `/${placeId}/${userId}/${km}`) {
       navigate(`/${placeId}/${userId}/${km}/all-product`);
     }
     workStatus();
@@ -317,7 +322,8 @@ export default function Home({ lat, long }) {
                     <div className="flex items-center gap-[4px] h-[30px]">
                       <span
                         className={`${
-                          pathname.split("/")[4] === item.active && "tg-button-text"
+                          pathname.split("/")[4] === item.active &&
+                          "tg-button-text"
                         }`}
                       >
                         {item.title}
@@ -357,7 +363,8 @@ export default function Home({ lat, long }) {
                     <div className="flex items-center gap-[4px] h-[30px]">
                       <span
                         className={`${
-                          pathname.split("/")[4] === item.active && "tg-button-text"
+                          pathname.split("/")[4] === item.active &&
+                          "tg-button-text"
                         }`}
                       >
                         {item.title}

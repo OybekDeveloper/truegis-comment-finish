@@ -47,7 +47,7 @@ export default function Photo() {
     try {
       const place = await ApiServer.getData(`/place/${placeId}/`);
       dispatch(GetPlaceData(place));
-      dispatch(GetPlaceImage(place.images))
+      dispatch(GetPlaceImage(place.images));
     } catch (error) {
       console.log(error);
     }
@@ -71,7 +71,7 @@ export default function Photo() {
       })
       .then((res) => {
         setLoading(false);
-        fetchDatas(); 
+        fetchDatas();
       })
       .catch((err) => console.log(err));
   };
@@ -91,10 +91,10 @@ export default function Photo() {
     if (placeDataImage.length > 0) {
       const selectedImage = placeDataImage.find((image) => image.id === id);
       const remainingImages = placeDataImage.filter((image) => image.id !== id);
-      setSelectPhoto([selectedImage, ...remainingImages])
+      setSelectPhoto([selectedImage, ...remainingImages]);
       await fetchUserFullName(selectedImage.user); // Fetch user full name for the selected image
     } else {
-      setSelectPhoto(placeDataImage)
+      setSelectPhoto(placeDataImage);
     }
   };
 
@@ -114,7 +114,7 @@ export default function Photo() {
       setAllImageCount(selectPhoto.length);
     }
   }, [selectPhoto]);
-
+  console.log(selectPhoto);
   useEffect(() => {
     fetchDatas();
   }, []);
@@ -158,15 +158,15 @@ export default function Photo() {
                     ))}
                   </Slider>
                 ) : (
-                  <div className="z-[9999] h-[90vh] w-full flex justify-center items-center">
+                  <div className="z-[999] h-[90vh] w-full flex justify-center items-center">
                     {}
-                   <div className="w-full max-h-[380px]">
-                   <img
-                      src={selectPhoto[0].image}
-                      alt="fofot"
-                      className=" object-contain"
-                    />
-                   </div>
+                    <div className="w-full max-h-[380px]">
+                      <img
+                        src={selectPhoto[0].image}
+                        alt="fofot"
+                        className=" object-contain"
+                      />
+                    </div>
                     <div className="absolute text-white bottom-[28px] z-10 ml-[40px]">
                       <UserFullNameComponent
                         userId={selectPhoto[0].user}
@@ -185,20 +185,24 @@ export default function Photo() {
                   {image.user == userId && (
                     <img
                       onClick={() => handleDeleteImg(image.id)}
-                      className="absolute right-2 top-2 cursor-pointer p-1 bg-[#eee] rounded-full "
+                      className="absolute z-10 right-2 top-2 cursor-pointer p-1 bg-[#eee] rounded-full "
                       src={trash}
                       alt=""
                     />
                   )}
-                  <ProductImg
+                  <div
+                  className="cursor-pointer"
                     onClick={() => {
                       handleSelectImage(image.id, index);
                       setAlbum(true);
                     }}
-                    className="w-full"
-                    src={image.image}
-                    alt="foto"
-                  />
+                  >
+                    <ProductImg
+                      className="w-full"
+                      src={image.image}
+                      alt="foto"
+                    />
+                  </div>
                 </div>
               ))}
             </section>

@@ -27,13 +27,13 @@ const Discount = () => {
     if (discount.length == 1) {
       navigate(`/${placeId}/${userId}/${km}/discount/${discount[0]?.id}`);
     }
-  }, [discount]);
+  }, [discount,pathname]);
 
   return (
     <div className="relative">
       {discount.length > 0 ? (
         <>
-          {discount > 0 && (
+          {discount && (
             <section
               className={`${
                 pathname === `/${placeId}/${userId}/${km}/discount` &&
@@ -49,29 +49,18 @@ const Discount = () => {
                       key={idx}
                       className="cursor-pointer flex flex-col justify-start gap-[12px]"
                     >
-                      {item.media[0].media.split(".")[
-                        item.media[0].media.split - 1
-                      ] === "mp4" ? (
-                        <div className="w-[100%] h-[230px]">
-                          <video
-                            className="w-[90%] h-[230px] mx-auto"
-                            controls
-                            autoPlay
-                          >
-                            <source
-                              src={item.media[0].media}
-                              type="video/mp4"
-                            />
-                          </video>
-                        </div>
-                      ) : (
-                        <DiscountBlur
-                          className="h-[128px] object-cover rounded-[8px]"
-                          src={item.media[0].media}
-                          alt=""
-                        />
-                      )}
-
+                      <DiscountBlur
+                        className="h-[128px] object-cover rounded-[8px]"
+                        src={
+                          item?.media?.filter(
+                            (c) =>
+                              c?.media?.split(".")[
+                                c?.media?.split(".")?.length - 1
+                              ] != "mp4"
+                          )[0]?.media
+                        }
+                        alt=""
+                      />
                       <h1 className="text-[16px] font-[500]">
                         {item.name.length > 30
                           ? item.name.slice(0, 30) + "..."
