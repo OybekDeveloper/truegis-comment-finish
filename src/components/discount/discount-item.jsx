@@ -16,26 +16,23 @@ const DiscountItem = () => {
   const { t } = useTranslation();
   const { discount } = useSelector((state) => state.event);
   const [selectDic, setSelectDic] = useState({ media: [] });
-  const navigate=useNavigate(-2)
+  const navigate = useNavigate();
   function formatPrice(price) {
-    // Formatni "20,300" yoki "1,000" shaklida olish
     const formattedPrice = new Intl.NumberFormat("en-US").format(price);
-
     return formattedPrice;
   }
   const handleBack = () => {
-    if(discount.length===1){
-      navigate(-2)
-    }else{
-      navigate(-1)
+    if (discount.length === 1) {
+      navigate(-2);
+    } else {
+      navigate(-1);
     }
-  }
+  };
 
   useEffect(() => {
     const select = discount.find((item) => +item.id === +id);
     localStorage.setItem("percent", select.percent);
     setSelectDic(select);
- 
   }, []);
   return (
     <>
