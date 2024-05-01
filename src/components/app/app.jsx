@@ -79,16 +79,39 @@ export default function App() {
   // tg.onEvent("backButtonClicked", function () {
   //   back();
   // });
-
+  const requestGeolocation = () => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLong(position.coords.longitude);
+        setLat(position.coords.latitude);
+        localStorage.setItem("hasGeolocationPermission", "granted");
+      },
+      () => {
+        localStorage.setItem("hasGeolocationPermission", "denied");
+      }
+    );
+  };
   useEffect(() => {
-    if (navigator.geolocation) {
+    const hasPermission = localStorage.getItem("hasGeolocationPermission");
+
+    if (hasPermission === "granted") {
+      // If permission is granted, get location
       navigator.geolocation.getCurrentPosition((position) => {
         setLong(position.coords.longitude);
         setLat(position.coords.latitude);
       });
+    } else if (hasPermission === "denied") {
+      // If permission is denied, ask for permission again
+      requestGeolocation();
+    } else {
+      // If permission hasn't been denied or granted, ask for permission
+      requestGeolocation();
     }
+
     tg.ready();
   }, []);
+
+  console.log(lat, long);
 
   useEffect(() => {
     if (long && lat) {
