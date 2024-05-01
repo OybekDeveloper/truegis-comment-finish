@@ -26,7 +26,7 @@ import {
 import BillingInfoAway from "../../delivery-components/billing-info/billing-info-away";
 import Discount from "../discount/discount";
 import DiscountItem from "../discount/discount-item";
-import {BackButton , useShowPopup } from '@vkruglikov/react-telegram-web-app';
+import { BackButton, useShowPopup } from "@vkruglikov/react-telegram-web-app";
 import { useSelector } from "react-redux";
 
 const tg = window.Telegram.WebApp;
@@ -47,12 +47,20 @@ i18n
   });
 
 export default function App() {
-  const {discount}=useSelector(state=>state.event)
+  const { discount } = useSelector((state) => state.event);
+  const navigate = useNavigate();
   const showPopup = useShowPopup();
   const handleClick = () =>
-  showPopup({
-    message: "Hello, I am popup",
-  });
+    showPopup({
+      message: "Hello, I am popup",
+    });
+  const handleBack = () => {
+    if (discount.length === 1) {
+      navigate(-2);
+    } else {
+      navigate(-1);
+    }
+  };
 
   const placeId = localStorage.getItem("placeId");
   const userId = localStorage.getItem("userId");
@@ -72,14 +80,6 @@ export default function App() {
   //   back();
   // });
 
-  // useEffect(() => {
-  //   if (pathname !== `/${placeId}/${userId}/${km}/all-product`) {
-  //     BackButton.show();
-  //   } else {
-  //     BackButton.hide();
-  //   }
-  // }, [pathname,placeId]);
-
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -87,7 +87,7 @@ export default function App() {
         setLat(position.coords.latitude);
       });
     }
-    tg.ready()
+    tg.ready();
   }, []);
 
   useEffect(() => {
@@ -105,7 +105,9 @@ export default function App() {
         </div>
       ) : (
         <div id="back-effect" className="app mx-auto">
-          <BackButton onClick={() => window.history.back()} />
+          {pathname !== `/${placeId}/${userId}/${km}/all-product` && (
+            <BackButton onClick={() => window.history.back()} />
+          )}
           <Routes>
             <Route
               path="/:placeId/:userId/:km"
@@ -115,11 +117,8 @@ export default function App() {
               <Route path={"photo"} element={<Photo />} />
               <Route path={"comment"} element={<Comment />} />
               {/* <Route path={"about"} element={<About />} /> */}
-              <Route path={"discount"} element={<Discount />} >
-                <Route
-                  path={":id"}
-                  element={<DiscountItem />}
-                />
+              <Route path={"discount"} element={<Discount />}>
+                <Route path={":id"} element={<DiscountItem />} />
               </Route>
             </Route>
             <Route

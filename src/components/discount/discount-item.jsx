@@ -21,13 +21,6 @@ const DiscountItem = () => {
     const formattedPrice = new Intl.NumberFormat("en-US").format(price);
     return formattedPrice;
   }
-  const handleBack = () => {
-    if (discount.length === 1) {
-      navigate(-2);
-    } else {
-      navigate(-1);
-    }
-  };
 
   useEffect(() => {
     const select = discount.find((item) => +item.id === +id);
@@ -36,7 +29,6 @@ const DiscountItem = () => {
   }, []);
   return (
     <>
-      <BackButton onClick={() => handleBack()} />
       <article className="absolute top-[12px]  left-[30px] z-[10] rounded-[6px] text-[#F04438] px-[8px] py-[4px] bg-[#dbdbdb]">
         {selectDic.percent}% {t("discount_percent")}
       </article>
