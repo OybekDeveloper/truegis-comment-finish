@@ -4,7 +4,6 @@ import Home from "../home/home";
 import AllProduct from "../all-product/all-product";
 import Photo from "../photo/photo";
 import Comment from "../comment/comment";
-import About from "../about/about";
 import AddComment from "../comment/add-comment";
 import EditComment from "../comment/edit-comment";
 import i18n from "i18next";
@@ -25,9 +24,10 @@ import {
   BillingInfoDeliver,
 } from "../../delivery-components";
 import BillingInfoAway from "../../delivery-components/billing-info/billing-info-away";
-import Action from "../discount/discount";
 import Discount from "../discount/discount";
 import DiscountItem from "../discount/discount-item";
+import {BackButton , useShowPopup } from '@vkruglikov/react-telegram-web-app';
+
 const tg = window.Telegram.WebApp;
 i18n
   .use(initReactI18next)
@@ -46,32 +46,37 @@ i18n
   });
 
 export default function App() {
+  const showPopup = useShowPopup();
+  const handleClick = () =>
+  showPopup({
+    message: "Hello, I am popup",
+  });
+
   const placeId = localStorage.getItem("placeId");
   const userId = localStorage.getItem("userId");
   const km = localStorage.getItem("km");
 
   const { pathname } = useLocation();
-  const navigate = useNavigate();
-  let BackButton = tg.BackButton;
+  // let BackButton = tg.BackButton;
 
   const [loading, setLoading] = useState(true);
   const [long, setLong] = useState("");
   const [lat, setLat] = useState("");
 
-  const back = () => {
-    window.history.back();
-  };
-  tg.onEvent("backButtonClicked", function () {
-    back();
-  });
+  // const back = () => {
+  //   window.history.back();
+  // };
+  // tg.onEvent("backButtonClicked", function () {
+  //   back();
+  // });
 
-  useEffect(() => {
-    if (pathname !== `/${placeId}/${userId}/${km}/all-product`) {
-      BackButton.show();
-    } else {
-      BackButton.hide();
-    }
-  }, [pathname,placeId]);
+  // useEffect(() => {
+  //   if (pathname !== `/${placeId}/${userId}/${km}/all-product`) {
+  //     BackButton.show();
+  //   } else {
+  //     BackButton.hide();
+  //   }
+  // }, [pathname,placeId]);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -80,6 +85,7 @@ export default function App() {
         setLat(position.coords.latitude);
       });
     }
+    tg.ready()
   }, []);
 
   useEffect(() => {
@@ -97,6 +103,7 @@ export default function App() {
         </div>
       ) : (
         <div id="back-effect" className="app mx-auto">
+          <BackButton onClick={() => window.history.back()} />
           <Routes>
             <Route
               path="/:placeId/:userId/:km"

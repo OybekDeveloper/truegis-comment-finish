@@ -57,7 +57,7 @@ const DiscountItem = () => {
                           controls
                           poster={
                             selectDic.media[0].media.split(".").includes('mp4')
-                              ? (selectDic.media[1].media && selectDic.media[2].media)
+                              ? (selectDic.media[1].media ? selectDic.media[2].media:selectDic.media[1].media)
                               : selectDic.media[0].media
                           }
                         >

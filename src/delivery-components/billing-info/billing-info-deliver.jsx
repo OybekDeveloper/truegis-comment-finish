@@ -32,6 +32,7 @@ const BillingInfoDeliver = () => {
         </h1>
         <div></div>
       </section>
+      
       <section className="flex flex-col mt-[24px] gap-[20px]">
         <h1 className="text-[20px] font-[500] text-[#182230]">
           Yetkazib berish manzili
