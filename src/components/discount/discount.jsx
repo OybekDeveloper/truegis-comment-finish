@@ -27,7 +27,7 @@ const Discount = () => {
     if (discount.length == 1) {
       navigate(`/${placeId}/${userId}/${km}/discount/${discount[0]?.id}`);
     }
-  }, [discount,pathname]);
+  }, [discount]);
 
   return (
     <div className="relative">

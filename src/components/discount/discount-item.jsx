@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { useTranslation } from "react-i18next";
 import { DiscountItemBlur } from "../../image-blur/discount-item-blur";
+import { BackButton } from "@vkruglikov/react-telegram-web-app";
+
 const tg = window.Telegram.WebApp;
 
 const DiscountItem = () => {
@@ -14,21 +16,30 @@ const DiscountItem = () => {
   const { t } = useTranslation();
   const { discount } = useSelector((state) => state.event);
   const [selectDic, setSelectDic] = useState({ media: [] });
-
+  const navigate=useNavigate(-2)
   function formatPrice(price) {
     // Formatni "20,300" yoki "1,000" shaklida olish
     const formattedPrice = new Intl.NumberFormat("en-US").format(price);
 
     return formattedPrice;
   }
+  const handleBack = () => {
+    if(discount.length===1){
+      navigate(-2)
+    }else{
+      navigate(-1)
+    }
+  }
 
   useEffect(() => {
     const select = discount.find((item) => +item.id === +id);
     localStorage.setItem("percent", select.percent);
     setSelectDic(select);
+ 
   }, []);
   return (
     <>
+      <BackButton onClick={() => handleBack()} />
       <article className="absolute top-[12px]  left-[30px] z-[10] rounded-[6px] text-[#F04438] px-[8px] py-[4px] bg-[#dbdbdb]">
         {selectDic.percent}% {t("discount_percent")}
       </article>
@@ -50,14 +61,16 @@ const DiscountItem = () => {
               <div key={idx}>
                 <SwiperSlide key={idx}>
                   <div className="mx-auto">
-                    {item.media.split(".").includes("mp4")? (
+                    {item.media.split(".").includes("mp4") ? (
                       <div className="w-[100%] h-[230px]">
                         <video
                           className="w-[90%] h-[230px]  mx-auto rounded-[12px] z-10"
                           controls
                           poster={
-                            selectDic.media[0].media.split(".").includes('mp4')
-                              ? (selectDic.media[1].media ? selectDic.media[2].media:selectDic.media[1].media)
+                            selectDic.media[0].media.split(".").includes("mp4")
+                              ? selectDic.media[1].media
+                                ? selectDic.media[2].media
+                                : selectDic.media[1].media
                               : selectDic.media[0].media
                           }
                         >

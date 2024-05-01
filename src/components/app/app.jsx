@@ -27,6 +27,7 @@ import BillingInfoAway from "../../delivery-components/billing-info/billing-info
 import Discount from "../discount/discount";
 import DiscountItem from "../discount/discount-item";
 import {BackButton , useShowPopup } from '@vkruglikov/react-telegram-web-app';
+import { useSelector } from "react-redux";
 
 const tg = window.Telegram.WebApp;
 i18n
@@ -46,6 +47,7 @@ i18n
   });
 
 export default function App() {
+  const {discount}=useSelector(state=>state.event)
   const showPopup = useShowPopup();
   const handleClick = () =>
   showPopup({
