@@ -87,7 +87,7 @@ export default function App() {
     }
   }, [lat, long]);
   useEffect(()=>{
-    if(!(pathname===`/${placeId}/${userId}/${km}/all-product`)){
+    if((pathname===`/${placeId}/${userId}/${km}/all-product`)){
       backBtn.hide()
     }else(
       backBtn.show()
