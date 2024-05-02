@@ -26,7 +26,7 @@ import {
 import BillingInfoAway from "../../delivery-components/billing-info/billing-info-away";
 import Discount from "../discount/discount";
 import DiscountItem from "../discount/discount-item";
-import { BackButton, useShowPopup } from "@vkruglikov/react-telegram-web-app";
+// import { BackButton, useShowPopup } from "@vkruglikov/react-telegram-web-app";
 import { useSelector } from "react-redux";
 
 const tg = window.Telegram.WebApp;
@@ -46,22 +46,11 @@ i18n
     },
   });
 
-export default function App() {
-  const { discount } = useSelector((state) => state.event);
-  const navigate = useNavigate();
-  const showPopup = useShowPopup();
-  const handleClick = () =>
-    showPopup({
-      message: "Hello, I am popup",
-    });
-  const handleBack = () => {
-    if (discount.length === 1) {
-      navigate(-2);
-    } else {
-      navigate(-1);
-    }
-  };
+  const backBtn=tg.BackButton
 
+ 
+export default function App() {
+  const navigate = useNavigate();
   const placeId = localStorage.getItem("placeId");
   const userId = localStorage.getItem("userId");
   const km = localStorage.getItem("km");
@@ -73,45 +62,22 @@ export default function App() {
   const [long, setLong] = useState("");
   const [lat, setLat] = useState("");
 
-  // const back = () => {
-  //   window.history.back();
-  // };
-  // tg.onEvent("backButtonClicked", function () {
-  //   back();
-  // });
-  const requestGeolocation = () => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setLong(position.coords.longitude);
-        setLat(position.coords.latitude);
-        localStorage.setItem("hasGeolocationPermission", "granted");
-      },
-      () => {
-        localStorage.setItem("hasGeolocationPermission", "denied");
-      }
-    );
+  const back = () => {
+    window.history.back();
   };
-  useEffect(() => {
-    const hasPermission = localStorage.getItem("hasGeolocationPermission");
+  tg.onEvent("backButtonClicked", function () {
+    back();
+  });
 
-    if (hasPermission === "granted") {
-      // If permission is granted, get location
+  useEffect(() => {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         setLong(position.coords.longitude);
         setLat(position.coords.latitude);
       });
-    } else if (hasPermission === "denied") {
-      // If permission is denied, ask for permission again
-      requestGeolocation();
-    } else {
-      // If permission hasn't been denied or granted, ask for permission
-      requestGeolocation();
     }
-
     tg.ready();
   }, []);
-
-  console.log(lat, long);
 
   useEffect(() => {
     if (long && lat) {
@@ -120,6 +86,14 @@ export default function App() {
       }, 1000);
     }
   }, [lat, long]);
+  useEffect(()=>{
+    if(!(pathname===`/${placeId}/${userId}/${km}/all-product`)){
+      backBtn.hide()
+    }else(
+      backBtn.show()
+    )
+  },[pathname])
+
   return (
     <>
       {loading ? (
@@ -128,9 +102,9 @@ export default function App() {
         </div>
       ) : (
         <div id="back-effect" className="app mx-auto">
-          {pathname !== `/${placeId}/${userId}/${km}/all-product` && (
+          {/* {pathname !== `/${placeId}/${userId}/${km}/all-product` && (
             <BackButton onClick={() => window.history.back()} />
-          )}
+          )} */}
           <Routes>
             <Route
               path="/:placeId/:userId/:km"
